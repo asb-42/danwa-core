@@ -1,0 +1,26 @@
+{
+  "name": "@danwa/api-client",
+  "version": "0.1.0",
+  "description": "Danwa API Client - generated from OpenAPI spec",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "generate": "node scripts/generate.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "openapi-typescript": "^6.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

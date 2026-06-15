@@ -1,0 +1,41 @@
+{
+  "name": "@danwa/ui-core",
+  "version": "0.1.0",
+  "description": "Danwa Shared UI Components",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./Button.svelte": "./dist/Button.svelte",
+    "./Card.svelte": "./dist/Card.svelte",
+    "./Modal.svelte": "./dist/Modal.svelte",
+    "./Form.svelte": "./dist/Form.svelte",
+    "./Input.svelte": "./dist/Input.svelte",
+    "./Select.svelte": "./dist/Select.svelte",
+    "./Badge.svelte": "./dist/Badge.svelte",
+    "./Alert.svelte": "./dist/Alert.svelte",
+    "./LanguageSwitcher.svelte": "./dist/LanguageSwitcher.svelte",
+    "./LoginView.svelte": "./dist/LoginView.svelte",
+    "./Header.svelte": "./dist/Header.svelte",
+    "./Sidebar.svelte": "./dist/Sidebar.svelte",
+    "./WorkflowGraph.svelte": "./dist/WorkflowGraph.svelte",
+    "./DebateTimeline.svelte": "./dist/DebateTimeline.svelte",
+    "./ConsensusPanel.svelte": "./dist/ConsensusPanel.svelte"
+  },
+  "scripts": {
+    "build": "svelte-package",
+    "dev": "svelte-package --watch"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "svelte-package": "^2.0.0",
+    "svelte": "^5.0.0",
+    "typescript": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
