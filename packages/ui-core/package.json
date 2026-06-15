@@ -3,37 +3,30 @@
   "version": "0.1.0",
   "description": "Danwa Shared UI Components",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "src/index.js",
   "exports": {
-    ".": "./dist/index.js",
-    "./Button.svelte": "./dist/Button.svelte",
-    "./Card.svelte": "./dist/Card.svelte",
-    "./Modal.svelte": "./dist/Modal.svelte",
-    "./Form.svelte": "./dist/Form.svelte",
-    "./Input.svelte": "./dist/Input.svelte",
-    "./Select.svelte": "./dist/Select.svelte",
-    "./Badge.svelte": "./dist/Badge.svelte",
-    "./Alert.svelte": "./dist/Alert.svelte",
-    "./LanguageSwitcher.svelte": "./dist/LanguageSwitcher.svelte",
-    "./LoginView.svelte": "./dist/LoginView.svelte",
-    "./Header.svelte": "./dist/Header.svelte",
-    "./Sidebar.svelte": "./dist/Sidebar.svelte",
-    "./WorkflowGraph.svelte": "./dist/WorkflowGraph.svelte",
-    "./DebateTimeline.svelte": "./dist/DebateTimeline.svelte",
-    "./ConsensusPanel.svelte": "./dist/ConsensusPanel.svelte"
-  },
-  "scripts": {
-    "build": "svelte-package",
-    "dev": "svelte-package --watch"
+    ".": "./src/index.js",
+    "./Button.svelte": "./src/Button.svelte",
+    "./Card.svelte": "./src/Card.svelte",
+    "./Modal.svelte": "./src/Modal.svelte",
+    "./Form.svelte": "./src/Form.svelte",
+    "./Input.svelte": "./src/Input.svelte",
+    "./Select.svelte": "./src/Select.svelte",
+    "./Badge.svelte": "./src/Badge.svelte",
+    "./Alert.svelte": "./src/Alert.svelte",
+    "./LanguageSwitcher.svelte": "./src/LanguageSwitcher.svelte",
+    "./LoginView.svelte": "./src/LoginView.svelte",
+    "./Header.svelte": "./src/Header.svelte",
+    "./Sidebar.svelte": "./src/Sidebar.svelte",
+    "./WorkflowGraph.svelte": "./src/WorkflowGraph.svelte",
+    "./DebateTimeline.svelte": "./src/DebateTimeline.svelte",
+    "./ConsensusPanel.svelte": "./src/ConsensusPanel.svelte"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"
   },
   "devDependencies": {
-    "svelte-package": "^2.0.0",
-    "svelte": "^5.0.0",
-    "typescript": "^5.0.0"
+    "svelte": "^5.0.0"
   },
   "publishConfig": {
     "access": "public"

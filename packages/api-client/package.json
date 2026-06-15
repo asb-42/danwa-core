@@ -9,6 +9,10 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./generated": {
+      "import": "./dist/generated/api.js",
+      "types": "./dist/generated/api.d.ts"
     }
   },
   "scripts": {

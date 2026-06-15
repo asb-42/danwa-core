@@ -1,15 +1,12 @@
 {
   "name": "@danwa/i18n",
   "version": "0.1.0",
-  "description": "Danwa i18n Loader - English SSOT, 50 languages as modules",
+  "description": "Danwa i18n Loader - English SSOT, ~50 Sprachmodule",
   "type": "module",
-  "main": "dist/loader.js",
+  "main": "src/loader.js",
   "exports": {
-    ".": "./dist/loader.js",
-    "./locales/en.js": "./dist/locales/en.js"
-  },
-  "scripts": {
-    "build": "cp src/loader.js dist/loader.js && mkdir -p dist/locales && cp src/locales/en.js dist/locales/en.js"
+    ".": "./src/loader.js",
+    "./locales/en.js": "./src/locales/en.js"
   },
   "publishConfig": {
     "access": "public"

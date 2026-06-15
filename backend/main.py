@@ -49,7 +49,7 @@ from backend.api.routers import (  # noqa: E402
     output_composer,
     profiles,
     projects,
-    sessions,
+    # sessions,  # Legacy - superseded, removed for OpenAPI export
     system,
     tags,
     tenants,
@@ -493,7 +493,7 @@ def create_app() -> FastAPI:
     app.include_router(onboarding.router, prefix="/api/v1", tags=["case-space"])
     app.include_router(graph.router, prefix="/api/v1", tags=["case-space"])
 
-    app.include_router(sessions.router, prefix="/api/v1/sessions", tags=["sessions"])
+    # app.include_router(sessions.router, prefix="/api/v1/sessions", tags=["sessions"])  # Legacy
     app.include_router(profiles.router, prefix="/api/v1/profiles", tags=["profiles"])
 
     # --- Module System ---
