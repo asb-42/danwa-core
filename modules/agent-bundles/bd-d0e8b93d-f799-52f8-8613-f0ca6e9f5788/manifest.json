@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "module_id": "bd-d0e8b93d-f799-52f8-8613-f0ca6e9f5788",
+  "name": {
+    "en": "To Import",
+    "de": "To Import"
+  },
+  "description": {
+    "en": "",
+    "de": ""
+  },
+  "version": "1.0.0",
+  "type": "bundle",
+  "category": "bundles",
+  "profile_file": "profile.json",
+  "profile_format": "json",
+  "dependencies": {
+    "agent-cores/strategist-default": ">=1.0.0",
+    "llm-profiles/test-llm": ">=1.0.0"
+  },
+  "updated_at": "2026-06-05T21:46:02.849261+00:00",
+  "checksum": "3f93dfe853a243fbd1dc781f5ca59b767c7b848fd82b55f70fdcda1d2bd220a0"
+}

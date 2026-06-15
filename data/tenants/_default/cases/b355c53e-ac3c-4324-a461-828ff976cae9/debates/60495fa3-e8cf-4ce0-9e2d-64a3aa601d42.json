@@ -1,0 +1,28 @@
+{
+  "debate_id": "60495fa3-e8cf-4ce0-9e2d-64a3aa601d42",
+  "session_id": "wf-fd629f47b46b",
+  "status": "completed",
+  "title": "Kontext: Krankenversicherungsrecht, Deutschland. Eine gesetzliche Krankenversich",
+  "request": {
+    "case": {
+      "text": "Kontext: Krankenversicherungsrecht, Deutschland. Eine gesetzliche Krankenversicherung (GKV) erteilt Widerspruchsbescheide am 10.04.2026 mit Rechtsbehelfsbelehrung. Die Widersprüche v. 28.04.2025 und 25.01.2026 richteten sich gegen Verwaltungsakte der GKV v. 20.06.2025 und 13.01.2026. In den Beitragsbescheiden setzte die GKV eine monatliche Beitraghöhe fest, die über dem per Einkommensteuerbescheid nachgewiesenen monatlichen (Gesamt-)Einkommen liegen. Es ist also schon rechnerisch unmöglich, die Kranken-/Pflegeversicherungsbeiträge zu begleichen, geschweige denn, noch Geld zum Lebensunterhalt (z.B. Lebensmittel, Mietzahlungen) zur Verfügung zu haben.Die GKV argumentiert mit einer angeblich gesetzlich vorgeschriebenen Mindesbemessungsgrenze, die ermittelt werde aus \"einem Drittel der monatlichen Bezugsgröße\" (diese Formulierung gibt es im SGB, ist aber dort nicht m.E. definiert). Deshalb werde ein fiktionales Einkommen angerechnet und daraus ein sog. \"Auffüllbetrag\" ermittelt. Es gebe keine Möglichkeit, geringere Beiträge zu berechnen. Es gebe auch keine Härtefallregleungen und angeblich auch keinerlei Ermessenspielraum.Auf die Kernfrage - wie soll ein Beitrag bezahlt werden, wenn er höher ist als das nachgewiesene Gesamteinkommen bzw. wer ist zuständig, diesen \"Auffüllbetrag\" zu finanzieren - wird in dem Bescheid nicht eingegangen. Kritisch ist dieser Sachverhalt insbesondere vor dem Hintergrund, daß in Deutschland seit dem 01.01.2009 eine gestzliche Kranken- und Pflegeversicherungspflicht gilt, d.h. es besteht auch nicht mehr die Möglichkeit, aus dem Kranken-/Pflegeversicherungssystem auszuscheiden. Das wird damit begründet, daß Bürger im eigenen Interesse Kranken- und Pflegeversicher sein sollen. Nicht berücksichtigt wird dabei aber wieder, daß die gesetzliche Kranken- und Pflegeversicherung bei mehr als einem Monat Beitragsrückstand eine Leistungssperre verhängt (d.h. dann besteht eben gerade *kein* Kranken-/Pflegeversicherungsschutz).\nWas ist davon zu halten, und wie könnte dazu in einer Klage vor dem Sozialgericht argumentiert werden?"
+    },
+    "max_rounds": 3
+  },
+  "max_rounds": 3,
+  "current_round": 3,
+  "rounds": [],
+  "created_at": "2026-05-22 13:46:18.309344+00:00",
+  "updated_at": "2026-05-22 13:46:18.309344+00:00",
+  "result": {
+    "consensus": 1.0,
+    "output": ""
+  },
+  "is_mvp": true,
+  "llm_assignments": {
+    "strategist": "owl-alpha",
+    "critic": "xiaomi-mimo-v2.5-pro",
+    "optimizer": "opencodezen-minimax-m2.5-free-ry6l-copy-udko-copy-vntv",
+    "moderator": "local-gemma"
+  }
+}

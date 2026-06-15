@@ -1,0 +1,20 @@
+{
+  "id": "bf01e2ff-1a3a-4f52-b5c9-5fe9c1ea540a",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "AI",
+  "description": "Bitte optimierte gerichtliche Stellungnahme entwerfen:",
+  "status": "active",
+  "tags": [
+    "d8bd53a6-294a-4f89-8d04-30368dfa10a6"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-07 01:28:50.928435+00:00",
+  "updated_at": "2026-06-07 01:28:50.928435+00:00",
+  "metadata": {
+    "source_project_id": "14fcf7dd-349b-4114-a2a8-5b1926ed9d5f",
+    "source_project_name": "AI",
+    "source_debate_id": "bf01e2ff-1a3a-4f52-b5c9-5fe9c1ea540a",
+    "source_debate_title": "Bitte optimierte gerichtliche Stellungnahme entwerfen:",
+    "migrated_at": "2026-06-08T20:54:13.083414+00:00"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "debate_id": "fcec5509-20da-4749-b081-3e14fd720f5f",
+  "session_id": "wf-6364238f9e6e",
+  "status": "running",
+  "title": "Test",
+  "request": {
+    "case": {
+      "text": "Test"
+    },
+    "max_rounds": 5
+  },
+  "max_rounds": 5,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-06-15 02:18:18.091365+00:00",
+  "updated_at": "2026-06-15 02:18:18.091365+00:00",
+  "result": null,
+  "is_mvp": true,
+  "workflow_id": "3fd01d53",
+  "workflow_name": "Car Wash"
+}

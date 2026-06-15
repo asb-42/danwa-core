@@ -1,0 +1,20 @@
+{
+  "id": "be2f0d68-30ab-452e-88b8-d47a8d669610",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Philosophy",
+  "description": "Was kommt nach dem Tod?",
+  "status": "active",
+  "tags": [
+    "3ced7232-f1f7-492f-b29a-46e08f759211"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-15 19:24:32.757367+00:00",
+  "updated_at": "2026-05-15 19:38:12.360115+00:00",
+  "metadata": {
+    "source_project_id": "e186f9ed-d3bc-4e97-b8a4-cc133f548f48",
+    "source_project_name": "Philosophy",
+    "source_debate_id": "be2f0d68-30ab-452e-88b8-d47a8d669610",
+    "source_debate_title": "Was kommt nach dem Tod?",
+    "migrated_at": "2026-06-08T20:54:13.162912+00:00"
+  }
+}

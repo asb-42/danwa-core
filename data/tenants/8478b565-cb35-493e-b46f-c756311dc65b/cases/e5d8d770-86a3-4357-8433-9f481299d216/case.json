@@ -1,0 +1,20 @@
+{
+  "id": "e5d8d770-86a3-4357-8433-9f481299d216",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Test",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-30 04:29:37.127399+00:00",
+  "updated_at": "2026-05-30 04:29:37.127399+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "e5d8d770-86a3-4357-8433-9f481299d216",
+    "source_debate_title": "Test",
+    "migrated_at": "2026-06-08T20:54:13.118710+00:00"
+  }
+}

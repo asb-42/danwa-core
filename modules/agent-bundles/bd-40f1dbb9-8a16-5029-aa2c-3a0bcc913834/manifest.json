@@ -1,0 +1,24 @@
+{
+  "schema_version": "2.0.0",
+  "module_id": "bd-40f1dbb9-8a16-5029-aa2c-3a0bcc913834",
+  "name": {
+    "en": "Roundtrip Updated",
+    "de": "Roundtrip Updated"
+  },
+  "description": {
+    "en": "After edit",
+    "de": "After edit"
+  },
+  "version": "1.0.0",
+  "type": "bundle",
+  "category": "bundles",
+  "profile_file": "profile.json",
+  "profile_format": "json",
+  "dependencies": {
+    "agent-cores/strategist-default": ">=1.0.0",
+    "agent-argumentation-patterns/socratic": ">=1.0.0",
+    "llm-profiles/test-llm": ">=1.0.0"
+  },
+  "updated_at": "2026-06-05T21:46:02.854674+00:00",
+  "checksum": "9c75e58cb588af9395ab5ea0fa13bcc2d34cd522b865b018c93000fa54f6db31"
+}

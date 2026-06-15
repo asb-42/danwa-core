@@ -1,0 +1,59 @@
+{
+  "debate_id": "67191030-75cd-4cbb-b0be-9fcc61612149",
+  "status": "pending",
+  "title": "",
+  "request": {
+    "case": {
+      "text": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land?",
+      "project_id": null
+    },
+    "agent_profile": [
+      {
+        "role": "strategist",
+        "llm_profile": "default",
+        "temperature": 0.7
+      },
+      {
+        "role": "critic",
+        "llm_profile": "default",
+        "temperature": 0.7
+      },
+      {
+        "role": "optimizer",
+        "llm_profile": "default",
+        "temperature": 0.7
+      },
+      {
+        "role": "moderator",
+        "llm_profile": "default",
+        "temperature": 0.7
+      }
+    ],
+    "bundle_ids": [],
+    "max_rounds": 3,
+    "consensus_threshold": 0.8,
+    "enable_fact_check": false,
+    "enable_memory": false,
+    "search_mode": "off",
+    "llm_profile_id": "xiaomi-mimo-v2.5-pro",
+    "prompt_variant": "default",
+    "agent_persona_ids": {
+      "strategist": "strategist-default",
+      "critic": "critic-default",
+      "optimizer": "optimizer-default",
+      "moderator": "moderator-default"
+    },
+    "language": "de",
+    "document_ids": [],
+    "rag_auto_retrieve": false,
+    "include_debate_results": false,
+    "enable_extra_rounds": false,
+    "a2a_agents": []
+  },
+  "max_rounds": 3,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-05-30 01:29:13.079786+00:00",
+  "updated_at": "2026-05-30 01:29:13.079786+00:00",
+  "result": null
+}

@@ -1,0 +1,25 @@
+{
+  "debate_id": "441475c4-d664-4e3c-bc98-2bbfff7bf070",
+  "session_id": "wf-c5e830297af3",
+  "status": "cancelled",
+  "title": "Fehlende Berücksichtigung von BSG B 6a/12 KR 1/24 R (10.12.",
+  "request": {
+    "case": {
+      "text": "Fehlende Berücksichtigung von BSG B 6a/12 KR 1/24 R (10.12.2025): Dies ist die bisher aktuellste höchstrichterliche Entscheidung zur Auslegung genau der Wendung, auf die sich die gesamte klägerische Argumentation stützt. Die Entscheidung erging nach dem erstinstanzlichen Urteil (30.06.2025) und vor dem Schriftsatz-Entwurf (07.06.2026) – wird aber bisher nicht erwähnt.\n\n- Bitte BSG B 6a/12 KR 1/24 R analysieren und ggf. klar Abgrenzung zum vorliegenden Fall entwickeln.\n- Wie und wo sollte das Urteil in den Entwurf eingarbeitet werden?\n- Formulierungsvorschlag ausarbeiten."
+    },
+    "max_rounds": 5
+  },
+  "max_rounds": 5,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-06-07 17:28:32.677270+00:00",
+  "updated_at": "2026-06-07 17:28:32.677270+00:00",
+  "result": null,
+  "is_mvp": true,
+  "llm_assignments": {
+    "strategist": "3a8566e8-be5e-42dc-9a4f-c82c4327d325",
+    "critic": "b006090a-3ed2-4e58-bf30-2942438856b1",
+    "optimizer": "3a8566e8-be5e-42dc-9a4f-c82c4327d325",
+    "moderator": "b006090a-3ed2-4e58-bf30-2942438856b1"
+  }
+}

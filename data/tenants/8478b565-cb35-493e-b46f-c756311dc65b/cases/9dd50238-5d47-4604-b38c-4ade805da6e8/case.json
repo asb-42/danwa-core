@@ -1,0 +1,20 @@
+{
+  "id": "9dd50238-5d47-4604-b38c-4ade805da6e8",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Politics",
+  "description": "Core Question: How much power should the state hold over the individual?",
+  "status": "active",
+  "tags": [
+    "e94c753d-3cdd-4a3d-8641-4d1bbed017df"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-25 14:21:25.643267+00:00",
+  "updated_at": "2026-05-25 14:21:25.643267+00:00",
+  "metadata": {
+    "source_project_id": "7f90f29c-3417-4371-b543-665873d7c04a",
+    "source_project_name": "Politics",
+    "source_debate_id": "9dd50238-5d47-4604-b38c-4ade805da6e8",
+    "source_debate_title": "Core Question: How much power should the state hold over the individual?",
+    "migrated_at": "2026-06-08T20:54:13.100685+00:00"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "6f0b7489-e6b0-4ee4-a53c-3b65af837290",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Danwa",
+  "description": "Sollten wir Microservices einführen?",
+  "status": "active",
+  "tags": [
+    "db7d189c-5f9f-4e1f-a871-215051a663a3"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-16 03:18:43.660617+00:00",
+  "updated_at": "2026-05-16 03:22:56.471689+00:00",
+  "metadata": {
+    "source_project_id": "23d9eb73-37a9-475e-8484-d2527d70e240",
+    "source_project_name": "Danwa",
+    "source_debate_id": "6f0b7489-e6b0-4ee4-a53c-3b65af837290",
+    "source_debate_title": "Sollten wir Microservices einführen?",
+    "migrated_at": "2026-06-08T20:54:13.094324+00:00"
+  }
+}

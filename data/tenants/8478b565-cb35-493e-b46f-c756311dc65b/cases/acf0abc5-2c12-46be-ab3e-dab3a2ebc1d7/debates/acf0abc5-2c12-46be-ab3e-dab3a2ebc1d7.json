@@ -1,0 +1,22 @@
+{
+  "debate_id": "acf0abc5-2c12-46be-ab3e-dab3a2ebc1d7",
+  "session_id": "wf-28f86257db0b",
+  "status": "failed",
+  "title": "AI for Ecosystem Protection: Promise and Peril",
+  "request": {
+    "case": {
+      "text": "How might ecosystems and living species be preserved, protected and nurtured by intelligent machines? For example, AI helps track endangered species, predict the movement of poachers, and monitor deforestation via satellite imagery. How can we use AI for good to protect our most precious lives and resources? On the flipside, how might our naivety lead us to invent systems that have unintended consequences? For example, tree farms optimized for lumber output at first yield great returns, but the microscopic life needed to keep the ecosystem in balance. Soon the engineered forest dies completely, as an unexpected consequence of not understanding the nuances of nature. What might go right, and what might go wrong?"
+    },
+    "max_rounds": 3
+  },
+  "max_rounds": 3,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-06-06 04:01:25.857488+00:00",
+  "updated_at": "2026-06-06 04:01:25.857488+00:00",
+  "result": null,
+  "is_mvp": true,
+  "workflow_id": "7028514b",
+  "workflow_name": "test 5ph workflow",
+  "error": "At key 'current_draft': Can receive only one value per step. Use an Annotated key to handle multiple values.\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/INVALID_CONCURRENT_GRAPH_UPDATE"
+}

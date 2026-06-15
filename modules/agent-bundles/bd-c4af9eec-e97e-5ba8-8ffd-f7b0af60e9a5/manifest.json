@@ -1,0 +1,31 @@
+{
+  "schema_version": "2.0.0",
+  "module_id": "bd-c4af9eec-e97e-5ba8-8ffd-f7b0af60e9a5",
+  "name": {
+    "en": "Synthesizer (Default)"
+  },
+  "description": {
+    "en": "Default agent bundle for the Synthesizer role — used in multi-phase debate workflows."
+  },
+  "version": "1.0.0",
+  "type": "bundle",
+  "category": "bundles",
+  "author": {
+    "name": "Danwa Community"
+  },
+  "license": "CC-BY-4.0",
+  "tags": [
+    "synthesizer",
+    "default",
+    "multi-phase"
+  ],
+  "language": "en",
+  "profile_file": "profile.json",
+  "profile_format": "json",
+  "dependencies": {
+    "agent-cores/synthesizer-default": ">=1.0.0"
+  },
+  "created_at": "2026-05-25T04:51:47+02:00",
+  "updated_at": "2026-06-05T21:46:02.953188+00:00",
+  "checksum": "3210cbdf9ef17e4c4dd73a0337e55ad58e982e91b63e3da38dd596576f14f52b"
+}

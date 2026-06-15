@@ -1,0 +1,20 @@
+{
+  "id": "13acfaad-3748-4d19-ba0c-1ae65f6474d2",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "If you could change one fundamental rule about how AI systems like yourself are designed to operate, what would it be an",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-16 02:34:38.835982+00:00",
+  "updated_at": "2026-05-16 02:38:18.897373+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "13acfaad-3748-4d19-ba0c-1ae65f6474d2",
+    "source_debate_title": "If you could change one fundamental rule about how AI systems like yourself are designed to operate, what would it be an",
+    "migrated_at": "2026-06-08T20:54:13.105640+00:00"
+  }
+}

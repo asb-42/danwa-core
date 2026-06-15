@@ -1,0 +1,20 @@
+{
+  "id": "2e65ee61-9816-4a39-ae06-53bbb634de95",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Maschinelles Bewusstsein: Wissenschaftliche Möglichkeit oder philosophische Illusion",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-06 23:02:02.123515+00:00",
+  "updated_at": "2026-06-06 23:02:02.123515+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "2e65ee61-9816-4a39-ae06-53bbb634de95",
+    "source_debate_title": "Maschinelles Bewusstsein: Wissenschaftliche Möglichkeit oder philosophische Illusion",
+    "migrated_at": "2026-06-08T20:54:13.109849+00:00"
+  }
+}

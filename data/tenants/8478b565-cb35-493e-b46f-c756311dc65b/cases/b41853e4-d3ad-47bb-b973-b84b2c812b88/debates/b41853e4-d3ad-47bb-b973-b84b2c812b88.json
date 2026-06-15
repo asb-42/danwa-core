@@ -1,0 +1,21 @@
+{
+  "debate_id": "b41853e4-d3ad-47bb-b973-b84b2c812b88",
+  "session_id": "wf-c7dd0bf7f07d",
+  "status": "running",
+  "title": "Test: Sollte man Elektroautos subventionieren? Bitte kurze Analyse.",
+  "request": {
+    "case": {
+      "text": "Test: Sollte man Elektroautos subventionieren? Bitte kurze Analyse."
+    },
+    "max_rounds": 3
+  },
+  "max_rounds": 3,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-05-30 03:22:08.396343+00:00",
+  "updated_at": "2026-05-30 03:22:08.396343+00:00",
+  "result": null,
+  "is_mvp": true,
+  "workflow_id": "wf-fcf96cb1",
+  "workflow_name": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land? (Transactional Drafting)"
+}

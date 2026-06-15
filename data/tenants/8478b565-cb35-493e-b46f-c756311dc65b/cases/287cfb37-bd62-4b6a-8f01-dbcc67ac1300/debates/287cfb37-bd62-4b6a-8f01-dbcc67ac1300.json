@@ -1,0 +1,24 @@
+{
+  "debate_id": "287cfb37-bd62-4b6a-8f01-dbcc67ac1300",
+  "session_id": "wf-6d742bbcee5a",
+  "status": "completed",
+  "title": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land?",
+  "request": {
+    "case": {
+      "text": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land?"
+    },
+    "max_rounds": 5
+  },
+  "max_rounds": 5,
+  "current_round": 5,
+  "rounds": [],
+  "created_at": "2026-05-30 13:42:42.810446+00:00",
+  "updated_at": "2026-05-30 13:42:42.810446+00:00",
+  "result": {
+    "consensus": 0.84,
+    "output": ""
+  },
+  "is_mvp": true,
+  "workflow_id": "wf-0289f0f6",
+  "workflow_name": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land? (Transactional Drafting)"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "cb66f712-41bc-4b73-8123-766a7c5aa4b6",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "AI",
+  "description": "Is there a qualitative difference between human understanding and AI pattern recognition?",
+  "status": "active",
+  "tags": [
+    "d8bd53a6-294a-4f89-8d04-30368dfa10a6"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-18 23:50:46.021362+00:00",
+  "updated_at": "2026-05-19 00:16:05.904778+00:00",
+  "metadata": {
+    "source_project_id": "14fcf7dd-349b-4114-a2a8-5b1926ed9d5f",
+    "source_project_name": "AI",
+    "source_debate_id": "cb66f712-41bc-4b73-8123-766a7c5aa4b6",
+    "source_debate_title": "Is there a qualitative difference between human understanding and AI pattern recognition?",
+    "migrated_at": "2026-06-08T20:54:13.086951+00:00"
+  }
+}

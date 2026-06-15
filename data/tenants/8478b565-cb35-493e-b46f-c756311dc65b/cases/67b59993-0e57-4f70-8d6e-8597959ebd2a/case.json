@@ -1,0 +1,20 @@
+{
+  "id": "67b59993-0e57-4f70-8d6e-8597959ebd2a",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "AI",
+  "description": "",
+  "status": "active",
+  "tags": [
+    "d8bd53a6-294a-4f89-8d04-30368dfa10a6"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-21 13:10:49.414782+00:00",
+  "updated_at": "2026-05-21 13:10:49.414782+00:00",
+  "metadata": {
+    "source_project_id": "14fcf7dd-349b-4114-a2a8-5b1926ed9d5f",
+    "source_project_name": "AI",
+    "source_debate_id": "67b59993-0e57-4f70-8d6e-8597959ebd2a",
+    "source_debate_title": "",
+    "migrated_at": "2026-06-08T20:54:13.070271+00:00"
+  }
+}

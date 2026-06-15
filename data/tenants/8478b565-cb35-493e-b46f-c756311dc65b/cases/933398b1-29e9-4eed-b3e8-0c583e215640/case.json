@@ -1,0 +1,20 @@
+{
+  "id": "933398b1-29e9-4eed-b3e8-0c583e215640",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "hkk",
+  "description": "Optimierung juristischer Stellungnahmen: Vom Entwurf zum gerichtsfesten Schreiben",
+  "status": "active",
+  "tags": [
+    "c319ce09-e86c-4dc5-be3b-8ab998bab266"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-07 02:21:19.253353+00:00",
+  "updated_at": "2026-06-07 02:21:19.253353+00:00",
+  "metadata": {
+    "source_project_id": "fab38589-99da-4e65-9d0b-ea52c6af7ded",
+    "source_project_name": "hkk",
+    "source_debate_id": "933398b1-29e9-4eed-b3e8-0c583e215640",
+    "source_debate_title": "Optimierung juristischer Stellungnahmen: Vom Entwurf zum gerichtsfesten Schreiben",
+    "migrated_at": "2026-06-08T20:54:13.167260+00:00"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "debate_id": "fc024b09-c376-4d37-b6e5-75a008372c19",
+  "session_id": "wf-93f5d37d5bce",
+  "status": "failed",
+  "title": "Intelligent Machines as Ecosystem Guardians: Hope or Hubris",
+  "request": {
+    "case": {
+      "text": "How might ecosystems and living species be preserved, protected and nurtured by intelligent machines? For example, AI helps track endangered species, predict the movement of poachers, and monitor deforestation via satellite imagery. How can we use AI for good to protect our most precious lives and resources? On the flipside, how might our naivety lead us to invent systems that have unintended consequences? For example, tree farms optimized for lumber output at first yield great returns, but the microscopic life needed to keep the ecosystem in balance. Soon the engineered forest dies completely, as an unexpected consequence of not understanding the nuances of nature. What might go right, and what might go wrong?"
+    },
+    "max_rounds": 3
+  },
+  "max_rounds": 3,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-06-06 01:24:31.952545+00:00",
+  "updated_at": "2026-06-06 01:24:31.952545+00:00",
+  "result": null,
+  "is_mvp": true,
+  "workflow_id": "f4209f09",
+  "workflow_name": "5-Phase Debate (Extended Roles) – 2026-06-06 01:23",
+  "error": "Recursion limit of 212 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT"
+}

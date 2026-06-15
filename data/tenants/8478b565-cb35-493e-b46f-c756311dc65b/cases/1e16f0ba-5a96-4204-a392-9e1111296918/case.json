@@ -1,0 +1,20 @@
+{
+  "id": "1e16f0ba-5a96-4204-a392-9e1111296918",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Danwa",
+  "description": "Danwa ist ein \"auditable multi-agent debate platform that uses AI agents to analyze, critique, and optimize arguments th",
+  "status": "active",
+  "tags": [
+    "db7d189c-5f9f-4e1f-a871-215051a663a3"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-25 14:50:04.447938+00:00",
+  "updated_at": "2026-05-25 14:50:04.447938+00:00",
+  "metadata": {
+    "source_project_id": "23d9eb73-37a9-475e-8484-d2527d70e240",
+    "source_project_name": "Danwa",
+    "source_debate_id": "1e16f0ba-5a96-4204-a392-9e1111296918",
+    "source_debate_title": "Danwa ist ein \"auditable multi-agent debate platform that uses AI agents to analyze, critique, and optimize arguments th",
+    "migrated_at": "2026-06-08T20:54:13.092133+00:00"
+  }
+}

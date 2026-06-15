@@ -1,0 +1,20 @@
+{
+  "id": "360a1a8f-1d92-4b0b-a607-50fdd7318404",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land?",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-30 03:07:13.873281+00:00",
+  "updated_at": "2026-05-30 03:07:13.873281+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "360a1a8f-1d92-4b0b-a607-50fdd7318404",
+    "source_debate_title": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land?",
+    "migrated_at": "2026-06-08T20:54:13.110431+00:00"
+  }
+}

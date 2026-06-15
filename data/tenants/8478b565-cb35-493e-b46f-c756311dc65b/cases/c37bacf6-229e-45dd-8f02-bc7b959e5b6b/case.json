@@ -1,0 +1,20 @@
+{
+  "id": "c37bacf6-229e-45dd-8f02-bc7b959e5b6b",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Should AI development be regulated?",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-24 02:07:41.035833+00:00",
+  "updated_at": "2026-05-24 02:07:41.035833+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "c37bacf6-229e-45dd-8f02-bc7b959e5b6b",
+    "source_debate_title": "Should AI development be regulated?",
+    "migrated_at": "2026-06-08T20:54:13.115576+00:00"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "71b819b2-78cd-4918-adda-23b7d5b174a3",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Otherworld",
+  "description": "## Zu überprüfen ist eine Architektur, um den menschlichen Körper in ein empfangsfähiges, sendefähiges und steuerbares e",
+  "status": "active",
+  "tags": [
+    "a5c92f7e-332e-4d8e-8544-05a71ed33a72"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-27 04:56:22.243875+00:00",
+  "updated_at": "2026-05-27 04:56:22.243875+00:00",
+  "metadata": {
+    "source_project_id": "08e8791a-59ba-4326-8ec0-85997f55b16c",
+    "source_project_name": "Otherworld",
+    "source_debate_id": "71b819b2-78cd-4918-adda-23b7d5b174a3",
+    "source_debate_title": "## Zu überprüfen ist eine Architektur, um den menschlichen Körper in ein empfangsfähiges, sendefähiges und steuerbares e",
+    "migrated_at": "2026-06-08T20:54:13.057149+00:00"
+  }
+}

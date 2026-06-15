@@ -1,0 +1,25 @@
+{
+  "debate_id": "58683bf4-27ab-4068-a09e-3135122c7b76",
+  "session_id": "wf-04763cfe1e2e",
+  "status": "completed",
+  "title": "AI for Conservation: Balancing Innovation with Ecological Wisdom",
+  "request": {
+    "case": {
+      "text": "How might ecosystems and living species be preserved, protected and nurtured by intelligent machines? For example, AI helps track endangered species, predict the movement of poachers, and monitor deforestation via satellite imagery. How can we use AI for good to protect our most precious lives and resources? On the flipside, how might our naivety lead us to invent systems that have unintended consequences? For example, tree farms optimized for lumber output at first yield great returns, but the microscopic life needed to keep the ecosystem in balance. Soon the engineered forest dies completely, as an unexpected consequence of not understanding the nuances of nature. What might go right, and what might go wrong?"
+    },
+    "max_rounds": 3
+  },
+  "max_rounds": 3,
+  "current_round": 5,
+  "rounds": [],
+  "created_at": "2026-06-06 02:56:29.956180+00:00",
+  "updated_at": "2026-06-06 02:56:29.956180+00:00",
+  "result": {
+    "final_consensus": 1.0,
+    "consensus": 1.0,
+    "output": ""
+  },
+  "is_mvp": true,
+  "workflow_id": "c715920d",
+  "workflow_name": "5-Phase Debate (Extended Roles) – 2026-06-06 02:54"
+}

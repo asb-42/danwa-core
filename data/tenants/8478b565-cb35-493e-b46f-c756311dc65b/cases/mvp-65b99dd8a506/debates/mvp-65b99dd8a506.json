@@ -1,0 +1,28 @@
+{
+  "debate_id": "mvp-65b99dd8a506",
+  "session_id": "wf-5a5efa02195a",
+  "status": "completed",
+  "title": "Test MVP Debate",
+  "request": {
+    "case": {
+      "text": "Test MVP Debate"
+    },
+    "max_rounds": 1
+  },
+  "max_rounds": 1,
+  "current_round": 1,
+  "rounds": [],
+  "created_at": "2026-05-21 22:24:17.100744+00:00",
+  "updated_at": "2026-05-21 22:24:17.100744+00:00",
+  "result": {
+    "consensus": 1.0,
+    "output": ""
+  },
+  "is_mvp": true,
+  "llm_assignments": {
+    "strategist": "owl-alpha",
+    "critic": "xiaomi-io-2--6btm",
+    "optimizer": "xiaomi-mimi-v2.5-pro",
+    "moderator": "local-gemma-4-26b-a4b"
+  }
+}

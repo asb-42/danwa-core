@@ -1,0 +1,28 @@
+{
+  "debate_id": "180606f5-0463-4c5c-b751-198bd7a3536a",
+  "session_id": "wf-5d250c9ffb94",
+  "status": "completed",
+  "title": "Test UUID format v3",
+  "request": {
+    "case": {
+      "text": "Test UUID format v3"
+    },
+    "max_rounds": 1
+  },
+  "max_rounds": 1,
+  "current_round": 2,
+  "rounds": [],
+  "created_at": "2026-05-22 13:40:25.461183+00:00",
+  "updated_at": "2026-05-22 13:40:25.461183+00:00",
+  "result": {
+    "consensus": 0.69,
+    "output": ""
+  },
+  "is_mvp": true,
+  "llm_assignments": {
+    "strategist": "opencodezen-minimax-m2.5-free-ry6l-copy-udko-copy-vntv",
+    "critic": "opencodezen-minimax-m2.5-free-ry6l-copy-udko-copy-vntv",
+    "optimizer": "opencodezen-minimax-m2.5-free-ry6l-copy-udko-copy-vntv",
+    "moderator": "opencodezen-minimax-m2.5-free-ry6l-copy-udko-copy-vntv"
+  }
+}

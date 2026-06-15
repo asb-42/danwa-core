@@ -1,0 +1,20 @@
+{
+  "id": "fc024b09-c376-4d37-b6e5-75a008372c19",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Politics",
+  "description": "Intelligent Machines as Ecosystem Guardians: Hope or Hubris",
+  "status": "active",
+  "tags": [
+    "e94c753d-3cdd-4a3d-8641-4d1bbed017df"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-06 01:24:31.952545+00:00",
+  "updated_at": "2026-06-06 01:24:31.952545+00:00",
+  "metadata": {
+    "source_project_id": "7f90f29c-3417-4371-b543-665873d7c04a",
+    "source_project_name": "Politics",
+    "source_debate_id": "fc024b09-c376-4d37-b6e5-75a008372c19",
+    "source_debate_title": "Intelligent Machines as Ecosystem Guardians: Hope or Hubris",
+    "migrated_at": "2026-06-08T20:54:13.101283+00:00"
+  }
+}

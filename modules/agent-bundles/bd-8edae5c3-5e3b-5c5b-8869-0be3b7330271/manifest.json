@@ -1,0 +1,31 @@
+{
+  "schema_version": "2.0.0",
+  "module_id": "bd-8edae5c3-5e3b-5c5b-8869-0be3b7330271",
+  "name": {
+    "en": "Steel-manner (Default)"
+  },
+  "description": {
+    "en": "Default agent bundle for the Steel-manner role — used in multi-phase debate workflows."
+  },
+  "version": "1.0.0",
+  "type": "bundle",
+  "category": "bundles",
+  "author": {
+    "name": "Danwa Community"
+  },
+  "license": "CC-BY-4.0",
+  "tags": [
+    "steel-manner",
+    "default",
+    "multi-phase"
+  ],
+  "language": "en",
+  "profile_file": "profile.json",
+  "profile_format": "json",
+  "dependencies": {
+    "agent-cores/steel-manner-default": ">=1.0.0"
+  },
+  "created_at": "2026-05-25T04:51:47+02:00",
+  "updated_at": "2026-06-05T21:46:02.952701+00:00",
+  "checksum": "815c37a126dac079878d1ab93f57eda1f16890c63fbe5672d2d0a0bdf43fc971"
+}

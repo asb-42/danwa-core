@@ -1,0 +1,20 @@
+{
+  "id": "8816a62e-5360-4b52-8ffa-d8e0ce21db9e",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Otherworld",
+  "description": "A multidisciplinary research group presents the following analysis for discussion:\n\n1.",
+  "status": "active",
+  "tags": [
+    "a5c92f7e-332e-4d8e-8544-05a71ed33a72"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-25 19:26:06.865393+00:00",
+  "updated_at": "2026-05-25 19:26:06.865393+00:00",
+  "metadata": {
+    "source_project_id": "08e8791a-59ba-4326-8ec0-85997f55b16c",
+    "source_project_name": "Otherworld",
+    "source_debate_id": "8816a62e-5360-4b52-8ffa-d8e0ce21db9e",
+    "source_debate_title": "A multidisciplinary research group presents the following analysis for discussion:\n\n1.",
+    "migrated_at": "2026-06-08T20:54:13.057720+00:00"
+  }
+}

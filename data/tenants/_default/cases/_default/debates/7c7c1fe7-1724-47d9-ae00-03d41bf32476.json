@@ -1,0 +1,22 @@
+{
+  "debate_id": "7c7c1fe7-1724-47d9-ae00-03d41bf32476",
+  "session_id": "wf-e7d0f6b6f948",
+  "status": "failed",
+  "title": "TestFix: Tempolimit auf Autobahnen? Kurzanalyse.",
+  "request": {
+    "case": {
+      "text": "TestFix: Tempolimit auf Autobahnen? Kurzanalyse."
+    },
+    "max_rounds": 2
+  },
+  "max_rounds": 2,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-05-30 03:34:23.735866+00:00",
+  "updated_at": "2026-05-30 03:34:23.735866+00:00",
+  "result": null,
+  "is_mvp": true,
+  "workflow_id": "wf-fcf96cb1",
+  "workflow_name": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land? (Transactional Drafting)",
+  "error": "Recursion limit of 100 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT"
+}

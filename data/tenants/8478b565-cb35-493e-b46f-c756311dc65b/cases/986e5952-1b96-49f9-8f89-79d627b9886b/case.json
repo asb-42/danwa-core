@@ -1,0 +1,20 @@
+{
+  "id": "986e5952-1b96-49f9-8f89-79d627b9886b",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Politics",
+  "description": "Defining the Body Politic: Voting Rights and Equal Treatment Under Law",
+  "status": "active",
+  "tags": [
+    "e94c753d-3cdd-4a3d-8641-4d1bbed017df"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-05 03:39:26.680008+00:00",
+  "updated_at": "2026-06-05 03:46:50.631027+00:00",
+  "metadata": {
+    "source_project_id": "7f90f29c-3417-4371-b543-665873d7c04a",
+    "source_project_name": "Politics",
+    "source_debate_id": "986e5952-1b96-49f9-8f89-79d627b9886b",
+    "source_debate_title": "Defining the Body Politic: Voting Rights and Equal Treatment Under Law",
+    "migrated_at": "2026-06-08T20:54:13.099864+00:00"
+  }
+}

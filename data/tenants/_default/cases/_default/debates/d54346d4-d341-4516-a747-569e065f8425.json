@@ -1,0 +1,21 @@
+{
+  "debate_id": "d54346d4-d341-4516-a747-569e065f8425",
+  "session_id": "wf-9112f180ef76",
+  "status": "running",
+  "title": "Erfolg durch Prüfung: Sind standardisierte Tests noch zeitgemäß",
+  "request": {
+    "case": {
+      "text": "Test"
+    },
+    "max_rounds": 5
+  },
+  "max_rounds": 5,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-06-02 03:56:47.877008+00:00",
+  "updated_at": "2026-06-02 03:56:47.877008+00:00",
+  "result": null,
+  "is_mvp": true,
+  "workflow_id": "wf-a5f67a55",
+  "workflow_name": "Bitte den nachfolgenden stichpunktartigen Schriftsatz prüfen und unter zuhilfena (Transactional Drafting)"
+}

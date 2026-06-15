@@ -1,0 +1,25 @@
+{
+  "debate_id": "e486d5a2-c094-46bf-91f1-7254ae4d0817",
+  "session_id": "wf-71e554435f97",
+  "status": "completed",
+  "title": "Bitte den nachfolgenden stichpunktartigen Schriftsatz prüfen und unter zuhilfenahme der Originaldokumente im RAG gericht",
+  "request": {
+    "case": {
+      "text": "Bitte den nachfolgenden stichpunktartigen Schriftsatz prüfen und unter zuhilfenahme der Originaldokumente im RAG gerichtsfest ausfomulieren.\n----\n# Entwurf: Schriftsatz Untaetigkeitsklage + Einstweilige Anordnung\n**Stand**: 31.05.2026\n\n## I. Antraege\n\n1. **Hauptantrag (Untaetigkeitsklage, 88 Abs. 2 SGG)**: Jobcenter wird verpflichtet, ueber Widerspruch innerhalb 1 Monat nach Zustellung zu entscheiden.\n2. **Hilfsantrag (Einstweilige Anordnung, 86b Abs. 2 SGG)**: Vorlaeufige SGB-II-Leistungen ab 01.10.2025.\n3. **Eventualantrag (Leistungsklage, 54 Abs. 1 SGG)**: Verurteilung zu Leistungen ab 01.10.2025.\n\n\n## II. Sachverhalt\n\nDer Antragsteller ist selbstständig (Wetena RDC Ltd. & Co. KG). Nach Kontopfändung 2024 Verlust von Wohnung/Geschäftsräumen, Einkommensverlust von 30.000€ auf 2.937€/Jahr. Bürgergeld-Antrag am 12.10.2025 mit vollständiger Dokumentation. Jobcenter ignorierte eingereichte Unterlagen, beantwortete keine Fragen, forderte unzumutbare Dokumente (Kontoauszüge Eltern 640€, nicht existierender Gesellschaftsvertrag). Ablehnung am 09.02.2026, Widerspruch am 22.02.2026. Seit 25.02.2026 über 3 Monate ohne Widerspruchsbescheid trotz eigener Fristsetzung des Jobcenters (25.03.2026).\n\n## III. Begründung Untätigkeitsklage (§ 88 SGG)\n\n1. Zulässig: >3 Monate seit Widerspruch ohne Bescheid\n2. Angemessene Frist abgelaufen (BSG, 17.03.2010 - B 13 R 51/09 R)\n3. Jobcenter missachtete eigene Fristzusage\n\n## IV. Begründung Einstweilige Anordnung (§ 86b SGG)\n\n**Anordnungsanspruch:** Hilfebedürftigkeit (§9 SGB II) offenkundig (Einkommen 244,75€/Monat < Regelbedarf 563€). Verletzung der Beratungspflicht (§14 SGB I) und Amtsermittlungspflicht (§20 SGB I) durch Jobcenter. Unzumutbare Mitwirkungsanforderungen (§60 SGB I).\n\n**Anordnungsgrund:** Akute existenzielle Notlage: Wohnungsverlust, Einkommensverlust, drohende KV-Leistungssperre (274,08€/Monat).\n\n## V. Begründung Leistungsklage (§ 54 SGG)\n\nFür den Fall, dass UA und EA scheitern: Verurteilung zu Leistungen. Begründung wie Anordnungsanspruch. Ablehnungsbescheid rechtswidrig wegen:\n- Ignorierte Unterlagen\n- Verletzte Beratungspflicht\n- Unzumutbare Anforderungen\n- Falsche Behauptungen\n\n## VII. Anlagen\n\n1. Ablehnungsbescheid 09.02.2026 (3 Seiten)\n2. Widerspruch 22.02.2026\n3. Schreiben Jobcenter 10.03.2026 (2 Seiten)\n4. Schreiben Antragsteller 04.02.2026\n5. Schreiben Antragsteller 26.01.2026\n6. Schreiben Antragsteller 17.12.2025\n7. Originalantrag 12.10.2025 mit Anlagen\n8. Eingangsbestätigung Widerspruch"
+    },
+    "max_rounds": 5
+  },
+  "max_rounds": 5,
+  "current_round": 6,
+  "rounds": [],
+  "created_at": "2026-05-31 05:17:31.109380+00:00",
+  "updated_at": "2026-05-31 05:17:31.109380+00:00",
+  "result": {
+    "final_consensus": 1.0,
+    "consensus": 1.0,
+    "output": ""
+  },
+  "is_mvp": true,
+  "workflow_id": "wf-a5f67a55",
+  "workflow_name": "Bitte den nachfolgenden stichpunktartigen Schriftsatz prüfen und unter zuhilfena (Transactional Drafting)"
+}

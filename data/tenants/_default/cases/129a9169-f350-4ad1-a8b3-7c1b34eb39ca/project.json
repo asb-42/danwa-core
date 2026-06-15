@@ -1,0 +1,17 @@
+{
+  "id": "129a9169-f350-4ad1-a8b3-7c1b34eb39ca",
+  "name": "lsg",
+  "description": "",
+  "is_system": false,
+  "tenant_id": "_default",
+  "created_at": "2026-06-07T03:37:28.029741Z",
+  "updated_at": "2026-06-07T03:37:28.029751Z",
+  "config": {
+    "language": null,
+    "default_max_rounds": null,
+    "default_consensus_threshold": null,
+    "search_mode": null,
+    "searxng_url": null,
+    "llm_profiles": {}
+  }
+}

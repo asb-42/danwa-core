@@ -1,0 +1,20 @@
+{
+  "id": "f8a0a3ee-c784-4110-ae50-27c236f00307",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "AI",
+  "description": "How will AI impact geopolitical power?",
+  "status": "active",
+  "tags": [
+    "d8bd53a6-294a-4f89-8d04-30368dfa10a6"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-21 13:24:14.701600+00:00",
+  "updated_at": "2026-05-21 13:43:23.852715+00:00",
+  "metadata": {
+    "source_project_id": "14fcf7dd-349b-4114-a2a8-5b1926ed9d5f",
+    "source_project_name": "AI",
+    "source_debate_id": "f8a0a3ee-c784-4110-ae50-27c236f00307",
+    "source_debate_title": "How will AI impact geopolitical power?",
+    "migrated_at": "2026-06-08T20:54:13.089794+00:00"
+  }
+}

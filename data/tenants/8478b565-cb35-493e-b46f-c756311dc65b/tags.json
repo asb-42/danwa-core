@@ -1,0 +1,106 @@
+[
+  {
+    "id": "a5c92f7e-332e-4d8e-8544-05a71ed33a72",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "Otherworld",
+    "color": "#6366f1",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.055649+00:00"
+  },
+  {
+    "id": "20306cdd-e0bc-49b6-a6c9-7077ccc9ad57",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "lsg",
+    "color": "#ec4899",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.055718+00:00"
+  },
+  {
+    "id": "d8bd53a6-294a-4f89-8d04-30368dfa10a6",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "AI",
+    "color": "#f59e0b",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.055757+00:00"
+  },
+  {
+    "id": "db7d189c-5f9f-4e1f-a871-215051a663a3",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "Danwa",
+    "color": "#10b981",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.055795+00:00"
+  },
+  {
+    "id": "ab476c18-9805-49ee-85ae-61963c65e826",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "Business",
+    "color": "#3b82f6",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.055828+00:00"
+  },
+  {
+    "id": "e94c753d-3cdd-4a3d-8641-4d1bbed017df",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "Politics",
+    "color": "#8b5cf6",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.055860+00:00"
+  },
+  {
+    "id": "f376bb43-c12d-4f76-a05f-54d2522830f6",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "Health",
+    "color": "#ef4444",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.055892+00:00"
+  },
+  {
+    "id": "b75d68f9-da14-4820-814e-5ce9ddd292b9",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "Elysium",
+    "color": "#14b8a6",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.055942+00:00"
+  },
+  {
+    "id": "be0b2f27-8537-4b41-ba16-00bfa3a104a5",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "Default",
+    "color": "#f97316",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.055973+00:00"
+  },
+  {
+    "id": "a2b36c89-c780-46a9-a3d6-9be631a37b3a",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "Legal",
+    "color": "#06b6d4",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.056001+00:00"
+  },
+  {
+    "id": "bbd8fcd8-1b17-4a23-bb96-b87e3795c930",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "Science",
+    "color": "#84cc16",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.056028+00:00"
+  },
+  {
+    "id": "3ced7232-f1f7-492f-b29a-46e08f759211",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "Philosophy",
+    "color": "#e11d48",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.056054+00:00"
+  },
+  {
+    "id": "c319ce09-e86c-4dc5-be3b-8ab998bab266",
+    "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+    "name": "hkk",
+    "color": "#a855f7",
+    "parent_id": null,
+    "created_at": "2026-06-08T20:54:13.056079+00:00"
+  }
+]

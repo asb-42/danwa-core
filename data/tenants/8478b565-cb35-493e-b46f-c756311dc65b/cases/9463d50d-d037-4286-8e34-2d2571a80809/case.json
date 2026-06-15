@@ -1,0 +1,20 @@
+{
+  "id": "9463d50d-d037-4286-8e34-2d2571a80809",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Danwa",
+  "description": "For an agent in a multi-agent debate platform we are trying to implement the best prompt for the **role of the rigorous",
+  "status": "active",
+  "tags": [
+    "db7d189c-5f9f-4e1f-a871-215051a663a3"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-23 14:46:27.349853+00:00",
+  "updated_at": "2026-05-23 14:46:27.349853+00:00",
+  "metadata": {
+    "source_project_id": "23d9eb73-37a9-475e-8484-d2527d70e240",
+    "source_project_name": "Danwa",
+    "source_debate_id": "9463d50d-d037-4286-8e34-2d2571a80809",
+    "source_debate_title": "For an agent in a multi-agent debate platform we are trying to implement the best prompt for the **role of the rigorous",
+    "migrated_at": "2026-06-08T20:54:13.095031+00:00"
+  }
+}

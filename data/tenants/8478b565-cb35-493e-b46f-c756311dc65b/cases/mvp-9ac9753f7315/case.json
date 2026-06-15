@@ -1,0 +1,20 @@
+{
+  "id": "mvp-9ac9753f7315",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "What are the pros and cons of nuclear energy?",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-22 04:30:43.851515+00:00",
+  "updated_at": "2026-05-22 04:30:43.851515+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "mvp-9ac9753f7315",
+    "source_debate_title": "What are the pros and cons of nuclear energy?",
+    "migrated_at": "2026-06-08T20:54:13.120264+00:00"
+  }
+}

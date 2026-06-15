@@ -1,0 +1,20 @@
+{
+  "id": "c37c9ce7-dadd-43f6-afff-5e4ee8b6db8e",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Künstliches Bewusstsein bei KI: Wirklichkeit oder bloße Simulation",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-08 02:41:19.084678+00:00",
+  "updated_at": "2026-06-08 02:41:19.084678+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "c37c9ce7-dadd-43f6-afff-5e4ee8b6db8e",
+    "source_debate_title": "Künstliches Bewusstsein bei KI: Wirklichkeit oder bloße Simulation",
+    "migrated_at": "2026-06-08T20:54:13.115817+00:00"
+  }
+}

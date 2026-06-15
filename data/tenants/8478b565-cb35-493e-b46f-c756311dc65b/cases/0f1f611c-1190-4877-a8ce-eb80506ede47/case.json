@@ -1,0 +1,20 @@
+{
+  "id": "0f1f611c-1190-4877-a8ce-eb80506ede47",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Danwa",
+  "description": "Analysieren Sie den folgenden Vertrag und die darauf basierende Argumentation.",
+  "status": "active",
+  "tags": [
+    "db7d189c-5f9f-4e1f-a871-215051a663a3"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-25 16:17:37.279940+00:00",
+  "updated_at": "2026-05-25 16:17:37.279940+00:00",
+  "metadata": {
+    "source_project_id": "23d9eb73-37a9-475e-8484-d2527d70e240",
+    "source_project_name": "Danwa",
+    "source_debate_id": "0f1f611c-1190-4877-a8ce-eb80506ede47",
+    "source_debate_title": "Analysieren Sie den folgenden Vertrag und die darauf basierende Argumentation.",
+    "migrated_at": "2026-06-08T20:54:13.090733+00:00"
+  }
+}

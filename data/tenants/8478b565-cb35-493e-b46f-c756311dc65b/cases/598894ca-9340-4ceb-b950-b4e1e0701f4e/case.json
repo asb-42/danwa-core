@@ -1,0 +1,20 @@
+{
+  "id": "598894ca-9340-4ceb-b950-b4e1e0701f4e",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Science",
+  "description": "Qualitätsprüfung wissenschaftlicher Thesenpapiere: Welche Kriterien müssen erfüllt sein",
+  "status": "active",
+  "tags": [
+    "bbd8fcd8-1b17-4a23-bb96-b87e3795c930"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-03 16:08:32.052643+00:00",
+  "updated_at": "2026-06-03 16:08:32.052643+00:00",
+  "metadata": {
+    "source_project_id": "cf7730d4-95c1-44ab-b46c-4bf19f9ba967",
+    "source_project_name": "Science",
+    "source_debate_id": "598894ca-9340-4ceb-b950-b4e1e0701f4e",
+    "source_debate_title": "Qualitätsprüfung wissenschaftlicher Thesenpapiere: Welche Kriterien müssen erfüllt sein",
+    "migrated_at": "2026-06-08T20:54:13.143454+00:00"
+  }
+}

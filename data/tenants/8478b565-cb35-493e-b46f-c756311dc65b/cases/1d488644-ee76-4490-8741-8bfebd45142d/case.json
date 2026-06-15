@@ -1,0 +1,20 @@
+{
+  "id": "1d488644-ee76-4490-8741-8bfebd45142d",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "AI Consciousness: Scientific Reality or Philosophical Fantasy",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-06 23:03:12.307975+00:00",
+  "updated_at": "2026-06-06 23:03:12.307975+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "1d488644-ee76-4490-8741-8bfebd45142d",
+    "source_debate_title": "AI Consciousness: Scientific Reality or Philosophical Fantasy",
+    "migrated_at": "2026-06-08T20:54:13.106278+00:00"
+  }
+}

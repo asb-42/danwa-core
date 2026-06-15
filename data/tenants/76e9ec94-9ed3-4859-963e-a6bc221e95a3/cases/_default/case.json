@@ -1,0 +1,12 @@
+{
+  "id": "_default",
+  "tenant_id": "76e9ec94-9ed3-4859-963e-a6bc221e95a3",
+  "title": "Default",
+  "description": "System default case",
+  "status": "active",
+  "tags": [],
+  "created_by": "",
+  "created_at": "2026-06-09T02:57:50.796346Z",
+  "updated_at": "2026-06-09T02:57:50.796356Z",
+  "metadata": {}
+}

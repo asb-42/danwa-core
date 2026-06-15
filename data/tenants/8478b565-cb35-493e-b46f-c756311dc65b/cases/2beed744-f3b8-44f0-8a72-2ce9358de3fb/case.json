@@ -1,0 +1,20 @@
+{
+  "id": "2beed744-f3b8-44f0-8a72-2ce9358de3fb",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Is AI conscious?",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-04 19:58:09.174462+00:00",
+  "updated_at": "2026-06-04 19:58:09.174462+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "2beed744-f3b8-44f0-8a72-2ce9358de3fb",
+    "source_debate_title": "Is AI conscious?",
+    "migrated_at": "2026-06-08T20:54:13.109480+00:00"
+  }
+}

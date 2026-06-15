@@ -1,0 +1,20 @@
+{
+  "id": "0cb0883b-12e9-49b1-ab6d-084d3dd6aae8",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Legal",
+  "description": "Ein deutscher Staatsbürger beantragt Bürgergeld nach SGB II (Antrag vom 12.10.20",
+  "status": "active",
+  "tags": [
+    "a2b36c89-c780-46a9-a3d6-9be631a37b3a"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-22 21:34:05.802227+00:00",
+  "updated_at": "2026-05-22 21:34:05.802227+00:00",
+  "metadata": {
+    "source_project_id": "b355c53e-ac3c-4324-a461-828ff976cae9",
+    "source_project_name": "Legal",
+    "source_debate_id": "0cb0883b-12e9-49b1-ab6d-084d3dd6aae8",
+    "source_debate_title": "Ein deutscher Staatsbürger beantragt Bürgergeld nach SGB II (Antrag vom 12.10.20",
+    "migrated_at": "2026-06-08T20:54:13.122513+00:00"
+  }
+}

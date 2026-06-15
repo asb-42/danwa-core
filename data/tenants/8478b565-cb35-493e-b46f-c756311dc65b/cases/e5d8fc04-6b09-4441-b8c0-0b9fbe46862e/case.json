@@ -1,0 +1,20 @@
+{
+  "id": "e5d8fc04-6b09-4441-b8c0-0b9fbe46862e",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Science",
+  "description": "Vollständigkeit und Plausibilität des Thesenpapiers zur Wirkkette: Kritische Prüfung erforderlich",
+  "status": "active",
+  "tags": [
+    "bbd8fcd8-1b17-4a23-bb96-b87e3795c930"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-05 00:47:48.820281+00:00",
+  "updated_at": "2026-06-05 00:47:48.820281+00:00",
+  "metadata": {
+    "source_project_id": "cf7730d4-95c1-44ab-b46c-4bf19f9ba967",
+    "source_project_name": "Science",
+    "source_debate_id": "e5d8fc04-6b09-4441-b8c0-0b9fbe46862e",
+    "source_debate_title": "Vollständigkeit und Plausibilität des Thesenpapiers zur Wirkkette: Kritische Prüfung erforderlich",
+    "migrated_at": "2026-06-08T20:54:13.144214+00:00"
+  }
+}

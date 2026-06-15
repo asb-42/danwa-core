@@ -1,0 +1,20 @@
+{
+  "id": "2730051e-3d23-4467-a27a-477ca8c712d1",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Legal",
+  "description": "Die Kammer eines Berliner Verwaltungsgerichts beschließt gemäß § 6 Abs.",
+  "status": "active",
+  "tags": [
+    "a2b36c89-c780-46a9-a3d6-9be631a37b3a"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-15 04:13:57.213289+00:00",
+  "updated_at": "2026-05-15 04:33:11.491501+00:00",
+  "metadata": {
+    "source_project_id": "b355c53e-ac3c-4324-a461-828ff976cae9",
+    "source_project_name": "Legal",
+    "source_debate_id": "2730051e-3d23-4467-a27a-477ca8c712d1",
+    "source_debate_title": "Die Kammer eines Berliner Verwaltungsgerichts beschließt gemäß § 6 Abs.",
+    "migrated_at": "2026-06-08T20:54:13.125655+00:00"
+  }
+}

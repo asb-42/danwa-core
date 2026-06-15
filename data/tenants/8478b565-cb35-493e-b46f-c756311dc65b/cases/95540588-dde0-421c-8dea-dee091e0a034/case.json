@@ -1,0 +1,20 @@
+{
+  "id": "95540588-dde0-421c-8dea-dee091e0a034",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Can Artificial Intelligence Ever Be Conscious",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-08 02:02:48.491784+00:00",
+  "updated_at": "2026-06-08 02:02:48.491784+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "95540588-dde0-421c-8dea-dee091e0a034",
+    "source_debate_title": "Can Artificial Intelligence Ever Be Conscious",
+    "migrated_at": "2026-06-08T20:54:13.114607+00:00"
+  }
+}

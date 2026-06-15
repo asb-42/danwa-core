@@ -1,0 +1,20 @@
+{
+  "id": "59978169-3f85-44f1-852b-3c1d8c043e59",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Philosophy",
+  "description": "Wie bildet sich unsere Realität?",
+  "status": "active",
+  "tags": [
+    "3ced7232-f1f7-492f-b29a-46e08f759211"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-24 15:43:06.682014+00:00",
+  "updated_at": "2026-05-24 15:43:06.682014+00:00",
+  "metadata": {
+    "source_project_id": "e186f9ed-d3bc-4e97-b8a4-cc133f548f48",
+    "source_project_name": "Philosophy",
+    "source_debate_id": "59978169-3f85-44f1-852b-3c1d8c043e59",
+    "source_debate_title": "Wie bildet sich unsere Realität?",
+    "migrated_at": "2026-06-08T20:54:13.151513+00:00"
+  }
+}

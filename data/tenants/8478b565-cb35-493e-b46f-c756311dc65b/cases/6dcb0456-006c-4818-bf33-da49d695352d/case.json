@@ -1,0 +1,20 @@
+{
+  "id": "6dcb0456-006c-4818-bf33-da49d695352d",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "AI",
+  "description": "The Dual Edge: AI in Ecosystem Conservation",
+  "status": "active",
+  "tags": [
+    "d8bd53a6-294a-4f89-8d04-30368dfa10a6"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-06 04:17:37.664608+00:00",
+  "updated_at": "2026-06-06 04:17:37.664608+00:00",
+  "metadata": {
+    "source_project_id": "14fcf7dd-349b-4114-a2a8-5b1926ed9d5f",
+    "source_project_name": "AI",
+    "source_debate_id": "6dcb0456-006c-4818-bf33-da49d695352d",
+    "source_debate_title": "The Dual Edge: AI in Ecosystem Conservation",
+    "migrated_at": "2026-06-08T20:54:13.070509+00:00"
+  }
+}

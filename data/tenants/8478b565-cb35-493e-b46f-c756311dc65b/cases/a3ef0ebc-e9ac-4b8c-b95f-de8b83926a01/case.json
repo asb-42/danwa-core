@@ -1,0 +1,20 @@
+{
+  "id": "a3ef0ebc-e9ac-4b8c-b95f-de8b83926a01",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "AI",
+  "description": "Can an AI be held morally or legally accountable for harm?",
+  "status": "active",
+  "tags": [
+    "d8bd53a6-294a-4f89-8d04-30368dfa10a6"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-19 00:34:51.209609+00:00",
+  "updated_at": "2026-05-19 00:58:05.967637+00:00",
+  "metadata": {
+    "source_project_id": "14fcf7dd-349b-4114-a2a8-5b1926ed9d5f",
+    "source_project_name": "AI",
+    "source_debate_id": "a3ef0ebc-e9ac-4b8c-b95f-de8b83926a01",
+    "source_debate_title": "Can an AI be held morally or legally accountable for harm?",
+    "migrated_at": "2026-06-08T20:54:13.081606+00:00"
+  }
+}

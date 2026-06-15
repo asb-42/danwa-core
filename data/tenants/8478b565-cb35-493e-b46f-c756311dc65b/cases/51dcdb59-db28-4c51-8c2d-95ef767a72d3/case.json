@@ -1,0 +1,20 @@
+{
+  "id": "51dcdb59-db28-4c51-8c2d-95ef767a72d3",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Danwa",
+  "description": "For an agent in a multi-agent debate platform we are trying to implement the best prompt for the **role of the neutral m",
+  "status": "active",
+  "tags": [
+    "db7d189c-5f9f-4e1f-a871-215051a663a3"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-23 21:21:14.462668+00:00",
+  "updated_at": "2026-05-23 21:21:14.462668+00:00",
+  "metadata": {
+    "source_project_id": "23d9eb73-37a9-475e-8484-d2527d70e240",
+    "source_project_name": "Danwa",
+    "source_debate_id": "51dcdb59-db28-4c51-8c2d-95ef767a72d3",
+    "source_debate_title": "For an agent in a multi-agent debate platform we are trying to implement the best prompt for the **role of the neutral m",
+    "migrated_at": "2026-06-08T20:54:13.092906+00:00"
+  }
+}

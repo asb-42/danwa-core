@@ -1,0 +1,31 @@
+{
+  "schema_version": "2.0.0",
+  "module_id": "bd-3ab2b815-91ef-5d1f-9539-f960b5ec7a3b",
+  "name": {
+    "en": "Ethicist (Default)"
+  },
+  "description": {
+    "en": "Default agent bundle for the Ethicist role — used in multi-phase debate workflows."
+  },
+  "version": "1.0.0",
+  "type": "bundle",
+  "category": "bundles",
+  "author": {
+    "name": "Danwa Community"
+  },
+  "license": "CC-BY-4.0",
+  "tags": [
+    "ethicist",
+    "default",
+    "multi-phase"
+  ],
+  "language": "en",
+  "profile_file": "profile.json",
+  "profile_format": "json",
+  "dependencies": {
+    "agent-cores/ethicist-default": ">=1.0.0"
+  },
+  "created_at": "2026-05-25T04:51:47+02:00",
+  "updated_at": "2026-06-05T21:46:02.892803+00:00",
+  "checksum": "2370b80b68436cb6fc4f6337517c787cb6814e899ed3115346b8fd1ed1be9e2e"
+}

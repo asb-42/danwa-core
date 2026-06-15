@@ -1,0 +1,20 @@
+{
+  "id": "d4a17fe0-423a-4cda-8ba5-7bc8d590e51e",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Legal",
+  "description": "[Tr Dr] Erstelle einen Mietvertragsentwurf für eine Wohnung in Berlin.",
+  "status": "active",
+  "tags": [
+    "a2b36c89-c780-46a9-a3d6-9be631a37b3a"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-31 02:07:45.256784+00:00",
+  "updated_at": "2026-05-31 02:07:45.256784+00:00",
+  "metadata": {
+    "source_project_id": "b355c53e-ac3c-4324-a461-828ff976cae9",
+    "source_project_name": "Legal",
+    "source_debate_id": "d4a17fe0-423a-4cda-8ba5-7bc8d590e51e",
+    "source_debate_title": "[Tr Dr] Erstelle einen Mietvertragsentwurf für eine Wohnung in Berlin.",
+    "migrated_at": "2026-06-08T20:54:13.137504+00:00"
+  }
+}

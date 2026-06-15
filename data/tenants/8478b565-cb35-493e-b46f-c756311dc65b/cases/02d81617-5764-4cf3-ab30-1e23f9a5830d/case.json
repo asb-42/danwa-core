@@ -1,0 +1,20 @@
+{
+  "id": "02d81617-5764-4cf3-ab30-1e23f9a5830d",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Philosophy",
+  "description": "Was ist Liebe?",
+  "status": "active",
+  "tags": [
+    "3ced7232-f1f7-492f-b29a-46e08f759211"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-16 01:16:27.517029+00:00",
+  "updated_at": "2026-05-16 01:18:46.057648+00:00",
+  "metadata": {
+    "source_project_id": "e186f9ed-d3bc-4e97-b8a4-cc133f548f48",
+    "source_project_name": "Philosophy",
+    "source_debate_id": "02d81617-5764-4cf3-ab30-1e23f9a5830d",
+    "source_debate_title": "Was ist Liebe?",
+    "migrated_at": "2026-06-08T20:54:13.147186+00:00"
+  }
+}

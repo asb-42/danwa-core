@@ -1,0 +1,20 @@
+{
+  "id": "0eb043ff-1be4-4d5b-b23f-cc8ab32a872e",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Standardized Testing: Fair Assessment or Flawed System",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-08 02:03:01.010659+00:00",
+  "updated_at": "2026-06-08 02:03:01.010659+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "0eb043ff-1be4-4d5b-b23f-cc8ab32a872e",
+    "source_debate_title": "Standardized Testing: Fair Assessment or Flawed System",
+    "migrated_at": "2026-06-08T20:54:13.104297+00:00"
+  }
+}

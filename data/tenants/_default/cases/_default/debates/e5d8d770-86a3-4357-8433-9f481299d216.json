@@ -1,0 +1,22 @@
+{
+  "debate_id": "e5d8d770-86a3-4357-8433-9f481299d216",
+  "session_id": "wf-69400307f9dc",
+  "status": "failed",
+  "title": "Test",
+  "request": {
+    "case": {
+      "text": "Test"
+    },
+    "max_rounds": 10
+  },
+  "max_rounds": 10,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-05-30 04:29:37.127399+00:00",
+  "updated_at": "2026-05-30 04:29:37.127399+00:00",
+  "result": null,
+  "is_mvp": true,
+  "workflow_id": "wf-fcf96cb1",
+  "workflow_name": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land? (Transactional Drafting)",
+  "error": "cannot access local variable 'num_outputs' where it is not associated with a value"
+}

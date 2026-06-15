@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "module_id": "bd-653c3497-929b-50f3-920f-b827a1c61b9b",
+  "name": {
+    "en": "Dir Export",
+    "de": "Dir Export"
+  },
+  "description": {
+    "en": "",
+    "de": ""
+  },
+  "version": "1.0.0",
+  "type": "bundle",
+  "category": "bundles",
+  "profile_file": "profile.json",
+  "profile_format": "json",
+  "dependencies": {
+    "agent-cores/strategist-default": ">=1.0.0",
+    "llm-profiles/test-llm": ">=1.0.0"
+  },
+  "updated_at": "2026-06-05T21:46:02.892439+00:00",
+  "checksum": "d871262d477c3f1ba81de3d5ba329209db993ef67df5cd7fed2c0b545622fca4"
+}

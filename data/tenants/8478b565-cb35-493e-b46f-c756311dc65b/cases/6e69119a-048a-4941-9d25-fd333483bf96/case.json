@@ -1,0 +1,20 @@
+{
+  "id": "6e69119a-048a-4941-9d25-fd333483bf96",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Legal",
+  "description": "Ergänzende Hinweise und Rückfragen zur Falleinschätzung aus der vorangegangenen Debatte (ist im RAG vorhanden):\n\n- Statt",
+  "status": "active",
+  "tags": [
+    "a2b36c89-c780-46a9-a3d6-9be631a37b3a"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-27 21:50:59.925750+00:00",
+  "updated_at": "2026-05-27 21:50:59.925750+00:00",
+  "metadata": {
+    "source_project_id": "b355c53e-ac3c-4324-a461-828ff976cae9",
+    "source_project_name": "Legal",
+    "source_debate_id": "6e69119a-048a-4941-9d25-fd333483bf96",
+    "source_debate_title": "Ergänzende Hinweise und Rückfragen zur Falleinschätzung aus der vorangegangenen Debatte (ist im RAG vorhanden):\n\n- Statt",
+    "migrated_at": "2026-06-08T20:54:13.127398+00:00"
+  }
+}

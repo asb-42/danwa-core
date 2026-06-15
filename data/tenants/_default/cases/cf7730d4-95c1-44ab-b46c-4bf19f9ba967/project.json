@@ -1,0 +1,19 @@
+{
+  "id": "cf7730d4-95c1-44ab-b46c-4bf19f9ba967",
+  "name": "Science",
+  "description": "",
+  "is_system": false,
+  "tenant_id": "_default",
+  "created_at": "2026-06-03T15:30:52.037716Z",
+  "updated_at": "2026-06-03T15:30:52.037725Z",
+  "config": {
+    "language": null,
+    "default_max_rounds": null,
+    "default_consensus_threshold": null,
+    "search_mode": null,
+    "searxng_url": null,
+    "llm_profiles": {},
+    "agent_personas": {},
+    "prompt_variants": {}
+  }
+}

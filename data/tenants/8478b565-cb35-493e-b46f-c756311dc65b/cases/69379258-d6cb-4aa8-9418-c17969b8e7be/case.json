@@ -1,0 +1,20 @@
+{
+  "id": "69379258-d6cb-4aa8-9418-c17969b8e7be",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "lsg",
+  "description": "Gerichtsfähigkeit des Schriftsatzentwurfs: Rechtsquellenzitation und Fehleranalyse im Fokus",
+  "status": "active",
+  "tags": [
+    "20306cdd-e0bc-49b6-a6c9-7077ccc9ad57"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-07 16:31:01.609479+00:00",
+  "updated_at": "2026-06-07 16:31:01.609479+00:00",
+  "metadata": {
+    "source_project_id": "129a9169-f350-4ad1-a8b3-7c1b34eb39ca",
+    "source_project_name": "lsg",
+    "source_debate_id": "69379258-d6cb-4aa8-9418-c17969b8e7be",
+    "source_debate_title": "Gerichtsfähigkeit des Schriftsatzentwurfs: Rechtsquellenzitation und Fehleranalyse im Fokus",
+    "migrated_at": "2026-06-08T20:54:13.064858+00:00"
+  }
+}

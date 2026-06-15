@@ -1,0 +1,21 @@
+{
+  "debate_id": "428d59ff-e957-43d1-a3a8-ba1adc5db71b",
+  "session_id": "wf-0bd9e72e0930",
+  "status": "running",
+  "title": "Erstelle einen Kaufvertrag für einen Gebrauchtwagen zwischen zwei Privatpersonen.",
+  "request": {
+    "case": {
+      "text": "Erstelle einen Kaufvertrag für einen Gebrauchtwagen zwischen zwei Privatpersonen."
+    },
+    "max_rounds": 10
+  },
+  "max_rounds": 10,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-05-30 04:08:58.466931+00:00",
+  "updated_at": "2026-05-30 04:08:58.466931+00:00",
+  "result": null,
+  "is_mvp": true,
+  "workflow_id": "wf-fcf96cb1",
+  "workflow_name": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land? (Transactional Drafting)"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "bundle-789486115713",
+  "name": "Roundtrip Updated",
+  "description": "After edit",
+  "llm_profile_id": "test-llm",
+  "role_type_id": "strategist",
+  "tone_profile_id": null,
+  "composition": {
+    "agent_core_id": "strategist-default",
+    "argumentation_pattern_id": "socratic",
+    "prompt_modifier_id": ""
+  },
+  "is_active": true
+}

@@ -1,0 +1,20 @@
+{
+  "id": "1e22ff8b-73de-44f8-8155-32c75677ba6a",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Legal",
+  "description": "Bitte den nachfolgenden Pachtvertragsentwurf \"Pachtvertrag Wochenendgrundstueck Rudolfstrasse 4 _v3.",
+  "status": "active",
+  "tags": [
+    "a2b36c89-c780-46a9-a3d6-9be631a37b3a"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-29 16:36:53.114753+00:00",
+  "updated_at": "2026-05-29 16:36:53.114753+00:00",
+  "metadata": {
+    "source_project_id": "b355c53e-ac3c-4324-a461-828ff976cae9",
+    "source_project_name": "Legal",
+    "source_debate_id": "1e22ff8b-73de-44f8-8155-32c75677ba6a",
+    "source_debate_title": "Bitte den nachfolgenden Pachtvertragsentwurf \"Pachtvertrag Wochenendgrundstueck Rudolfstrasse 4 _v3.",
+    "migrated_at": "2026-06-08T20:54:13.122853+00:00"
+  }
+}

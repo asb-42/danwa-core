@@ -1,0 +1,22 @@
+{
+  "debate_id": "360a1a8f-1d92-4b0b-a607-50fdd7318404",
+  "session_id": "wf-1d27015684d6",
+  "status": "failed",
+  "title": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land?",
+  "request": {
+    "case": {
+      "text": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land?"
+    },
+    "max_rounds": 3
+  },
+  "max_rounds": 3,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-05-30 03:07:13.873281+00:00",
+  "updated_at": "2026-05-30 03:07:13.873281+00:00",
+  "result": null,
+  "is_mvp": true,
+  "workflow_id": "wf-3ca49993",
+  "workflow_name": "Transactional Drafting Test",
+  "error": "Recursion limit of 100 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/GRAPH_RECURSION_LIMIT"
+}

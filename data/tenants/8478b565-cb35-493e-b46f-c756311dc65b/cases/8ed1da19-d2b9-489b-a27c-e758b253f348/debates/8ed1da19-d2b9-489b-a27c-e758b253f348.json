@@ -1,0 +1,488 @@
+{
+  "debate_id": "8ed1da19-d2b9-489b-a27c-e758b253f348",
+  "status": "failed",
+  "title": "Was ist Liebe?",
+  "request": {
+    "case": {
+      "text": "Was ist Liebe?",
+      "project_id": null
+    },
+    "agent_profile": [
+      {
+        "role": "strategist",
+        "llm_profile": "default",
+        "temperature": 0.7
+      },
+      {
+        "role": "critic",
+        "llm_profile": "default",
+        "temperature": 0.7
+      },
+      {
+        "role": "optimizer",
+        "llm_profile": "default",
+        "temperature": 0.7
+      },
+      {
+        "role": "moderator",
+        "llm_profile": "default",
+        "temperature": 0.7
+      }
+    ],
+    "max_rounds": 3,
+    "consensus_threshold": 0.8,
+    "enable_fact_check": false,
+    "enable_memory": false,
+    "search_mode": "optional",
+    "llm_profile_id": "local-gemma",
+    "prompt_variant": "default",
+    "agent_persona_ids": {
+      "strategist": "strategist-default",
+      "critic": "critic-default",
+      "optimizer": "optimizer-default",
+      "moderator": "moderator-default"
+    },
+    "language": "de",
+    "document_ids": [],
+    "rag_auto_retrieve": false,
+    "include_debate_results": false,
+    "enable_extra_rounds": true,
+    "a2a_agents": []
+  },
+  "max_rounds": 3,
+  "current_round": 4,
+  "rounds": [
+    {
+      "round": 1,
+      "consensus": 0.0,
+      "agent_outputs": [
+        {
+          "role": "strategist",
+          "content": "[strategist] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "critic",
+          "content": "[critic] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "optimizer",
+          "content": "[optimizer] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "moderator",
+          "content": "[moderator] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "consensus": 0.0,
+      "agent_outputs": [
+        {
+          "role": "strategist",
+          "content": "[strategist] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "critic",
+          "content": "[critic] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "optimizer",
+          "content": "[optimizer] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "moderator",
+          "content": "[moderator] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "strategist",
+          "content": "[strategist] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "critic",
+          "content": "[critic] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "optimizer",
+          "content": "[optimizer] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "moderator",
+          "content": "[moderator] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "consensus": 0.0,
+      "agent_outputs": [
+        {
+          "role": "strategist",
+          "content": "[strategist] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "critic",
+          "content": "[critic] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "optimizer",
+          "content": "[optimizer] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "moderator",
+          "content": "[moderator] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "strategist",
+          "content": "[strategist] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "critic",
+          "content": "[critic] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "optimizer",
+          "content": "[optimizer] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "moderator",
+          "content": "[moderator] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "strategist",
+          "content": "[strategist] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "critic",
+          "content": "[critic] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "optimizer",
+          "content": "[optimizer] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        },
+        {
+          "role": "moderator",
+          "content": "[moderator] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+          "tokens_used": 13
+        }
+      ]
+    }
+  ],
+  "created_at": "2026-05-16 01:09:45.693868+00:00",
+  "updated_at": "2026-05-16 01:24:48.164151+00:00",
+  "result": {
+    "context": "Was ist Liebe?",
+    "agent_profile": [
+      {
+        "role": "strategist",
+        "llm_profile": "default",
+        "temperature": 0.7
+      },
+      {
+        "role": "critic",
+        "llm_profile": "default",
+        "temperature": 0.7
+      },
+      {
+        "role": "optimizer",
+        "llm_profile": "default",
+        "temperature": 0.7
+      },
+      {
+        "role": "moderator",
+        "llm_profile": "default",
+        "temperature": 0.7
+      }
+    ],
+    "max_rounds": 3,
+    "threshold": 0.8,
+    "enable_fact_check": false,
+    "enable_memory": false,
+    "rag_context": "",
+    "search_mode": "optional",
+    "llm_profile_id": "local-gemma",
+    "prompt_variant": "default",
+    "agent_persona_ids": {
+      "strategist": "strategist-default",
+      "critic": "critic-default",
+      "optimizer": "optimizer-default",
+      "moderator": "moderator-default"
+    },
+    "language": "de",
+    "project_id": "61d41c6f-f334-4bf3-8818-886f8f3a6a2b",
+    "session_id": "8ed1da19-d2b9-489b-a27c-e758b253f348",
+    "current_round": 4,
+    "current_agent_index": 0,
+    "rounds": [
+      {
+        "round": 1,
+        "consensus": 0.0,
+        "agent_outputs": [
+          {
+            "role": "strategist",
+            "content": "[strategist] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "critic",
+            "content": "[critic] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "optimizer",
+            "content": "[optimizer] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "moderator",
+            "content": "[moderator] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "consensus": 0.0,
+        "agent_outputs": [
+          {
+            "role": "strategist",
+            "content": "[strategist] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "critic",
+            "content": "[critic] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "optimizer",
+            "content": "[optimizer] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "moderator",
+            "content": "[moderator] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "strategist",
+            "content": "[strategist] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "critic",
+            "content": "[critic] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "optimizer",
+            "content": "[optimizer] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "moderator",
+            "content": "[moderator] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "consensus": 0.0,
+        "agent_outputs": [
+          {
+            "role": "strategist",
+            "content": "[strategist] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "critic",
+            "content": "[critic] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "optimizer",
+            "content": "[optimizer] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "moderator",
+            "content": "[moderator] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "strategist",
+            "content": "[strategist] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "critic",
+            "content": "[critic] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "optimizer",
+            "content": "[optimizer] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "moderator",
+            "content": "[moderator] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "strategist",
+            "content": "[strategist] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "critic",
+            "content": "[critic] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "optimizer",
+            "content": "[optimizer] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          },
+          {
+            "role": "moderator",
+            "content": "[moderator] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+            "tokens_used": 13
+          }
+        ]
+      }
+    ],
+    "agent_outputs": [
+      {
+        "role": "strategist",
+        "content": "[strategist] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      },
+      {
+        "role": "critic",
+        "content": "[critic] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      },
+      {
+        "role": "optimizer",
+        "content": "[optimizer] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      },
+      {
+        "role": "moderator",
+        "content": "[moderator] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      },
+      {
+        "role": "strategist",
+        "content": "[strategist] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      },
+      {
+        "role": "critic",
+        "content": "[critic] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      },
+      {
+        "role": "optimizer",
+        "content": "[optimizer] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      },
+      {
+        "role": "moderator",
+        "content": "[moderator] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      },
+      {
+        "role": "strategist",
+        "content": "[strategist] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      },
+      {
+        "role": "critic",
+        "content": "[critic] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      },
+      {
+        "role": "optimizer",
+        "content": "[optimizer] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      },
+      {
+        "role": "moderator",
+        "content": "[moderator] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+        "tokens_used": 13
+      }
+    ],
+    "current_draft": "\n[strategist] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[critic] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[optimizer] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[moderator] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[strategist] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[critic] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[optimizer] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[moderator] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[strategist] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[critic] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[optimizer] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[moderator] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+    "final_consensus": 0.0,
+    "output": "\n[strategist] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[critic] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[optimizer] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[moderator] Round 1: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[strategist] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[critic] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[optimizer] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[moderator] Round 2: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[strategist] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[critic] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[optimizer] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma\n[moderator] Round 3: LLM call failed (InvalidURL: Invalid IPv4 address: '192.168.278.200'). Profile: local-gemma",
+    "validation_report": [],
+    "used_variant": "default",
+    "anomalies": [
+      "LLM call failed for strategist in round 1 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for critic in round 1 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for optimizer in round 1 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for moderator in round 1 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for strategist in round 2 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for critic in round 2 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for optimizer in round 2 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for moderator in round 2 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for strategist in round 3 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for critic in round 3 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for optimizer in round 3 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for moderator in round 3 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for strategist in round 1 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for critic in round 1 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for optimizer in round 1 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for moderator in round 1 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for strategist in round 2 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for critic in round 2 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for optimizer in round 2 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for moderator in round 2 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for strategist in round 3 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for critic in round 3 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for optimizer in round 3 (InvalidURL: Invalid IPv4 address: '192.168.278.200')",
+      "LLM call failed for moderator in round 3 (InvalidURL: Invalid IPv4 address: '192.168.278.200')"
+    ],
+    "interactions": [],
+    "active_interrupt": null,
+    "hitl_enabled": true,
+    "hitl_mode": "full",
+    "auto_query_threshold": 0.4,
+    "max_interrupts_per_round": 3,
+    "interrupt_timeout_seconds": 300,
+    "pending_injects": [],
+    "round_interrupt_count": 0,
+    "is_paused": false,
+    "a2a_config": {
+      "enabled": false
+    },
+    "enable_extra_rounds": true,
+    "extension_granted": null
+  }
+}

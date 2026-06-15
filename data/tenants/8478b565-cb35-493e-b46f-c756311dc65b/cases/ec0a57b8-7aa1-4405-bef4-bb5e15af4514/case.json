@@ -1,0 +1,20 @@
+{
+  "id": "ec0a57b8-7aa1-4405-bef4-bb5e15af4514",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Philosophy",
+  "description": "Was soll ich tun?",
+  "status": "active",
+  "tags": [
+    "3ced7232-f1f7-492f-b29a-46e08f759211"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-14 06:23:03.193271+00:00",
+  "updated_at": "2026-05-14 06:36:03.844258+00:00",
+  "metadata": {
+    "source_project_id": "e186f9ed-d3bc-4e97-b8a4-cc133f548f48",
+    "source_project_name": "Philosophy",
+    "source_debate_id": "ec0a57b8-7aa1-4405-bef4-bb5e15af4514",
+    "source_debate_title": "Was soll ich tun?",
+    "migrated_at": "2026-06-08T20:54:13.165811+00:00"
+  }
+}

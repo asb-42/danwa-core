@@ -1,0 +1,20 @@
+{
+  "id": "13015093-b951-425b-90e4-a908eb2566e1",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Danwa",
+  "description": "For an agent in a multi-agent debate platform we are trying to implement the best prompt for the **role of the synthesis",
+  "status": "active",
+  "tags": [
+    "db7d189c-5f9f-4e1f-a871-215051a663a3"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-23 21:03:05.722444+00:00",
+  "updated_at": "2026-05-23 21:03:05.722444+00:00",
+  "metadata": {
+    "source_project_id": "23d9eb73-37a9-475e-8484-d2527d70e240",
+    "source_project_name": "Danwa",
+    "source_debate_id": "13015093-b951-425b-90e4-a908eb2566e1",
+    "source_debate_title": "For an agent in a multi-agent debate platform we are trying to implement the best prompt for the **role of the synthesis",
+    "migrated_at": "2026-06-08T20:54:13.091539+00:00"
+  }
+}

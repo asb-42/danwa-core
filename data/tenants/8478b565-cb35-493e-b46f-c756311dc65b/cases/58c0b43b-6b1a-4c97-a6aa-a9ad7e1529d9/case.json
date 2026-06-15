@@ -1,0 +1,20 @@
+{
+  "id": "58c0b43b-6b1a-4c97-a6aa-a9ad7e1529d9",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Philosophy",
+  "description": "Das Individuum möchte tun und lassen, was es will, ohne Regeln.",
+  "status": "active",
+  "tags": [
+    "3ced7232-f1f7-492f-b29a-46e08f759211"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-17 12:48:47.942884+00:00",
+  "updated_at": "2026-05-17 13:16:29.877438+00:00",
+  "metadata": {
+    "source_project_id": "e186f9ed-d3bc-4e97-b8a4-cc133f548f48",
+    "source_project_name": "Philosophy",
+    "source_debate_id": "58c0b43b-6b1a-4c97-a6aa-a9ad7e1529d9",
+    "source_debate_title": "Das Individuum möchte tun und lassen, was es will, ohne Regeln.",
+    "migrated_at": "2026-06-08T20:54:13.150510+00:00"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "bc223319-e325-4c31-91e8-05e0fc31d3ee",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Philosophy",
+  "description": "Was ist der Sinn des Lebens?",
+  "status": "active",
+  "tags": [
+    "3ced7232-f1f7-492f-b29a-46e08f759211"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-16 00:49:36.075757+00:00",
+  "updated_at": "2026-05-16 01:01:11.023161+00:00",
+  "metadata": {
+    "source_project_id": "e186f9ed-d3bc-4e97-b8a4-cc133f548f48",
+    "source_project_name": "Philosophy",
+    "source_debate_id": "bc223319-e325-4c31-91e8-05e0fc31d3ee",
+    "source_debate_title": "Was ist der Sinn des Lebens?",
+    "migrated_at": "2026-06-08T20:54:13.161301+00:00"
+  }
+}

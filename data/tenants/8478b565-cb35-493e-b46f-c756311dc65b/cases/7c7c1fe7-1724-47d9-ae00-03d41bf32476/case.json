@@ -1,0 +1,20 @@
+{
+  "id": "7c7c1fe7-1724-47d9-ae00-03d41bf32476",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "TestFix: Tempolimit auf Autobahnen? Kurzanalyse.",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-30 03:34:23.735866+00:00",
+  "updated_at": "2026-05-30 03:34:23.735866+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "7c7c1fe7-1724-47d9-ae00-03d41bf32476",
+    "source_debate_title": "TestFix: Tempolimit auf Autobahnen? Kurzanalyse.",
+    "migrated_at": "2026-06-08T20:54:13.113866+00:00"
+  }
+}

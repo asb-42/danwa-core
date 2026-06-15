@@ -1,0 +1,20 @@
+{
+  "id": "3f841d7f-11f3-4653-9c22-b23c93049ed8",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Legal",
+  "description": "In den vorangegangenen Debatten (siehe RAG-Kontext) wurde empfohlen:\n- Untätigkeitsklage\n- Eilantrag auf einstweilige Le",
+  "status": "active",
+  "tags": [
+    "a2b36c89-c780-46a9-a3d6-9be631a37b3a"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-28 12:42:36.503699+00:00",
+  "updated_at": "2026-05-28 12:42:36.503699+00:00",
+  "metadata": {
+    "source_project_id": "b355c53e-ac3c-4324-a461-828ff976cae9",
+    "source_project_name": "Legal",
+    "source_debate_id": "3f841d7f-11f3-4653-9c22-b23c93049ed8",
+    "source_debate_title": "In den vorangegangenen Debatten (siehe RAG-Kontext) wurde empfohlen:\n- Untätigkeitsklage\n- Eilantrag auf einstweilige Le",
+    "migrated_at": "2026-06-08T20:54:13.126173+00:00"
+  }
+}

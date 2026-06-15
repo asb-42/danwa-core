@@ -1,0 +1,20 @@
+{
+  "id": "7d3e505c-0886-4ffe-8572-a3d1deb19d2a",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Can Artificial Intelligence Achieve True Consciousness",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-08 02:43:57.850585+00:00",
+  "updated_at": "2026-06-08 02:43:57.850585+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "7d3e505c-0886-4ffe-8572-a3d1deb19d2a",
+    "source_debate_title": "Can Artificial Intelligence Achieve True Consciousness",
+    "migrated_at": "2026-06-08T20:54:13.114111+00:00"
+  }
+}

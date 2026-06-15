@@ -1,0 +1,25 @@
+{
+  "debate_id": "2e65ee61-9816-4a39-ae06-53bbb634de95",
+  "session_id": "wf-241b7c4b9526",
+  "status": "completed",
+  "title": "Maschinelles Bewusstsein: Wissenschaftliche Möglichkeit oder philosophische Illusion",
+  "request": {
+    "case": {
+      "text": "Is AI conscious?"
+    },
+    "max_rounds": 5
+  },
+  "max_rounds": 5,
+  "current_round": 1,
+  "rounds": [],
+  "created_at": "2026-06-06 23:02:02.123515+00:00",
+  "updated_at": "2026-06-06 23:02:02.123515+00:00",
+  "result": {
+    "final_consensus": 0.0,
+    "consensus": 0.0,
+    "output": "\n\n[INPUT]\nIs AI conscious?\n\n[INITIALIZE]\nWorkflow initialized"
+  },
+  "is_mvp": true,
+  "workflow_id": "test-wf-launch",
+  "workflow_name": "Test Launch Workflow"
+}

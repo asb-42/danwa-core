@@ -1,0 +1,12 @@
+backup:
+  backup_auto_on_shutdown: true
+  backup_dir: data/backups
+  backup_enabled: true
+  backup_encrypt: false
+  backup_retention_count: 5
+dms:
+  ocr_preferred_engine: easyocr
+ui:
+  language: en
+utility_llm:
+  service_llm_profile_id: b006090a-3ed2-4e58-bf30-2942438856b1

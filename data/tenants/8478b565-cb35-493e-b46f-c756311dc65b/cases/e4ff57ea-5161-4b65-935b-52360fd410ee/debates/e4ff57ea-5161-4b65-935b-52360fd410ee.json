@@ -1,0 +1,25 @@
+{
+  "debate_id": "e4ff57ea-5161-4b65-935b-52360fd410ee",
+  "session_id": "wf-f5f26425a55e",
+  "status": "completed",
+  "title": "Erstelle einen Mietvertragsentwurf für eine Wohnung in Berlin. Der Vermieter ist Privatperson, der Mieter ist eine GmbH.",
+  "request": {
+    "case": {
+      "text": "Erstelle einen Mietvertragsentwurf für eine Wohnung in Berlin. Der Vermieter ist Privatperson, der Mieter ist eine GmbH. Der Entwurf enthält folgende Klauseln:\n1. Kaution: 5 Monatsmieten, fällig vor Übergabe.\n2. Schönheitsreparaturen: Mieter übernimmt alle Renovierungsarbeiten bei Auszug, unabhängig von Dauer des Mietverhältnisses.\n3. Kündigung: 1 Monat zum Monatsende.\n4. Mieterhöhung: Indexmiete nach VPI, aber keine Obergrenze.\n5. Haftung: Mieter haftet für alle Schäden, auch bei höherer Gewalt."
+    },
+    "max_rounds": 5
+  },
+  "max_rounds": 5,
+  "current_round": 5,
+  "rounds": [],
+  "created_at": "2026-05-30 15:03:26.830687+00:00",
+  "updated_at": "2026-05-30 15:03:26.830687+00:00",
+  "result": {
+    "final_consensus": 0.81,
+    "consensus": 0.81,
+    "output": ""
+  },
+  "is_mvp": true,
+  "workflow_id": "wf-a99beb06",
+  "workflow_name": "Erstelle einen Mietvertragsentwurf für eine Wohnung in Berlin. Der Vermieter ist (Transactional Drafting)"
+}

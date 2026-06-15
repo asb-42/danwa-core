@@ -1,0 +1,20 @@
+{
+  "id": "305f1b9f-3661-45d5-9193-b3e736491c1b",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "AI",
+  "description": "Mindestbeitragsbemessung in der GKV: Starre Anwendung trotz existenzieller Notlage und Systemversagen?",
+  "status": "active",
+  "tags": [
+    "d8bd53a6-294a-4f89-8d04-30368dfa10a6"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-07 01:28:49.729390+00:00",
+  "updated_at": "2026-06-07 01:28:49.729390+00:00",
+  "metadata": {
+    "source_project_id": "14fcf7dd-349b-4114-a2a8-5b1926ed9d5f",
+    "source_project_name": "AI",
+    "source_debate_id": "305f1b9f-3661-45d5-9193-b3e736491c1b",
+    "source_debate_title": "Mindestbeitragsbemessung in der GKV: Starre Anwendung trotz existenzieller Notlage und Systemversagen?",
+    "migrated_at": "2026-06-08T20:54:13.069514+00:00"
+  }
+}

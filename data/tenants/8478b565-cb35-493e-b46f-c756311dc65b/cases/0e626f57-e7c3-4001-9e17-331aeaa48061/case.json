@@ -1,0 +1,20 @@
+{
+  "id": "0e626f57-e7c3-4001-9e17-331aeaa48061",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Test3: Sollte man Tempolimit auf deutschen Autobahnen einfuehren? Kurze Analyse.",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-30 03:29:56.385480+00:00",
+  "updated_at": "2026-05-30 03:29:56.385480+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "0e626f57-e7c3-4001-9e17-331aeaa48061",
+    "source_debate_title": "Test3: Sollte man Tempolimit auf deutschen Autobahnen einfuehren? Kurze Analyse.",
+    "migrated_at": "2026-06-08T20:54:13.103919+00:00"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "debate_id": "mvp-5977202b90cb",
+  "session_id": "wf-c6f7e67a175c",
+  "status": "running",
+  "title": "Der deutsche Journalist Hüseyin Doğru, Gründer von red.media, wurde am 20. Mai 2",
+  "request": {
+    "case": {
+      "text": "Der deutsche Journalist Hüseyin Doğru, Gründer von red.media, wurde am 20. Mai 2025 von der Europäischen Union mit Sanktionen belegt. Ihm wird unterstellt, „systematisch falsche Informationen über politisch kontroverse Themen zu verbreiten, mit der Absicht, unter seinem überwiegend deutschen Zielpublikum ethnische, politische und religiöse Zwietracht zu säen“. Hüseyin Doğru hat keine Straftat begangen, sondern wurde zum Opfer politischer Willkür. Tatsächlich handelt es sich um eine politische Sanktion, die auf seine kritische Berichterstattung abzielt, einschließlich seiner Berichterstattung über pro-palästinensische Proteste in Deutschland.\n\nDie Sanktionierung von Hüseyin Doğru wegen angeblicher „systematischer Informationsmanipulation“ kann nur als eine versuchte Einschüchterung von unabhängigen Journalisten und als Angriff auf die Meinungsfreiheit angesehen werden. Schon das Verfahren des Erlasses der Sanktionen folgt keinen rechtsstaatlichen Prinzipien.\n\nFolgen des rechtswidrigen Sanktionsentscheids sind: Die Konten von Hüseyin Doğru sind gesperrt. Seine Vermögenswerte sind eingefroren. Ihm wird das Recht aller in der EU Ansässigen, die Reisefreiheit, verwehrt. Minimale humanitäre Leistungen sind nur auf Antrag möglich und liegen im Ermessen der Behörden. Es gelten drastische Beschränkungen für eine wirtschaftliche und gar berufliche Tätigkeit.\n\nDie EU-Sanktionen gegen Hüseyin Doğru treffen die gesamte Familie, darunter drei kleine Kinder. Zwischenzeitlich war sogar das Konto seiner Frau – mit Verweis auf die eheliche Nähe zu ihm – gesperrt. Externe Unterstützungsleistungen sind kriminalisiert. Jede Solidarität mit Hüseyin Doğru, seiner Frau oder sogar seinen Kindern, sei es finanziell oder in Form von Sachleistungen, kann strafrechtlich verfolgt werden. Wir erleben die Wiederkehr politischer Justiz.\n\nDas Gutachten der ehemaligen Richterin am Europäischen Gerichtshof Prof. Dr. Ninon Colneric und der Rechtswissenschaftlerin Prof. Dr. Alina Miron von der Universität Angers stellt fest, dass die EU-Sanktionsregelungen gegen geltendes EU-Recht verstoßen. Die EU benutzt den Sanktionsbeschluss 2024/2643 gezielt, um Kritiker zum Schweigen zu bringen, und droht damit in die Rechtlosigkeit abzugleiten.\n\nWir fordern die Bundesregierung auf, die EU-Sanktionen gegen die eigenen Staatsbürger nicht länger umzusetzen und im Rat der Europäischen Union für die Aufhebung der Sanktionen zu stimmen.\n\nJournalismus ist kein Sicherheitsrisiko. Zensur ist keine EU-Sicherheitspolitik.\n\nWer Meinungs- und Pressefreiheit in der EU sanktioniert, bricht das deutsche Grundgesetz und untergräbt demokratische und rechtsstaatliche Normen in Deutschland und in der EU."
+    },
+    "max_rounds": 3
+  },
+  "max_rounds": 3,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-05-21 22:45:32.622876+00:00",
+  "updated_at": "2026-05-21 22:45:32.622876+00:00",
+  "result": null,
+  "is_mvp": true,
+  "llm_assignments": {
+    "strategist": "owl-alpha",
+    "critic": "xiaomi-io-2--6btm",
+    "optimizer": "xiaomi-mimi-v2.5-pro",
+    "moderator": "local-gemma-4-26b-a4b"
+  }
+}

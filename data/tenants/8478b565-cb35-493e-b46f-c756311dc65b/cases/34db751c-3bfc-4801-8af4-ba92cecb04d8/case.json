@@ -1,0 +1,20 @@
+{
+  "id": "34db751c-3bfc-4801-8af4-ba92cecb04d8",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Science",
+  "description": "Analyzing the Comprehensive Theory of Consciousness: Strengths, Weaknesses, and Methodologies",
+  "status": "active",
+  "tags": [
+    "bbd8fcd8-1b17-4a23-bb96-b87e3795c930"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-08 03:40:31.777458+00:00",
+  "updated_at": "2026-06-08 03:40:31.777458+00:00",
+  "metadata": {
+    "source_project_id": "cf7730d4-95c1-44ab-b46c-4bf19f9ba967",
+    "source_project_name": "Science",
+    "source_debate_id": "34db751c-3bfc-4801-8af4-ba92cecb04d8",
+    "source_debate_title": "Analyzing the Comprehensive Theory of Consciousness: Strengths, Weaknesses, and Methodologies",
+    "migrated_at": "2026-06-08T20:54:13.142052+00:00"
+  }
+}

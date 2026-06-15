@@ -1,0 +1,20 @@
+{
+  "id": "551b0f5f-5c1f-4d9a-961a-4b682a121a85",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Testing as a Method of Evaluation: Essential Tool or Overrated Practice",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-08 02:38:57.762248+00:00",
+  "updated_at": "2026-06-08 02:38:57.762248+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "551b0f5f-5c1f-4d9a-961a-4b682a121a85",
+    "source_debate_title": "Testing as a Method of Evaluation: Essential Tool or Overrated Practice",
+    "migrated_at": "2026-06-08T20:54:13.111584+00:00"
+  }
+}

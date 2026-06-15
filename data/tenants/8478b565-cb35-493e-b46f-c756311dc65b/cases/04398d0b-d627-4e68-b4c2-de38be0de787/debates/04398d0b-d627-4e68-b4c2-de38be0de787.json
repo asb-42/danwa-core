@@ -1,0 +1,25 @@
+{
+  "debate_id": "04398d0b-d627-4e68-b4c2-de38be0de787",
+  "session_id": "wf-c3e946e9e719",
+  "status": "completed",
+  "title": "Is AI conscious?",
+  "request": {
+    "case": {
+      "text": "Is AI conscious?"
+    },
+    "max_rounds": 5
+  },
+  "max_rounds": 5,
+  "current_round": 1,
+  "rounds": [],
+  "created_at": "2026-06-04 20:13:49.050789+00:00",
+  "updated_at": "2026-06-04 20:13:49.050789+00:00",
+  "result": {
+    "final_consensus": 0.0,
+    "consensus": 0.0,
+    "output": ""
+  },
+  "is_mvp": true,
+  "workflow_id": "test-wf-launch",
+  "workflow_name": "Test Launch Workflow"
+}

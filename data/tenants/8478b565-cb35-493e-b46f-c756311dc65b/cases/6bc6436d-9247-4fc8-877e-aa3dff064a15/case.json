@@ -1,0 +1,20 @@
+{
+  "id": "6bc6436d-9247-4fc8-877e-aa3dff064a15",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Test of Strength: Democracy vs Authoritarianism in Modern Politics",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-08 02:41:37.354652+00:00",
+  "updated_at": "2026-06-08 02:41:37.354652+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "6bc6436d-9247-4fc8-877e-aa3dff064a15",
+    "source_debate_title": "Test of Strength: Democracy vs Authoritarianism in Modern Politics",
+    "migrated_at": "2026-06-08T20:54:13.113352+00:00"
+  }
+}

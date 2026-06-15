@@ -1,0 +1,21 @@
+{
+  "debate_id": "cded51fa-4139-4257-9dd8-e26b0b4d7c0f",
+  "session_id": "wf-54f9ea67b489",
+  "status": "running",
+  "title": "Test2: Sollte man Tempolimit auf deutschen Autobahnen einfuehren? Kurze Analyse.",
+  "request": {
+    "case": {
+      "text": "Test2: Sollte man Tempolimit auf deutschen Autobahnen einfuehren? Kurze Analyse."
+    },
+    "max_rounds": 3
+  },
+  "max_rounds": 3,
+  "current_round": 0,
+  "rounds": [],
+  "created_at": "2026-05-30 03:28:48.671083+00:00",
+  "updated_at": "2026-05-30 03:28:48.671083+00:00",
+  "result": null,
+  "is_mvp": true,
+  "workflow_id": "wf-fcf96cb1",
+  "workflow_name": "Spieglein, Spieglein an der Wand,\nwer ist die Schönste im ganzen Land? (Transactional Drafting)"
+}

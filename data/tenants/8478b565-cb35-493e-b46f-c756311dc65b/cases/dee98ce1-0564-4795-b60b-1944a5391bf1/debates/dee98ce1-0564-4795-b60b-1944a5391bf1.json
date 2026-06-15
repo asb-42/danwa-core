@@ -1,0 +1,28 @@
+{
+  "debate_id": "dee98ce1-0564-4795-b60b-1944a5391bf1",
+  "session_id": "wf-f1312b32879a",
+  "status": "completed",
+  "title": "How will AI impact financial inequality or concentrate wealth? Tech giants and a",
+  "request": {
+    "case": {
+      "text": "How will AI impact financial inequality or concentrate wealth? Tech giants and advertisers that track thousands of data points about people have a significant upper hand in influence consumer behavior. How will this concentrate wealth in companies that are already the richest ones in the world?"
+    },
+    "max_rounds": 2
+  },
+  "max_rounds": 2,
+  "current_round": 2,
+  "rounds": [],
+  "created_at": "2026-05-22 17:16:42.323684+00:00",
+  "updated_at": "2026-05-22 17:16:42.323684+00:00",
+  "result": {
+    "consensus": 1.0,
+    "output": ""
+  },
+  "is_mvp": true,
+  "llm_assignments": {
+    "strategist": "openrouter-hy3-preview-copy-2e1z-copy-kon1",
+    "critic": "owl-alpha",
+    "optimizer": "xiaomi-mimo-v2.5-pro",
+    "moderator": "local-gemma"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "mvp-dc60306b4688",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "AI",
+  "description": "Der deutsche Journalist Hüseyin Doğru, Gründer von red.media, wurde am 20. Mai 2",
+  "status": "active",
+  "tags": [
+    "d8bd53a6-294a-4f89-8d04-30368dfa10a6"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-22 00:35:14.219400+00:00",
+  "updated_at": "2026-05-22 00:35:14.219400+00:00",
+  "metadata": {
+    "source_project_id": "14fcf7dd-349b-4114-a2a8-5b1926ed9d5f",
+    "source_project_name": "AI",
+    "source_debate_id": "mvp-dc60306b4688",
+    "source_debate_title": "Der deutsche Journalist Hüseyin Doğru, Gründer von red.media, wurde am 20. Mai 2",
+    "migrated_at": "2026-06-08T20:54:13.090183+00:00"
+  }
+}

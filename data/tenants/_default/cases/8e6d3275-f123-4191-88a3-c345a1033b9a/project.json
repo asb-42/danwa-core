@@ -1,0 +1,19 @@
+{
+  "id": "8e6d3275-f123-4191-88a3-c345a1033b9a",
+  "name": "Health",
+  "description": "",
+  "is_system": false,
+  "created_at": "2026-05-24T00:55:30.724111Z",
+  "updated_at": "2026-05-24T00:55:30.724123Z",
+  "config": {
+    "language": null,
+    "default_max_rounds": null,
+    "default_consensus_threshold": null,
+    "search_mode": null,
+    "searxng_url": null,
+    "llm_profiles": {},
+    "agent_personas": {},
+    "prompt_variants": {}
+  },
+  "tenant_id": "_default"
+}

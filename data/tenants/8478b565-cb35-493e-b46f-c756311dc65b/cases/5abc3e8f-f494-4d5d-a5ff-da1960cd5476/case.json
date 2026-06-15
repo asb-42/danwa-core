@@ -1,0 +1,20 @@
+{
+  "id": "5abc3e8f-f494-4d5d-a5ff-da1960cd5476",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "Default",
+  "description": "Tests in der Bildung: Notwendiges Bewertungsinstrument oder überholtes Relikt der Vergangenheit",
+  "status": "active",
+  "tags": [
+    "be0b2f27-8537-4b41-ba16-00bfa3a104a5"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-06-06 23:03:35.394665+00:00",
+  "updated_at": "2026-06-06 23:03:35.394665+00:00",
+  "metadata": {
+    "source_project_id": "_default",
+    "source_project_name": "Default",
+    "source_debate_id": "5abc3e8f-f494-4d5d-a5ff-da1960cd5476",
+    "source_debate_title": "Tests in der Bildung: Notwendiges Bewertungsinstrument oder überholtes Relikt der Vergangenheit",
+    "migrated_at": "2026-06-08T20:54:13.112410+00:00"
+  }
+}

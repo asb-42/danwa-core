@@ -1,0 +1,20 @@
+{
+  "id": "8a0184a3-af8d-41d6-9ab4-42e849930241",
+  "tenant_id": "8478b565-cb35-493e-b46f-c756311dc65b",
+  "title": "AI",
+  "description": "How can we co-exist with machines that inherently lack human values? Imagine you have a domestic robot at home.",
+  "status": "active",
+  "tags": [
+    "d8bd53a6-294a-4f89-8d04-30368dfa10a6"
+  ],
+  "created_by": "migration",
+  "created_at": "2026-05-20 02:14:31.365586+00:00",
+  "updated_at": "2026-05-20 02:46:19.098113+00:00",
+  "metadata": {
+    "source_project_id": "14fcf7dd-349b-4114-a2a8-5b1926ed9d5f",
+    "source_project_name": "AI",
+    "source_debate_id": "8a0184a3-af8d-41d6-9ab4-42e849930241",
+    "source_debate_title": "How can we co-exist with machines that inherently lack human values? Imagine you have a domestic robot at home.",
+    "migrated_at": "2026-06-08T20:54:13.078563+00:00"
+  }
+}
