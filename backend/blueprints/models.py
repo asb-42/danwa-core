@@ -83,6 +83,43 @@ class BlueprintLLMProfile(BaseModel):
     # --- Service LLM (Sprint 16) ---
     service_eligible: bool = True  # Whether this profile can be used for system/background tasks
 
+    # --- Catalog metadata (Sprint 7 — catwalk + llm_db) ---
+    # All Optional so existing local profiles keep working unchanged.
+    # Populated by the import workflow, displayed in the studio's
+    # detail view, and used for cost calculation + capability checks.
+    catalog_source: str | None = None             # "catwalk" | "llm_db" | None
+    catalog_id: str | None = None                 # model id in the upstream catalog
+    catalog_last_synced_at: datetime | None = None
+
+    # Cost (catwalk-style per-1M; normalized to per-1K fields above when
+    # imported; kept here as the raw per-1M for round-tripping).
+    cost_per_1m_input: float | None = None
+    cost_per_1m_output: float | None = None
+    cost_per_1m_cached_input: float | None = None
+    cost_per_1m_cached_output: float | None = None
+    cost_currency: str | None = "USD"
+
+    # Reasoning (catwalk)
+    can_reason: bool = False
+    reasoning_levels: list[str] = Field(default_factory=list)
+    default_reasoning_effort: str | None = None
+
+    # Capabilities (llm_db)
+    capabilities: dict[str, Any] = Field(default_factory=dict)
+    modalities: dict[str, list[str]] = Field(default_factory=dict)
+    lifecycle_status: str | None = None       # "active" | "deprecated" | "retired"
+    knowledge_cutoff: str | None = None
+    release_date: str | None = None
+    last_updated: str | None = None
+    family: str | None = None
+    aliases: list[str] = Field(default_factory=list)
+    catalog_tags: list[str] = Field(default_factory=list)
+
+    # Provider-level (catwalk)
+    api_endpoint_template: str | None = None      # e.g. "$ANTHROPIC_API_ENDPOINT"
+    default_large_model_id: str | None = None
+    default_small_model_id: str | None = None
+
     @field_validator("temperature")
     @classmethod
     def validate_temperature(cls, v: float) -> float:

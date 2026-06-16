@@ -101,6 +101,20 @@ class Settings(BaseSettings):
     modules_publish_branch_template: str = "publish/{module_id}"
     modules_publish_author_name: str = "Danwa Studio Bot"
     modules_publish_author_email: str = "[email protected]"
+
+    # --- LLM Catalog integration (Sprint 7 — opt-in) ---
+    # Public GitHub-hosted LLM metadata databases (catwalk + llm_db)
+    # are cloned into ``catalog_cache_dir`` and parsed into a uniform
+    # shape by ``backend.llm_catalog``.  All defaults work out of the
+    # box; override via env vars (DANWA_CATALOG_*) for forks / mirrors.
+    catalog_cache_dir: Path = Path("data/llm-catalog")
+    catalog_default_sources: list[str] = ["catwalk", "llm_db"]
+    catalog_catwalk_repo: str = "https://github.com/charmbracelet/catwalk.git"
+    catalog_catwalk_branch: str = "main"
+    catalog_catwalk_path: str = "internal/providers/configs"
+    catalog_llmdb_repo: str = "https://github.com/agentjido/llm_db.git"
+    catalog_llmdb_branch: str = "main"
+    catalog_llmdb_path: str = "priv/llm_db/providers"
     backup_retention_count: int = 10
     backup_encrypt: bool = False
     backup_dir: Path = Path("data/backups")

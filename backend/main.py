@@ -33,6 +33,7 @@ from backend.api.routers import (  # noqa: E402
     bundle_composer,
     canvas,
     cases,
+    catalog,
     config,
     debate,
     debate_stream,
@@ -513,6 +514,7 @@ def create_app() -> FastAPI:
     # --- Blueprint Canvas ---
     app.include_router(blueprints.router, prefix="/api/v1/blueprints", tags=["blueprints"])
     app.include_router(llm_profiles.router, prefix="/api/v1/blueprints/llm-profiles", tags=["blueprints"])
+    app.include_router(catalog.router, prefix="/api/v1/catalog", tags=["catalog"])
     app.include_router(argumentation_patterns.router, prefix="/api/v1/blueprints", tags=["blueprints"])
     app.include_router(prompt_templates.router, prefix="/api/v1/blueprints", tags=["blueprints"])
     app.include_router(workflow_definitions.router, prefix="/api/v1/blueprints/workflows", tags=["blueprints"])
