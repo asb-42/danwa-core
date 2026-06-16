@@ -49,6 +49,7 @@ from backend.api.routers import (  # noqa: E402
     output_composer,
     profiles,
     projects,
+    prompt_templates,
     # sessions,  # Legacy - superseded, removed for OpenAPI export
     system,
     tags,
@@ -513,6 +514,7 @@ def create_app() -> FastAPI:
     app.include_router(blueprints.router, prefix="/api/v1/blueprints", tags=["blueprints"])
     app.include_router(llm_profiles.router, prefix="/api/v1/blueprints/llm-profiles", tags=["blueprints"])
     app.include_router(argumentation_patterns.router, prefix="/api/v1/blueprints", tags=["blueprints"])
+    app.include_router(prompt_templates.router, prefix="/api/v1/blueprints", tags=["blueprints"])
     app.include_router(workflow_definitions.router, prefix="/api/v1/blueprints/workflows", tags=["blueprints"])
     app.include_router(canvas.router, prefix="/api/v1/canvas", tags=["canvas"])
     app.include_router(
