@@ -146,19 +146,34 @@ async def get_normalized_catalog(
 @router.post("/import", response_model=dict[str, Any])
 async def import_catalog(
     dry_run: bool = Query(True, description="If true, only compute the diff; do not write"),
+    sources: str | None = Query(
+        None,
+        description="Optional comma-separated list of source names to include (default: all)",
+    ),
 ) -> dict[str, Any]:
     """Diff local ``llm-profiles/`` against the catalog and (optionally) apply.
 
-    Phase 1 returns a ``501 Not Implemented`` stub.  Phase 2 fills in
-    :mod:`backend.llm_catalog.import_engine`.
+    The endpoint first ensures both configured sources are fetched
+    (idempotent), then computes the diff and either reports it (default
+    ``dry_run=true``) or applies it to the local ``llm-profiles/`` tree
+    (``dry_run=false``).
+
+    Apply is non-destructive for stale entries — it writes a
+    ``.stale`` flag file but does not delete.  A separate cleanup
+    job can act on that flag (out of scope for this endpoint).
     """
-    raise HTTPException(
-        status_code=501,
-        detail=(
-            "Catalog import is implemented in Phase 2 of the catalog "
-            "integration plan (see plans/2026-06-15_llm-catalog-integration.md)."
-        ),
-    )
+    from backend.llm_catalog.import_engine import run_import
+
+    settings = Settings()
+    src_list: list[str] | None = None
+    if sources:
+        src_list = [s.strip() for s in sources.split(",") if s.strip()]
+    try:
+        report = run_import(settings, dry_run=dry_run, sources=src_list)
+    except Exception as e:  # noqa: BLE001 — surface any failure to the caller
+        logger.exception("catalog import failed")
+        raise HTTPException(status_code=500, detail=f"{type(e).__name__}: {e}")
+    return report.to_dict()
 
 
 # ─── Helpers ─────────────────────────────────────────────────────────
