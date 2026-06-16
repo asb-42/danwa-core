@@ -87,6 +87,20 @@ class Settings(BaseSettings):
     # --- Backup ---
     backup_enabled: bool = True
     backup_auto_on_shutdown: bool = True
+
+    # --- Module Publishing (Sprint 7 — opt-in) ---
+    # Disabled by default.  Operators must explicitly enable and point
+    # ``modules_publish_dir`` at a working ``git clone`` of the upstream
+    # ``danwa-modules`` repository.
+    modules_publish_enabled: bool = False
+    modules_publish_dir: Path = Path("data/danwa-modules-repo")
+    modules_publish_repo_url: str = "https://github.com/asb-42/danwa-modules.git"
+    modules_publish_remote: str = "origin"
+    modules_publish_push_remote: str = "origin"
+    modules_publish_base_branch: str = "main"
+    modules_publish_branch_template: str = "publish/{module_id}"
+    modules_publish_author_name: str = "Danwa Studio Bot"
+    modules_publish_author_email: str = "[email protected]"
     backup_retention_count: int = 10
     backup_encrypt: bool = False
     backup_dir: Path = Path("data/backups")

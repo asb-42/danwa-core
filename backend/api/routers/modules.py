@@ -507,6 +507,91 @@ async def export_module(module_id: str) -> Any:
     )
 
 
+# ─────────────────────────────────────────────────────────────────────
+# Module Publishing (opt-in via DANWA_MODULES_PUBLISH_ENABLED)
+# ─────────────────────────────────────────────────────────────────────
+
+# Lazy-imported to avoid circular import at module load time
+_publisher = None
+
+
+def _get_publisher():
+    global _publisher
+    if _publisher is None:
+        from backend.modules.publisher import ModulePublisher
+
+        _publisher = ModulePublisher()
+    return _publisher
+
+
+class PublishRequest(BaseModel):
+    """Request body for POST /api/v1/modules/{id}/publish."""
+
+    manifest: dict[str, Any] = Field(..., description="Full manifest.json content as a dict")
+    profile_content: str | None = Field(None, description="Optional raw profile file body")
+    profile_filename: str | None = Field(
+        None,
+        description=(
+            "Filename for profile_content inside the module dir "
+            "(e.g. 'profile.md' or 'profile.json'). Defence-in-depth path-traversal check applied."
+        ),
+    )
+    commit_message: str | None = Field(
+        None,
+        description="Override the auto-generated commit message",
+    )
+
+
+@router.post("/{module_id}/publish", response_model=dict[str, Any])
+async def publish_module(module_id: str, body: PublishRequest) -> dict[str, Any]:
+    """Commit (and optionally push) a module manifest to danwa-modules.
+
+    Disabled by default.  Operators must set
+    ``DANWA_MODULES_PUBLISH_ENABLED=true`` and point
+    ``DANWA_MODULES_PUBLISH_DIR`` at a writable git working tree of the
+    upstream repo.
+
+    Workflow:
+    1. ensure_repo  — clone the repo if it doesn't exist yet
+    2. fetch_base   — git fetch the base branch (default: main)
+    3. checkout_branch — create or check out ``publish/<id>``
+    4. write_files  — write ``manifest.json`` (+ optional profile)
+    5. git_add / git_commit
+    6. git_push     — if a push remote is configured and reachable
+
+    The response is a structured ``PublishReport.to_dict()`` with the
+    status (`published` / `local_only` / `noop` / `failed`), the
+    commit SHA, the push flag, and a per-step trace.
+    """
+    publisher = _get_publisher()
+    if not publisher.enabled:
+        raise HTTPException(
+            status_code=403,
+            detail=(
+                "module publishing is disabled — set "
+                "DANWA_MODULES_PUBLISH_ENABLED=true to enable, and "
+                "DANWA_MODULES_PUBLISH_DIR to a writable git working tree."
+            ),
+        )
+
+    report = publisher.publish(
+        module_id=module_id,
+        manifest=body.manifest,
+        profile_content=body.profile_content,
+        profile_filename=body.profile_filename,
+        commit_message=body.commit_message,
+    )
+
+    # Surface a 502 for hard failures so callers can branch on status_code
+    if report.status == "failed":
+        # Stays 200 — the endpoint itself worked, the workflow just failed.
+        # Callers should branch on report.status == 'failed'.
+        logger.warning(
+            "module publish failed for %s: %s", module_id, report.error
+        )
+    return report.to_dict()
+
+
 def _export_ui_strings_for_pack(module_id: str, manifest: dict) -> dict[str, str]:
     """Export UI strings for a language-pack module from the database."""
     import sqlite3
