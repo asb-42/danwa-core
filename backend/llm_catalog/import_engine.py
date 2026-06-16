@@ -214,21 +214,41 @@ def _diff_entry(
     existing_profile: dict[str, Any] | None,
     existing_manifest: dict[str, Any] | None,
 ) -> tuple[str, list[str]]:
-    """Return (action, changes) for one merged model vs existing local."""
+    """Return (action, changes) for one merged model vs existing local.
+
+    The catalog speaks per-1M; the local profile stores both per-1M
+    (raw upstream) AND per-1K (consumed by BlueprintLLMProfile).  For
+    a stable diff, we project the merged dict to per-1K before
+    comparing against the local profile.
+    """
     changes: list[str] = []
     if existing_profile is None:
         return "create", ["new module (no local profile)"]
-    # Compare key fields
+    # Local view: per-1K for cost (what's persisted), per-1M for the rest.
+    local_view: dict[str, Any] = {}
+    for f, v in merged.items():
+        if f == "cost_per_1m_input" and v is not None:
+            local_view["cost_per_1k_input"] = round(float(v) / 1000.0, 6)
+        elif f == "cost_per_1m_output" and v is not None:
+            local_view["cost_per_1k_output"] = round(float(v) / 1000.0, 6)
+        elif f == "cost_per_1m_cached_input" and v is not None:
+            local_view["cost_per_1k_cached_input"] = round(float(v) / 1000.0, 6)
+        elif f == "cost_per_1m_cached_output" and v is not None:
+            local_view["cost_per_1k_cached_output"] = round(float(v) / 1000.0, 6)
+        elif f.startswith("cost_per_1m_"):
+            pass  # skip — we project the per-1K counterpart above
+        else:
+            local_view[f] = v
     fields = (
         "name",
         "api_base",
         "api_key_env",
         "context_window",
         "max_tokens",
-        "cost_per_1m_input",
-        "cost_per_1m_output",
-        "cost_per_1m_cached_input",
-        "cost_per_1m_cached_output",
+        "cost_per_1k_input",
+        "cost_per_1k_output",
+        "cost_per_1k_cached_input",
+        "cost_per_1k_cached_output",
         "can_reason",
         "reasoning_levels",
         "capabilities",
@@ -242,7 +262,7 @@ def _diff_entry(
     )
     for f in fields:
         old = existing_profile.get(f)
-        new = merged.get(f)
+        new = local_view.get(f)
         if old != new:
             changes.append(f"{f}: {old!r} -> {new!r}")
     return ("update" if changes else "skip"), changes
@@ -407,12 +427,11 @@ def _write_module(
     if merged.get("cost_per_1m_output") is not None:
         profile["cost_per_1k_output"] = round(float(merged["cost_per_1m_output"]) / 1000.0, 6)
     if merged.get("cost_per_1m_cached_input") is not None:
-        profile["cost_per_1m_cached_input"] = round(float(merged["cost_per_1m_cached_input"]) / 1000.0, 6)
+        profile["cost_per_1k_cached_input"] = round(float(merged["cost_per_1m_cached_input"]) / 1000.0, 6)
     if merged.get("cost_per_1m_cached_output") is not None:
-        profile["cost_per_1m_cached_output"] = round(float(merged["cost_per_1m_cached_output"]) / 1000.0, 6)
-    if merged.get("can_reason"):
-        profile["can_reason"] = True
-    if merged.get("reasoning_levels"):
+        profile["cost_per_1k_cached_output"] = round(float(merged["cost_per_1m_cached_output"]) / 1000.0, 6)
+    profile["can_reason"] = bool(merged.get("can_reason"))
+    if merged.get("reasoning_levels") is not None:
         profile["reasoning_levels"] = list(merged["reasoning_levels"])
     if merged.get("default_reasoning_effort"):
         profile["default_reasoning_effort"] = merged["default_reasoning_effort"]
