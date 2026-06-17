@@ -19,7 +19,6 @@ from backend.models.schemas import (
     SearchMode,
 )
 
-
 # ---------------------------------------------------------------------------
 # Enums
 # ---------------------------------------------------------------------------
@@ -163,8 +162,10 @@ def test_round_data() -> None:
 
 def test_debate_status_response_defaults() -> None:
     r = DebateStatusResponse(
-        debate_id="d1", status=DebateStatus.RUNNING,
-        created_at="2024-01-01T00:00:00", updated_at="2024-01-01T00:00:00",
+        debate_id="d1",
+        status=DebateStatus.RUNNING,
+        created_at="2024-01-01T00:00:00",
+        updated_at="2024-01-01T00:00:00",
     )
     assert r.current_round == 0
     assert r.max_rounds == 3

@@ -21,7 +21,6 @@ from backend.modules.models import (
     WorkflowTemplateData,
 )
 
-
 # ---------------------------------------------------------------------------
 # Enums
 # ---------------------------------------------------------------------------
@@ -172,8 +171,11 @@ def test_llm_profile_data_minimal() -> None:
 
 def test_agent_persona_data_minimal() -> None:
     a = AgentPersonaData(
-        id="p1", name="X", role="strategist",
-        system_prompt="x", llm_profile_id="llm-x",
+        id="p1",
+        name="X",
+        role="strategist",
+        system_prompt="x",
+        llm_profile_id="llm-x",
     )
     assert a.max_rounds == 5
     assert a.consensus_threshold == 0.9
@@ -186,8 +188,8 @@ def test_workflow_template_data_minimal() -> None:
 
 
 def test_language_pack_data_minimal() -> None:
-    l = LanguagePackData(locale="de")
-    assert l.source_locale == "en"
-    assert l.key_count == 0
-    assert l.coverage == 0.0
-    assert l.ui_strings_file == "ui_strings.json"
+    pack = LanguagePackData(locale="de")
+    assert pack.source_locale == "en"
+    assert pack.key_count == 0
+    assert pack.coverage == 0.0
+    assert pack.ui_strings_file == "ui_strings.json"

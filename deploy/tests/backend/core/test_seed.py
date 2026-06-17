@@ -37,8 +37,7 @@ def test_ensure_admin_user_creates_when_empty() -> None:
     fake_user_store.count.return_value = 0
     fake_tenant_store = MagicMock()
     fake_tenant_store.count.return_value = 0
-    with patch.object(seed, "TenantStore", return_value=fake_tenant_store), \
-         patch.object(seed, "UserStore", return_value=fake_user_store):
+    with patch.object(seed, "TenantStore", return_value=fake_tenant_store), patch.object(seed, "UserStore", return_value=fake_user_store):
         ensure_admin_user()
     fake_user_store.create.assert_called_once()
     kwargs = fake_user_store.create.call_args.kwargs
@@ -56,8 +55,7 @@ def test_ensure_admin_user_calls_ensure_default_tenant_first() -> None:
     fake_user_store.count.return_value = 0
     fake_tenant_store = MagicMock()
     fake_tenant_store.count.return_value = 0
-    with patch.object(seed, "TenantStore", return_value=fake_tenant_store), \
-         patch.object(seed, "UserStore", return_value=fake_user_store):
+    with patch.object(seed, "TenantStore", return_value=fake_tenant_store), patch.object(seed, "UserStore", return_value=fake_user_store):
         ensure_admin_user()
     fake_tenant_store.create.assert_called_once()
     fake_user_store.create.assert_called_once()

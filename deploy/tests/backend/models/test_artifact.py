@@ -87,9 +87,13 @@ def test_artifact_usability_score_valid(score: float) -> None:
 
 def test_artifact_transactional_scores() -> None:
     a = DebateArtifact(
-        session_id="s", workflow_id="w",
-        constructivity_score=0.75, draft_versions=2, critic_item_count=4,
-        build_response_count=3, pragmatist_reality_score=0.6,
+        session_id="s",
+        workflow_id="w",
+        constructivity_score=0.75,
+        draft_versions=2,
+        critic_item_count=4,
+        build_response_count=3,
+        pragmatist_reality_score=0.6,
     )
     assert a.constructivity_score == 0.75
     assert a.draft_versions == 2

@@ -63,7 +63,9 @@ def test_debate_input_with_attachments() -> None:
 def test_debate_input_explicit_hash_preserved() -> None:
     """If input_hash is provided, post_init must not overwrite it."""
     di = DebateInput(
-        source_plugin_key="standard_text", topic="t", input_hash="deadbeef" * 8,
+        source_plugin_key="standard_text",
+        topic="t",
+        input_hash="deadbeef" * 8,
     )
     assert di.input_hash == "deadbeef" * 8
 

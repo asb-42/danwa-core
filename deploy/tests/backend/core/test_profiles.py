@@ -6,11 +6,10 @@ import pytest
 from pydantic import ValidationError
 
 from backend.core.profiles import (
+    ActiveConfiguration,
     LLMProfile,
     LLMProvider,
-    ActiveConfiguration,
 )
-
 
 # ---------------------------------------------------------------------------
 # LLMProvider enum

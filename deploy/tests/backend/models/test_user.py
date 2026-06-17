@@ -17,7 +17,6 @@ from backend.models.user import (
     UserUpdate,
 )
 
-
 # ---------------------------------------------------------------------------
 # User
 # ---------------------------------------------------------------------------
@@ -107,8 +106,14 @@ def test_user_update_invalid_role_rejected() -> None:
 
 def test_user_response_no_password_hash() -> None:
     r = UserResponse(
-        id="u1", email="[email protected]", display_name="A", role="admin",
-        tenant_id="t1", is_active=True, created_at="2024-01-01T00:00:00", updated_at="2024-01-01T00:00:00",
+        id="u1",
+        email="[email protected]",
+        display_name="A",
+        role="admin",
+        tenant_id="t1",
+        is_active=True,
+        created_at="2024-01-01T00:00:00",
+        updated_at="2024-01-01T00:00:00",
     )
     assert "password_hash" not in r.model_dump()
 
@@ -130,10 +135,17 @@ def test_login_request() -> None:
 
 def test_token_response_defaults() -> None:
     r = TokenResponse(
-        access_token="a", refresh_token="b",
+        access_token="a",
+        refresh_token="b",
         user=UserResponse(
-            id="u1", email="[email protected]", display_name="A", role="admin",
-            tenant_id="t1", is_active=True, created_at="2024-01-01T00:00:00", updated_at="2024-01-01T00:00:00",
+            id="u1",
+            email="[email protected]",
+            display_name="A",
+            role="admin",
+            tenant_id="t1",
+            is_active=True,
+            created_at="2024-01-01T00:00:00",
+            updated_at="2024-01-01T00:00:00",
         ),
     )
     assert r.token_type == "bearer"

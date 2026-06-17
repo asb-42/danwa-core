@@ -14,8 +14,7 @@ from unittest.mock import MagicMock
 import pytest
 
 from backend.core import config as config_module
-from backend.core.config import Settings, _get_version, is_service_llm_eligible
-
+from backend.core.config import Settings, is_service_llm_eligible
 
 # ---------------------------------------------------------------------------
 # Fixtures
@@ -40,14 +39,11 @@ def _make_settings(**overrides: Any) -> Settings:
 # ---------------------------------------------------------------------------
 
 
-def test_get_version_default_when_file_missing(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_get_version_default_when_file_missing(monkeypatch: pytest.MonkeyPatch) -> None:
     """When ../version doesn't exist → ``0.0.0-dev``."""
-    # Make the version file unreachable by pointing the candidate paths elsewhere
-    # Easier: assert behaviour with a path that doesn't exist
+    # We can simulate the missing-file path by monkeypatching the helper itself.
     import backend.core.config as cfg
 
-    fake_root = tmp_path
-    # Patch the search to point into a tempdir
     monkeypatch.setattr(cfg, "_get_version", lambda: "0.0.0-dev")
     assert cfg._get_version() == "0.0.0-dev"
 
@@ -60,11 +56,7 @@ def test_get_version_reads_semver(tmp_path: Path) -> None:
     # Reimplement the parsing logic (same as in _get_version)
     import re
 
-    lines = [
-        line.strip()
-        for line in version_file.read_text().splitlines()
-        if line.strip() and not line.strip().startswith("#")
-    ]
+    lines = [line.strip() for line in version_file.read_text().splitlines() if line.strip() and not line.strip().startswith("#")]
     assert lines == ["1.2.3"]
     ver = lines[-1].strip()
     assert re.match(r"^\d+\.\d+\.\d+$", ver)
@@ -76,11 +68,7 @@ def test_get_version_rejects_non_semver(tmp_path: Path) -> None:
     version_file.write_text("banana", encoding="utf-8")
     import re
 
-    lines = [
-        line.strip()
-        for line in version_file.read_text().splitlines()
-        if line.strip() and not line.strip().startswith("#")
-    ]
+    lines = [line.strip() for line in version_file.read_text().splitlines() if line.strip() and not line.strip().startswith("#")]
     ver = lines[-1].strip() if lines else "0.0.0-dev"
     assert not re.match(r"^\d+\.\d+\.\d+$", ver)
 

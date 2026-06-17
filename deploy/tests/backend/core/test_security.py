@@ -7,7 +7,6 @@ density here is intentionally high.
 from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
-from unittest.mock import patch
 
 import pytest
 from jose import JWTError
@@ -24,7 +23,6 @@ from backend.core.security import (
     verify_password,
 )
 from backend.models.user import User
-
 
 # ---------------------------------------------------------------------------
 # Fixtures

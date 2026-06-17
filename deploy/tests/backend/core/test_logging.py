@@ -6,7 +6,6 @@ import logging
 
 import structlog
 
-from backend.core import logging as logging_module
 from backend.core.logging import bind_request_context, setup_logging
 
 

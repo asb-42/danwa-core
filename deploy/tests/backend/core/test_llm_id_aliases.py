@@ -9,7 +9,6 @@ import pytest
 
 from backend.core import llm_id_aliases as aliases
 
-
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
@@ -53,8 +52,7 @@ def test_resolve_llm_id_idempotent() -> None:
 
 
 def test_resolve_llm_id_already_uuid_passes_through() -> None:
-    assert aliases.resolve_llm_id("ac-12345678-1234-1234-1234-123456789012") == \
-           "ac-12345678-1234-1234-1234-123456789012"
+    assert aliases.resolve_llm_id("ac-12345678-1234-1234-1234-123456789012") == "ac-12345678-1234-1234-1234-123456789012"
 
 
 # ---------------------------------------------------------------------------

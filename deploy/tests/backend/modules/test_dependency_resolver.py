@@ -2,14 +2,11 @@
 
 from __future__ import annotations
 
-import pytest
-
 from backend.modules.dependency_resolver import (
     DependencyCycleError,
     DependencyError,
     DependencyResolver,
 )
-
 
 # ---------------------------------------------------------------------------
 # Module-deps resolution
@@ -100,7 +97,9 @@ def test_resolve_roles_all_satisfied() -> None:
         {"module_id": "core-2", "type": "agent-core", "role": "critic"},
     ]
     errors, role_map = DependencyResolver.resolve_roles(
-        "bundle", ["strategist", "critic"], installed,
+        "bundle",
+        ["strategist", "critic"],
+        installed,
     )
     assert errors == []
     assert role_map == {"strategist": "core-1", "critic": "core-2"}
@@ -109,7 +108,9 @@ def test_resolve_roles_all_satisfied() -> None:
 def test_resolve_roles_missing_role() -> None:
     installed = [{"module_id": "core-1", "type": "agent-core", "role": "strategist"}]
     errors, role_map = DependencyResolver.resolve_roles(
-        "bundle", ["strategist", "missing-role"], installed,
+        "bundle",
+        ["strategist", "missing-role"],
+        installed,
     )
     assert role_map == {"strategist": "core-1"}
     assert len(errors) == 1
@@ -122,7 +123,9 @@ def test_resolve_roles_prefers_default_tag() -> None:
         {"module_id": "core-2", "type": "agent-core", "role": "strategist", "tags": ["default"]},
     ]
     errors, role_map = DependencyResolver.resolve_roles(
-        "bundle", ["strategist"], installed,
+        "bundle",
+        ["strategist"],
+        installed,
     )
     assert role_map["strategist"] == "core-2"
 
@@ -134,7 +137,9 @@ def test_resolve_roles_module_without_role_field() -> None:
         {"module_id": "workflow-1", "type": "workflow"},  # no role
     ]
     errors, role_map = DependencyResolver.resolve_roles(
-        "bundle", ["strategist"], installed,
+        "bundle",
+        ["strategist"],
+        installed,
     )
     assert role_map["strategist"] == "core-1"
 

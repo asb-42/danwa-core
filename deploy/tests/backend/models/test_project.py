@@ -5,7 +5,7 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from backend.core.profiles import LLMProvider, LLMProfile
+from backend.core.profiles import LLMProfile, LLMProvider
 from backend.models.project import Project, ProjectConfig
 
 
@@ -44,7 +44,9 @@ def test_project_config_defaults() -> None:
 def test_project_config_with_overrides() -> None:
     prof = LLMProfile(name="X", provider=LLMProvider.OPENAI, model="gpt-4o")
     c = ProjectConfig(
-        language="de", default_max_rounds=7, search_mode="optional",
+        language="de",
+        default_max_rounds=7,
+        search_mode="optional",
         llm_profiles={"x": prof},
     )
     assert c.language == "de"

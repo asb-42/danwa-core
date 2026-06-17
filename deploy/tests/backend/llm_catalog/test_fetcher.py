@@ -27,7 +27,6 @@ from backend.llm_catalog.fetcher import (
 )
 from backend.llm_catalog.sources import get_source
 
-
 # ---------------------------------------------------------------------------
 # _git
 # ---------------------------------------------------------------------------
@@ -115,8 +114,10 @@ def test_fetch_source_force_clone_runs_git_clone(tmp_path: Path) -> None:
     def _fake_which(cmd: str) -> str | None:
         return "/usr/bin/git" if cmd == "git" else None
 
-    with patch("backend.llm_catalog.fetcher.shutil.which", side_effect=_fake_which), \
-         patch("backend.llm_catalog.fetcher.subprocess.run", return_value=fake_proc) as run_mock:
+    with (
+        patch("backend.llm_catalog.fetcher.shutil.which", side_effect=_fake_which),
+        patch("backend.llm_catalog.fetcher.subprocess.run", return_value=fake_proc) as run_mock,
+    ):
         result = fetch_source(src, settings, force_clone=True)
     assert result.cloned is True
     assert result.error is None
@@ -134,8 +135,10 @@ def test_fetch_source_clone_failure_returns_error(tmp_path: Path) -> None:
     def _fake_which(cmd: str) -> str | None:
         return "/usr/bin/git" if cmd == "git" else None
 
-    with patch("backend.llm_catalog.fetcher.shutil.which", side_effect=_fake_which), \
-         patch("backend.llm_catalog.fetcher.subprocess.run", return_value=fake_proc):
+    with (
+        patch("backend.llm_catalog.fetcher.shutil.which", side_effect=_fake_which),
+        patch("backend.llm_catalog.fetcher.subprocess.run", return_value=fake_proc),
+    ):
         result = fetch_source(src, settings, force_clone=True)
     assert result.cloned is False
     assert result.error is not None
@@ -152,8 +155,10 @@ def test_fetch_source_clone_timeout_returns_error(tmp_path: Path) -> None:
     def _fake_run(*_args: Any, **_kw: Any) -> None:
         raise subprocess.TimeoutExpired(cmd="git clone", timeout=10)
 
-    with patch("backend.llm_catalog.fetcher.shutil.which", side_effect=_fake_which), \
-         patch("backend.llm_catalog.fetcher.subprocess.run", side_effect=_fake_run):
+    with (
+        patch("backend.llm_catalog.fetcher.shutil.which", side_effect=_fake_which),
+        patch("backend.llm_catalog.fetcher.subprocess.run", side_effect=_fake_run),
+    ):
         result = fetch_source(src, settings, force_clone=True, timeout=10)
     assert result.cloned is False
     assert result.error is not None
@@ -175,8 +180,10 @@ def test_fetch_source_existing_clone_pulls(tmp_path: Path) -> None:
     def _fake_which(cmd: str) -> str | None:
         return "/usr/bin/git" if cmd == "git" else None
 
-    with patch("backend.llm_catalog.fetcher.shutil.which", side_effect=_fake_which), \
-         patch("backend.llm_catalog.fetcher.subprocess.run", return_value=fake_proc) as run_mock:
+    with (
+        patch("backend.llm_catalog.fetcher.shutil.which", side_effect=_fake_which),
+        patch("backend.llm_catalog.fetcher.subprocess.run", return_value=fake_proc) as run_mock,
+    ):
         result = fetch_source(src, settings)
     assert result.pulled is True
     # First call: git fetch origin <branch>
@@ -196,8 +203,10 @@ def test_fetch_source_existing_clone_fetch_failure(tmp_path: Path) -> None:
     def _fake_which(cmd: str) -> str | None:
         return "/usr/bin/git" if cmd == "git" else None
 
-    with patch("backend.llm_catalog.fetcher.shutil.which", side_effect=_fake_which), \
-         patch("backend.llm_catalog.fetcher.subprocess.run", return_value=fail_proc):
+    with (
+        patch("backend.llm_catalog.fetcher.shutil.which", side_effect=_fake_which),
+        patch("backend.llm_catalog.fetcher.subprocess.run", return_value=fail_proc),
+    ):
         result = fetch_source(src, settings)
     assert result.pulled is False
     assert "git fetch failed" in (result.error or "")
@@ -227,7 +236,13 @@ def test_fetch_result_to_dict() -> None:
 
 def test_fetch_result_to_dict_with_error() -> None:
     fr = FetchResult(
-        source="x", path=Path("/x"), cloned=False, pulled=False, commit_sha="", elapsed_ms=5, error="boom",
+        source="x",
+        path=Path("/x"),
+        cloned=False,
+        pulled=False,
+        commit_sha="",
+        elapsed_ms=5,
+        error="boom",
     )
     d = fr.to_dict()
     assert d["error"] == "boom"
