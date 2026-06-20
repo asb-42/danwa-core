@@ -29,6 +29,40 @@ from backend.persistence.project_store import ProjectStore
 from backend.persistence.tenant_store import TenantStore
 
 
+@pytest.fixture(autouse=True, scope="session")
+def _disable_prometheus_for_tests():
+    """Disable the Prometheus instrumentator for the entire test session.
+
+    The bundled `prometheus-fastapi-instrumentator` 8.0.0 is the latest
+    published release (Nov 2023) and is incompatible with Starlette 1.x —
+    it raises `AttributeError: '_IncludedRouter' object has no attribute
+    'path'` on every request through the TestClient, cascading into
+    ~92% of all test failures.
+
+    Why session-scope autouse? Because the very first import of
+    `backend.main` (during pytest's collection phase) triggers a call to
+    the `@lru_cache`d `get_settings()`, which returns a Settings instance
+    that has `prometheus_enabled=True` (the default). After that, the
+    lru_cache is hot and any later mutation of the singleton is shadowed.
+    Only an autouse session-scope fixture runs early enough to flip
+    `prometheus_enabled` and `clear_cache()` BEFORE the first
+    `create_app()` happens.
+
+    See plans/2026-06-20_danwa-core-test-failures.md (category A) for the
+    full analysis. Production runs are unaffected — the instrumentator
+    is only active when `prometheus_enabled=True` is set in the
+    environment / config file.
+    """
+    from backend.core import config as config_module
+
+    original = config_module.settings.prometheus_enabled
+    config_module.settings.prometheus_enabled = False
+    get_settings.cache_clear()
+    yield
+    config_module.settings.prometheus_enabled = original
+    get_settings.cache_clear()
+
+
 @pytest.fixture()
 def settings(tmp_path) -> Settings:
     """Test settings with temporary database path."""
@@ -37,6 +71,15 @@ def settings(tmp_path) -> Settings:
         cors_origins=["http://testserver"],
         debug=True,
         auth_enabled=False,
+        # Disable Prometheus instrumentation in tests: the bundled
+        # `prometheus-fastapi-instrumentator` 8.0.0 is the latest
+        # published release (Nov 2023) and is incompatible with
+        # Starlette 1.x (raises AttributeError on `_IncludedRouter`).
+        # Production runs are unaffected — the Instrumentator is
+        # only initialised when `prometheus_enabled=True` is set in
+        # the environment. See plans/2026-06-20_danwa-core-test-failures.md
+        # category A.
+        prometheus_enabled=False,
     )
 
 
@@ -121,6 +164,9 @@ def app(
     cascade bug this resolves.
     """
     with fresh_stores():
+        # The Prometheus instrumentator is already disabled globally by
+        # the session-scope `_disable_prometheus_for_tests` autouse
+        # fixture at the top of this file. No per-test patching needed.
         application = create_app()
 
         _test_user = User(
