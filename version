@@ -1,0 +1,7 @@
+# Version file - single source of truth for danwa-core release version
+# Format: MAJOR.MINOR.PATCH
+# Must match pyproject.toml [project] version
+# Read by backend/core/config.py::_get_version() with fallback "0.0.0-dev"
+# Required by tests/backend/test_version_consistency.py
+
+1.2.0

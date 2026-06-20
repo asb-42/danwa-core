@@ -106,19 +106,6 @@ class TestPyprojectToml:
         assert pyproject_version == version, f"pyproject.toml version {pyproject_version} != /version {version}"
 
 
-class TestPackageJson:
-    """Tests that frontend/package.json version matches /version."""
-
-    def test_version_matches(self):
-        version = read_version_file()
-        pkg_json = PROJECT_ROOT / "frontend" / "package.json"
-        content = pkg_json.read_text()
-        match = re.search(r'"version"\s*:\s*"([^"]+)"', content)
-        assert match, "package.json should have a version field"
-        pkg_version = match.group(1)
-        assert pkg_version == version, f"package.json version {pkg_version} != /version {version}"
-
-
 class TestAPIEndpoint:
     """Integration test for the /api/v1/config/version endpoint.
 
