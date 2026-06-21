@@ -12,13 +12,20 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 
+# Backwards-compat alias: legacy tests migrated from the danwa
+# monorepo (e.g. test_dms_database.py) patch this module-level
+# attribute.  The constructor reads DB_PATH if no explicit
+# db_path is passed.
+DB_PATH: Path = Path("memory/dms.db")
+
+
 class DMSDB:
     """SQLite-backed storage for DMS documents and chunks."""
 
     def __init__(self, db_path: str | Path | None = None):
         """Initialise DMSDB."""
         if db_path is None:
-            db_path = Path("memory/dms.db")
+            db_path = DB_PATH
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.conn = sqlite3.connect(str(self.db_path), check_same_thread=False, timeout=10)

@@ -28,3 +28,8 @@ Thumbs.db
 dist/
 build/
 node_modules/
+# Test runtime directories (Phase 1.2 source-port tests)
+logs/
+memory/
+
+# Node.js dependency directories (npm install artefacts)
