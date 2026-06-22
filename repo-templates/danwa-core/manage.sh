@@ -114,18 +114,29 @@ start_backend() {
         return 0
     fi
     log_step "Starting backend (port $BACKEND_PORT)..."
+    # Background the start command. We deliberately avoid `(cmd &)`
+    # subshells because $! would resolve to empty outside the subshell.
+    local pid=""
     if [[ "$DANWA_USE_MOCK" == "1" ]]; then
         write_mock_script "$MOCK_BACKEND_SCRIPT"
-        nohup "$MOCK_BACKEND_SCRIPT" > "$BACKEND_LOG" 2>&1 &
+        "$MOCK_BACKEND_SCRIPT" > "$BACKEND_LOG" 2>&1 &
+        pid=$!
     else
         if [[ ! -f "$PROJECT_DIR/pyproject.toml" ]]; then
             log_error "pyproject.toml missing — cannot start backend with uv"
             return 1
         fi
-        (cd "$PROJECT_DIR" && nohup uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
-            > "$BACKEND_LOG" 2>&1 &)
+        pushd "$PROJECT_DIR" >/dev/null
+        uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
+            > "$BACKEND_LOG" 2>&1 &
+        pid=$!
+        popd >/dev/null
     fi
-    local pid=$!
+    if [[ -z "$pid" ]]; then
+        log_error "Failed to capture backgrounded backend PID"
+        return 1
+    fi
+    disown "$pid" 2>/dev/null || true
     echo "$pid" > "$BACKEND_PID_FILE"
     log_ok "Backend started (PID $pid, log: $BACKEND_LOG)"
 }
@@ -177,17 +188,25 @@ start_backend_no_watcher() {
     if pid_running "$BACKEND_PID_FILE" > /dev/null; then
         return 0
     fi
+    local pid=""
     if [[ "$DANWA_USE_MOCK" == "1" ]]; then
         write_mock_script "$MOCK_BACKEND_SCRIPT"
-        nohup "$MOCK_BACKEND_SCRIPT" > "$BACKEND_LOG" 2>&1 &
+        "$MOCK_BACKEND_SCRIPT" > "$BACKEND_LOG" 2>&1 &
+        pid=$!
     else
         if [[ ! -f "$PROJECT_DIR/pyproject.toml" ]]; then
             return 1
         fi
-        (cd "$PROJECT_DIR" && nohup uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
-            > "$BACKEND_LOG" 2>&1 &)
+        pushd "$PROJECT_DIR" >/dev/null
+        uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
+            > "$BACKEND_LOG" 2>&1 &
+        pid=$!
+        popd >/dev/null
     fi
-    echo $! > "$BACKEND_PID_FILE"
+    if [[ -n "$pid" ]]; then
+        disown "$pid" 2>/dev/null || true
+        echo "$pid" > "$BACKEND_PID_FILE"
+    fi
 }
 
 stop_watcher() {
@@ -215,15 +234,24 @@ start_frontend_user() {
         return 0
     fi
     log_step "Starting frontend user-app (port $FRONTEND_PORT)..."
+    local pid=""
     if [[ "$DANWA_USE_MOCK" == "1" ]]; then
         write_mock_script "$MOCK_FRONTEND_SCRIPT"
-        nohup "$MOCK_FRONTEND_SCRIPT" > "$FE_USER_LOG" 2>&1 &
+        "$MOCK_FRONTEND_SCRIPT" > "$FE_USER_LOG" 2>&1 &
+        pid=$!
     else
-        (cd "$frontend_dir" && nohup npm run dev -- --port "$FRONTEND_PORT" > "$FE_USER_LOG" 2>&1 &)
+        pushd "$frontend_dir" >/dev/null
+        npm run dev -- --port "$FRONTEND_PORT" > "$FE_USER_LOG" 2>&1 &
+        pid=$!
+        popd >/dev/null
     fi
-    local pid=$!
+    if [[ -z "$pid" ]]; then
+        log_error "Failed to capture backgrounded frontend PID"
+        return 1
+    fi
+    disown "$pid" 2>/dev/null || true
     echo "$pid" > "$FE_USER_PID_FILE"
-    log_ok "Frontend user-app started"
+    log_ok "Frontend user-app started (PID $pid)"
 }
 
 stop_frontend_user() {
@@ -248,15 +276,24 @@ start_studio() {
         return 0
     fi
     log_step "Starting studio (port $STUDIO_PORT)..."
+    local pid=""
     if [[ "$DANWA_USE_MOCK" == "1" ]]; then
         write_mock_script "$MOCK_STUDIO_SCRIPT"
-        nohup "$MOCK_STUDIO_SCRIPT" > "$STUDIO_LOG" 2>&1 &
+        "$MOCK_STUDIO_SCRIPT" > "$STUDIO_LOG" 2>&1 &
+        pid=$!
     else
-        (cd "$studio_dir" && nohup npm run dev -- --port "$STUDIO_PORT" > "$STUDIO_LOG" 2>&1 &)
+        pushd "$studio_dir" >/dev/null
+        npm run dev -- --port "$STUDIO_PORT" > "$STUDIO_LOG" 2>&1 &
+        pid=$!
+        popd >/dev/null
     fi
-    local pid=$!
+    if [[ -z "$pid" ]]; then
+        log_error "Failed to capture backgrounded studio PID"
+        return 1
+    fi
+    disown "$pid" 2>/dev/null || true
     echo "$pid" > "$STUDIO_PID_FILE"
-    log_ok "Studio started"
+    log_ok "Studio started (PID $pid)"
 }
 
 stop_studio() {
