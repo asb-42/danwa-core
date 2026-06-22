@@ -1,0 +1,17 @@
+# danwa-core/.danwa-config
+#
+# Repo-Konfiguration für danwa-core (Backend + Orchestrator).
+# Wird von manage.sh und setup.sh gesourced. Siehe plans/2026-06-22
+# Repo-Setup-Orchestration §2.3.
+#
+REPO_NAME="danwa-core"
+REPO_ROLE="backend+orchestrator"
+BACKEND_PORT=8000
+FRONTEND_PORT=5173
+STUDIO_PORT=5174
+SIBLINGS=("danwa" "danwa-studio")
+TOOLCHAIN_PYTHON=3.11
+TOOLCHAIN_NODE=22
+TOOLCHAIN_UV=required
+TOOLCHAIN_NPM=required
+DOCS_URL="https://github.com/asb-42/danwa-core"
