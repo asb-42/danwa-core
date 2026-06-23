@@ -350,6 +350,39 @@ component_status() {
     fi
 }
 
+# HTTP probe of the backend. The backend is "really up" only when
+# its uvicorn process is bound to the port AND can answer an HTTP
+# request. During a fresh \`uv sync\` (downloading 3+ GB of torch,
+# triton, etc.) the process exists but is not yet listening — the
+# PID check alone would falsely report "running". This probe makes
+# the status output honest.
+#
+#   http_probe <port>  ->  prints "up (HTTP 200)" | "starting (HTTP 000)" |
+#                          "degraded (HTTP 503)" | "down (HTTP 000)"
+#   http_probe <port> --json  ->  prints "up" | "starting" | "down" | "degraded"
+http_probe() {
+    local port="$1"
+    local mode="${2:-}"  # "" or "--json"
+    # /api/v1/system/status is a no-auth endpoint shipped in Phase 5
+    # (commit dba6851) that returns 200 with the system snapshot.
+    local url="http://127.0.0.1:${port}/api/v1/system/status"
+    local code
+    # curl prints the http_code on stdout even on connection failure
+    # (it prints "000" and exits non-zero). Combining with \`|| echo 000\`
+    # would yield "000000" on failure — so we let curl's own output
+    # win, falling back to a single "000" only if curl itself is
+    # missing or produces no output at all.
+    code="$(curl -s -o /dev/null --max-time 3 -w '%{http_code}' "$url" 2>/dev/null)"
+    [ -z "$code" ] && code="000"
+    case "$code" in
+        200)  [ "$mode" = "--json" ] && echo "up"        || echo "up (HTTP $code)" ;;
+        000)  [ "$mode" = "--json" ] && echo "starting"  || echo "starting (process not yet listening)" ;;
+        5*)   [ "$mode" = "--json" ] && echo "degraded"  || echo "degraded (HTTP $code)" ;;
+        4*)   [ "$mode" = "--json" ] && echo "degraded"  || echo "reachable but rejected (HTTP $code)" ;;
+        *)    [ "$mode" = "--json" ] && echo "degraded"  || echo "responding (HTTP $code)" ;;
+    esac
+}
+
 cmd_status() {
     local json_mode=0
     [[ "${1:-}" == "--json" ]] && json_mode=1
@@ -390,6 +423,7 @@ cmd_status() {
   "components": {
     "backend": {
       "alive": $backend_alive,
+      "http_reachable": "$(http_probe "$BACKEND_PORT" --json)",
       "pid": ${backend_pid:-null},
       "pid_file": "$BACKEND_PID_FILE",
       "log_file": "$BACKEND_LOG",
@@ -415,7 +449,7 @@ EOF
     else
         log_header "danwa-core status"
         log_info "  version:  $DANWA_VERSION"
-        log_info "  backend:  $(component_status "$BACKEND_PID_FILE")"
+        log_info "  backend:  $(component_status "$BACKEND_PID_FILE") / http: $(http_probe "$BACKEND_PORT")"
         log_info "  watcher:  $(component_status "$WATCHER_PID_FILE") (enabled=$([[ "$BACKEND_WATCHER_ENABLED" == "1" ]] && echo yes || echo no))"
         log_info "  frontend: $(component_status "$FE_USER_PID_FILE")"
         log_info "  studio:   $(component_status "$STUDIO_PID_FILE")"
