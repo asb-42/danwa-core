@@ -240,7 +240,18 @@ class DocumentProcessor:
         """Attempt to initialize EasyOCR.
 
         EasyOCR is tried as the secondary fallback (after PaddleOCR). It
-        pulls in PyTorch so it is not a lightweight dependency.
+        pulls in PyTorch so it is not a lightweight dependency — it is
+        an *optional* install (see pyproject.toml
+        ``[project.optional-dependencies].gpu``) and is **not** installed
+        by a plain ``uv sync``. To enable EasyOCR:
+
+            uv sync --group gpu       # PEP 735 (preferred)
+            # or
+            pip install -e ".[gpu]"   # PEP 621
+
+        If the import fails we fall back silently so the rest of the
+        pipeline keeps working — the install-command hint goes to the
+        log so a curious operator can recover.
         """
         try:
             import easyocr
@@ -251,7 +262,10 @@ class DocumentProcessor:
             logger.info("EasyOCR initialized (langs=%s, gpu=%s)", langs, "gpu" in self.config.get("ocr_device", "cpu"))
             return reader
         except ImportError:
-            logger.info("EasyOCR not installed — skipping")
+            logger.info(
+                "EasyOCR not installed — skipping (no GPU OCR available). "
+                "To enable: 'uv sync --group gpu' (or 'pip install -e .[gpu]')."
+            )
             return None
         except Exception as e:
             logger.warning("EasyOCR initialization failed: %s", e)

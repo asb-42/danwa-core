@@ -294,12 +294,23 @@ def ocr_status():
             return {"available": True, "engine": "paddleocr"}
         # Fall through to next check
 
-    # Try EasyOCR
+    # Try EasyOCR.
+    #
+    # Optional dep — see pyproject.toml [project.optional-dependencies].gpu.
+    # To enable GPU-accelerated OCR run:
+    #     uv sync --group gpu
+    # (or: pip install -e ".[gpu]").
+    # On ImportError we log the install hint once at info level so a
+    # curious operator can recover without reading the source.
     try:
         import easyocr  # noqa: F401
 
         return {"available": True, "engine": "easyocr"}
     except ImportError:
+        logger.info(
+            "EasyOCR not installed — OCR status will report it as unavailable. "
+            "To enable: 'uv sync --group gpu' (or 'pip install -e .[gpu]')."
+        )
         pass
     except Exception as e:
         logger.debug("EasyOCR check failed: %s", e)

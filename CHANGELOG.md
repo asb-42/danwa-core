@@ -9,6 +9,38 @@ strictly yet — the major version has not reached 1.0.0.
 
 ## [Unreleased]
 
+### Lazy GPU OCR install (setup.sh --gpu / /install-gpu-deps)
+- **`easyocr` moved out of `[project].dependencies`** into the new
+  `[project.optional-dependencies].gpu` group. Previously every
+  `uv sync` transitively pulled `torch` + `triton` + 8 `nvidia-cu*`
+  wheels (~3 GB, ~30 min on a slow link) even when no OCR feature
+  was used. A fresh-clone `uv sync` now finishes in well under a
+  minute and under 200 MB.
+- **`setup.sh --gpu` / `FULL_GPU=1`** opt-in flag: the canonical
+  template ([`repo-templates/danwa-core/setup.sh`](repo-templates/danwa-core/setup.sh))
+  and the top-level shim now accept `--gpu` and forward it to `uv
+  sync --group gpu`. Default install is unchanged (minimal).
+- **Lazy-import error message**: the `except ImportError` blocks in
+  [`backend/services/dms/document_processor.py`](backend/services/dms/document_processor.py)
+  and [`backend/api/routers/dms.py`](backend/api/routers/dms.py)
+  now log an actionable install command when `import easyocr` fails
+  (was: silent `pass`/`return None`).
+- **`POST /api/v1/system/install-gpu-deps`** — on-demand endpoint
+  that runs `uv sync --group gpu` in the background and returns a
+  `job_id` + log path. The matching
+  **`GET /api/v1/system/install-gpu-deps/status`** reports
+  `easyocr` availability and the install command without doing any
+  shell work (safe to poll). **`GET /api/v1/system/install-gpu-deps/{job_id}`**
+  polls an in-flight job (in-memory dict; one job at a time, 409 on
+  conflict). The endpoint short-circuits to `already_installed` if
+  `easyocr` is already importable.
+- **Tests**:
+  [`tests/scripts/lazy_ocr_imports.bats`](tests/scripts/lazy_ocr_imports.bats)
+  (8 shell tests pinning the pyproject + lazy-import + setup.sh
+  contract) and
+  [`tests/backend/test_system_install_gpu_deps.py`](tests/backend/test_system_install_gpu_deps.py)
+  (8 pytest cases for the HTTP endpoint). All pass.
+
 ### Repo setup & manage orchestration (Phase 9 + 11)
 - **Mirror of `danwa/repo-templates/`** as a local
   [`repo-templates/`](repo-templates/) directory containing all three
