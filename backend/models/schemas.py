@@ -5,6 +5,7 @@ from __future__ import annotations
 import uuid
 from datetime import UTC, datetime
 from enum import StrEnum
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -513,6 +514,10 @@ class WorkspaceSummary(BaseModel):
 
     debate_count: int = 0
     document_count: int = 0
+
+    # Actual entity relationships (not just counts)
+    debates: list[dict[str, Any]] = Field(default_factory=list)
+    documents: list[dict[str, Any]] = Field(default_factory=list)
 
     recent_events: list[WorkspaceRecentEvent] = Field(default_factory=list)
     suggested_next_steps: list[WorkspaceSuggestedNextStep] = Field(default_factory=list)

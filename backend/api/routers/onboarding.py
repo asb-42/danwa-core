@@ -31,10 +31,24 @@ router = APIRouter()
 def _require_onboarding() -> None:
     """The onboarding state is only meaningful when Case-Space is enabled."""
     if not settings.enable_case_space:
-        # We don't 404 here — onboarding is a soft feature that
-        # should still answer queries even when the workspace flag
-        # is off, so the frontend can render an "off" message.
         pass
+
+
+def _check_documents_for_cases(cases: list) -> bool:
+    """Check if any case has documents in its DMS."""
+    try:
+        from backend.services.dms.service import get_dms_for_project
+        for c in cases:
+            try:
+                dms = get_dms_for_project(c.id)
+                docs = dms.list_documents(project_id=c.id)
+                if docs:
+                    return True
+            except Exception:  # noqa: BLE001
+                continue
+    except Exception:  # noqa: BLE001
+        pass
+    return False
 
 
 @router.get("/onboarding/state", response_model=OnboardingState)
@@ -45,10 +59,8 @@ def get_onboarding_state(
     """Return the three booleans the Welcome-Card consumes.
 
     The counts are best-effort and use the same stores the
-    WorkspaceView already touches.  We don't open a separate
-    document store query — documents are tracked per project, not
-    per tenant, and a tenant-wide document count is not a useful
-    onboarding signal.
+    WorkspaceView already touches.  We check for documents by
+    querying the DMS for each case in the tenant.
 
     The function never raises: if a store is unavailable the
     corresponding boolean is False, which makes the Welcome-Card
@@ -58,10 +70,10 @@ def get_onboarding_state(
 
     has_cases = False
     has_debates = False
+    has_documents = False
     try:
         cases = case_store.list_by_tenant(tenant_id)
         has_cases = len(cases) > 0
-        # Count debates across all cases of the tenant
         for c in cases:
             try:
                 debate_store = get_debate_store_for_case(c.id)
@@ -70,12 +82,13 @@ def get_onboarding_state(
                     break
             except Exception:  # noqa: BLE001
                 continue
+        has_documents = _check_documents_for_cases(cases)
     except Exception as exc:  # noqa: BLE001
         logger.warning("onboarding: store unavailable for tenant %s: %s", tenant_id, exc)
 
     return OnboardingState(
         tenant_id=tenant_id,
         has_cases=has_cases,
-        has_documents=False,  # DMS is per-project, not per-tenant — always False in this scope
+        has_documents=has_documents,
         has_debates=has_debates,
     )

@@ -23,7 +23,7 @@ from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from backend.api.deps import get_active_tenant, get_case_store
+from backend.api.deps import get_active_tenant, get_case_store, get_debate_store_for_case
 from backend.core.config import settings
 from backend.models.schemas import (
     CaseSearchHit,
@@ -154,18 +154,60 @@ def get_workspace_summary(
     if case is None:
         raise HTTPException(status_code=404, detail=f"Case {case_id} not found")
 
-    # Aggregate counts — keep this cheap: store.get already loaded the
-    # case; the per-entity counts are derived from the case's existing
-    # relationships (Phase 1 returns the bare minimum; richer aggregation
-    # in Phase 2 once the inbox engine is in place).
+    # Aggregate counts and entity relationships
+    debates = []
+    documents = []
+    debate_count = 0
+    document_count = 0
+
+    # Resolve case directory from the injected CaseStore
+    case_dir = store.get_case_dir(tenant_id, case_id)
+
+    # Count debates from the case's debate store
     try:
-        debate_count = len(getattr(case, "debate_ids", []) or [])
+        from backend.persistence.debate_store import DebateStore
+        debates_dir = case_dir / "debates"
+        if debates_dir.exists():
+            debate_store = DebateStore(data_dir=debates_dir)
+            debate_list = debate_store.list_all() or []
+            debate_count = len(debate_list)
+            debates = [
+                {
+                    "id": d.get("id") or d.get("session_id", ""),
+                    "title": d.get("title", ""),
+                    "status": d.get("status", "unknown"),
+                    "created_at": d.get("created_at", ""),
+                }
+                for d in debate_list[:20]
+            ]
     except Exception:  # noqa: BLE001
-        debate_count = 0
+        pass
+
+    # Count documents via DMS
     try:
-        document_count = len(getattr(case, "document_ids", []) or [])
+        dms_dir = case_dir / "dms"
+        if dms_dir.exists():
+            dms_db = dms_dir / "dms.db"
+            if dms_db.exists():
+                import sqlite3
+                conn = sqlite3.connect(str(dms_db))
+                scope_id = f"case:{tenant_id}:{case_id}"
+                cursor = conn.execute(
+                    "SELECT COUNT(*) FROM documents WHERE project_id = ?",
+                    (scope_id,),
+                )
+                document_count = cursor.fetchone()[0]
+                cursor = conn.execute(
+                    "SELECT id, filename, uploaded_at FROM documents WHERE project_id = ? LIMIT 20",
+                    (scope_id,),
+                )
+                documents = [
+                    {"id": row[0], "filename": row[1], "uploaded_at": row[2] or ""}
+                    for row in cursor.fetchall()
+                ]
+                conn.close()
     except Exception:  # noqa: BLE001
-        document_count = 0
+        pass
 
     return WorkspaceSummary(
         case_id=case.id,
@@ -177,6 +219,8 @@ def get_workspace_summary(
         members=list(getattr(case, "members", []) or []),
         debate_count=debate_count,
         document_count=document_count,
+        debates=debates,
+        documents=documents,
         recent_events=_collect_recent_audit_events(tenant_id, case_id, limit=5),
         suggested_next_steps=_build_suggested_next_steps(
             case_id=case.id,

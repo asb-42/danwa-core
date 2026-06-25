@@ -30,7 +30,7 @@ import logging
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from backend.api.deps import get_case_store
+from backend.api.deps import get_case_store, get_current_user
 from backend.core.config import settings
 from backend.models.schemas import (
     EdgeDetail,
@@ -38,6 +38,7 @@ from backend.models.schemas import (
     GraphNode,
     GraphPayload,
 )
+from backend.models.user import User
 from backend.services.graph_edge_cache import get_graph_edge_cache_service
 
 logger = logging.getLogger(__name__)
@@ -271,9 +272,10 @@ def get_edge_details(
             "Optional case id.  When supplied, the service is scoped "
             "to that case's tenant and only that case's audit events "
             "are considered.  When omitted, the active tenant is "
-            "inferred from the auth context (TODO Phase 7)."
+            "inferred from the auth context."
         ),
     ),
+    user: User = Depends(get_current_user),
 ) -> EdgeDetail:
     """Return metadata for one edge (kind, weight, evidence).
 
@@ -285,12 +287,9 @@ def get_edge_details(
     """
     _require_graph()
 
-    # Resolve the tenant for this lookup.  Phase 7 will use the
-    # authenticated user's tenant; for now we use the case_store's
-    # tenant discovery (mirrors what inbox.py does for cross-
-    # tenant safety).  If the caller supplied a case_id we look
-    # up that case's tenant directly; otherwise we fall back to
-    # the case_store cache walk.
+    # Resolve the tenant for this lookup.  If the caller supplied a
+    # case_id we look up that case's tenant directly; otherwise we
+    # use the authenticated user's tenant from the auth context.
     tenant_id: str | None = None
     if case_id:
         # Try every known tenant for the case
@@ -301,9 +300,10 @@ def get_edge_details(
                 break
 
     if not tenant_id:
-        # No case_id supplied and no auth context: best-effort
-        # discovery.  In practice the frontend always passes a
-        # case_id from the active workspace.
+        # Use the authenticated user's tenant
+        tenant_id = user.tenant_id
+
+    if not tenant_id:
         return EdgeDetail(
             src=src,
             tgt=tgt,

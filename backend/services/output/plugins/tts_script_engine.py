@@ -99,17 +99,8 @@ class TTSScriptEngine:
         # Group queries by round (injections grouped below via node_to_round)
         queries_by_round = self._group_queries_by_round(artifact)
 
-        # Build turn_round map for injection round resolution
-        # Injections don't have a round field directly — map via target_node_id
-        node_to_round: dict[str, int] = {}
-        for turn in artifact.transcript:
-            node_to_round[turn.node_id] = turn.round
-
-        # Re-group injections by round using node_to_round
-        inj_by_round: dict[int, list] = defaultdict(list)
-        for inj in artifact.interjections:
-            rnd = node_to_round.get(inj.target_node_id, 0)
-            inj_by_round[rnd].append(inj)
+        # Group injections by round using the helper method
+        inj_by_round = self._group_injections_by_round(artifact)
 
         # Process rounds
         rounds = sorted({t.round for t in artifact.transcript})
@@ -204,9 +195,15 @@ class TTSScriptEngine:
     @staticmethod
     def _group_injections_by_round(artifact: DebateArtifact) -> dict[int, list]:
         """Group injections by round (using node_to_round mapping)."""
-        # This is a simplified version — the actual round is resolved
-        # in transform() using node_to_round
-        return {}
+        node_to_round: dict[str, int] = {}
+        for turn in artifact.transcript:
+            node_to_round[turn.node_id] = turn.round
+
+        result: dict[int, list] = defaultdict(list)
+        for inj in artifact.interjections:
+            rnd = node_to_round.get(inj.target_node_id, 0)
+            result[rnd].append(inj)
+        return dict(result)
 
     @staticmethod
     def _group_queries_by_round(artifact: DebateArtifact) -> dict[int, list]:

@@ -13,11 +13,13 @@ from __future__ import annotations
 import logging
 from datetime import UTC, datetime
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 
+from backend.api.deps import get_current_user
 from backend.blueprints.repository import BlueprintRepository
 from backend.models.optimization_proposal import OptimizationProposal, ProposalStatus
+from backend.models.user import User
 from backend.repositories.proposal_repo import ProposalRepository
 from backend.services.meta_workflow import MetaWorkflowService
 from backend.workflow.audit_logger import get_audit_logger
@@ -197,7 +199,10 @@ async def get_proposal(proposal_id: str) -> ProposalResponse:
     "/optimization-proposals/{proposal_id}/approve",
     response_model=ApproveResponse,
 )
-async def approve_proposal(proposal_id: str) -> ApproveResponse:
+async def approve_proposal(
+    proposal_id: str,
+    user: User = Depends(get_current_user),
+) -> ApproveResponse:
     """Approve a proposal — creates a new WorkflowDefinition version."""
     repo = _get_proposal_repo()
     proposal = repo.get(proposal_id)
@@ -239,7 +244,7 @@ async def approve_proposal(proposal_id: str) -> ApproveResponse:
     repo.update_status(
         proposal_id,
         ProposalStatus.APPROVED,
-        approved_by="user",  # TODO: get from auth context
+        approved_by=user.id,
         new_version_id=new_workflow.id,
     )
 
@@ -250,7 +255,7 @@ async def approve_proposal(proposal_id: str) -> ApproveResponse:
             workflow_id=proposal.target_workflow_id,
             workflow_version=workflow.version,
             event_type="proposal_approved",
-            actor="user",
+            actor=user.id,
             metadata={"proposal_id": proposal_id, "new_version_id": new_workflow.id},
         )
     except Exception:
@@ -267,7 +272,10 @@ async def approve_proposal(proposal_id: str) -> ApproveResponse:
     "/optimization-proposals/{proposal_id}/reject",
     status_code=200,
 )
-async def reject_proposal(proposal_id: str) -> dict:
+async def reject_proposal(
+    proposal_id: str,
+    user: User = Depends(get_current_user),
+) -> dict:
     """Reject a proposal."""
     repo = _get_proposal_repo()
     proposal = repo.get(proposal_id)
@@ -280,7 +288,7 @@ async def reject_proposal(proposal_id: str) -> dict:
             detail=f"Cannot reject proposal with status={proposal.status.value}",
         )
 
-    repo.update_status(proposal_id, ProposalStatus.REJECTED, approved_by="user")
+    repo.update_status(proposal_id, ProposalStatus.REJECTED, approved_by=user.id)
 
     # Audit log
     try:
@@ -289,7 +297,7 @@ async def reject_proposal(proposal_id: str) -> dict:
             workflow_id=proposal.target_workflow_id,
             workflow_version=1,
             event_type="proposal_rejected",
-            actor="user",
+            actor=user.id,
             metadata={"proposal_id": proposal_id},
         )
     except Exception:

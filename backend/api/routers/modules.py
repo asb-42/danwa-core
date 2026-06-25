@@ -77,10 +77,32 @@ async def list_modules(
 async def list_available_modules() -> list[dict[str, Any]]:
     """List modules available for installation from the official registry.
 
-    Currently returns an empty list — all modules are discovered from the
-    local `modules/` directory. A remote registry may be added later.
+    Fetches the remote module index and returns modules that are not yet
+    installed locally. Each entry includes module metadata (name, description,
+    version, type) for display in the module browser.
     """
-    return []
+    svc = get_module_service()
+    try:
+        remote_modules = svc.fetch_repo_index()
+    except ConnectionError:
+        return []
+
+    local_modules = svc.discover_local_with_status()
+    installed_ids = {m.module_id for m in local_modules if m.installed}
+
+    available = []
+    for mod in remote_modules:
+        module_id = mod.get("module_id") or mod.get("id")
+        if module_id and module_id not in installed_ids:
+            available.append({
+                "module_id": module_id,
+                "name": mod.get("name", module_id),
+                "description": mod.get("description", ""),
+                "version": mod.get("version", "0.0.0"),
+                "type": mod.get("type", "unknown"),
+                "download_url": mod.get("download_url"),
+            })
+    return available
 
 
 # ------------------------------------------------------------------
