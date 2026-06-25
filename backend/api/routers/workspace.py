@@ -50,14 +50,17 @@ def _build_suggested_next_steps(
     case_id: str,
     debate_count: int,
     document_count: int,
+    debates: list[dict] | None = None,
+    case: object | None = None,
 ) -> list[WorkspaceSuggestedNextStep]:
     """Return contextual hints based on the case's current state.
 
-    Heuristics are deliberately simple in Phase 1 — they are designed
-    to be replaced by richer signals once the analytics pipeline
-    (phase 3+) provides per-case engagement metrics.
+    Phase 2: richer heuristics using debate status, document ratios,
+    and case metadata to suggest meaningful next steps.
     """
     steps: list[WorkspaceSuggestedNextStep] = []
+
+    # No documents → upload hint
     if document_count == 0:
         steps.append(
             WorkspaceSuggestedNextStep(
@@ -68,6 +71,8 @@ def _build_suggested_next_steps(
                 action_target="/workspace/upload",
             )
         )
+
+    # No debates → start debate hint
     if debate_count == 0:
         steps.append(
             WorkspaceSuggestedNextStep(
@@ -78,6 +83,58 @@ def _build_suggested_next_steps(
                 action_target="/workspace/new-debate",
             )
         )
+
+    # Debates exist but no documents → RAG not possible
+    if debate_count > 0 and document_count == 0:
+        steps.append(
+            WorkspaceSuggestedNextStep(
+                kind="rag_not_possible",
+                severity="warning",
+                message="Debates exist but no documents are available for RAG. Upload documents to enable grounded debates.",
+                action_label="Upload documents",
+                action_target="/workspace/upload",
+            )
+        )
+
+    # Check for stale debates (no recent updates)
+    if debates:
+        from datetime import UTC, datetime, timedelta
+
+        now = datetime.now(UTC)
+        stale_threshold = now - timedelta(days=7)
+        stale_count = 0
+        for d in debates:
+            updated_str = d.get("updated_at") or d.get("created_at", "")
+            if updated_str:
+                try:
+                    updated = datetime.fromisoformat(updated_str.replace("Z", "+00:00"))
+                    if updated < stale_threshold and d.get("status") in ("running", "pending"):
+                        stale_count += 1
+                except (ValueError, TypeError):
+                    pass
+        if stale_count > 0:
+            steps.append(
+                WorkspaceSuggestedNextStep(
+                    kind="stale_debates",
+                    severity="warning",
+                    message=f"{stale_count} debate(s) haven't been updated in over a week.",
+                    action_label="Review debates",
+                    action_target="/workspace/debates",
+                )
+            )
+
+    # Case has no tags → suggest tagging for organization
+    if case and not getattr(case, "tags", []):
+        steps.append(
+            WorkspaceSuggestedNextStep(
+                kind="no_tags",
+                severity="info",
+                message="This case has no tags. Tags help organize and filter cases.",
+                action_label="Add tags",
+                action_target="/workspace/tags",
+            )
+        )
+
     return steps
 
 
@@ -226,6 +283,8 @@ def get_workspace_summary(
             case_id=case.id,
             debate_count=debate_count,
             document_count=document_count,
+            debates=debates,
+            case=case,
         ),
         generated_at=datetime.now(UTC),
     )

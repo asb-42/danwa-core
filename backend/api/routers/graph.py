@@ -75,9 +75,8 @@ def _entity_kind(case_id: str | None, debate_id: str | None, document_id: str | 
 def _build_local_subgraph(case_store, entity_type: str, entity_id: str, hops: int) -> GraphPayload:
     """1–2 hop subgraph centred on the given entity.
 
-    In Phase 4 we implement only the 1-hop case (the 2-hop
-    expansion is left as a follow-up; the contract is
-    documented but the 2-hop data is empty for now).
+    1-hop: case→debates, case→tags
+    2-hop: debate→documents (via DMS rag_context table)
     """
     nodes: list[GraphNode] = []
     edges: list[GraphEdge] = []
@@ -127,7 +126,32 @@ def _build_local_subgraph(case_store, entity_type: str, entity_id: str, hops: in
                         weight=1.0,
                     )
                 )
-                # 2-hop: documents linked to the debate (not implemented)
+
+                # 2-hop: documents linked via DMS rag_context
+                if hops >= 2:
+                    session_id = d.get("session_id", "")
+                    if session_id:
+                        doc_ids = _get_document_ids_for_session(case.id, session_id)
+                        for doc_id in doc_ids:
+                            doc_node_id = f"document:{doc_id}"
+                            # Avoid duplicate nodes
+                            if not any(n.id == doc_node_id for n in nodes):
+                                nodes.append(
+                                    GraphNode(
+                                        id=doc_node_id,
+                                        type="Document",
+                                        label=doc_id,
+                                        meta={"case_id": case.id, "debate_id": did},
+                                    )
+                                )
+                            edges.append(
+                                GraphEdge(
+                                    src=f"debate:{did}",
+                                    tgt=doc_node_id,
+                                    type="references",
+                                    weight=1.0,
+                                )
+                            )
         except Exception as exc:  # noqa: BLE001
             logger.warning("graph/local: debate store unavailable for case %s: %s", case.id, exc)
 
@@ -151,14 +175,32 @@ def _build_local_subgraph(case_store, entity_type: str, entity_id: str, hops: in
             )
 
     elif entity_type.lower() == "debate":
-        # Phase-4 stretch: walk back to the parent case
-        # We don't store debate→case directly in a portable way
-        # yet, so we return an empty payload with a hint.
+        # Reverse traversal: find the parent case
+        parent_case = _find_case_for_debate(case_store, entity_id)
+        if parent_case:
+            nodes.append(
+                GraphNode(
+                    id=f"case:{parent_case.id}",
+                    type="Case",
+                    label=parent_case.title,
+                    meta={"status": parent_case.status, "tenant_id": parent_case.tenant_id},
+                )
+            )
+            edges.append(
+                GraphEdge(
+                    src=f"case:{parent_case.id}",
+                    tgt=f"debate:{entity_id}",
+                    type="contains",
+                    weight=1.0,
+                )
+            )
+        # Always include the debate node itself
         nodes.append(
             GraphNode(
                 id=f"debate:{entity_id}",
                 type="Debate",
                 label=entity_id,
+                meta={"case_id": parent_case.id if parent_case else None},
             )
         )
     else:
@@ -171,6 +213,70 @@ def _build_local_subgraph(case_store, entity_type: str, entity_id: str, hops: in
         total_count=len(nodes),
         sampled_count=len(nodes),
     )
+
+
+def _get_document_ids_for_session(case_id: str, session_id: str) -> list[str]:
+    """Get document IDs linked to a session via DMS rag_context table."""
+    try:
+        import sqlite3
+        from pathlib import Path
+
+        dms_dir = Path("data/tenants") / "_default" / "cases" / case_id / "dms"
+        # Also try other tenants
+        if not dms_dir.exists():
+            for tenant_dir in (Path("data/tenants")).iterdir():
+                candidate = tenant_dir / "cases" / case_id / "dms"
+                if candidate.exists():
+                    dms_dir = candidate
+                    break
+
+        dms_db = dms_dir / "dms.db"
+        if not dms_db.exists():
+            return []
+
+        conn = sqlite3.connect(str(dms_db))
+        cursor = conn.execute(
+            "SELECT document_id FROM rag_context WHERE session_id = ?",
+            (session_id,),
+        )
+        doc_ids = [row[0] for row in cursor.fetchall()]
+        conn.close()
+        return doc_ids
+    except Exception as exc:  # noqa: BLE001
+        logger.debug("graph: failed to get documents for session %s: %s", session_id, exc)
+        return []
+
+
+def _find_case_for_debate(case_store, debate_id: str):
+    """Find the parent case for a debate by searching all tenants."""
+    try:
+        from backend.api.deps import get_debate_store_for_case
+        from pathlib import Path
+
+        # Search all known case directories for a debate with this ID
+        base = Path("data/tenants")
+        if base.is_dir():
+            for tenant_dir in sorted(base.iterdir()):
+                if not tenant_dir.is_dir():
+                    continue
+                cases_dir = tenant_dir / "cases"
+                if not cases_dir.is_dir():
+                    continue
+                for case_dir in cases_dir.iterdir():
+                    if not case_dir.is_dir():
+                        continue
+                    debates_dir = case_dir / "debates"
+                    if not debates_dir.is_dir():
+                        continue
+                    debate_file = debates_dir / f"{debate_id}.json"
+                    if debate_file.exists():
+                        # Found it — load the case
+                        tid = tenant_dir.name
+                        cid = case_dir.name
+                        return case_store.get(tid, cid)
+    except Exception as exc:  # noqa: BLE001
+        logger.debug("graph: failed to find case for debate %s: %s", debate_id, exc)
+    return None
 
 
 def _known_tenants_via_case_store(case_store) -> list[str]:
