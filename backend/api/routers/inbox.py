@@ -38,7 +38,7 @@ from datetime import UTC, datetime, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from backend.api.deps import get_case_store, get_debate_store_for_case
+from backend.api.deps import get_case_store, get_current_user, get_debate_store_for_case
 from backend.core.config import settings
 from backend.models.schemas import (
     InboxBulkArchiveBody,
@@ -48,6 +48,7 @@ from backend.models.schemas import (
     InboxDebateItem,
     InboxSummary,
 )
+from backend.models.user import User
 
 logger = logging.getLogger(__name__)
 
@@ -66,6 +67,58 @@ def _require_inbox() -> None:
             status_code=404,
             detail="Case-Space Inbox is not enabled (set DANWA_ENABLE_CASE_SPACE_INBOX=true)",
         )
+
+
+def _check_tenant_access(user: User, tenant_id: str) -> None:
+    """Verify the user has access to the given tenant.
+
+    Raises 403 if the user is not a member of the tenant.
+    Admin users have access to all tenants.
+    """
+    if user.role == "admin":
+        return
+    try:
+        from backend.api.deps import get_membership_store
+        membership_store = get_membership_store()
+        membership = membership_store.get(tenant_id, user.id)
+        if membership is None:
+            raise HTTPException(
+                status_code=403,
+                detail=f"Access denied: you are not a member of tenant {tenant_id}",
+            )
+    except HTTPException:
+        raise
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("inbox: failed to check tenant access for user %s: %s", user.id, exc)
+        raise HTTPException(status_code=403, detail="Access denied: unable to verify tenant membership")
+
+
+def _check_write_access(user: User, tenant_id: str) -> None:
+    """Verify the user has write access to the given tenant.
+
+    Viewers can only read; members and admins can write.
+    """
+    if user.role == "admin":
+        return
+    try:
+        from backend.api.deps import get_membership_store
+        membership_store = get_membership_store()
+        membership = membership_store.get(tenant_id, user.id)
+        if membership is None:
+            raise HTTPException(
+                status_code=403,
+                detail=f"Access denied: you are not a member of tenant {tenant_id}",
+            )
+        if membership.role == "viewer":
+            raise HTTPException(
+                status_code=403,
+                detail="Access denied: viewers cannot modify inbox items",
+            )
+    except HTTPException:
+        raise
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("inbox: failed to check write access for user %s: %s", user.id, exc)
+        raise HTTPException(status_code=403, detail="Access denied: unable to verify write permissions")
 
 
 def _parse_dt(value) -> datetime | None:
@@ -174,6 +227,7 @@ def _build_debate_items_for_case(case_id: str, case_tenant_id: str) -> list[Inbo
 def get_inbox(
     tenant_id: str = Query(..., min_length=1),
     case_store=Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> InboxSummary:
     """Return all Inbox items for the caller's tenant.
 
@@ -184,6 +238,7 @@ def get_inbox(
     partial — a future phase can add pagination).
     """
     _require_inbox()
+    _check_tenant_access(user, tenant_id)
 
     cases = case_store.list_by_tenant(tenant_id)
     all_items: list[InboxDebateItem] = []
@@ -274,14 +329,9 @@ def _known_tenants_via_case_store(case_store) -> list[str]:
 def bulk_move(
     body: InboxBulkMoveBody,
     case_store=Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> InboxBulkResult:
-    """Move the listed debates to ``target_case_id``.
-
-    Implementation: DebateStore.move_to_case() (already shipped in
-    Phase 1.x) handles the file-IO.  This endpoint is the
-    orchestration layer that enforces tenant safety and
-    partial-success reporting.
-    """
+    """Move the listed debates to ``target_case_id``."""
     _require_inbox()
 
     # Locate the target case in any known tenant
@@ -295,6 +345,8 @@ def bulk_move(
             break
     if target_case_obj is None:
         raise HTTPException(status_code=404, detail=f"Target case {body.target_case_id} not found")
+
+    _check_write_access(user, target_tenant_id)
 
     matched, failed = _resolve_tenant_for_debates(body.debate_ids, case_store)
     succeeded: list[str] = []
@@ -331,18 +383,20 @@ def bulk_move(
 def bulk_tag(
     body: InboxBulkTagBody,
     case_store=Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> InboxBulkResult:
-    """Add the listed tags to each debate.
-
-    An empty ``tag_ids`` is a no-op (200, all in ``succeeded``).
-    Existing tags are kept (idempotent union).
-    """
+    """Add the listed tags to each debate."""
     _require_inbox()
 
     matched, failed = _resolve_tenant_for_debates(body.debate_ids, case_store)
     succeeded: list[str] = []
-    for case_id, _tid, debate in matched:
+    for case_id, tid, debate in matched:
         did = debate.get("debate_id") or debate.get("id", "")
+        try:
+            _check_write_access(user, tid)
+        except HTTPException as exc:
+            failed.append({"id": did, "reason": exc.detail})
+            continue
         try:
             store = get_debate_store_for_case(case_id)
             existing = set(debate.get("tags") or [])
@@ -361,23 +415,22 @@ def bulk_tag(
 def bulk_archive(
     body: InboxBulkArchiveBody,
     case_store=Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> InboxBulkResult:
-    """Archive (soft-remove) the listed debates from their case stores.
-
-    Implementation: the legacy archive view marks the debate's case
-    with an ``archived_at`` timestamp; in P2 we simply remove the
-    debate from its case store.  A future phase can replace this
-    with a soft-delete flag.
-    """
+    """Archive (soft-remove) the listed debates from their case stores."""
     _require_inbox()
 
     matched, failed = _resolve_tenant_for_debates(body.debate_ids, case_store)
     succeeded: list[str] = []
-    for case_id, _tid, debate in matched:
+    for case_id, tid, debate in matched:
         did = debate.get("debate_id") or debate.get("id", "")
         try:
+            _check_write_access(user, tid)
+        except HTTPException as exc:
+            failed.append({"id": did, "reason": exc.detail})
+            continue
+        try:
             store = get_debate_store_for_case(case_id)
-            # Mark archived and persist (soft delete on the store)
             debate["status"] = "archived"
             debate["archived_at"] = datetime.now(UTC).isoformat()
             store.put(did, debate)
