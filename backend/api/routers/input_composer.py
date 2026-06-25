@@ -27,7 +27,7 @@ from backend.api.deps import get_debate_store_for_case, get_project_id
 from backend.blueprints.compiler import CompilerService
 from backend.blueprints.mvp_debate_canvas import _ensure_blueprint
 from backend.blueprints.repository import BlueprintRepository
-from backend.models.input_job import InputJobStatus
+from backend.models.input_job import InputJob, InputJobStatus
 from backend.persistence.debate_store import DebateStatus
 from backend.services.input.input_engine import InputComposerService
 from backend.services.input.input_job_store import InputJobStore
@@ -367,15 +367,63 @@ async def stt_stream(request: Request) -> StreamingResponse:
 
 
 @router.post("/mcp/tools/call")
-async def mcp_tools_call() -> dict:
-    """Reserved endpoint for future MCP server integration.
+async def mcp_tools_call(body: dict[str, Any] | None = None) -> dict:
+    """MCP tools/call endpoint — receives MCP tool invocations.
 
-    Currently returns 501 Not Implemented.
+    External MCP clients send JSON-RPC style requests here. The request
+    is mapped to a DebateInput via the MCPInputPlugin and returned as
+    an InputJob that can be bridged to a workflow.
     """
-    raise HTTPException(
-        status_code=501,
-        detail="MCP tools/call is not yet implemented. This is a reserved endpoint.",
+    from backend.services.input.plugins.mcp_plugin import (
+        MCPInputPlugin,
+        MCPPluginConfig,
+        MCPToolCallRequest,
     )
+
+    if body is None:
+        body = {}
+
+    # Parse the MCP request
+    tool_name = body.get("tool_name") or body.get("params", {}).get("name", "")
+    arguments = body.get("arguments") or body.get("params", {}).get("arguments", {})
+    request_id = body.get("id") or body.get("request_id", str(uuid.uuid4()))
+
+    if not tool_name:
+        raise HTTPException(status_code=400, detail="tool_name is required")
+
+    # Create the MCP plugin and capture the input
+    plugin = MCPInputPlugin()
+    config = MCPPluginConfig(
+        server_name=body.get("server_name", "external-mcp-client"),
+        tool_name=tool_name,
+        arguments=arguments,
+    )
+
+    try:
+        debate_input = await plugin.capture(config)
+    except Exception as exc:
+        logger.error("MCP input capture failed: %s", exc)
+        raise HTTPException(status_code=500, detail=f"MCP input capture failed: {exc}")
+
+    # Create an InputJob for the captured input
+    job_store = _get_job_store()
+    job = InputJob(
+        id=str(uuid.uuid4()),
+        plugin_key="mcp",
+        status=InputJobStatus.COMPLETED,
+        processed_input=debate_input,
+        created_at=datetime.now(UTC),
+        completed_at=datetime.now(UTC),
+    )
+    job_store.create_job(job)
+
+    return {
+        "request_id": request_id,
+        "job_id": job.id,
+        "status": "completed",
+        "input_hash": debate_input.input_hash,
+        "topic_preview": debate_input.topic[:200],
+    }
 
 
 # ---------------------------------------------------------------------------

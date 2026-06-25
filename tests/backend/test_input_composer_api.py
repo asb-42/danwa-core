@@ -34,12 +34,12 @@ class TestInputPluginsEndpoint:
         assert "a2a_inbound" in keys
         assert "mcp" in keys
 
-    async def test_mcp_is_not_available(self, client: AsyncClient):
+    async def test_mcp_is_available(self, client: AsyncClient):
         res = await client.get("/api/v1/input-plugins")
         plugins = res.json()
         mcp = next(p for p in plugins if p["plugin_key"] == "mcp")
-        assert mcp["ui_hints"]["is_available"] is False
-        assert mcp["ui_hints"]["coming_soon"] is True
+        assert mcp["ui_hints"]["is_available"] is True
+        assert mcp["ui_hints"]["coming_soon"] is False
 
     async def test_plugin_has_config_schema(self, client: AsyncClient):
         res = await client.get("/api/v1/input-plugins")
@@ -155,9 +155,19 @@ class TestInputJobEndpoints:
 
 
 class TestMCPEndpoint:
-    async def test_mcp_not_implemented(self, client: AsyncClient):
-        res = await client.post("/api/v1/mcp/tools/call")
-        assert res.status_code == 501
+    async def test_mcp_tool_call(self, client: AsyncClient):
+        res = await client.post(
+            "/api/v1/mcp/tools/call",
+            json={
+                "tool_name": "test_tool",
+                "arguments": {"key": "value"},
+            },
+        )
+        assert res.status_code == 200
+        data = res.json()
+        assert data["status"] == "completed"
+        assert "job_id" in data
+        assert "input_hash" in data
 
 
 class TestA2AApprovalEndpoints:
