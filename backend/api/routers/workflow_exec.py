@@ -260,27 +260,34 @@ async def list_sessions(
             SELECT
                 a.session_id,
                 a.workflow_id,
-                a.last_event,
+                a.last_timestamp,
+                a.last_event_type,
                 a.started_at,
                 a.event_count,
                 CASE
-                    WHEN a.last_event LIKE '%workflow.complete%' THEN 'completed'
-                    WHEN a.last_event LIKE '%workflow.error%' THEN 'failed'
-                    WHEN a.last_event LIKE '%node.error%' THEN 'failed'
-                    WHEN a.last_event LIKE '%workflow.cancelled%' THEN 'cancelled'
+                    WHEN a.last_event_type = 'workflow_completed' THEN 'completed'
+                    WHEN a.last_event_type = 'workflow_failed' THEN 'failed'
+                    WHEN a.last_event_type = 'workflow_paused' THEN 'paused'
+                    WHEN a.last_event_type = 'workflow_cancelled' THEN 'cancelled'
+                    WHEN a.last_event_type = 'workflow_resumed' THEN 'running'
+                    WHEN a.last_event_type = 'workflow_started' THEN 'running'
                     ELSE 'running'
                 END as derived_status
             FROM (
                 SELECT
                     session_id,
                     workflow_id,
-                    MAX(timestamp) as last_event,
+                    MAX(timestamp) as last_timestamp,
+                    -- Get the event_type of the most recent event
+                    (SELECT event_type FROM audit_log sub
+                     WHERE sub.session_id = main.session_id
+                     ORDER BY sub.timestamp DESC LIMIT 1) as last_event_type,
                     MIN(timestamp) as started_at,
                     COUNT(*) as event_count
-                FROM audit_log
+                FROM audit_log main
                 GROUP BY session_id
             ) a
-            ORDER BY a.last_event DESC
+            ORDER BY a.last_timestamp DESC
             LIMIT ? OFFSET ?
             """,
             (limit, offset),
@@ -300,8 +307,9 @@ async def list_sessions(
                     "session_id": row["session_id"],
                     "workflow_id": row["workflow_id"],
                     "status": sess_status,
-                    "started_at": row["started_at"],
-                    "last_event": row["last_event"],
+                    "created_at": row["started_at"],
+                    "last_event": row["last_timestamp"],
+                    "last_event_type": row["last_event_type"],
                     "event_count": row["event_count"],
                 }
             )
