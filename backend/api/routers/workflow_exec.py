@@ -245,25 +245,42 @@ async def list_sessions(
     import sqlite3 as _sql
     from pathlib import Path
 
-    from backend.workflow.audit_logger import get_audit_logger
+    # Find the audit DB — it's blueprints.db (where audit_log table lives)
+    from pathlib import Path
 
-    audit = get_audit_logger()
-    # Open a SEPARATE connection — never close the audit logger's cached one
-    conn = _sql.connect(str(audit._db_path), check_same_thread=False, timeout=10.0)
+    db_path = Path("data/blueprints.db")
+    if not db_path.exists():
+        return []
+
+    conn = _sql.connect(str(db_path), check_same_thread=False, timeout=10.0)
     conn.row_factory = _sql.Row
     try:
-        # Get distinct sessions with their latest event info
         rows = conn.execute(
             """
             SELECT
-                session_id,
-                workflow_id,
-                MAX(timestamp) as last_event,
-                MIN(timestamp) as started_at,
-                COUNT(*) as event_count
-            FROM audit_log
-            GROUP BY session_id
-            ORDER BY MAX(timestamp) DESC
+                a.session_id,
+                a.workflow_id,
+                a.last_event,
+                a.started_at,
+                a.event_count,
+                CASE
+                    WHEN a.last_event LIKE '%workflow.complete%' THEN 'completed'
+                    WHEN a.last_event LIKE '%workflow.error%' THEN 'failed'
+                    WHEN a.last_event LIKE '%node.error%' THEN 'failed'
+                    WHEN a.last_event LIKE '%workflow.cancelled%' THEN 'cancelled'
+                    ELSE 'running'
+                END as derived_status
+            FROM (
+                SELECT
+                    session_id,
+                    workflow_id,
+                    MAX(timestamp) as last_event,
+                    MIN(timestamp) as started_at,
+                    COUNT(*) as event_count
+                FROM audit_log
+                GROUP BY session_id
+            ) a
+            ORDER BY a.last_event DESC
             LIMIT ? OFFSET ?
             """,
             (limit, offset),
@@ -271,31 +288,10 @@ async def list_sessions(
 
         sessions = []
         for row in rows:
-            # Determine status: prefer workflow state backend, fall back to audit log events
-            from backend.workflow.workflow_runner import get_session_status
+            sess_status = row["derived_status"]
 
-            sess_status = get_session_status(row["session_id"])
-            if sess_status == "unknown":
-                # Derive status from the latest event type in the audit log
-                last_event = conn.execute(
-                    "SELECT event_type FROM audit_log WHERE session_id = ? ORDER BY timestamp DESC LIMIT 1",
-                    (row["session_id"],),
-                ).fetchone()
-                if last_event:
-                    evt = last_event["event_type"]
-                    if evt == "workflow.complete":
-                        sess_status = "completed"
-                    elif evt in ("workflow.error", "node.error"):
-                        sess_status = "failed"
-                    elif evt == "workflow.cancelled":
-                        sess_status = "cancelled"
-                    else:
-                        sess_status = "running"
-
-            # Filter by status if requested
             if status and sess_status != status:
                 continue
-            # Filter by workflow_id if requested
             if workflow_id and row["workflow_id"] != workflow_id:
                 continue
 
