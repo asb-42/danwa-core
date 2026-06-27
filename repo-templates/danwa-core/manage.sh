@@ -114,29 +114,18 @@ start_backend() {
         return 0
     fi
     log_step "Starting backend (port $BACKEND_PORT)..."
-    # Background the start command. We deliberately avoid `(cmd &)`
-    # subshells because $! would resolve to empty outside the subshell.
-    local pid=""
     if [[ "$DANWA_USE_MOCK" == "1" ]]; then
         write_mock_script "$MOCK_BACKEND_SCRIPT"
-        "$MOCK_BACKEND_SCRIPT" > "$BACKEND_LOG" 2>&1 &
-        pid=$!
+        nohup "$MOCK_BACKEND_SCRIPT" > "$BACKEND_LOG" 2>&1 &
     else
         if [[ ! -f "$PROJECT_DIR/pyproject.toml" ]]; then
             log_error "pyproject.toml missing — cannot start backend with uv"
             return 1
         fi
-        pushd "$PROJECT_DIR" >/dev/null
-        uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
-            > "$BACKEND_LOG" 2>&1 &
-        pid=$!
-        popd >/dev/null
+        (cd "$PROJECT_DIR" && nohup uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
+            > "$BACKEND_LOG" 2>&1 &)
     fi
-    if [[ -z "$pid" ]]; then
-        log_error "Failed to capture backgrounded backend PID"
-        return 1
-    fi
-    disown "$pid" 2>/dev/null || true
+    local pid=$!
     echo "$pid" > "$BACKEND_PID_FILE"
     log_ok "Backend started (PID $pid, log: $BACKEND_LOG)"
 }
@@ -188,25 +177,17 @@ start_backend_no_watcher() {
     if pid_running "$BACKEND_PID_FILE" > /dev/null; then
         return 0
     fi
-    local pid=""
     if [[ "$DANWA_USE_MOCK" == "1" ]]; then
         write_mock_script "$MOCK_BACKEND_SCRIPT"
-        "$MOCK_BACKEND_SCRIPT" > "$BACKEND_LOG" 2>&1 &
-        pid=$!
+        nohup "$MOCK_BACKEND_SCRIPT" > "$BACKEND_LOG" 2>&1 &
     else
         if [[ ! -f "$PROJECT_DIR/pyproject.toml" ]]; then
             return 1
         fi
-        pushd "$PROJECT_DIR" >/dev/null
-        uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
-            > "$BACKEND_LOG" 2>&1 &
-        pid=$!
-        popd >/dev/null
+        (cd "$PROJECT_DIR" && nohup uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
+            > "$BACKEND_LOG" 2>&1 &)
     fi
-    if [[ -n "$pid" ]]; then
-        disown "$pid" 2>/dev/null || true
-        echo "$pid" > "$BACKEND_PID_FILE"
-    fi
+    echo $! > "$BACKEND_PID_FILE"
 }
 
 stop_watcher() {
@@ -234,24 +215,15 @@ start_frontend_user() {
         return 0
     fi
     log_step "Starting frontend user-app (port $FRONTEND_PORT)..."
-    local pid=""
     if [[ "$DANWA_USE_MOCK" == "1" ]]; then
         write_mock_script "$MOCK_FRONTEND_SCRIPT"
-        "$MOCK_FRONTEND_SCRIPT" > "$FE_USER_LOG" 2>&1 &
-        pid=$!
+        nohup "$MOCK_FRONTEND_SCRIPT" > "$FE_USER_LOG" 2>&1 &
     else
-        pushd "$frontend_dir" >/dev/null
-        npm run dev -- --port "$FRONTEND_PORT" > "$FE_USER_LOG" 2>&1 &
-        pid=$!
-        popd >/dev/null
+        (cd "$frontend_dir" && nohup npm run dev -- --port "$FRONTEND_PORT" > "$FE_USER_LOG" 2>&1 &)
     fi
-    if [[ -z "$pid" ]]; then
-        log_error "Failed to capture backgrounded frontend PID"
-        return 1
-    fi
-    disown "$pid" 2>/dev/null || true
+    local pid=$!
     echo "$pid" > "$FE_USER_PID_FILE"
-    log_ok "Frontend user-app started (PID $pid)"
+    log_ok "Frontend user-app started"
 }
 
 stop_frontend_user() {
@@ -276,24 +248,15 @@ start_studio() {
         return 0
     fi
     log_step "Starting studio (port $STUDIO_PORT)..."
-    local pid=""
     if [[ "$DANWA_USE_MOCK" == "1" ]]; then
         write_mock_script "$MOCK_STUDIO_SCRIPT"
-        "$MOCK_STUDIO_SCRIPT" > "$STUDIO_LOG" 2>&1 &
-        pid=$!
+        nohup "$MOCK_STUDIO_SCRIPT" > "$STUDIO_LOG" 2>&1 &
     else
-        pushd "$studio_dir" >/dev/null
-        npm run dev -- --port "$STUDIO_PORT" > "$STUDIO_LOG" 2>&1 &
-        pid=$!
-        popd >/dev/null
+        (cd "$studio_dir" && nohup npm run dev -- --port "$STUDIO_PORT" > "$STUDIO_LOG" 2>&1 &)
     fi
-    if [[ -z "$pid" ]]; then
-        log_error "Failed to capture backgrounded studio PID"
-        return 1
-    fi
-    disown "$pid" 2>/dev/null || true
+    local pid=$!
     echo "$pid" > "$STUDIO_PID_FILE"
-    log_ok "Studio started (PID $pid)"
+    log_ok "Studio started"
 }
 
 stop_studio() {
@@ -304,6 +267,39 @@ stop_studio() {
     kill_pid "$STUDIO_PID_FILE"
     rm -f "$STUDIO_PID_FILE"
     log_ok "Studio stopped"
+}
+
+# ───────────────────────────────────────────────────────────────────────
+# Sibling discovery & delegation
+# ───────────────────────────────────────────────────────────────────────
+find_sibling_manage() {
+    local name="$1"
+    discover_siblings "$name" 2>/dev/null || true
+    local var="DANWA_SIBLING_${name//-/_}"
+    local dir="${!var:-}"
+    if [[ -z "$dir" ]]; then
+        # Fallback: try ../<name>
+        dir="$PROJECT_DIR/../$name"
+    fi
+    if [[ -d "$dir" ]] && [[ -f "$dir/manage.sh" ]]; then
+        echo "$dir/manage.sh"
+        return 0
+    fi
+    return 1
+}
+
+delegate_to() {
+    local name="$1"; shift
+    local script
+    if script="$(find_sibling_manage "$name")"; then
+        log_step "Delegating to $name: $*"
+        # Pass DANWA_LIBDANWA_PATH so the sibling can find libdanwa.sh
+        export DANWA_LIBDANWA_PATH="${DANWA_LIBDANWA_PATH:-$LIBDANWA_RESOLVED}"
+        bash "$script" "$@"
+    else
+        log_warn "Sibling '$name' not found — skipping"
+        return 1
+    fi
 }
 
 # ───────────────────────────────────────────────────────────────────────
@@ -350,39 +346,6 @@ component_status() {
     fi
 }
 
-# HTTP probe of the backend. The backend is "really up" only when
-# its uvicorn process is bound to the port AND can answer an HTTP
-# request. During a fresh \`uv sync\` (downloading 3+ GB of torch,
-# triton, etc.) the process exists but is not yet listening — the
-# PID check alone would falsely report "running". This probe makes
-# the status output honest.
-#
-#   http_probe <port>  ->  prints "up (HTTP 200)" | "starting (HTTP 000)" |
-#                          "degraded (HTTP 503)" | "down (HTTP 000)"
-#   http_probe <port> --json  ->  prints "up" | "starting" | "down" | "degraded"
-http_probe() {
-    local port="$1"
-    local mode="${2:-}"  # "" or "--json"
-    # /api/v1/system/status is a no-auth endpoint shipped in Phase 5
-    # (commit dba6851) that returns 200 with the system snapshot.
-    local url="http://127.0.0.1:${port}/api/v1/system/status"
-    local code
-    # curl prints the http_code on stdout even on connection failure
-    # (it prints "000" and exits non-zero). Combining with \`|| echo 000\`
-    # would yield "000000" on failure — so we let curl's own output
-    # win, falling back to a single "000" only if curl itself is
-    # missing or produces no output at all.
-    code="$(curl -s -o /dev/null --max-time 3 -w '%{http_code}' "$url" 2>/dev/null)"
-    [ -z "$code" ] && code="000"
-    case "$code" in
-        200)  [ "$mode" = "--json" ] && echo "up"        || echo "up (HTTP $code)" ;;
-        000)  [ "$mode" = "--json" ] && echo "starting"  || echo "starting (process not yet listening)" ;;
-        5*)   [ "$mode" = "--json" ] && echo "degraded"  || echo "degraded (HTTP $code)" ;;
-        4*)   [ "$mode" = "--json" ] && echo "degraded"  || echo "reachable but rejected (HTTP $code)" ;;
-        *)    [ "$mode" = "--json" ] && echo "degraded"  || echo "responding (HTTP $code)" ;;
-    esac
-}
-
 cmd_status() {
     local json_mode=0
     [[ "${1:-}" == "--json" ]] && json_mode=1
@@ -423,7 +386,6 @@ cmd_status() {
   "components": {
     "backend": {
       "alive": $backend_alive,
-      "http_reachable": "$(http_probe "$BACKEND_PORT" --json)",
       "pid": ${backend_pid:-null},
       "pid_file": "$BACKEND_PID_FILE",
       "log_file": "$BACKEND_LOG",
@@ -449,7 +411,7 @@ EOF
     else
         log_header "danwa-core status"
         log_info "  version:  $DANWA_VERSION"
-        log_info "  backend:  $(component_status "$BACKEND_PID_FILE") / http: $(http_probe "$BACKEND_PORT")"
+        log_info "  backend:  $(component_status "$BACKEND_PID_FILE")"
         log_info "  watcher:  $(component_status "$WATCHER_PID_FILE") (enabled=$([[ "$BACKEND_WATCHER_ENABLED" == "1" ]] && echo yes || echo no))"
         log_info "  frontend: $(component_status "$FE_USER_PID_FILE")"
         log_info "  studio:   $(component_status "$STUDIO_PID_FILE")"
@@ -491,6 +453,13 @@ Commands:
   status [--json]    Show status (JSON for studio SystemManagementView)
   logs [be|fe|st|all] Tail logs
   clean              Remove log files
+
+  Cross-repo (manage siblings from here):
+    backend [start|stop|restart]   Manage backend (alias: be)
+    frontend [start|stop|restart]  Manage legacy frontend (alias: fe)
+    studio [start|stop|restart]    Manage danwa-studio (alias: st)
+    all [start|stop|restart]       Manage all repos
+
   help               This help
 
 Env overrides:
@@ -516,6 +485,16 @@ case "$cmd" in
     status)       cmd_status "$@" ;;
     logs)         cmd_logs "$@" ;;
     clean)        cmd_clean "$@" ;;
+    # Cross-repo shortcuts
+    backend|be)   delegate_to danwa-core "${1:-status}" ;;
+    frontend|fe)  delegate_to danwa "${1:-status}" ;;
+    studio|st)    delegate_to danwa-studio "${1:-status}" ;;
+    all)
+        sub="${1:-status}"
+        delegate_to danwa-core "$sub" || true
+        delegate_to danwa "$sub" || true
+        delegate_to danwa-studio "$sub" || true
+        ;;
     help|--help|-h) cmd_help ;;
     *)
         log_error "Unknown command: $cmd"
