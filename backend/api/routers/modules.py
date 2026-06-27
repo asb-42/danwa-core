@@ -47,7 +47,7 @@ async def list_modules(
     svc = get_module_service()
     if category:
         modules = svc.list_all(category=category)
-        return [
+        result = [
             {
                 "module_id": m.module_id,
                 "name": m.name,
@@ -70,7 +70,29 @@ async def list_modules(
             }
             for m in modules
         ]
-    return svc.discover_local_with_status()
+    else:
+        result = svc.discover_local_with_status()
+
+    # Enrich language packs with string count from DB
+    try:
+        import sqlite3 as _sql
+        from pathlib import Path as _Path
+        db_path = _Path(__file__).resolve().parent.parent.parent.parent / "data" / "i18n" / "ui_translations.db"
+        if db_path.exists():
+            conn = _sql.connect(str(db_path))
+            for m in result:
+                if m.get("type") == "language-pack" and m.get("language"):
+                    lang = m["language"]
+                    row = conn.execute(
+                        "SELECT COUNT(DISTINCT key) FROM ui_translations WHERE locale = ? AND namespace LIKE 'langpack:%'",
+                        (lang,),
+                    ).fetchone()
+                    m["string_count"] = row[0] if row else 0
+            conn.close()
+    except Exception:
+        pass
+
+    return result
 
 
 @router.get("/available", response_model=list[dict[str, Any]])
