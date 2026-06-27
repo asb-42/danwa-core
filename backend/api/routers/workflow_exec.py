@@ -255,8 +255,29 @@ async def list_sessions(
     conn = _sql.connect(str(db_path), check_same_thread=False, timeout=10.0)
     conn.row_factory = _sql.Row
     try:
-        rows = conn.execute(
+        # Build WHERE clause for status filter
+        status_condition = ""
+        params: list = []
+        if status:
+            status_condition = """
+                AND CASE
+                    WHEN a.last_event_type = 'workflow_completed' THEN 'completed'
+                    WHEN a.last_event_type = 'workflow_failed' THEN 'failed'
+                    WHEN a.last_event_type = 'workflow_paused' THEN 'paused'
+                    WHEN a.last_event_type = 'workflow_cancelled' THEN 'cancelled'
+                    ELSE 'running'
+                END = ?
             """
+            params.append(status)
+
+        if workflow_id:
+            status_condition += " AND a.workflow_id = ?"
+            params.append(workflow_id)
+
+        params.extend([limit, offset])
+
+        rows = conn.execute(
+            f"""
             SELECT
                 a.session_id,
                 a.workflow_id,
@@ -278,7 +299,6 @@ async def list_sessions(
                     session_id,
                     workflow_id,
                     MAX(timestamp) as last_timestamp,
-                    -- Get the event_type of the most recent event
                     (SELECT event_type FROM audit_log sub
                      WHERE sub.session_id = main.session_id
                      ORDER BY sub.timestamp DESC LIMIT 1) as last_event_type,
@@ -287,20 +307,16 @@ async def list_sessions(
                 FROM audit_log main
                 GROUP BY session_id
             ) a
+            WHERE 1=1 {status_condition}
             ORDER BY a.last_timestamp DESC
             LIMIT ? OFFSET ?
             """,
-            (limit, offset),
+            params,
         ).fetchall()
 
         sessions = []
         for row in rows:
             sess_status = row["derived_status"]
-
-            if status and sess_status != status:
-                continue
-            if workflow_id and row["workflow_id"] != workflow_id:
-                continue
 
             sessions.append(
                 {
