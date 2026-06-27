@@ -229,6 +229,87 @@ class StartMvpDebateResponse(BaseModel):
 # ---------------------------------------------------------------------------
 
 
+@router.get("/sessions")
+async def list_sessions(
+    status: str | None = None,
+    workflow_id: str | None = None,
+    project_id: str | None = None,
+    limit: int = 50,
+    offset: int = 0,
+):
+    """List workflow sessions from the audit log.
+
+    Returns an array of session summaries with session_id, workflow_id,
+    status, and last event timestamp.
+    """
+    from backend.workflow.audit_logger import get_audit_logger
+
+    audit = get_audit_logger()
+    conn = audit._get_conn()
+    try:
+        # Get distinct sessions with their latest event info
+        rows = conn.execute(
+            """
+            SELECT
+                session_id,
+                workflow_id,
+                MAX(timestamp) as last_event,
+                MIN(timestamp) as started_at,
+                COUNT(*) as event_count
+            FROM audit_log
+            GROUP BY session_id
+            ORDER BY MAX(timestamp) DESC
+            LIMIT ? OFFSET ?
+            """,
+            (limit, offset),
+        ).fetchall()
+
+        sessions = []
+        for row in rows:
+            # Determine status: prefer workflow state backend, fall back to audit log events
+            from backend.workflow.workflow_runner import get_session_status
+
+            sess_status = get_session_status(row["session_id"])
+            if sess_status == "unknown":
+                # Derive status from the latest event type in the audit log
+                last_event = conn.execute(
+                    "SELECT event_type FROM audit_log WHERE session_id = ? ORDER BY timestamp DESC LIMIT 1",
+                    (row["session_id"],),
+                ).fetchone()
+                if last_event:
+                    evt = last_event["event_type"]
+                    if evt == "workflow.complete":
+                        sess_status = "completed"
+                    elif evt in ("workflow.error", "node.error"):
+                        sess_status = "failed"
+                    elif evt == "workflow.cancelled":
+                        sess_status = "cancelled"
+                    else:
+                        sess_status = "running"
+
+            # Filter by status if requested
+            if status and sess_status != status:
+                continue
+            # Filter by workflow_id if requested
+            if workflow_id and row["workflow_id"] != workflow_id:
+                continue
+
+            sessions.append(
+                {
+                    "session_id": row["session_id"],
+                    "workflow_id": row["workflow_id"],
+                    "status": sess_status,
+                    "started_at": row["started_at"],
+                    "last_event": row["last_event"],
+                    "event_count": row["event_count"],
+                }
+            )
+
+        return sessions
+    finally:
+        conn.close()
+
+
 @router.post("/mvp/start", response_model=StartMvpDebateResponse)
 async def start_mvp_debate(
     body: StartMvpDebateRequest,
