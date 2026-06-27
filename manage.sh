@@ -122,10 +122,15 @@ start_backend() {
             log_error "pyproject.toml missing — cannot start backend with uv"
             return 1
         fi
-        cd "$PROJECT_DIR" && nohup uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
-            > "$BACKEND_LOG" 2>&1 &
+        cd "$PROJECT_DIR" && setsid nohup uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
+            > "$BACKEND_LOG" 2>&1 < /dev/null &
     fi
-    local pid=$!
+    sleep 0.5
+    local pid
+    pid=$(pgrep -f "uvicorn backend.main:app" 2>/dev/null | head -1 || echo "")
+    if [[ -z "$pid" ]]; then
+        pid=$!
+    fi
     echo "$pid" > "$BACKEND_PID_FILE"
     log_ok "Backend started (PID $pid, log: $BACKEND_LOG)"
 }
@@ -184,10 +189,16 @@ start_backend_no_watcher() {
         if [[ ! -f "$PROJECT_DIR/pyproject.toml" ]]; then
             return 1
         fi
-        (cd "$PROJECT_DIR" && nohup uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
-            > "$BACKEND_LOG" 2>&1 &)
+        cd "$PROJECT_DIR" && setsid nohup uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
+            > "$BACKEND_LOG" 2>&1 < /dev/null &
     fi
-    echo $! > "$BACKEND_PID_FILE"
+    sleep 0.5
+    local pid
+    pid=$(pgrep -f "uvicorn backend.main:app" 2>/dev/null | head -1 || echo "")
+    if [[ -z "$pid" ]]; then
+        pid=$!
+    fi
+    echo "$pid" > "$BACKEND_PID_FILE"
 }
 
 stop_watcher() {
@@ -219,7 +230,7 @@ start_frontend_user() {
         write_mock_script "$MOCK_FRONTEND_SCRIPT"
         nohup "$MOCK_FRONTEND_SCRIPT" > "$FE_USER_LOG" 2>&1 &
     else
-        (cd "$frontend_dir" && nohup npm run dev -- --port "$FRONTEND_PORT" > "$FE_USER_LOG" 2>&1 &)
+        (cd "$frontend_dir" && setsid nohup npm run dev -- --port "$FRONTEND_PORT" > "$FE_USER_LOG" 2>&1 < /dev/null &)
     fi
     local pid=$!
     echo "$pid" > "$FE_USER_PID_FILE"
@@ -252,7 +263,7 @@ start_studio() {
         write_mock_script "$MOCK_STUDIO_SCRIPT"
         nohup "$MOCK_STUDIO_SCRIPT" > "$STUDIO_LOG" 2>&1 &
     else
-        (cd "$studio_dir" && nohup npm run dev -- --port "$STUDIO_PORT" > "$STUDIO_LOG" 2>&1 &)
+        (cd "$studio_dir" && setsid nohup npm run dev -- --port "$STUDIO_PORT" > "$STUDIO_LOG" 2>&1 < /dev/null &)
     fi
     local pid=$!
     echo "$pid" > "$STUDIO_PID_FILE"
