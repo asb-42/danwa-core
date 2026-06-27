@@ -242,10 +242,15 @@ async def list_sessions(
     Returns an array of session summaries with session_id, workflow_id,
     status, and last event timestamp.
     """
+    import sqlite3 as _sql
+    from pathlib import Path
+
     from backend.workflow.audit_logger import get_audit_logger
 
     audit = get_audit_logger()
-    conn = audit._get_conn()
+    # Open a SEPARATE connection — never close the audit logger's cached one
+    conn = _sql.connect(str(audit._db_path), check_same_thread=False, timeout=10.0)
+    conn.row_factory = _sql.Row
     try:
         # Get distinct sessions with their latest event info
         rows = conn.execute(
