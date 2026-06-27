@@ -227,15 +227,21 @@ async def run_workflow_background(
 
         # Calculate a hard recursion limit as a safety cap against infinite loops.
         # Each round uses ~len(node_sequence) node calls; add generous buffer.
+        # NOTE: decision-edge loops (transactional drafting) use their own
+        # decision_max_rounds (default 5) which can exceed the user's
+        # max_rounds.  We use max(user_max, 5) to account for this, and a
+        # *3 multiplier to cover conditional-edge evaluation steps.
         num_nodes = len(compiled_workflow.node_sequence) or 4
-        max_rounds = initial_state.get("max_rounds", 10)
-        recursion_limit = max(num_nodes * (max_rounds + 1) * 2 + 20, 100)
+        user_max_rounds = initial_state.get("max_rounds", 10)
+        effective_max_rounds = max(user_max_rounds, 5)
+        recursion_limit = max(num_nodes * (effective_max_rounds + 1) * 3 + 50, 200)
         logger.info(
-            "Workflow %s: recursion_limit=%d (nodes=%d, max_rounds=%d)",
+            "Workflow %s: recursion_limit=%d (nodes=%d, user_max_rounds=%d, effective=%d)",
             workflow_id,
             recursion_limit,
             num_nodes,
-            max_rounds,
+            user_max_rounds,
+            effective_max_rounds,
         )
 
         # Invoke the compiled graph with a hard recursion limit.
