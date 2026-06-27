@@ -37,7 +37,7 @@ dependencies = [
     "gunicorn>=22.0.0",
     "structlog>=24.1.0",
     "slowapi>=0.1.9",
-    "prometheus-fastapi-instrumentator>=7.0.0",
+    "prometheus-fastapi-instrumentator>=7.0.0,<8",
     "packaging>=23.0",
     "html2text>=2025.4.15",
 ]
