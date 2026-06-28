@@ -122,8 +122,8 @@ start_backend() {
             log_error "pyproject.toml missing — cannot start backend with uv"
             return 1
         fi
-        (cd "$PROJECT_DIR" && nohup uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
-            > "$BACKEND_LOG" 2>&1 &)
+        cd "$PROJECT_DIR" && nohup uv run uvicorn backend.main:app --host 0.0.0.0 --port "$BACKEND_PORT" \
+            > "$BACKEND_LOG" 2>&1 &
     fi
     local pid=$!
     echo "$pid" > "$BACKEND_PID_FILE"

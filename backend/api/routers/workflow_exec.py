@@ -25,11 +25,12 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sse_starlette.sse import EventSourceResponse
 
-from backend.api.deps import get_debate_store_for_case, get_project_id
+from backend.api.deps import get_active_tenant, get_case_store, get_debate_store_for_case, get_project_id
 from backend.api.events import publish_async, subscribe, unsubscribe
 from backend.blueprints.compiler import CompilerService
 from backend.blueprints.repository import BlueprintRepository
 from backend.models.schemas import SearchMode
+from backend.persistence.case_store import CaseStore
 from backend.persistence.debate_store import DebateStatus
 from backend.workflow.audit_logger import get_audit_logger
 from backend.workflow.immutability import archive_session, guard_mutable, restore_session
@@ -340,6 +341,8 @@ async def start_mvp_debate(
     body: StartMvpDebateRequest,
     background_tasks: BackgroundTasks,
     project_id: str = Depends(get_project_id),
+    tenant_id: str = Depends(get_active_tenant),
+    case_store: CaseStore = Depends(get_case_store),
 ) -> StartMvpDebateResponse:
     """Create and execute an MVP debate workflow with per-agent LLM profiles.
 
@@ -473,6 +476,7 @@ async def start_mvp_debate(
         "workflow_id": wf.id,
         "session_id": session_id,
         "project_id": effective_project_id,
+        "tenant_id": tenant_id,
         "title": title,
         "context": body.context,
         "language": body.language,
@@ -506,7 +510,13 @@ async def start_mvp_debate(
     now = datetime.now(UTC)
 
     try:
-        debate_store = get_debate_store_for_case(effective_project_id)
+        # Use tenant-aware path resolution (case_scoped) instead of legacy deps path
+        case_dir = case_store.get_case_dir(tenant_id, effective_project_id)
+        debates_dir = case_dir / "debates"
+        debates_dir.mkdir(parents=True, exist_ok=True)
+        from backend.persistence.debate_store import DebateStore
+
+        debate_store = DebateStore(data_dir=debates_dir)
         debate_store.put(
             debate_id,
             {

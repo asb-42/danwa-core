@@ -306,10 +306,17 @@ async def run_workflow_background(
         debate_id = initial_state.get("debate_id")
         if debate_id:
             try:
-                from backend.api.deps import get_debate_store_for_case
-                from backend.persistence.debate_store import DebateStatus
+                from backend.persistence.case_store import CaseStore
+                from backend.persistence.debate_store import DebateStatus, DebateStore
 
-                debate_store = get_debate_store_for_case(project_id)
+                # Use tenant-aware path resolution (same as workflow_exec.py write)
+                tenant_id = initial_state.get("tenant_id", "_default")
+                project_id = initial_state.get("project_id", "")
+                case_store = CaseStore()
+                case_dir = case_store.get_case_dir(tenant_id, project_id)
+                debates_dir = case_dir / "debates"
+                debates_dir.mkdir(parents=True, exist_ok=True)
+                debate_store = DebateStore(data_dir=debates_dir)
                 debate = debate_store.get(debate_id)
                 if debate:
                     debate["status"] = DebateStatus.COMPLETED
@@ -370,10 +377,17 @@ async def run_workflow_background(
         debate_id = initial_state.get("debate_id")
         if debate_id:
             try:
-                from backend.api.deps import get_debate_store_for_case
-                from backend.persistence.debate_store import DebateStatus
+                from backend.persistence.case_store import CaseStore
+                from backend.persistence.debate_store import DebateStatus, DebateStore
 
-                debate_store = get_debate_store_for_case(project_id)
+                # Use tenant-aware path resolution
+                tenant_id = initial_state.get("tenant_id", "_default")
+                project_id = initial_state.get("project_id", "")
+                case_store = CaseStore()
+                case_dir = case_store.get_case_dir(tenant_id, project_id)
+                debates_dir = case_dir / "debates"
+                debates_dir.mkdir(parents=True, exist_ok=True)
+                debate_store = DebateStore(data_dir=debates_dir)
                 debate = debate_store.get(debate_id)
                 if debate:
                     debate["status"] = DebateStatus.CANCELLED
@@ -409,10 +423,17 @@ async def run_workflow_background(
         debate_id = initial_state.get("debate_id")
         if debate_id:
             try:
-                from backend.api.deps import get_debate_store_for_case
-                from backend.persistence.debate_store import DebateStatus
+                from backend.persistence.case_store import CaseStore
+                from backend.persistence.debate_store import DebateStatus, DebateStore
 
-                debate_store = get_debate_store_for_case(project_id)
+                # Use tenant-aware path resolution
+                tenant_id = initial_state.get("tenant_id", "_default")
+                project_id = initial_state.get("project_id", "")
+                case_store = CaseStore()
+                case_dir = case_store.get_case_dir(tenant_id, project_id)
+                debates_dir = case_dir / "debates"
+                debates_dir.mkdir(parents=True, exist_ok=True)
+                debate_store = DebateStore(data_dir=debates_dir)
                 debate = debate_store.get(debate_id)
                 if debate:
                     debate["status"] = DebateStatus.FAILED
