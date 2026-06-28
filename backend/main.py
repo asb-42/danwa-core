@@ -13,8 +13,11 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-# Load .env file into os.environ BEFORE any module reads os.getenv()
-load_dotenv()
+# Load .env file into os.environ BEFORE any module reads os.getenv().
+# Use Path(__file__) to always resolve relative to the project root
+# (backend/main.py → parent.parent = project root), regardless of CWD.
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(_PROJECT_ROOT / ".env")
 
 from fastapi import FastAPI  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
