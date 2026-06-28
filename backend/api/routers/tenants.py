@@ -126,6 +126,61 @@ def update_tenant_settings(
     )
 
 
+@router.put("/{tenant_id}", response_model=TenantResponse)
+def update_tenant(
+    tenant_id: str,
+    body: TenantUpdate,
+    user=Depends(get_current_user),
+    tenant_store=Depends(get_tenant_store),
+):
+    """Update any tenant by ID. Admin only."""
+    if user.role != "admin":
+        raise HTTPException(status_code=403, detail="Admin only")
+
+    tenant = tenant_store.get(tenant_id)
+    if not tenant:
+        raise HTTPException(status_code=404, detail="Tenant not found")
+
+    update_data = body.model_dump(exclude_none=True)
+    updated = tenant_store.update(tenant_id, **update_data)
+    if not updated:
+        raise HTTPException(status_code=500, detail="Failed to update tenant")
+
+    return TenantResponse(
+        id=updated.id,
+        name=updated.name,
+        plan=updated.plan,
+        max_projects=updated.max_projects,
+        max_concurrent_debates=updated.max_concurrent_debates,
+        max_documents=updated.max_documents,
+        max_storage_mb=updated.max_storage_mb,
+        settings=updated.settings,
+        created_at=updated.created_at,
+        is_active=updated.is_active,
+    )
+
+
+@router.delete("/{tenant_id}")
+def delete_tenant(
+    tenant_id: str,
+    user=Depends(get_current_user),
+    tenant_store=Depends(get_tenant_store),
+):
+    """Delete a tenant by ID. Admin only. Cannot delete own tenant."""
+    if user.role != "admin":
+        raise HTTPException(status_code=403, detail="Admin only")
+    if tenant_id == user.tenant_id:
+        raise HTTPException(status_code=400, detail="Cannot delete your own tenant")
+
+    tenant = tenant_store.get(tenant_id)
+    if not tenant:
+        raise HTTPException(status_code=404, detail="Tenant not found")
+
+    tenant_store.delete(tenant_id)
+    logger.info("Tenant deleted: %s (%s) by user %s", tenant.name, tenant_id, user.email)
+    return {"status": "ok"}
+
+
 @router.get("/current/users", response_model=list[UserResponse])
 def list_tenant_users(
     user=Depends(get_current_user),
