@@ -169,6 +169,27 @@ class UserStore:
             return None
         return row[0]
 
+    def ensure_dev_user(self, user_id: str = "dev-user") -> None:
+        """Insert the synthetic dev-user into the DB if it doesn't exist yet.
+
+        Called by ``set_last_workspace`` when the UPDATE matches 0 rows
+        (i.e. the user was returned by the in-memory auth bypass but
+        never persisted).
+        """
+        existing = self.get(user_id)
+        if existing is not None:
+            return
+        now = datetime.now().isoformat()
+        self.conn.execute(
+            """INSERT OR IGNORE INTO users
+               (id, email, display_name, password_hash, role, tenant_id,
+                is_active, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, 1, ?, ?)""",
+            (user_id, f"{user_id}@danwa.local", "Dev User", "", "admin", "_default", now, now),
+        )
+        self.conn.commit()
+        logger.info("Auto-created dev user %s in auth DB", user_id)
+
     def set_last_workspace(self, user_id: str, case_id: str | None) -> bool:
         """Persist the case id the user last opened (or clear it).
 
@@ -185,6 +206,14 @@ class UserStore:
                 (case_id, datetime.now().isoformat(), user_id),
             )
             self.conn.commit()
+            if cur.rowcount == 0:
+                # User not in DB yet (dev-mode synthetic user) — auto-create then retry.
+                self.ensure_dev_user(user_id)
+                cur = self.conn.execute(
+                    "UPDATE users SET last_workspace = ?, updated_at = ? WHERE id = ?",
+                    (case_id, datetime.now().isoformat(), user_id),
+                )
+                self.conn.commit()
             return cur.rowcount > 0
         except Exception:  # noqa: BLE001
             # OperationalError on missing column, IntegrityError on

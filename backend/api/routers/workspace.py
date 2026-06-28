@@ -294,6 +294,7 @@ def get_workspace_summary(
 def search_cases(
     q: str = Query(..., min_length=1, max_length=200),
     limit: int = Query(10, ge=1, le=50),
+    tenant_id: str = Depends(get_active_tenant),
     store=Depends(get_case_store),
 ) -> list[CaseSearchHit]:
     """Typeahead endpoint for the Case selector in the Workspace header.
@@ -309,9 +310,9 @@ def search_cases(
         return []
 
     try:
-        all_cases = store.list()  # store-level list (may apply tenant filter)
+        all_cases = store.list_by_tenant(tenant_id)
     except Exception as exc:  # noqa: BLE001
-        logger.warning("search_cases: store.list failed: %s", exc)
+        logger.warning("search_cases: store.list_by_tenant failed: %s", exc)
         return []
 
     hits: list[CaseSearchHit] = []
