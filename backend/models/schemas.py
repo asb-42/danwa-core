@@ -478,6 +478,7 @@ class WorkspaceRecentEvent(BaseModel):
     actor: str | None = None
     subject: str | None = None  # e.g. debate title, document name
     case_id: str | None = None
+    debate_id: str | None = None
     created_at: datetime
 
 

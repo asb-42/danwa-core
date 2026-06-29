@@ -68,7 +68,7 @@ def _build_suggested_next_steps(
                 severity="info",
                 message="No documents linked to this case yet.",
                 action_label="Upload document",
-                action_target="/workspace/upload",
+                action_target="/documents",
             )
         )
 
@@ -80,7 +80,7 @@ def _build_suggested_next_steps(
                 severity="info",
                 message="This case has no debates yet.",
                 action_label="Start debate",
-                action_target="/workspace/new-debate",
+                action_target="/debate",
             )
         )
 
@@ -92,7 +92,7 @@ def _build_suggested_next_steps(
                 severity="warning",
                 message="Debates exist but no documents are available for RAG. Upload documents to enable grounded debates.",
                 action_label="Upload documents",
-                action_target="/workspace/upload",
+                action_target="/documents",
             )
         )
 
@@ -118,8 +118,8 @@ def _build_suggested_next_steps(
                     kind="stale_debates",
                     severity="warning",
                     message=f"{stale_count} debate(s) haven't been updated in over a week.",
-                    action_label="Review debates",
-                    action_target="/workspace/debates",
+                action_label="Review debates",
+                action_target="/debate",
                 )
             )
 
@@ -131,7 +131,7 @@ def _build_suggested_next_steps(
                 severity="info",
                 message="This case has no tags. Tags help organize and filter cases.",
                 action_label="Add tags",
-                action_target="/workspace/tags",
+                action_target="/tags",
             )
         )
 
