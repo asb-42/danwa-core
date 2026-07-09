@@ -4,6 +4,11 @@ Non-linear, event-sourced debate spaces where human users (via HITL) or A2A
 agents drive the conversation dynamically using a [+] button to fork the
 debate tree.
 
+Thin Event Taxonomy (ADR-001):
+    All event types use the same envelope. The ``metadata`` field carries
+    the rich payload. The API integrates with CQRS projectors to serve
+    read models to the frontend.
+
 Routes:
     POST   /api/v1/interactive/spaces              – Create a new debate space
     GET    /api/v1/interactive/spaces              – List debate spaces
@@ -16,6 +21,10 @@ Routes:
     POST   /api/v1/interactive/spaces/{space_id}/trigger/agent – Trigger agent
     POST   /api/v1/interactive/spaces/{space_id}/trigger/a2a – Trigger A2A
     POST   /api/v1/interactive/spaces/{space_id}/trigger/hitl – Trigger HITL
+    GET    /api/v1/interactive/spaces/{space_id}/tree-graph – Tree graph (read model)
+    GET    /api/v1/interactive/spaces/{space_id}/debate-state – Debate state (read model)
+    GET    /api/v1/interactive/spaces/{space_id}/budget – Token budget (read model)
+    GET    /api/v1/interactive/spaces/{space_id}/reports – Synthesis reports (read model)
 """
 
 from __future__ import annotations
@@ -39,20 +48,32 @@ from backend.services.interactive.context_synthesizer import ContextSynthesizer
 from backend.services.interactive.event_bus import get_event_bus
 from backend.services.interactive.event_embeddings import EventEmbeddingStore
 from backend.services.interactive.event_sync import EventSyncService
+from backend.services.interactive.projectors import ProjectorManager
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["Interactive Mode"])
 
-# Singleton EventStore (in production, inject via dependency)
+# Singleton EventStore + ProjectorManager (in production, inject via dependency)
 _store: EventStore | None = None
+_projector_manager: ProjectorManager | None = None
 
 
 def _get_store() -> EventStore:
-    global _store
+    global _store, _projector_manager
     if _store is None:
         _store = EventStore()
+        # Initialize projector manager with the same DB connection
+        _projector_manager = ProjectorManager(_store.conn)
+        _store.set_projector_manager(_projector_manager)
     return _store
+
+
+def _get_projector_manager() -> ProjectorManager:
+    global _projector_manager
+    if _projector_manager is None:
+        _get_store()  # This initializes both
+    return _projector_manager  # type: ignore[return-value]
 
 
 # ── Space Endpoints ──────────────────────────────────────────────────────
@@ -346,7 +367,7 @@ async def trigger_agent(
 ):
     """Manually trigger an agent response (for [+] button).
 
-    Creates an agent_speech event that will be processed by the AgentWorker.
+    Creates an AgentActed event that will be processed by the AgentWorker.
     """
     store = _get_store()
     space = store.get_space(space_id)
@@ -433,3 +454,62 @@ async def trigger_hitl(
         query=query,
     )
     return event
+
+
+# ── CQRS Read Model Endpoints (ADR-001) ─────────────────────────────────
+
+
+@router.get("/interactive/spaces/{space_id}/tree-graph")
+def get_tree_graph(space_id: str):
+    """Get the lightweight tree graph for SvelteFlow (read model from TreeProjector)."""
+    store = _get_store()
+    space = store.get_space(space_id)
+    if not space:
+        raise HTTPException(status_code=404, detail="Debate space not found")
+
+    manager = _get_projector_manager()
+    return manager.get_tree_projector().get_tree_graph(space_id)
+
+
+@router.get("/interactive/spaces/{space_id}/debate-state")
+def get_debate_state(
+    space_id: str,
+    fact_type: str | None = Query(None, description="Filter: claim, critique, evidence, question"),
+    limit: int = Query(50, ge=1, le=200),
+):
+    """Get structured facts from the debate state (read model from ContextProjector)."""
+    store = _get_store()
+    space = store.get_space(space_id)
+    if not space:
+        raise HTTPException(status_code=404, detail="Debate space not found")
+
+    manager = _get_projector_manager()
+    return manager.get_context_projector().get_facts(space_id, fact_type=fact_type, limit=limit)
+
+
+@router.get("/interactive/spaces/{space_id}/budget")
+def get_budget(space_id: str):
+    """Get token budget per actor (read model from BudgetProjector)."""
+    store = _get_store()
+    space = store.get_space(space_id)
+    if not space:
+        raise HTTPException(status_code=404, detail="Debate space not found")
+
+    manager = _get_projector_manager()
+    projector = manager.get_budget_projector()
+    return {
+        "budgets": projector.get_budget(space_id),
+        "totals": projector.get_total_cost(space_id),
+    }
+
+
+@router.get("/interactive/spaces/{space_id}/reports")
+def get_reports(space_id: str):
+    """Get synthesis reports (read model from SynthesisProjector)."""
+    store = _get_store()
+    space = store.get_space(space_id)
+    if not space:
+        raise HTTPException(status_code=404, detail="Debate space not found")
+
+    manager = _get_projector_manager()
+    return manager.get_synthesis_projector().get_reports(space_id)

@@ -1,12 +1,16 @@
 """WorkerManager – orchestrates event-driven workers for Interactive Mode.
 
 Listens to Redis Streams and dispatches events to the appropriate workers:
-- agent_speech → AgentWorker (LLM calls)
-- a2a_request → A2AWorker (external agents)
-- hitl_input → HITLWorker (human interaction)
-- tool_call_requested → ToolWorker (future)
+- AgentActed → AgentWorker (LLM calls)
+- A2AActed → A2AWorker (external agents)
+- UserActed → HITLWorker (human interaction)
+- ToolRequested → ToolWorker (future)
 
 Runs as a background task in the FastAPI app lifecycle.
+
+Thin Event Taxonomy (ADR-001):
+    All event types use the same envelope. Workers dispatch based on
+    event_type and role from metadata, not separate event types.
 """
 
 from __future__ import annotations
@@ -25,8 +29,8 @@ from backend.services.interactive.workers.hitl_worker import HITLWorker
 
 logger = logging.getLogger(__name__)
 
-# Event types that workers can process
-_WORKER_EVENT_TYPES = {"agent_speech", "a2a_request", "hitl_input", "tool_call_requested"}
+# Event types that workers can process (Thin Event Taxonomy)
+_WORKER_EVENT_TYPES = {"AgentActed", "A2AActed", "UserActed", "ToolRequested"}
 
 
 class WorkerManager:
@@ -127,13 +131,18 @@ class WorkerManager:
     async def _dispatch(self, event: DebateEvent) -> None:
         """Dispatch an event to the appropriate worker."""
         try:
-            if event.event_type == "agent_speech":
+            if event.event_type == "AgentActed":
                 await self.agent_worker.process(event)
-            elif event.event_type == "a2a_request":
+            elif event.event_type == "A2AActed":
                 await self.a2a_worker.process(event)
-            elif event.event_type == "hitl_input":
-                await self.hitl_worker.process(event)
-            elif event.event_type == "tool_call_requested":
+            elif event.event_type == "UserActed":
+                # UserActed can be HITL response or direct user input
+                action_type = event.metadata_json.get("action_type", "")
+                if action_type == "hitl_response":
+                    await self.hitl_worker.process(event)
+                else:
+                    logger.debug("UserActed with action_type=%s, no worker needed", action_type)
+            elif event.event_type == "ToolRequested":
                 # TODO: Implement ToolWorker
                 logger.debug("Tool worker not yet implemented")
             else:
@@ -159,12 +168,11 @@ class WorkerManager:
     ) -> DebateEvent:
         """Manually trigger an agent response (for [+] button).
 
-        This creates an agent_speech event that will be processed by the
-        AgentWorker.
+        This creates an AgentActed event that will be processed by the AgentWorker.
         """
         return self.event_store.append_event(
             space_id=space_id,
-            event_type="agent_speech",
+            event_type="AgentActed",
             actor_type="agent",
             actor_id=agent_config.get("actor_id", "agent"),
             content=user_message,
@@ -184,7 +192,7 @@ class WorkerManager:
         """Manually trigger an A2A request."""
         return self.event_store.append_event(
             space_id=space_id,
-            event_type="a2a_request",
+            event_type="A2AActed",
             actor_type="a2a",
             actor_id=agent_url,
             content=message,
@@ -205,10 +213,10 @@ class WorkerManager:
         """Manually trigger a HITL request."""
         return self.event_store.append_event(
             space_id=space_id,
-            event_type="hitl_input",
-            actor_type="agent",
+            event_type="UserActed",
+            actor_type="user",
             actor_id=actor_id,
             content=query,
             parent_id=parent_event_id,
-            metadata_json={"requires_response": True},
+            metadata_json={"action_type": "hitl_request", "requires_response": True},
         )

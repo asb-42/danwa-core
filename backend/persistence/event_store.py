@@ -1,4 +1,10 @@
-"""EventStore – append-only SQLite persistence for the interactive debate mode."""
+"""EventStore – append-only SQLite persistence for the interactive debate mode.
+
+Integrates with the CQRS ProjectorManager to dispatch events to read model
+builders after each write. This is the synchronous projector path (v1).
+
+See ADR-001: Thin Events with CQRS Projectors.
+"""
 
 from __future__ import annotations
 
@@ -9,7 +15,7 @@ import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
-from backend.models.debate_event import DebateEvent
+from backend.models.debate_event import DebateEvent, normalize_event_type
 from backend.models.debate_space import DebateSpace
 
 logger = logging.getLogger(__name__)
@@ -18,9 +24,9 @@ _DEFAULT_DB_PATH = Path("data/interactive.db")
 
 
 class EventStore:
-    """Append-only event log with thread traversal capabilities."""
+    """Append-only event log with thread traversal and projector integration."""
 
-    def __init__(self, db_path: Path | str | None = None):
+    def __init__(self, db_path: Path | str | None = None, projector_manager=None):
         self.db_path = Path(db_path) if db_path else _DEFAULT_DB_PATH
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.conn = sqlite3.connect(str(self.db_path), check_same_thread=False, timeout=10)
@@ -28,6 +34,11 @@ class EventStore:
         self.conn.execute("PRAGMA journal_mode=WAL")
         self.conn.execute("PRAGMA foreign_keys=ON")
         self._init_db()
+        self._projector_manager = projector_manager
+
+    def set_projector_manager(self, manager) -> None:
+        """Inject the projector manager (called after construction)."""
+        self._projector_manager = manager
 
     def _init_db(self) -> None:
         """Create tables if they don't exist."""
@@ -89,7 +100,21 @@ class EventStore:
             (space_id, title, description, project_id, tenant_id, created_by, now, now),
         )
         self.conn.commit()
-        return self.get_space(space_id)  # type: ignore[return-value]
+
+        space = self.get_space(space_id)
+
+        # Emit SpaceCreated event (ADR-001 lifecycle event)
+        if space:
+            self.append_event(
+                space_id=space_id,
+                event_type="SpaceCreated",
+                actor_type="user",
+                actor_id=created_by or "system",
+                content=title,
+                metadata_json={"description": description},
+            )
+
+        return space  # type: ignore[return-value]
 
     def get_space(self, space_id: str) -> DebateSpace | None:
         row = self.conn.execute(
@@ -150,7 +175,14 @@ class EventStore:
         tokens_input: int | None = None,
         tokens_output: int | None = None,
     ) -> DebateEvent:
-        """Append a new event to the log. Never updates existing events."""
+        """Append a new event to the log. Never updates existing events.
+
+        After writing, dispatches to the ProjectorManager (CQRS) and
+        updates space counters.
+        """
+        # Normalize legacy event types (ADR-001 migration)
+        event_type = normalize_event_type(event_type)
+
         event_id = str(uuid.uuid4())
         now = datetime.now(UTC).isoformat()
         meta = json.dumps(metadata_json or {})
@@ -165,8 +197,22 @@ class EventStore:
              role, content_str, meta, tokens_input, tokens_output, now),
         )
         self.conn.commit()
+
+        event = self.get_event(event_id)
+        if not event:
+            raise RuntimeError(f"Failed to retrieve event {event_id} after insert")
+
+        # Update space counters
         self.update_space_counters(space_id)
-        return self.get_event(event_id)  # type: ignore[return-value]
+
+        # Dispatch to CQRS projectors (synchronous in v1)
+        if self._projector_manager:
+            try:
+                self._projector_manager.handle_event(event)
+            except Exception:
+                logger.exception("Projector dispatch failed for event %s", event_id)
+
+        return event
 
     def get_event(self, event_id: str) -> DebateEvent | None:
         row = self.conn.execute(
@@ -228,6 +274,8 @@ class EventStore:
         event_type: str,
         limit: int = 100,
     ) -> list[DebateEvent]:
+        # Normalize legacy event types
+        event_type = normalize_event_type(event_type)
         rows = self.conn.execute(
             """SELECT * FROM debate_events
                WHERE space_id = ? AND event_type = ?
