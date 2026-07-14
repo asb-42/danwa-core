@@ -168,9 +168,9 @@ class WorkerManager:
     ) -> DebateEvent:
         """Manually trigger an agent response (for [+] button).
 
-        This creates an AgentActed event that will be processed by the AgentWorker.
+        This creates an AgentActed event and dispatches it to the AgentWorker.
         """
-        return self.event_store.append_event(
+        event = self.event_store.append_event(
             space_id=space_id,
             event_type="AgentActed",
             actor_type="agent",
@@ -180,6 +180,9 @@ class WorkerManager:
             role=agent_config.get("role"),
             metadata_json=agent_config,
         )
+        # Dispatch immediately so the agent worker processes the LLM call
+        await self._dispatch(event)
+        return event
 
     async def trigger_a2a(
         self,

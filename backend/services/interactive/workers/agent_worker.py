@@ -67,8 +67,8 @@ class AgentWorker:
         try:
             llm = LLMService(profile_id=llm_profile_id)
             result = await llm.generate(
+                prompt=user_prompt,
                 system_prompt=system_prompt,
-                user_prompt=user_prompt,
             )
         except Exception as e:
             logger.error("LLM call failed: %s", e)
