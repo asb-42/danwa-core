@@ -221,6 +221,10 @@ start_frontend_user() {
         return 0
     fi
     local frontend_dir="${DANWA_SIBLING_danwa:-$PROJECT_DIR/../danwa}"
+    # If the sibling dir exists but has no package.json, check for frontend/ subdirectory
+    if [[ -d "$frontend_dir" ]] && [[ ! -f "$frontend_dir/package.json" ]] && [[ -d "$frontend_dir/frontend" ]]; then
+        frontend_dir="$frontend_dir/frontend"
+    fi
     if [[ ! -d "$frontend_dir" ]]; then
         log_warn "Frontend user-app sibling not found, skipping"
         return 0
