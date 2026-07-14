@@ -25,6 +25,7 @@ class LLMProvider(StrEnum):
     XIAOMI = "xiaomi"
     DEEPSEEK = "deepseek"
     CLOUDFLARE = "cloudflare"
+    MEITUAN = "meituan"
 
 
 class LLMProfile(BaseModel):

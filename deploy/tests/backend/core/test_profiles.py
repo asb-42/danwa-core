@@ -23,6 +23,7 @@ def test_llm_provider_values() -> None:
     assert LLMProvider.OLLAMA == "ollama"
     assert LLMProvider.DEEPSEEK == "deepseek"
     assert LLMProvider.CLOUDFLARE == "cloudflare"
+    assert LLMProvider.MEITUAN == "meituan"
 
 
 def test_llm_provider_string_alias() -> None:

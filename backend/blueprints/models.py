@@ -50,6 +50,7 @@ class BlueprintLLMProfile(BaseModel):
         "opencode-go",
         "xiaomi",
         "cloudflare",
+        "meituan",
         # STT providers (Input Composer Phase D)
         "whisper-local",
         "whisper-api",
