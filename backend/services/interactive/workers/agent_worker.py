@@ -13,6 +13,7 @@ from typing import Any
 from backend.models.debate_event import DebateEvent
 from backend.persistence.event_store import EventStore
 from backend.services.interactive.context_synthesizer import ContextSynthesizer
+from backend.services.interactive.event_bus import EventBus, get_event_bus
 from backend.services.interactive.event_embeddings import EventEmbeddingStore
 from backend.services.llm_service import LLMService
 
@@ -26,9 +27,11 @@ class AgentWorker:
         self,
         event_store: EventStore,
         embedding_store: EventEmbeddingStore | None = None,
+        event_bus: EventBus | None = None,
     ):
         self.event_store = event_store
         self.embedding_store = embedding_store
+        self.event_bus = event_bus or get_event_bus()
         self.synthesizer = ContextSynthesizer(event_store, embedding_store)
 
     async def process(self, event: DebateEvent) -> DebateEvent | None:
@@ -95,6 +98,13 @@ class AgentWorker:
             },
             tokens_input=result.tokens_in,
             tokens_output=result.tokens_out,
+        )
+
+        # Publish to event bus so SSE/streaming clients see the response
+        import asyncio
+        stream_name = f"interactive:space:{event.space_id}"
+        asyncio.create_task(
+            self.event_bus.publish(stream_name, {"event_id": response_event.event_id})
         )
 
         logger.info(

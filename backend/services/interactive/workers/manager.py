@@ -48,7 +48,7 @@ class WorkerManager:
         self.sync_service = EventSyncService(event_store, self.embedding_store)
 
         # Initialize workers
-        self.agent_worker = AgentWorker(event_store, self.embedding_store)
+        self.agent_worker = AgentWorker(event_store, self.embedding_store, self.event_bus)
         self.a2a_worker = A2AWorker(event_store, self.embedding_store)
         self.hitl_worker = HITLWorker(event_store, self.event_bus)
 
