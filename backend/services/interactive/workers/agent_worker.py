@@ -116,8 +116,8 @@ class AgentWorker:
 
     def _build_system_prompt(self, role: str, meta: dict[str, Any]) -> str:
         """Build the system prompt for the agent."""
-        base = f"Du bist ein Debatten-Agent mit der Rolle '{role}'. "
-        base += "Antworte präzise und argumentativ. "
+        base = f"You are a debate agent with the role '{role}'. "
+        base += "Respond precisely and argumentatively. "
         if meta.get("system_prompt"):
             base += meta["system_prompt"]
         return base
