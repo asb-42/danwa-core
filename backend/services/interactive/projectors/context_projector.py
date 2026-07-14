@@ -88,16 +88,13 @@ class ContextProjector(BaseProjector):
         # Embed into ChromaDB if available
         if self.embedding_store and content:
             try:
-                self.embedding_store.upsert_event(
+                self.embedding_store.embed_event(
                     event_id=event.event_id,
                     space_id=event.space_id,
                     content=content,
-                    metadata={
-                        "event_type": event.event_type,
-                        "actor_id": event.actor_id,
-                        "role": event.role,
-                        "created_at": event.created_at.isoformat(),
-                    },
+                    event_type=event.event_type,
+                    actor_id=event.actor_id,
+                    role=event.role,
                 )
             except Exception:
                 logger.warning("Failed to embed event %s in context projector", event.event_id)

@@ -1,8 +1,8 @@
-"""AgentWorker – calls LLM agents when agent_speech events are requested.
+"""AgentWorker – calls LLM agents when AgentActed events are requested.
 
-Listens for events of type tool_call_requested with metadata containing
+Listens for events of type AgentActed with metadata containing
 the agent configuration, calls the LLM, and appends the result as
-an agent_speech event.
+an AgentActed event.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 class AgentWorker:
-    """Processes agent_speech events by calling LLMs."""
+    """Processes AgentActed events by calling LLMs."""
 
     def __init__(
         self,
@@ -32,14 +32,14 @@ class AgentWorker:
         self.synthesizer = ContextSynthesizer(event_store, embedding_store)
 
     async def process(self, event: DebateEvent) -> DebateEvent | None:
-        """Process an agent_speech event.
+        """Process an AgentActed event.
 
         This worker:
         1. Synthesizes context from the parent thread
         2. Calls the configured LLM
         3. Appends the response as a new event
         """
-        if event.event_type != "agent_speech":
+        if event.event_type != "AgentActed":
             return None
 
         # Extract agent config from metadata
@@ -80,7 +80,7 @@ class AgentWorker:
         # Append the response event
         response_event = self.event_store.append_event(
             space_id=event.space_id,
-            event_type="agent_speech",
+            event_type="AgentActed",
             actor_type="agent",
             actor_id=meta.get("actor_id", f"llm-{llm_profile_id or 'default'}"),
             content=result.content,

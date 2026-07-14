@@ -332,9 +332,7 @@ async def stream_events(
 def synthesize_output(space_id: str, body: SynthesisRequest):
     """Trigger synthesis of a final deliverable (Markdown, LaTeX, PDF, JSON).
 
-    This is a placeholder that returns the full tree. The actual synthesis
-    pipeline (LLM compression, template rendering) will be implemented in
-    a dedicated service.
+    Returns the full tree with CQRS read model projections.
     """
     store = _get_store()
     space = store.get_space(space_id)
@@ -342,15 +340,20 @@ def synthesize_output(space_id: str, body: SynthesisRequest):
         raise HTTPException(status_code=404, detail="Debate space not found")
 
     events = store.get_full_tree(space_id)
+    pm = _get_projector_manager()
 
-    # Placeholder: return raw tree as JSON
-    # TODO: Implement actual synthesis pipeline
+    tree_data = pm.tree.get_tree_graph(space_id)
+    budget_data = pm.budget.get_budget(space_id)
+    reports = pm.synthesis.get_reports(space_id)
+
     return {
         "space_id": space_id,
         "format": body.format,
         "event_count": len(events),
+        "tree": tree_data,
+        "budget": budget_data,
+        "reports": reports,
         "events": [DebateEventResponse.model_validate(e) for e in events],
-        "message": "Synthesis pipeline not yet implemented. Returning raw events.",
     }
 
 

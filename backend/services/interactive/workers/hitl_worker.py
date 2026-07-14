@@ -1,7 +1,7 @@
 """HITLWorker – manages human-in-the-loop interactions.
 
-Listens for events that require human input (hitl_input) and manages
-the interaction flow:
+Listens for events that require human input (UserActed with hitl_request action_type)
+and manages the interaction flow:
 1. Delivers agent queries to the user via SSE
 2. Waits for user responses
 3. Appends the response as a new event
@@ -11,6 +11,7 @@ Also handles timeouts and escalation.
 
 from __future__ import annotations
 
+import asyncio
 import logging
 
 from backend.models.debate_event import DebateEvent
@@ -24,7 +25,7 @@ DEFAULT_HITL_TIMEOUT_SECONDS = 300
 
 
 class HITLWorker:
-    """Processes hitl_input events by managing human interaction."""
+    """Processes UserActed events by managing human interaction."""
 
     def __init__(
         self,
@@ -35,7 +36,7 @@ class HITLWorker:
         self.event_bus = event_bus or get_event_bus()
 
     async def process(self, event: DebateEvent) -> None:
-        """Process an hitl_input event.
+        """Process a UserActed event with hitl_request action_type.
 
         This worker:
         1. Publishes a query to the user via SSE
@@ -43,9 +44,9 @@ class HITLWorker:
         3. Appends the response as a new event
 
         The actual waiting is handled by the SSE stream - the user's
-        response comes in via POST /events with type=hitl_input.
+        response comes in via POST /events with type=UserActed.
         """
-        if event.event_type != "hitl_input":
+        if event.event_type != "UserActed":
             return
 
         meta = event.metadata_json
@@ -70,6 +71,15 @@ class HITLWorker:
             timeout,
         )
 
+        # Schedule timeout
+        loop = asyncio.get_event_loop()
+        loop.call_later(
+            timeout,
+            lambda: asyncio.ensure_future(
+                self.handle_timeout(event.space_id, event.event_id)
+            ),
+        )
+
     async def handle_response(
         self,
         space_id: str,
@@ -83,7 +93,7 @@ class HITLWorker:
         """
         return self.event_store.append_event(
             space_id=space_id,
-            event_type="hitl_input",
+            event_type="UserActed",
             actor_type="user",
             actor_id=user_id,
             content=response_content,
@@ -102,7 +112,7 @@ class HITLWorker:
         """Handle a HITL timeout."""
         return self.event_store.append_event(
             space_id=space_id,
-            event_type="hitl_input",
+            event_type="UserActed",
             actor_type="system",
             actor_id="hitl-timeout",
             content="[HITL Timeout] Keine Antwort erhalten.",

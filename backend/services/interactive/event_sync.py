@@ -16,7 +16,7 @@ from backend.services.interactive.event_embeddings import EventEmbeddingStore
 logger = logging.getLogger(__name__)
 
 # Only embed these event types (others are not useful for semantic search)
-_EMBEDDABLE_TYPES = {"user_message", "agent_speech", "hitl_input", "synthesis"}
+_EMBEDDABLE_TYPES = {"UserActed", "AgentActed", "A2AActed", "ContextSynthesized"}
 
 
 class EventSyncService:

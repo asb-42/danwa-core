@@ -1,7 +1,7 @@
-"""A2AWorker – calls external A2A agents when a2a_request events arrive.
+"""A2AWorker – calls external A2A agents when A2AActed events arrive.
 
-Listens for events of type a2a_request, sends the message to the
-configured external agent, and appends the response as an a2a_response event.
+Listens for events of type A2AActed, sends the message to the
+configured external agent, and appends the response as an A2AResponse event.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 class A2AWorker:
-    """Processes a2a_request events by calling external A2A agents."""
+    """Processes A2AActed events by calling external A2A agents."""
 
     def __init__(
         self,
@@ -29,15 +29,15 @@ class A2AWorker:
         self.synthesizer = ContextSynthesizer(event_store, embedding_store)
 
     async def process(self, event: DebateEvent) -> DebateEvent | None:
-        """Process an a2a_request event.
+        """Process an A2AActed event.
 
         This worker:
         1. Extracts the target agent URL from metadata
         2. Synthesizes context from the parent thread
         3. Calls the external A2A agent
-        4. Appends the response as an a2a_response event
+        4. Appends the response as an A2AResponse event
         """
-        if event.event_type != "a2a_request":
+        if event.event_type != "A2AActed":
             return None
 
         meta = event.metadata_json
@@ -94,7 +94,7 @@ class A2AWorker:
         # Append the response event
         response_event = self.event_store.append_event(
             space_id=event.space_id,
-            event_type="a2a_response",
+            event_type="A2AResponse",
             actor_type="a2a",
             actor_id=meta.get("agent_id", agent_url),
             content=response_content,
