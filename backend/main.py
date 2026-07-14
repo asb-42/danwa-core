@@ -45,6 +45,7 @@ from backend.api.routers import (  # noqa: E402
     health,
     inbox,
     input_composer,
+    interactive,
     llm_profiles,
     modules,
     monitor,
@@ -195,6 +196,11 @@ async def lifespan(app: FastAPI):
 
     migrate_graph_edge_cache()
 
+    # Run v025 interactive debate migration (idempotent)
+    from backend.migrations.v025_interactive_debate import migrate as migrate_interactive
+
+    migrate_interactive(settings.db_path.parent / "interactive.db")
+
     # Seed system workflow templates (idempotent)
     from scripts.seed_templates import seed_system_templates
 
@@ -262,7 +268,30 @@ async def lifespan(app: FastAPI):
     except Exception as exc:
         logger.warning("Legacy langpack cleanup skipped: %s", exc)
 
+    # Start Interactive Mode WorkerManager
+    _worker_manager = None
+    try:
+        from backend.persistence.event_store import EventStore
+        from backend.services.interactive.workers import WorkerManager
+
+        event_store = EventStore()
+        _worker_manager = WorkerManager(event_store)
+        # Note: Workers start listening when spaces are created
+        logger.info("Interactive Mode WorkerManager initialized")
+    except Exception as exc:
+        logger.warning("Interactive Mode WorkerManager init skipped: %s", exc)
+
     yield
+
+    # Shutdown WorkerManager
+    if _worker_manager:
+        try:
+            import asyncio
+
+            asyncio.get_event_loop().run_until_complete(_worker_manager.stop())
+        except Exception:
+            pass
+
     logger.info("Debate Engine shutting down.")
 
     # --- Shutdown-Backup (Sprint 18) ---
@@ -590,6 +619,9 @@ def create_app() -> FastAPI:
         prefix="/api/v1",
         tags=["input-composer"],
     )
+
+    # --- Interactive Debate Mode (Event Sourcing) ---
+    app.include_router(interactive.router)
 
     # --- Danwa Assistant ---
     app.include_router(assistant.router)
