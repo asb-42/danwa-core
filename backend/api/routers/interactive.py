@@ -54,9 +54,30 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["Interactive Mode"])
 
-# Singleton EventStore + ProjectorManager (in production, inject via dependency)
+# Singletons: EventStore, ProjectorManager, WorkerManager.
+# In production these would be injected via FastAPI dependencies, but the
+# current codebase uses module-level singletons (see backend/main.py lifespan).
 _store: EventStore | None = None
 _projector_manager: ProjectorManager | None = None
+_worker_manager = None  # WorkerManager — lazily set by main.py lifespan
+_embedding_store: EventEmbeddingStore | None = None
+
+
+def _get_embedding_store() -> EventEmbeddingStore:
+    """Return the process-cached EventEmbeddingStore singleton.
+
+    ChromaDB client + collection init is heavyweight (10-50ms). Creating
+    a new instance on every event append was a significant performance
+    bottleneck. This singleton reuses the same client/collection.
+    """
+    global _embedding_store
+    if _embedding_store is None:
+        _embedding_store = EventEmbeddingStore()
+    return _embedding_store
+
+# Track which spaces the worker manager is already listening to, so we only
+# start a listener once per space.
+_started_spaces: set[str] = set()
 
 
 def _get_store() -> EventStore:
@@ -76,12 +97,64 @@ def _get_projector_manager() -> ProjectorManager:
     return _projector_manager  # type: ignore[return-value]
 
 
+def set_worker_manager(manager) -> None:
+    """Inject the WorkerManager created by the application lifespan.
+
+    Called from ``backend/main.py`` so the router endpoints share the same
+    started instance instead of creating throwaway copies.
+    """
+    global _worker_manager
+    _worker_manager = manager
+
+
+def _get_worker_manager():
+    """Return the shared WorkerManager, creating one if the lifespan didn't.
+
+    The manager is started for a given space on first use (see
+    ``_ensure_space_listening``). This keeps the trigger endpoints working
+    even when the lifespan startup is skipped (e.g. in tests).
+    """
+    global _worker_manager
+    if _worker_manager is None:
+        from backend.services.interactive.workers import WorkerManager
+
+        _worker_manager = WorkerManager(_get_store())
+    return _worker_manager
+
+
+def _ensure_space_listening(space_id: str) -> None:
+    """Start a worker listener for a space if not already running.
+
+    Workers only process events they are subscribed to. Without this call,
+    appended AgentActed/A2AActed/UserActed trigger events would never be
+    picked up and no LLM/external response would be generated.
+    """
+    manager = _get_worker_manager()
+    if space_id not in _started_spaces:
+        import asyncio
+
+        try:
+            # start() is async; schedule it on the running loop if present.
+            loop = asyncio.get_running_loop()
+            loop.create_task(manager.start([space_id]))
+        except RuntimeError:
+            # No running loop (e.g. sync test context) — start synchronously.
+            import asyncio
+
+            asyncio.run(manager.start([space_id]))
+        _started_spaces.add(space_id)
+
+
 # ── Space Endpoints ──────────────────────────────────────────────────────
 
 
 @router.post("/interactive/spaces", response_model=DebateSpaceResponse)
 def create_space(body: DebateSpaceCreate):
-    """Create a new interactive debate space."""
+    """Create a new interactive debate space.
+
+    After creation, starts a worker listener for this space so that
+    subsequent trigger events (AgentActed, A2AActed, HITL) are processed.
+    """
     store = _get_store()
     space = store.create_space(
         title=body.title,
@@ -89,6 +162,8 @@ def create_space(body: DebateSpaceCreate):
         project_id=body.project_id,
         tenant_id=body.tenant_id,
     )
+    # Start workers for this new space (idempotent).
+    _ensure_space_listening(space.space_id)
     return space
 
 
@@ -149,14 +224,17 @@ async def append_event(space_id: str, body: DebateEventCreate):
         metadata_json=body.metadata_json,
     )
 
-    # Publish to event bus for SSE streaming (fire-and-forget)
+    # Publish to event bus for SSE streaming (fire-and-forget with error logging)
     bus = get_event_bus()
     stream_name = f"interactive:space:{space_id}"
-    asyncio.create_task(bus.publish(stream_name, {"event_id": event.event_id}))
+    _publish_task = asyncio.create_task(bus.publish(stream_name, {"event_id": event.event_id}))
+    _publish_task.add_done_callback(
+        lambda t: t.exception() and logger.error("Event bus publish failed for %s: %s", event.event_id, t.exception())
+    )
 
-    # Embed event for semantic search (best-effort)
+    # Embed event for semantic search (best-effort, singleton store)
     try:
-        embedding_store = EventEmbeddingStore()
+        embedding_store = _get_embedding_store()
         sync = EventSyncService(store, embedding_store)
         sync.sync_event(event)
     except Exception as e:
@@ -250,7 +328,7 @@ def synthesize_context(
     if not target_event or target_event.space_id != space_id:
         raise HTTPException(status_code=404, detail="Event not found in this space")
 
-    embedding_store = EventEmbeddingStore()
+    embedding_store = _get_embedding_store()
     synthesizer = ContextSynthesizer(store, embedding_store)
 
     window = synthesizer.synthesize(
@@ -275,37 +353,46 @@ async def _event_generator(
     store: EventStore,
     last_event_id: str | None = None,
 ) -> AsyncGenerator[dict, None]:
-    """Yield new events as SSE messages via Redis Streams."""
+    """Yield events as SSE messages, replaying missed events then streaming live.
+
+    When ``last_event_id`` is provided, the client already has every event up to
+    and including that one. We therefore replay only the events that were
+    appended **after** it (skip until we pass the cursor, then yield the rest),
+    before subscribing to the live stream for new events.
+    """
     bus = get_event_bus()
     stream_name = f"interactive:space:{space_id}"
 
-    # Replay existing events from DB if needed
+    def _format(evt) -> dict:
+        return {
+            "event": "message",
+            "data": EventStreamMessage(
+                kind="event",
+                payload=DebateEventResponse.model_validate(evt),
+            ).model_dump_json(),
+        }
+
+    # Replay existing events from DB — only those AFTER last_event_id.
     if last_event_id:
         all_events = store.get_full_tree(space_id)
+        passed_cursor = False
         for evt in all_events:
-            if evt.event_id == last_event_id:
-                break
-            yield {
-                "event": "message",
-                "data": EventStreamMessage(
-                    kind="event",
-                    payload=DebateEventResponse.model_validate(evt),
-                ).model_dump_json(),
-            }
+            if not passed_cursor:
+                if evt.event_id == last_event_id:
+                    passed_cursor = True
+                continue  # skip events at or before the cursor
+            yield _format(evt)
+    else:
+        # No cursor — replay the full tree so a fresh client sees history.
+        for evt in store.get_full_tree(space_id):
+            yield _format(evt)
 
-    # Stream new events from Redis
+    # Stream new events from the event bus (live).
     async for event_data in bus.subscribe(stream_name, last_event_id):
-        # Convert stream data to response
         if "event_id" in event_data:
             evt = store.get_event(event_data["event_id"])
             if evt:
-                yield {
-                    "event": "message",
-                    "data": EventStreamMessage(
-                        kind="event",
-                        payload=DebateEventResponse.model_validate(evt),
-                    ).model_dump_json(),
-                }
+                yield _format(evt)
 
 
 @router.get("/interactive/spaces/{space_id}/stream")
@@ -329,32 +416,46 @@ async def stream_events(
 
 
 @router.post("/interactive/spaces/{space_id}/synthesize")
-def synthesize_output(space_id: str, body: SynthesisRequest):
+async def synthesize_output(
+    space_id: str,
+    body: SynthesisRequest,
+    llm_profile_id: str | None = Query(None, description="LLM profile for compression"),
+    use_llm: bool = Query(True, description="If False, return a raw transcript without LLM compression"),
+):
     """Trigger synthesis of a final deliverable (Markdown, LaTeX, PDF, JSON).
 
-    Returns the full tree with CQRS read model projections.
+    Produces a structured document from the debate event tree:
+
+    - **json**     — deterministic structured event tree (no LLM call)
+    - **markdown** — clean narrative report (LLM-compressed unless ``use_llm=False``)
+    - **latex**    — self-contained LaTeX document source (LLM-generated)
+    - **pdf**      — LaTeX source intended for PDF rendering (LLM-generated)
+
+    The result is persisted in the ``synthesis_reports`` table (read model)
+    and a ``ContextSynthesized`` event is appended to the event log so the
+    SSE stream and CQRS projectors update.
     """
     store = _get_store()
     space = store.get_space(space_id)
     if not space:
         raise HTTPException(status_code=404, detail="Debate space not found")
 
-    events = store.get_full_tree(space_id)
-    pm = _get_projector_manager()
+    from backend.services.interactive.synthesis_service import SynthesisService
 
-    tree_data = pm.tree.get_tree_graph(space_id)
-    budget_data = pm.budget.get_budget(space_id)
-    reports = pm.synthesis.get_reports(space_id)
+    service = SynthesisService(store)
+    try:
+        result = await service.synthesize(
+            space_id=space_id,
+            fmt=body.format,
+            max_depth=body.max_depth,
+            include_side_branches=body.include_side_branches,
+            llm_profile_id=llm_profile_id,
+            use_llm=use_llm,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
-    return {
-        "space_id": space_id,
-        "format": body.format,
-        "event_count": len(events),
-        "tree": tree_data,
-        "budget": budget_data,
-        "reports": reports,
-        "events": [DebateEventResponse.model_validate(e) for e in events],
-    }
+    return result.to_dict()
 
 
 # ── Worker Triggers ──────────────────────────────────────────────────────
@@ -370,7 +471,8 @@ async def trigger_agent(
 ):
     """Manually trigger an agent response (for [+] button).
 
-    Creates an AgentActed event that will be processed by the AgentWorker.
+    Creates an ``AgentActed`` event that will be processed by the
+    ``AgentWorker`` (which calls the LLM and appends the response).
     """
     store = _get_store()
     space = store.get_space(space_id)
@@ -381,10 +483,9 @@ async def trigger_agent(
     if not parent or parent.space_id != space_id:
         raise HTTPException(status_code=400, detail="Invalid parent_event_id")
 
-    from backend.services.interactive.workers import WorkerManager
-
-    bus = get_event_bus()
-    manager = WorkerManager(store, bus)
+    # Use the shared, started WorkerManager — not a throwaway copy.
+    _ensure_space_listening(space_id)
+    manager = _get_worker_manager()
 
     event = await manager.trigger_agent(
         space_id=space_id,
@@ -416,10 +517,9 @@ async def trigger_a2a(
     if not parent or parent.space_id != space_id:
         raise HTTPException(status_code=400, detail="Invalid parent_event_id")
 
-    from backend.services.interactive.workers import WorkerManager
-
-    bus = get_event_bus()
-    manager = WorkerManager(store, bus)
+    # Use the shared, started WorkerManager — not a throwaway copy.
+    _ensure_space_listening(space_id)
+    manager = _get_worker_manager()
 
     event = await manager.trigger_a2a(
         space_id=space_id,
@@ -446,10 +546,9 @@ async def trigger_hitl(
     if not parent or parent.space_id != space_id:
         raise HTTPException(status_code=400, detail="Invalid parent_event_id")
 
-    from backend.services.interactive.workers import WorkerManager
-
-    bus = get_event_bus()
-    manager = WorkerManager(store, bus)
+    # Use the shared, started WorkerManager — not a throwaway copy.
+    _ensure_space_listening(space_id)
+    manager = _get_worker_manager()
 
     event = await manager.trigger_hitl(
         space_id=space_id,

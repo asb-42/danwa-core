@@ -74,6 +74,48 @@ class ModuleInstaller:
         run_migrations(self.db_path)
         return conn
 
+    @staticmethod
+    def _safe_extractall(zf: zipfile.ZipFile, target_dir: Path) -> None:
+        """Extract all ZIP entries, rejecting path-traversal names (Zip Slip defence).
+
+        A malicious ZIP entry with a name like ``../../etc/cron.d/evil`` would
+        write outside ``target_dir``. This method resolves every entry path and
+        rejects any that escape the target directory.
+        """
+        import os
+
+        target = target_dir.resolve()
+        for info in zf.infolist():
+            member_path = (target / info.filename).resolve()
+            if not str(member_path).startswith(str(target) + os.sep) and member_path != target:
+                raise InstallationError(
+                    f"Refusing to extract '{info.filename}' — path traversal attempt"
+                )
+        zf.extractall(target_dir)
+
+    def _safe_module_path(self, module_id: str, relative_path: str) -> Path | None:
+        """Resolve a manifest file path, rejecting path traversal.
+
+        Manifest ``file_entry["path"]`` values are untrusted. A path like
+        ``../../data/auth.db`` would resolve outside the module directory.
+        This method resolves the path and returns ``None`` if it escapes.
+        """
+        import os
+
+        base = (self.modules_dir / module_id).resolve()
+        try:
+            resolved = (base / relative_path).resolve()
+        except (OSError, ValueError):
+            return None
+        if not str(resolved).startswith(str(base) + os.sep) and resolved != base:
+            logger.warning(
+                "Path traversal in manifest for module %s: '%s' escapes module directory",
+                module_id,
+                relative_path,
+            )
+            return None
+        return resolved
+
     def _register_in_db(self, module_id: str, manifest: dict[str, Any]) -> int:
         """Register a module and its files in the database.
 
@@ -124,8 +166,8 @@ class ModuleInstaller:
 
             # Import files into translation cache
             for file_entry in manifest.get("files", []):
-                fpath = self.modules_dir / module_id / file_entry["path"]
-                if not fpath.exists():
+                fpath = self._safe_module_path(module_id, file_entry["path"])
+                if not fpath or not fpath.exists():
                     continue
                 content = fpath.read_text(encoding="utf-8")
                 lang = file_entry.get("language", "en")
@@ -446,6 +488,10 @@ class ModuleInstaller:
     def install_from_url(self, url: str) -> InstallationReport:
         """Install a module from a ZIP URL.
 
+        Validates the URL against the A2A SSRF defence (scheme check +
+        private-IP blocking + DNS-rebinding defence) before fetching,
+        then extracts with path-traversal protection (Zip Slip defence).
+
         Args:
             url: URL to a ZIP archive containing the module
 
@@ -453,6 +499,19 @@ class ModuleInstaller:
             InstallationReport with status and details
         """
         import urllib.request
+
+        # SSRF defence: validate the URL before fetching.
+        try:
+            from backend.a2a.url_validator import validate_a2a_url
+
+            url = validate_a2a_url(url, allow_private_ips=False)
+        except Exception as e:
+            return InstallationReport(
+                status="error",
+                module_id="<unknown>",
+                version="0.0.0",
+                errors=[f"URL validation failed: {e}"],
+            )
 
         try:
             with urllib.request.urlopen(url, timeout=60) as resp:
@@ -471,7 +530,8 @@ class ModuleInstaller:
                 if tmp_dir.exists():
                     shutil.rmtree(tmp_dir)
                 tmp_dir.mkdir(parents=True, exist_ok=True)
-                zf.extractall(tmp_dir)
+                # Zip Slip defence: validate every entry path before extraction.
+                self._safe_extractall(zf, tmp_dir)
 
                 manifest_paths = list(tmp_dir.rglob("manifest.json"))
                 if not manifest_paths:

@@ -1,0 +1,36 @@
+id = "grok-4-fast-reasoning"
+name = "Grok 4 Fast Reasoning"
+provider_model_id = "grok-4-fast-reasoning"
+knowledge = "2024-11"
+release_date = "2025-09-21"
+last_updated = "2025-09-21"
+
+[limits]
+context = 2000000
+output = 64000
+
+[cost]
+input = 0.2
+output = 0.5
+cache_read = 0.02
+
+[modalities]
+input = ["text"]
+output = ["text"]
+
+[capabilities.reasoning]
+enabled = true
+
+[capabilities.tools]
+enabled = true
+
+[lifecycle]
+status = "deprecated"
+deprecated_at = "2026-05-07"
+retires_at = "2026-05-15T19:00:00Z"
+replacement = "grok-4.3"
+
+[extra]
+attachment = false
+open_weights = false
+temperature = true

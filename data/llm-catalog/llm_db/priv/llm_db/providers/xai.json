@@ -1,0 +1,1435 @@
+{
+  "alias_of": null,
+  "base_url": "https://api.x.ai/v1",
+  "config_schema": null,
+  "doc": "https://docs.x.ai",
+  "env": [
+    "XAI_API_KEY"
+  ],
+  "exclude_models": [
+    "grok-vision-beta",
+    "grok-beta",
+    "grok-2",
+    "grok-2-1212",
+    "grok-2-latest",
+    "grok-2-vision",
+    "grok-2-vision-1212",
+    "grok-2-vision-latest"
+  ],
+  "extra": null,
+  "id": "xai",
+  "models": {
+    "grok-3": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.75,
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1743724800,
+        "family": "grok",
+        "open_weights": false,
+        "owned_by": "xai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-3",
+      "knowledge": "2024-11",
+      "last_updated": "2025-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 3",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-02-17",
+      "retired": false,
+      "tags": null
+    },
+    "grok-3-fast": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 1.25,
+        "input": 5,
+        "output": 25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-3-fast",
+      "knowledge": "2024-11",
+      "last_updated": "2025-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 3 Fast",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-02-17",
+      "retired": false,
+      "tags": null
+    },
+    "grok-3-fast-latest": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 1.25,
+        "input": 5,
+        "output": 25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-3-fast-latest",
+      "knowledge": "2024-11",
+      "last_updated": "2025-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 3 Fast Latest",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-02-17",
+      "retired": false,
+      "tags": null
+    },
+    "grok-3-latest": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.75,
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-3-latest",
+      "knowledge": "2024-11",
+      "last_updated": "2025-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 3 Latest",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-02-17",
+      "retired": false,
+      "tags": null
+    },
+    "grok-3-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "cache_read": 0.075,
+        "input": 0.3,
+        "output": 0.5,
+        "reasoning": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1743724800,
+        "family": "grok",
+        "open_weights": false,
+        "owned_by": "xai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-3-mini",
+      "knowledge": "2024-11",
+      "last_updated": "2025-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 3 Mini",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-02-17",
+      "retired": false,
+      "tags": null
+    },
+    "grok-3-mini-fast": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "cache_read": 0.15,
+        "input": 0.6,
+        "output": 4,
+        "reasoning": 4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-3-mini-fast",
+      "knowledge": "2024-11",
+      "last_updated": "2025-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 3 Mini Fast",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-02-17",
+      "retired": false,
+      "tags": null
+    },
+    "grok-3-mini-fast-latest": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "cache_read": 0.15,
+        "input": 0.6,
+        "output": 4,
+        "reasoning": 4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-3-mini-fast-latest",
+      "knowledge": "2024-11",
+      "last_updated": "2025-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 3 Mini Fast Latest",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-02-17",
+      "retired": false,
+      "tags": null
+    },
+    "grok-3-mini-latest": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "cache_read": 0.075,
+        "input": 0.3,
+        "output": 0.5,
+        "reasoning": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-3-mini-latest",
+      "knowledge": "2024-11",
+      "last_updated": "2025-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 3 Mini Latest",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-02-17",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "cache_read": 0.75,
+        "input": 3,
+        "output": 15,
+        "reasoning": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4",
+      "knowledge": "2025-07",
+      "last_updated": "2025-07-09",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-07-09",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-0709": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.75,
+        "input": 3,
+        "output": 15,
+        "reasoning": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1752019200,
+        "open_weights": false,
+        "owned_by": "xai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-0709",
+      "knowledge": "2025-07",
+      "last_updated": "2025-07-09",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": "grok-4-0709",
+      "release_date": "2025-07-09",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-1-fast": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.05,
+        "input": 0.2,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-1-fast",
+      "knowledge": "2025-07",
+      "last_updated": "2025-11-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 30000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4.1 Fast",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-11-19",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-1-fast-non-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.05,
+        "input": 0.2,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1763510400,
+        "family": "grok",
+        "open_weights": false,
+        "owned_by": "xai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-1-fast-non-reasoning",
+      "knowledge": "2025-07",
+      "last_updated": "2025-11-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 30000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4.1 Fast (Non-Reasoning)",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-11-19",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-1-fast-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.05,
+        "input": 0.2,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1763510400,
+        "open_weights": false,
+        "owned_by": "xai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-1-fast-reasoning",
+      "knowledge": "2025-07",
+      "last_updated": "2025-11-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 30000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4.1 Fast Reasoning",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": "grok-4-1-fast-reasoning",
+      "release_date": "2025-11-19",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-fast": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "cache_read": 0.05,
+        "input": 0.2,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-fast",
+      "knowledge": "2025-07",
+      "last_updated": "2025-09-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 30000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4 Fast",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-09-19",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-fast-non-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.02,
+        "input": 0.2,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1756944000,
+        "family": "grok",
+        "open_weights": false,
+        "owned_by": "xai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-fast-non-reasoning",
+      "knowledge": "2024-11",
+      "last_updated": "2025-09-21",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4 Fast Non-Reasoning",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": "grok-4-fast-non-reasoning",
+      "release_date": "2025-09-21",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-fast-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.02,
+        "input": 0.2,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1756944000,
+        "open_weights": false,
+        "owned_by": "xai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-fast-reasoning",
+      "knowledge": "2024-11",
+      "last_updated": "2025-09-21",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4 Fast Reasoning",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": "grok-4-fast-reasoning",
+      "release_date": "2025-09-21",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4.20-experimental-beta-0304-non-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.2,
+        "input": 2,
+        "output": 6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "status": "beta",
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4.20-experimental-beta-0304-non-reasoning",
+      "knowledge": null,
+      "last_updated": "2026-03-04",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 30000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4.20 (Experimental, Non-Reasoning)",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2026-03-04",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4.20-experimental-beta-0304-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.2,
+        "input": 2,
+        "output": 6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "status": "beta",
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4.20-experimental-beta-0304-reasoning",
+      "knowledge": null,
+      "last_updated": "2026-03-04",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 30000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4.20 (Experimental, Reasoning)",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2026-03-04",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4.20-multi-agent-experimental-beta-0304": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.2,
+        "input": 2,
+        "output": 6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "status": "beta",
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4.20-multi-agent-experimental-beta-0304",
+      "knowledge": null,
+      "last_updated": "2026-03-04",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 30000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4.20 Multi-Agent (Experimental)",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2026-03-04",
+      "retired": false,
+      "tags": null
+    },
+    "grok-code-fast-1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "cache_read": 0.02,
+        "input": 0.2,
+        "output": 1.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1755993600,
+        "family": "grok",
+        "open_weights": false,
+        "owned_by": "xai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-code-fast-1",
+      "knowledge": "2023-10",
+      "last_updated": "2025-08-28",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 10000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok Code Fast 1",
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": "2025-08-28",
+      "retired": false,
+      "tags": null
+    },
+    "grok-imagine-image": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": false,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "text": false,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "api": "images",
+        "created": 1769558400,
+        "owned_by": "xai"
+      },
+      "family": "grok-imagine",
+      "id": "grok-imagine-image",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "image"
+        ]
+      },
+      "model": null,
+      "name": "Grok Imagine Image",
+      "pricing": {
+        "components": [
+          {
+            "id": "image.input",
+            "kind": "image",
+            "per": 1,
+            "rate": 0.002,
+            "unit": "image"
+          },
+          {
+            "id": "image.generated",
+            "kind": "image",
+            "per": 1,
+            "rate": 0.02,
+            "unit": "image"
+          }
+        ],
+        "currency": "USD",
+        "merge": "merge_by_id"
+      },
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "grok-imagine-image-pro": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1769558400,
+        "owned_by": "xai"
+      },
+      "family": null,
+      "id": "grok-imagine-image-pro",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": null,
+      "model": null,
+      "name": null,
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "grok-imagine-video": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1769558400,
+        "owned_by": "xai"
+      },
+      "family": null,
+      "id": "grok-imagine-video",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": null,
+      "model": null,
+      "name": null,
+      "pricing": null,
+      "provider": "xai",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    }
+  },
+  "name": "xAI",
+  "pricing_defaults": {
+    "components": [
+      {
+        "id": "tool.web_search",
+        "kind": "tool",
+        "per": 1000,
+        "rate": 5.0,
+        "tool": "web_search",
+        "unit": "call"
+      },
+      {
+        "id": "tool.x_search",
+        "kind": "tool",
+        "per": 1000,
+        "rate": 5.0,
+        "tool": "x_search",
+        "unit": "call"
+      },
+      {
+        "id": "tool.code_execution",
+        "kind": "tool",
+        "per": 1000,
+        "rate": 5.0,
+        "tool": "code_execution",
+        "unit": "call"
+      },
+      {
+        "id": "tool.document_search",
+        "kind": "tool",
+        "per": 1000,
+        "rate": 5.0,
+        "tool": "document_search",
+        "unit": "call"
+      },
+      {
+        "id": "tool.collections_search",
+        "kind": "tool",
+        "per": 1000,
+        "rate": 2.5,
+        "tool": "collections_search",
+        "unit": "call"
+      }
+    ],
+    "currency": "USD"
+  }
+}

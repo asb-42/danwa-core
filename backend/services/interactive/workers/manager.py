@@ -29,7 +29,8 @@ from backend.services.interactive.workers.hitl_worker import HITLWorker
 
 logger = logging.getLogger(__name__)
 
-# Event types that workers can process (Thin Event Taxonomy)
+# Event types that workers can process (Thin Event Taxonomy).
+# Response events (metadata.is_response == True) are skipped by each worker.
 _WORKER_EVENT_TYPES = {"AgentActed", "A2AActed", "UserActed", "ToolRequested"}
 
 
@@ -129,19 +130,27 @@ class WorkerManager:
                     pass
 
     async def _dispatch(self, event: DebateEvent) -> None:
-        """Dispatch an event to the appropriate worker."""
+        """Dispatch an event to the appropriate worker based on the thin taxonomy.
+
+        Each worker is responsible for skipping its own response events
+        (``metadata.is_response == True``) to avoid re-processing.
+        """
         try:
             if event.event_type == "AgentActed":
                 await self.agent_worker.process(event)
             elif event.event_type == "A2AActed":
                 await self.a2a_worker.process(event)
             elif event.event_type == "UserActed":
-                # UserActed can be HITL response or direct user input
+                # UserActed covers HITL requests, HITL responses, and direct
+                # user messages. Only HITL *requests* need the worker; direct
+                # user messages and responses need no further processing.
                 action_type = event.metadata_json.get("action_type", "")
-                if action_type == "hitl_response":
+                if action_type == "hitl_request":
                     await self.hitl_worker.process(event)
                 else:
-                    logger.debug("UserActed with action_type=%s, no worker needed", action_type)
+                    logger.debug(
+                        "UserActed with action_type=%s — no worker needed", action_type
+                    )
             elif event.event_type == "ToolRequested":
                 # TODO: Implement ToolWorker
                 logger.debug("Tool worker not yet implemented")

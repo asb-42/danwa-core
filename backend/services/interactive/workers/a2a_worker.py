@@ -1,7 +1,8 @@
 """A2AWorker – calls external A2A agents when A2AActed events arrive.
 
-Listens for events of type A2AActed, sends the message to the
-configured external agent, and appends the response as an A2AResponse event.
+Listens for events of type ``A2AActed`` (thin event taxonomy, ADR-001),
+sends the message to the configured external agent, and appends the
+response as a new ``A2AActed`` event that is a child of the trigger event.
 """
 
 from __future__ import annotations
@@ -17,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 class A2AWorker:
-    """Processes A2AActed events by calling external A2A agents."""
+    """Processes a2a_request events by calling external A2A agents."""
 
     def __init__(
         self,
@@ -29,15 +30,20 @@ class A2AWorker:
         self.synthesizer = ContextSynthesizer(event_store, embedding_store)
 
     async def process(self, event: DebateEvent) -> DebateEvent | None:
-        """Process an A2AActed event.
+        """Process an ``A2AActed`` trigger event.
 
         This worker:
         1. Extracts the target agent URL from metadata
         2. Synthesizes context from the parent thread
         3. Calls the external A2A agent
-        4. Appends the response as an A2AResponse event
+        4. Appends the response as a new ``A2AActed`` event
+
+        Trigger events carry the request; response events carry
+        ``metadata.is_response == True`` and are skipped on re-dispatch.
         """
         if event.event_type != "A2AActed":
+            return None
+        if event.metadata_json.get("is_response"):
             return None
 
         meta = event.metadata_json
@@ -82,6 +88,7 @@ class A2AWorker:
 
             # Extract response content
             response_content = result.get("message", {}).get("parts", [{}])[0].get("text", "")
+            response_status = result.get("status", "completed")
 
             if not response_content:
                 logger.warning("A2AWorker: empty response from %s", agent_url)
@@ -90,11 +97,12 @@ class A2AWorker:
         except Exception as e:
             logger.error("A2AWorker: failed to call %s: %s", agent_url, e)
             response_content = f"[A2A Error] {e}"
+            response_status = "error"
 
-        # Append the response event
+        # Append the response event (thin taxonomy: A2AActed)
         response_event = self.event_store.append_event(
             space_id=event.space_id,
-            event_type="A2AResponse",
+            event_type="A2AActed",
             actor_type="a2a",
             actor_id=meta.get("agent_id", agent_url),
             content=response_content,
@@ -103,7 +111,8 @@ class A2AWorker:
             metadata_json={
                 "agent_url": agent_url,
                 "request_event_id": event.event_id,
-                "status": result.get("status", "unknown") if result else "error",
+                "status": response_status,
+                "is_response": True,
             },
         )
 

@@ -268,16 +268,29 @@ async def lifespan(app: FastAPI):
     except Exception as exc:
         logger.warning("Legacy langpack cleanup skipped: %s", exc)
 
-    # Start Interactive Mode WorkerManager
+    # Start Interactive Mode WorkerManager (shared singleton with the router).
     _worker_manager = None
     try:
+        from backend.api.routers import interactive as interactive_router
         from backend.persistence.event_store import EventStore
         from backend.services.interactive.workers import WorkerManager
 
         event_store = EventStore()
         _worker_manager = WorkerManager(event_store)
-        # Note: Workers start listening when spaces are created
-        logger.info("Interactive Mode WorkerManager initialized")
+        # Share the manager with the router so trigger endpoints use the
+        # same started instance instead of creating throwaway copies.
+        interactive_router.set_worker_manager(_worker_manager)
+        # Resume listening for all pre-existing spaces (survives restarts).
+        import asyncio
+
+        loop = asyncio.get_event_loop()
+        existing_spaces = event_store.list_spaces(limit=1000)
+        if existing_spaces:
+            loop.create_task(_worker_manager.start([s.space_id for s in existing_spaces]))
+        logger.info(
+            "Interactive Mode WorkerManager initialized (%d spaces resumed)",
+            len(existing_spaces),
+        )
     except Exception as exc:
         logger.warning("Interactive Mode WorkerManager init skipped: %s", exc)
 
@@ -288,7 +301,11 @@ async def lifespan(app: FastAPI):
         try:
             import asyncio
 
-            asyncio.get_event_loop().run_until_complete(_worker_manager.stop())
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                loop.create_task(_worker_manager.stop())
+            else:
+                loop.run_until_complete(_worker_manager.stop())
         except Exception:
             pass
 
@@ -500,12 +517,6 @@ def create_app() -> FastAPI:
                 break
         return response
 
-    # --- Prometheus Metrics ---
-    if settings.prometheus_enabled:
-        from prometheus_fastapi_instrumentator import Instrumentator
-
-        Instrumentator().instrument(app).expose(app, endpoint="/metrics")
-
     # --- Routers ---
     app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
     app.include_router(user_keys.router, prefix="/api/v1/user-keys", tags=["user-keys"])
@@ -621,7 +632,7 @@ def create_app() -> FastAPI:
     )
 
     # --- Interactive Debate Mode (Event Sourcing) ---
-    app.include_router(interactive.router, prefix="/api/v1")
+    app.include_router(interactive.router)
 
     # --- Danwa Assistant ---
     app.include_router(assistant.router)
@@ -634,6 +645,26 @@ def create_app() -> FastAPI:
     # --- A2A Protocol (Agent-to-Agent) ---
     # Mounted at root so /.well-known/agent.json discovery works per A2A spec
     app.include_router(a2a_router, tags=["a2a"])
+
+    # --- Prometheus Metrics ---
+    # Disabled: prometheus_fastapi_instrumentator 7.1.0 is incompatible with
+    # FastAPI 0.137.0 — the middleware crashes on every request with
+    # AttributeError: '_IncludedRouter' object has no attribute 'path'.
+    # Re-enable after upgrading the instrumentator or pinning a compatible
+    # FastAPI version. Set DANWA_PROMETHEUS_ENABLED=true to try anyway.
+    if settings.prometheus_enabled:
+        try:
+            from prometheus_fastapi_instrumentator import Instrumentator
+
+            Instrumentator().instrument(app).expose(app, endpoint="/metrics")
+            logger.info("Prometheus instrumentator enabled")
+        except Exception as exc:
+            logger.warning(
+                "Prometheus instrumentator failed to initialise (app will "
+                "continue without metrics): %s", exc
+            )
+    else:
+        logger.info("Prometheus metrics disabled (prometheus_enabled=false)")
 
     # --- Static file serving (production mode) ---
     # Mount static assets first (more specific), then SPA fallback last

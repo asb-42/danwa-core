@@ -1,0 +1,633 @@
+{
+  "alias_of": null,
+  "base_url": null,
+  "config_schema": null,
+  "doc": "https://docs.evroc.com/products/think/overview.html",
+  "env": [
+    "EVROC_API_KEY"
+  ],
+  "exclude_models": null,
+  "extra": null,
+  "id": "evroc",
+  "models": {
+    "KBLab/kb-whisper-large": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.00236,
+        "output": 0.00236,
+        "output_audio": 2.36
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "whisper",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "KBLab/kb-whisper-large",
+      "knowledge": null,
+      "last_updated": "2024-10-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 448,
+        "output": 448
+      },
+      "modalities": {
+        "input": [
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "KB Whisper",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2024-10-01",
+      "retired": false,
+      "tags": null
+    },
+    "Qwen/Qwen3-30B-A3B-Instruct-2507-FP8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.35,
+        "output": 1.42
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "Qwen/Qwen3-30B-A3B-Instruct-2507-FP8",
+      "knowledge": null,
+      "last_updated": "2025-07-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 64000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 30B 2507",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2025-07-30",
+      "retired": false,
+      "tags": null
+    },
+    "Qwen/Qwen3-Embedding-8B": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.12,
+        "output": 0.12
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "text-embedding",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "Qwen/Qwen3-Embedding-8B",
+      "knowledge": null,
+      "last_updated": "2025-07-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 40960,
+        "output": 40960
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Embedding 8B",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2025-07-30",
+      "retired": false,
+      "tags": null
+    },
+    "Qwen/Qwen3-VL-30B-A3B-Instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.24,
+        "output": 0.94
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "Qwen/Qwen3-VL-30B-A3B-Instruct",
+      "knowledge": null,
+      "last_updated": "2025-07-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 100000,
+        "output": 100000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 VL 30B",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2025-07-30",
+      "retired": false,
+      "tags": null
+    },
+    "intfloat/multilingual-e5-large-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.12,
+        "output": 0.12
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "text-embedding",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "intfloat/multilingual-e5-large-instruct",
+      "knowledge": null,
+      "last_updated": "2024-06-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 512,
+        "output": 512
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "E5 Multi-Lingual Large Embeddings 0.6B",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2024-06-01",
+      "retired": false,
+      "tags": null
+    },
+    "microsoft/Phi-4-multimodal-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.24,
+        "output": 0.47
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "phi",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "microsoft/Phi-4-multimodal-instruct",
+      "knowledge": null,
+      "last_updated": "2025-01-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 32000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Phi-4 15B",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2025-01-01",
+      "retired": false,
+      "tags": null
+    },
+    "mistralai/Magistral-Small-2509": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.59,
+        "output": 2.36
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "magistral-small",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "mistralai/Magistral-Small-2509",
+      "knowledge": null,
+      "last_updated": "2025-06-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Magistral Small 1.2 24B",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2025-06-01",
+      "retired": false,
+      "tags": null
+    },
+    "mistralai/Voxtral-Small-24B-2507": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.00236,
+        "output": 0.00236,
+        "output_audio": 2.36
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "voxtral",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "mistralai/Voxtral-Small-24B-2507",
+      "knowledge": null,
+      "last_updated": "2025-03-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 32000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "audio",
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Voxtral Small 24B",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2025-03-01",
+      "retired": false,
+      "tags": null
+    },
+    "mistralai/devstral-small-2-24b-instruct-2512": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.12,
+        "output": 0.47
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "devstral",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "mistralai/devstral-small-2-24b-instruct-2512",
+      "knowledge": null,
+      "last_updated": "2025-12-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 32768,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Devstral Small 2 24B Instruct 2512",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2025-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/Kimi-K2.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.47,
+        "output": 5.9
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true
+      },
+      "family": null,
+      "id": "moonshotai/Kimi-K2.5",
+      "knowledge": null,
+      "last_updated": "2026-01-27",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2.5",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2026-01-27",
+      "retired": false,
+      "tags": null
+    },
+    "nvidia/Llama-3.3-70B-Instruct-FP8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 1.18,
+        "output": 1.18
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "nvidia/Llama-3.3-70B-Instruct-FP8",
+      "knowledge": null,
+      "last_updated": "2024-12-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama 3.3 70B",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2024-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-oss-120b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.24,
+        "output": 0.94
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "gpt-oss",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "openai/gpt-oss-120b",
+      "knowledge": null,
+      "last_updated": "2025-08-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 65536,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT OSS 120B",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2025-08-05",
+      "retired": false,
+      "tags": null
+    },
+    "openai/whisper-large-v3": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.00236,
+        "output": 0.00236,
+        "output_audio": 2.36
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "whisper",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "openai/whisper-large-v3",
+      "knowledge": null,
+      "last_updated": "2024-10-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 448,
+        "output": 4096
+      },
+      "modalities": {
+        "input": [
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Whisper 3 Large",
+      "pricing": null,
+      "provider": "evroc",
+      "provider_model_id": null,
+      "release_date": "2024-10-01",
+      "retired": false,
+      "tags": null
+    }
+  },
+  "name": "evroc",
+  "pricing_defaults": null
+}

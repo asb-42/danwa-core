@@ -1,0 +1,4673 @@
+{
+  "alias_of": null,
+  "base_url": null,
+  "config_schema": null,
+  "doc": "https://novita.ai/docs/guides/introduction",
+  "env": [
+    "NOVITA_API_KEY"
+  ],
+  "exclude_models": null,
+  "extra": null,
+  "id": "novita_ai",
+  "models": {
+    "baichuan/baichuan-m2-32b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.07,
+        "output": 0.07
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "baichuan",
+        "open_weights": true,
+        "structured_output": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "baichuan/baichuan-m2-32b",
+      "knowledge": "2024-12",
+      "last_updated": "2025-08-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "baichuan-m2-32b",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-08-13",
+      "retired": false,
+      "tags": null
+    },
+    "baidu/ernie-4.5-21B-a3b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.07,
+        "output": 0.28
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "ernie",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "baidu/ernie-4.5-21B-a3b",
+      "knowledge": "2025-03",
+      "last_updated": "2025-06-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 120000,
+        "output": 8000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "ERNIE 4.5 21B A3B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-06-30",
+      "retired": false,
+      "tags": null
+    },
+    "baidu/ernie-4.5-21B-a3b-thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.07,
+        "output": 0.28
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "ernie",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "baidu/ernie-4.5-21B-a3b-thinking",
+      "knowledge": "2025-03",
+      "last_updated": "2025-09-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "ERNIE-4.5-21B-A3B-Thinking",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-19",
+      "retired": false,
+      "tags": null
+    },
+    "baidu/ernie-4.5-300b-a47b-paddle": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.28,
+        "output": 1.1
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "baidu/ernie-4.5-300b-a47b-paddle",
+      "knowledge": null,
+      "last_updated": "2025-06-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 123000,
+        "output": 12000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "ERNIE 4.5 300B A47B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-06-30",
+      "retired": false,
+      "tags": null
+    },
+    "baidu/ernie-4.5-vl-28b-a3b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.4,
+        "output": 5.6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "baidu/ernie-4.5-vl-28b-a3b",
+      "knowledge": null,
+      "last_updated": "2025-06-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 30000,
+        "output": 8000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "ERNIE 4.5 VL 28B A3B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-06-30",
+      "retired": false,
+      "tags": null
+    },
+    "baidu/ernie-4.5-vl-28b-a3b-thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.39,
+        "output": 0.39
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "baidu/ernie-4.5-vl-28b-a3b-thinking",
+      "knowledge": null,
+      "last_updated": "2025-11-26",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "ERNIE-4.5-VL-28B-A3B-Thinking",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-11-26",
+      "retired": false,
+      "tags": null
+    },
+    "baidu/ernie-4.5-vl-424b-a47b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.42,
+        "output": 1.25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "baidu/ernie-4.5-vl-424b-a47b",
+      "knowledge": null,
+      "last_updated": "2025-06-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 123000,
+        "output": 16000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "ERNIE 4.5 VL 424B A47B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-06-30",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-ocr": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.03,
+        "output": 0.03
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-ocr",
+      "knowledge": null,
+      "last_updated": "2025-10-24",
+      "lifecycle": null,
+      "limits": {
+        "context": 8192,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek-OCR",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-10-24",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-ocr-2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.03,
+        "output": 0.03
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-ocr-2",
+      "knowledge": null,
+      "last_updated": "2026-01-27",
+      "lifecycle": null,
+      "limits": {
+        "context": 8192,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "deepseek/deepseek-ocr-2",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2026-01-27",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-prover-v2-671b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.7,
+        "output": 2.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-prover-v2-671b",
+      "knowledge": null,
+      "last_updated": "2025-04-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 160000,
+        "output": 160000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Deepseek Prover V2 671B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-04-30",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-r1-0528": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.35,
+        "input": 0.7,
+        "output": 2.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek-thinking",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-r1-0528",
+      "knowledge": "2024-07",
+      "last_updated": "2025-05-28",
+      "lifecycle": null,
+      "limits": {
+        "context": 163840,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek R1 0528",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-05-28",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-r1-0528-qwen3-8b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.06,
+        "output": 0.09
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-r1-0528-qwen3-8b",
+      "knowledge": null,
+      "last_updated": "2025-05-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek R1 0528 Qwen3 8B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-05-29",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-r1-distill-llama-70b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.8,
+        "output": 0.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek-thinking",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-r1-distill-llama-70b",
+      "knowledge": null,
+      "last_updated": "2025-01-27",
+      "lifecycle": null,
+      "limits": {
+        "context": 8192,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek R1 Distill LLama 70B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-01-27",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-r1-turbo": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.7,
+        "output": 2.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-r1-turbo",
+      "knowledge": null,
+      "last_updated": "2025-03-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 64000,
+        "output": 16000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek R1 (Turbo)\t",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-03-05",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-v3-0324": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.135,
+        "input": 0.27,
+        "output": 1.12
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-v3-0324",
+      "knowledge": "2024-07",
+      "last_updated": "2025-03-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 163840,
+        "output": 163840
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3 0324",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-03-25",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-v3-turbo": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.4,
+        "output": 1.3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-v3-turbo",
+      "knowledge": null,
+      "last_updated": "2025-03-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 64000,
+        "output": 16000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3 (Turbo)\t",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-03-05",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-v3.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.135,
+        "input": 0.27,
+        "output": 1
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-v3.1",
+      "knowledge": null,
+      "last_updated": "2025-08-21",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3.1",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-08-21",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-v3.1-terminus": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.135,
+        "input": 0.27,
+        "output": 1
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-v3.1-terminus",
+      "knowledge": null,
+      "last_updated": "2025-09-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Deepseek V3.1 Terminus",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-22",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-v3.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.1345,
+        "input": 0.269,
+        "output": 0.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-v3.2",
+      "knowledge": null,
+      "last_updated": "2025-12-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 163840,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Deepseek V3.2",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-v3.2-exp": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.27,
+        "output": 0.41
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-v3.2-exp",
+      "knowledge": null,
+      "last_updated": "2025-09-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 163840,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Deepseek V3.2 Exp",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-29",
+      "retired": false,
+      "tags": null
+    },
+    "google/gemma-3-27b-it": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.119,
+        "output": 0.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemma",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "google/gemma-3-27b-it",
+      "knowledge": null,
+      "last_updated": "2025-03-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 98304,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemma 3 27B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-03-25",
+      "retired": false,
+      "tags": null
+    },
+    "gryphe/mythomax-l2-13b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.09,
+        "output": 0.09
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gryphe/mythomax-l2-13b",
+      "knowledge": null,
+      "last_updated": "2024-04-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 4096,
+        "output": 3200
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Mythomax L2 13B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-04-25",
+      "retired": false,
+      "tags": null
+    },
+    "kwaipilot/kat-coder": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "kwaipilot/kat-coder",
+      "knowledge": null,
+      "last_updated": "2025-09-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "KAT-Coder-Pro V1(Free)",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-30",
+      "retired": false,
+      "tags": null
+    },
+    "kwaipilot/kat-coder-pro": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.06,
+        "input": 0.3,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "kwaipilot/kat-coder-pro",
+      "knowledge": null,
+      "last_updated": "2026-01-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kat Coder Pro",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2026-01-05",
+      "retired": false,
+      "tags": null
+    },
+    "meta-llama/llama-3-70b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.51,
+        "output": 0.74
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "meta-llama/llama-3-70b-instruct",
+      "knowledge": null,
+      "last_updated": "2024-04-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 8192,
+        "output": 8000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama3 70B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-04-25",
+      "retired": false,
+      "tags": null
+    },
+    "meta-llama/llama-3-8b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.04,
+        "output": 0.04
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "meta-llama/llama-3-8b-instruct",
+      "knowledge": null,
+      "last_updated": "2024-04-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 8192,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama 3 8B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-04-25",
+      "retired": false,
+      "tags": null
+    },
+    "meta-llama/llama-3.1-8b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.02,
+        "output": 0.05
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "meta-llama/llama-3.1-8b-instruct",
+      "knowledge": null,
+      "last_updated": "2024-07-24",
+      "lifecycle": null,
+      "limits": {
+        "context": 16384,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama 3.1 8B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-07-24",
+      "retired": false,
+      "tags": null
+    },
+    "meta-llama/llama-3.3-70b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.135,
+        "output": 0.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "meta-llama/llama-3.3-70b-instruct",
+      "knowledge": "2023-12",
+      "last_updated": "2024-12-07",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 120000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama 3.3 70B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-12-07",
+      "retired": false,
+      "tags": null
+    },
+    "meta-llama/llama-4-maverick-17b-128e-instruct-fp8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.27,
+        "output": 0.85
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "meta-llama/llama-4-maverick-17b-128e-instruct-fp8",
+      "knowledge": null,
+      "last_updated": "2025-04-06",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama 4 Maverick Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-04-06",
+      "retired": false,
+      "tags": null
+    },
+    "meta-llama/llama-4-scout-17b-16e-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.18,
+        "output": 0.59
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "meta-llama/llama-4-scout-17b-16e-instruct",
+      "knowledge": null,
+      "last_updated": "2025-04-06",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama 4 Scout Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-04-06",
+      "retired": false,
+      "tags": null
+    },
+    "microsoft/wizardlm-2-8x22b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.62,
+        "output": 0.62
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "microsoft/wizardlm-2-8x22b",
+      "knowledge": null,
+      "last_updated": "2024-04-24",
+      "lifecycle": null,
+      "limits": {
+        "context": 65535,
+        "output": 8000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Wizardlm 2 8x22B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-04-24",
+      "retired": false,
+      "tags": null
+    },
+    "minimax/minimax-m2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.03,
+        "input": 0.3,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "minimax",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "minimax/minimax-m2",
+      "knowledge": null,
+      "last_updated": "2025-10-27",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "MiniMax-M2",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-10-27",
+      "retired": false,
+      "tags": null
+    },
+    "minimax/minimax-m2.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.03,
+        "input": 0.3,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "minimax",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "minimax/minimax-m2.1",
+      "knowledge": null,
+      "last_updated": "2025-12-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Minimax M2.1",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-12-23",
+      "retired": false,
+      "tags": null
+    },
+    "minimax/minimax-m2.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.03,
+        "input": 0.3,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "minimax",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "minimax/minimax-m2.5",
+      "knowledge": null,
+      "last_updated": "2026-02-12",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131100
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "MiniMax M2.5",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2026-02-12",
+      "retired": false,
+      "tags": null
+    },
+    "minimaxai/minimax-m1-80k": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.55,
+        "output": 2.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "minimax",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "minimaxai/minimax-m1-80k",
+      "knowledge": null,
+      "last_updated": "2025-06-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 1000000,
+        "output": 40000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "MiniMax M1",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-06-17",
+      "retired": false,
+      "tags": null
+    },
+    "mistralai/mistral-nemo": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.04,
+        "output": 0.17
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "mistral-nemo",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "mistralai/mistral-nemo",
+      "knowledge": null,
+      "last_updated": "2024-07-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 60288,
+        "output": 16000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Mistral Nemo",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-07-30",
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2-0905": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 2.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2-0905",
+      "knowledge": "2024-10",
+      "last_updated": "2025-09-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2 0905",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-05",
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.57,
+        "output": 2.3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2-instruct",
+      "knowledge": null,
+      "last_updated": "2025-07-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2 Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-07-11",
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2-thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 2.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2-thinking",
+      "knowledge": null,
+      "last_updated": "2025-11-07",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2 Thinking",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-11-07",
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.1,
+        "input": 0.6,
+        "output": 3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "kimi",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2.5",
+      "knowledge": "2025-01",
+      "last_updated": "2026-01-27",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2.5",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2026-01-27",
+      "retired": false,
+      "tags": null
+    },
+    "nousresearch/hermes-2-pro-llama-3-8b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.14,
+        "output": 0.14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "nousresearch/hermes-2-pro-llama-3-8b",
+      "knowledge": null,
+      "last_updated": "2024-06-27",
+      "lifecycle": null,
+      "limits": {
+        "context": 8192,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Hermes 2 Pro Llama 3 8B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-06-27",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-oss-120b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.05,
+        "output": 0.25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "openai/gpt-oss-120b",
+      "knowledge": null,
+      "last_updated": "2025-08-06",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "OpenAI GPT OSS 120B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-08-06",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-oss-20b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.04,
+        "output": 0.15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "openai/gpt-oss-20b",
+      "knowledge": null,
+      "last_updated": "2025-08-06",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "OpenAI: GPT OSS 20B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-08-06",
+      "retired": false,
+      "tags": null
+    },
+    "paddlepaddle/paddleocr-vl": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.02,
+        "output": 0.02
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "paddlepaddle/paddleocr-vl",
+      "knowledge": null,
+      "last_updated": "2025-10-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 16384,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "PaddleOCR-VL",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-10-22",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen-2.5-72b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.38,
+        "output": 0.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen-2.5-72b-instruct",
+      "knowledge": "2024-04",
+      "last_updated": "2024-10-15",
+      "lifecycle": null,
+      "limits": {
+        "context": 32000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen 2.5 72B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-10-15",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen-mt-plus": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.25,
+        "output": 0.75
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen-mt-plus",
+      "knowledge": null,
+      "last_updated": "2025-09-03",
+      "lifecycle": null,
+      "limits": {
+        "context": 16384,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen MT Plus",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-03",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen2.5-7b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.07,
+        "output": 0.07
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen2.5-7b-instruct",
+      "knowledge": null,
+      "last_updated": "2025-04-16",
+      "lifecycle": null,
+      "limits": {
+        "context": 32000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen2.5 7B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-04-16",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen2.5-vl-72b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.8,
+        "output": 0.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen2.5-vl-72b-instruct",
+      "knowledge": null,
+      "last_updated": "2025-03-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 32768,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen2.5 VL 72B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-03-25",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-235b-a22b-fp8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.2,
+        "output": 0.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-235b-a22b-fp8",
+      "knowledge": null,
+      "last_updated": "2025-04-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 40960,
+        "output": 20000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 235B A22B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-04-29",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-235b-a22b-instruct-2507": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.09,
+        "output": 0.58
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-235b-a22b-instruct-2507",
+      "knowledge": "2025-04",
+      "last_updated": "2025-07-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 235B A22B Instruct 2507",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-07-22",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-235b-a22b-thinking-2507": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.3,
+        "output": 3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-235b-a22b-thinking-2507",
+      "knowledge": "2025-04",
+      "last_updated": "2025-07-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 235B A22b Thinking 2507",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-07-25",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-30b-a3b-fp8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.09,
+        "output": 0.45
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-30b-a3b-fp8",
+      "knowledge": null,
+      "last_updated": "2025-04-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 40960,
+        "output": 20000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 30B A3B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-04-29",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-32b-fp8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.1,
+        "output": 0.45
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-32b-fp8",
+      "knowledge": null,
+      "last_updated": "2025-04-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 40960,
+        "output": 20000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 32B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-04-29",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-4b-fp8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.03,
+        "output": 0.03
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-4b-fp8",
+      "knowledge": null,
+      "last_updated": "2025-04-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 20000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 4B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-04-29",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-8b-fp8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.035,
+        "output": 0.138
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-8b-fp8",
+      "knowledge": null,
+      "last_updated": "2025-04-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 20000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 8B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-04-29",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-coder-30b-a3b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.07,
+        "output": 0.27
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-coder-30b-a3b-instruct",
+      "knowledge": null,
+      "last_updated": "2025-10-09",
+      "lifecycle": null,
+      "limits": {
+        "context": 160000,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Coder 30b A3B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-10-09",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-coder-480b-a35b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.3,
+        "output": 1.3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-coder-480b-a35b-instruct",
+      "knowledge": "2025-04",
+      "last_updated": "2025-07-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Coder 480B A35B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-07-23",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-coder-next": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.2,
+        "output": 1.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-coder-next",
+      "knowledge": null,
+      "last_updated": "2026-02-03",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Coder Next",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2026-02-03",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-max": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 2.11,
+        "output": 8.45
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-max",
+      "knowledge": "2025-04",
+      "last_updated": "2025-09-24",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Max",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-24",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-next-80b-a3b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.15,
+        "output": 1.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-next-80b-a3b-instruct",
+      "knowledge": null,
+      "last_updated": "2025-09-10",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Next 80B A3B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-10",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-next-80b-a3b-thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.15,
+        "output": 1.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-next-80b-a3b-thinking",
+      "knowledge": null,
+      "last_updated": "2025-09-10",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Next 80B A3B Thinking",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-10",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-omni-30b-a3b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.25,
+        "input_audio": 2.2,
+        "output": 0.97,
+        "output_audio": 1.788
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-omni-30b-a3b-instruct",
+      "knowledge": "2024-04",
+      "last_updated": "2025-09-24",
+      "lifecycle": null,
+      "limits": {
+        "context": 65536,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "video",
+          "audio",
+          "image"
+        ],
+        "output": [
+          "text",
+          "audio"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Omni 30B A3B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-24",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-omni-30b-a3b-thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.25,
+        "input_audio": 2.2,
+        "output": 0.97,
+        "output_audio": 1.788
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-omni-30b-a3b-thinking",
+      "knowledge": null,
+      "last_updated": "2025-09-24",
+      "lifecycle": null,
+      "limits": {
+        "context": 65536,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "audio",
+          "video",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Omni 30B A3B Thinking",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-24",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-vl-235b-a22b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.3,
+        "output": 1.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-vl-235b-a22b-instruct",
+      "knowledge": null,
+      "last_updated": "2025-09-24",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 VL 235B A22B Instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-24",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-vl-235b-a22b-thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.98,
+        "output": 3.95
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-vl-235b-a22b-thinking",
+      "knowledge": null,
+      "last_updated": "2025-09-24",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 VL 235B A22B Thinking",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-24",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-vl-30b-a3b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.2,
+        "output": 0.7
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-vl-30b-a3b-instruct",
+      "knowledge": null,
+      "last_updated": "2025-10-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "video",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "qwen/qwen3-vl-30b-a3b-instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-10-11",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-vl-30b-a3b-thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.2,
+        "output": 1
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-vl-30b-a3b-thinking",
+      "knowledge": null,
+      "last_updated": "2025-10-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "qwen/qwen3-vl-30b-a3b-thinking",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-10-11",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-vl-8b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.08,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-vl-8b-instruct",
+      "knowledge": null,
+      "last_updated": "2025-10-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "qwen/qwen3-vl-8b-instruct",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-10-17",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3.5-397b-a17b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 3.6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3.5-397b-a17b",
+      "knowledge": null,
+      "last_updated": "2026-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3.5-397B-A17B",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2026-02-17",
+      "retired": false,
+      "tags": null
+    },
+    "sao10k/L3-8B-Stheno-v3.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.05,
+        "output": 0.05
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "sao10k/L3-8B-Stheno-v3.2",
+      "knowledge": null,
+      "last_updated": "2024-11-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 8192,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "L3 8B Stheno V3.2",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-11-29",
+      "retired": false,
+      "tags": null
+    },
+    "sao10k/l3-70b-euryale-v2.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.48,
+        "output": 1.48
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "sao10k/l3-70b-euryale-v2.1",
+      "knowledge": null,
+      "last_updated": "2024-06-18",
+      "lifecycle": null,
+      "limits": {
+        "context": 8192,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "L3 70B Euryale V2.1\t",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-06-18",
+      "retired": false,
+      "tags": null
+    },
+    "sao10k/l3-8b-lunaris": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.05,
+        "output": 0.05
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "sao10k/l3-8b-lunaris",
+      "knowledge": null,
+      "last_updated": "2024-11-28",
+      "lifecycle": null,
+      "limits": {
+        "context": 8192,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Sao10k L3 8B Lunaris\t",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-11-28",
+      "retired": false,
+      "tags": null
+    },
+    "sao10k/l31-70b-euryale-v2.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.48,
+        "output": 1.48
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "sao10k/l31-70b-euryale-v2.2",
+      "knowledge": null,
+      "last_updated": "2024-09-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 8192,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "L31 70B Euryale V2.2",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2024-09-19",
+      "retired": false,
+      "tags": null
+    },
+    "skywork/r1v4-lite": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.2,
+        "output": 0.6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "skywork",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "skywork/r1v4-lite",
+      "knowledge": null,
+      "last_updated": "2025-11-18",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Skywork R1V4-Lite",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-11-18",
+      "retired": false,
+      "tags": null
+    },
+    "xiaomimimo/mimo-v2-flash": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.3,
+        "input": 0.1,
+        "output": 0.3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "mimo",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "xiaomimimo/mimo-v2-flash",
+      "knowledge": "2024-12",
+      "last_updated": "2025-12-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "XiaomiMiMo/MiMo-V2-Flash",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-12-19",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/autoglm-phone-9b-multilingual": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.035,
+        "output": 0.138
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/autoglm-phone-9b-multilingual",
+      "knowledge": null,
+      "last_updated": "2025-12-10",
+      "lifecycle": null,
+      "limits": {
+        "context": 65536,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "AutoGLM-Phone-9B-Multilingual",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-12-10",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.11,
+        "input": 0.6,
+        "output": 2.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.5",
+      "knowledge": null,
+      "last_updated": "2025-07-28",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 98304
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-4.5",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-07-28",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.5-air": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.13,
+        "output": 0.85
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm-air",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.5-air",
+      "knowledge": "2025-04",
+      "last_updated": "2025-10-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 98304
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM 4.5 Air",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-10-13",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.5v": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.11,
+        "input": 0.6,
+        "output": 1.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "glmv",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.5v",
+      "knowledge": "2025-04",
+      "last_updated": "2025-08-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 65536,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "video",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM 4.5V",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-08-11",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.11,
+        "input": 0.55,
+        "output": 2.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.6",
+      "knowledge": null,
+      "last_updated": "2025-09-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM 4.6",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-09-30",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.6v": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.055,
+        "input": 0.3,
+        "output": 0.9
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "glmv",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.6v",
+      "knowledge": "2025-04",
+      "last_updated": "2025-12-08",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "video",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM 4.6V",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-12-08",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.7": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.11,
+        "input": 0.6,
+        "output": 2.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.7",
+      "knowledge": null,
+      "last_updated": "2025-12-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-4.7",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2025-12-22",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.7-flash": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.01,
+        "input": 0.07,
+        "output": 0.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.7-flash",
+      "knowledge": "2025-04",
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-4.7-Flash",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2026-01-19",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.2,
+        "input": 1,
+        "output": 3.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-5",
+      "knowledge": null,
+      "last_updated": "2026-02-12",
+      "lifecycle": null,
+      "limits": {
+        "context": 202800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-5",
+      "pricing": null,
+      "provider": "novita_ai",
+      "provider_model_id": null,
+      "release_date": "2026-02-11",
+      "retired": false,
+      "tags": null
+    }
+  },
+  "name": "NovitaAI",
+  "pricing_defaults": null
+}

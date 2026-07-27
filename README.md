@@ -1,64 +1,96 @@
 # danwa-core
 
-FastAPI Backend für Danwa (Multi-Agent Debate Platform) — Shared Backend für danwa (Endbenutzer) und danwa-studio (Admin/Dev).
+FastAPI backend for Danwa (Multi-Agent Debate Platform). Shared backend for `danwa` (end-user frontend) and `danwa-studio` (admin/developer frontend).
 
-## Struktur
+## Structure
 
 ```
 danwa-core/
 ├── backend/                 # FastAPI Application
-│   ├── main.py             # App Factory (uvicorn entry point)
-│   ├── api/                # API Routes
-│   ├── core/               # Config, Security, Logging
-│   ├── workflow/           # LangGraph Workflow Engine
-│   ├── services/           # Business Logic Services
-│   ├── persistence/        # Data Persistence
-│   ├── a2a/                # A2A Protocol
-│   └── ...
-├── packages/               # Shared npm Packages (monorepo style)
+│   ├── main.py             # App factory (uvicorn entry point)
+│   ├── api/                # API routes, dependencies, rate limiting
+│   ├── core/               # Config, security, logging
+│   ├── services/           # Business logic (debate, LLM, DMS, interactive, render)
+│   ├── persistence/        # Database layer
+│   ├── workflow/           # LangGraph workflow engine
+│   ├── a2a/                # Agent-to-Agent protocol
+│   ├── blueprints/         # Blueprint canvas engine
+│   ├── llm_catalog/        # LLM provider catalog
+│   ├── models/             # Data models
+│   ├── modules/            # Module installer and resolver
+│   ├── repositories/       # Repository pattern data access
+│   ├── schemas/            # Pydantic schemas
+│   ├── state/              # Workflow state management
+│   ├── tasks/              # Background tasks
+│   └── tools/              # Agent tools (web search, document parsing)
+├── packages/               # Shared npm packages (monorepo)
 │   ├── api-client/         # @danwa/api-client
 │   ├── ui-core/            # @danwa/ui-core
 │   └── i18n/               # @danwa/i18n
-├── scripts/                # Utility Scripts
-├── config/                 # Configuration Files
-├── modules/                # Module Definitions (read-only, managed by danwa-studio)
-├── profiles/               # Profile Definitions (read-only)
-├── deploy/                 # Deployment Configs
-├── pyproject.toml          # Python Dependencies
-├── Dockerfile              # Docker Image
-└── docker-compose.yml      # Local Development Stack
+├── scripts/                # Management, migration, and utility scripts
+├── config/                 # Configuration files and prompts
+├── modules/                # Module definitions (managed by danwa-studio)
+├── profiles/               # Profile definitions
+├── templates/              # Jinja2 templates and document templates
+├── deploy/                 # Deployment configs (Nginx, Prometheus)
+├── tests/                  # pytest backend tests + BATS script tests
+├── data/                   # Runtime data (database, DMS storage)
+├── pyproject.toml          # Python dependencies (uv)
+├── Dockerfile              # Docker image
+└── docker-compose.yml      # Local development stack
 ```
 
-## Entwicklung
+## Quick Start
 
 ```bash
-# Backend starten
-uv run uvicorn backend.main:app --reload --port 8000
+# Install dependencies
+bash setup.sh
 
-# Shared Packages entwickeln
-cd packages/api-client && npm run dev
-cd packages/ui-core && npm run dev
-cd packages/i18n && npm run build
+# Start backend only
+bash manage.sh start
+
+# Start backend + detect sibling frontends
+bash manage.sh start
+
+# Check status
+bash manage.sh status
 ```
 
-## API Client Generierung
+## Development
+
+```bash
+# Backend with auto-reload
+uv run uvicorn backend.main:app --reload --port 8000
+
+# Run tests
+uv run pytest tests/
+
+# Lint
+uv run ruff check backend/
+uv run ruff format backend/
+```
+
+## Shared Packages
+
+The npm packages `@danwa/api-client`, `@danwa/ui-core`, and `@danwa/i18n` are consumed by `danwa` and `danwa-studio` via `file:` protocol references:
+
+```json
+"@danwa/api-client": "file:../packages/api-client"
+```
+
+## API Client Generation
 
 ```bash
 cd packages/api-client
-npm run generate  # Generiert Client aus /openapi.json
+npm run generate  # Generates client from /openapi.json
 ```
 
-## Deployment
+## Docker
 
 ```bash
 docker compose up -d
 ```
 
-## Shared Packages
+## Version
 
-Die Packages `@danwa/api-client`, `@danwa/ui-core`, `@danwa/i18n` werden als npm-Pakete publiziert und von `danwa` und `danwa-studio` konsumiert.
-
-In Development via `file:` Protocol:
-```json
-"@danwa/api-client": "file:../packages/api-client"
-```
+Current version: **1.2.0** (defined in `pyproject.toml` and `version` file).

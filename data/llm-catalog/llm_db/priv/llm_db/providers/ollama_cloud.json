@@ -1,0 +1,1711 @@
+{
+  "alias_of": null,
+  "base_url": null,
+  "config_schema": null,
+  "doc": "https://docs.ollama.com/cloud",
+  "env": [
+    "OLLAMA_API_KEY"
+  ],
+  "exclude_models": null,
+  "extra": null,
+  "id": "ollama_cloud",
+  "models": {
+    "cogito-2.1:671b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "cogito",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "cogito-2.1:671b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 163840,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "cogito-2.1:671b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-11-19",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek-v3.1:671b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "deepseek-v3.1:671b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 163840,
+        "output": 163840
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "deepseek-v3.1:671b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-08-21",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek-v3.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "deepseek-v3.2",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 163840,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "deepseek-v3.2",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-06-15",
+      "retired": false,
+      "tags": null
+    },
+    "devstral-2:123b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "devstral",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "devstral-2:123b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "devstral-2:123b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-12-09",
+      "retired": false,
+      "tags": null
+    },
+    "devstral-small-2:24b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "devstral",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "devstral-small-2:24b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "devstral-small-2:24b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-12-09",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-3-flash-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "gemini-flash",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "gemini-3-flash-preview",
+      "knowledge": "2025-01",
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemini-3-flash-preview",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-12-17",
+      "retired": false,
+      "tags": null
+    },
+    "gemma3:12b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemma",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "gemma3:12b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemma3:12b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2024-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemma3:27b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemma",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "gemma3:27b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemma3:27b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-07-27",
+      "retired": false,
+      "tags": null
+    },
+    "gemma3:4b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemma",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "gemma3:4b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemma3:4b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2024-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "glm-4.6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "glm-4.6",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 202752,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "glm-4.6",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-09-29",
+      "retired": false,
+      "tags": null
+    },
+    "glm-4.7": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "glm-4.7",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 202752,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "glm-4.7",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-12-22",
+      "retired": false,
+      "tags": null
+    },
+    "glm-5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true
+      },
+      "family": null,
+      "id": "glm-5",
+      "knowledge": null,
+      "last_updated": "2026-02-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 202752,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "glm-5",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2026-02-11",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-oss:120b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "gpt-oss",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "gpt-oss:120b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-oss:120b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-08-05",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-oss:20b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "gpt-oss",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "gpt-oss:20b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-oss:20b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-08-05",
+      "retired": false,
+      "tags": null
+    },
+    "kimi-k2-thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi-thinking",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "kimi-k2-thinking",
+      "knowledge": "2024-08",
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "kimi-k2-thinking",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-11-06",
+      "retired": false,
+      "tags": null
+    },
+    "kimi-k2.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "kimi",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "kimi-k2.5",
+      "knowledge": null,
+      "last_updated": "2026-01-27",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "kimi-k2.5",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2026-01-27",
+      "retired": false,
+      "tags": null
+    },
+    "kimi-k2:1t": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "kimi-k2:1t",
+      "knowledge": "2024-10",
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "kimi-k2:1t",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-07-11",
+      "retired": false,
+      "tags": null
+    },
+    "minimax-m2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "minimax",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "minimax-m2",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "minimax-m2",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-10-23",
+      "retired": false,
+      "tags": null
+    },
+    "minimax-m2.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "minimax",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "minimax-m2.1",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "minimax-m2.1",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-12-23",
+      "retired": false,
+      "tags": null
+    },
+    "minimax-m2.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "minimax",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "minimax-m2.5",
+      "knowledge": "2025-01",
+      "last_updated": "2026-02-12",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "minimax-m2.5",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2026-02-12",
+      "retired": false,
+      "tags": null
+    },
+    "ministral-3:14b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "ministral",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "ministral-3:14b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "ministral-3:14b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2024-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "ministral-3:3b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "ministral",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "ministral-3:3b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "ministral-3:3b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2024-10-22",
+      "retired": false,
+      "tags": null
+    },
+    "ministral-3:8b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "ministral",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "ministral-3:8b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "ministral-3:8b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2024-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "mistral-large-3:675b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "mistral-large",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "mistral-large-3:675b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "mistral-large-3:675b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-12-02",
+      "retired": false,
+      "tags": null
+    },
+    "nemotron-3-nano:30b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "nemotron",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "nemotron-3-nano:30b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "nemotron-3-nano:30b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-12-15",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-coder-next": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "qwen3-coder-next",
+      "knowledge": null,
+      "last_updated": "2026-02-08",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "qwen3-coder-next",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2026-02-02",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-coder:480b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "qwen3-coder:480b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "qwen3-coder:480b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-07-22",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-next:80b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "qwen3-next:80b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "qwen3-next:80b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-09-15",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-vl:235b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "qwen",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "qwen3-vl:235b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "qwen3-vl:235b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-09-22",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-vl:235b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "qwen",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "qwen3-vl:235b-instruct",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "qwen3-vl:235b-instruct",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-09-22",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3.5:397b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "qwen",
+        "interleaved": {
+          "field": "reasoning_details"
+        },
+        "open_weights": true
+      },
+      "family": null,
+      "id": "qwen3.5:397b",
+      "knowledge": null,
+      "last_updated": "2026-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 81920
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "qwen3.5:397b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2026-02-15",
+      "retired": false,
+      "tags": null
+    },
+    "rnj-1:8b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "rnj",
+        "open_weights": true
+      },
+      "family": null,
+      "id": "rnj-1:8b",
+      "knowledge": null,
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 32768,
+        "output": 4096
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "rnj-1:8b",
+      "pricing": null,
+      "provider": "ollama_cloud",
+      "provider_model_id": null,
+      "release_date": "2025-12-06",
+      "retired": false,
+      "tags": null
+    }
+  },
+  "name": "Ollama Cloud",
+  "pricing_defaults": null
+}

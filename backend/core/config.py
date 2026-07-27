@@ -140,7 +140,7 @@ class Settings(BaseSettings):
     rate_limit_analysis: str = "5/hour"  # LLM analysis limit
 
     # --- Observability ---
-    prometheus_enabled: bool = True
+    prometheus_enabled: bool = False  # Disabled: incompatible with FastAPI 0.137+
 
     # --- Feature flags (progressive rollout) ---
     # Case-Space is the documented primary UI of the application

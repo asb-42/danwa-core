@@ -1,0 +1,16 @@
+id = "gpt-4o-2024-05-13"
+
+[capabilities.tools]
+strict = true
+
+[extra.wire]
+protocol = "openai_responses"
+
+[extra]
+api = "chat"
+
+[lifecycle]
+status = "deprecated"
+deprecated_at = "2026-04-22"
+retires_at = "2026-10-23"
+replacement = "gpt-5.5"

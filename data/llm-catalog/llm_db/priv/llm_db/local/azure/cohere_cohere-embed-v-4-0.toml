@@ -1,0 +1,16 @@
+id = "cohere-embed-v-4-0"
+
+[capabilities]
+chat = false
+
+[capabilities.embeddings]
+min_dimensions = 256
+max_dimensions = 1536
+default_dimensions = 1536
+
+[modalities]
+input = ["text", "image"]
+output = ["embedding"]
+
+[extra]
+type = "embedding"

@@ -1,0 +1,64 @@
+# Anthropic Provider Definition
+id = "anthropic"
+name = "Anthropic"
+base_url = "https://api.anthropic.com"
+doc = "https://docs.anthropic.com"
+
+env = ["ANTHROPIC_API_KEY"]
+
+exclude_models = [
+  "claude-1.0",
+  "claude-1.1",
+  "claude-1.2",
+  "claude-1.3",
+  "claude-2.0",
+  "claude-2.1",
+  "claude-3-5-sonnet-20240620",
+  "claude-3-sonnet-20240229",
+  "claude-3-opus-20240229",
+  "claude-3-5-sonnet-20241022",
+  "claude-instant-1.0",
+  "claude-instant-1.1",
+  "claude-instant-1.2",
+  "claude-3-5-haiku-latest",
+  "claude-3.5-haiku",
+  "claude-3.5-haiku-20241022",
+  "claude-3-haiku",
+  "claude-3.5-sonnet",
+  "claude-3-7-sonnet-latest",
+  "claude-haiku-4-5",
+  "claude-haiku-4.5",
+  "claude-opus-4-0",
+  "claude-opus-4",
+  "claude-opus-4-1",
+  "claude-opus-4.1",
+  "claude-opus-4-5",
+  "claude-sonnet-4-0",
+  "claude-sonnet-4",
+  "claude-sonnet-4-5",
+  "claude-sonnet-4.5"
+]
+
+[pricing_defaults]
+currency = "USD"
+
+[[pricing_defaults.components]]
+id = "tool.web_search"
+kind = "tool"
+tool = "web_search"
+unit = "call"
+per = 1000
+rate = 10.0
+
+[runtime]
+base_url = "https://api.anthropic.com"
+doc_url = "https://docs.anthropic.com"
+
+[runtime.auth]
+type = "x_api_key"
+env = ["ANTHROPIC_API_KEY"]
+header_name = "x-api-key"
+
+[runtime.execution]
+text = "anthropic_messages"
+object = "anthropic_messages"

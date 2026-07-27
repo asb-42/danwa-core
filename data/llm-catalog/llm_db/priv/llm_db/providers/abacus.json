@@ -1,0 +1,3871 @@
+{
+  "alias_of": null,
+  "base_url": null,
+  "config_schema": null,
+  "doc": "https://abacus.ai/help/api",
+  "env": [
+    "ABACUS_API_KEY"
+  ],
+  "exclude_models": null,
+  "extra": null,
+  "id": "abacus",
+  "models": {
+    "Qwen/QwQ-32B": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.4,
+        "output": 0.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "Qwen/QwQ-32B",
+      "knowledge": null,
+      "last_updated": "2024-11-28",
+      "lifecycle": null,
+      "limits": {
+        "context": 32768,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "QwQ 32B",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2024-11-28",
+      "retired": false,
+      "tags": null
+    },
+    "Qwen/Qwen2.5-72B-Instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.11,
+        "output": 0.38
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "Qwen/Qwen2.5-72B-Instruct",
+      "knowledge": null,
+      "last_updated": "2024-09-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen 2.5 72B Instruct",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2024-09-19",
+      "retired": false,
+      "tags": null
+    },
+    "Qwen/Qwen3-235B-A22B-Instruct-2507": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.13,
+        "output": 0.6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "knowledge": null,
+      "last_updated": "2025-07-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 235B A22B Instruct",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-07-01",
+      "retired": false,
+      "tags": null
+    },
+    "Qwen/Qwen3-32B": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.09,
+        "output": 0.29
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "Qwen/Qwen3-32B",
+      "knowledge": null,
+      "last_updated": "2025-04-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 32B",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-04-29",
+      "retired": false,
+      "tags": null
+    },
+    "Qwen/qwen3-coder-480b-a35b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.29,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "Qwen/qwen3-coder-480b-a35b-instruct",
+      "knowledge": null,
+      "last_updated": "2025-07-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Coder 480B A35B Instruct",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-07-22",
+      "retired": false,
+      "tags": null
+    },
+    "claude-3-7-sonnet-20250219": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-sonnet",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-3-7-sonnet-20250219",
+      "knowledge": "2024-10-31",
+      "last_updated": "2025-02-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Sonnet 3.7",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-02-19",
+      "retired": false,
+      "tags": null
+    },
+    "claude-haiku-4-5-20251001": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1,
+        "output": 5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-haiku",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-haiku-4-5-20251001",
+      "knowledge": "2025-02-28",
+      "last_updated": "2025-10-15",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Haiku 4.5",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-10-15",
+      "retired": false,
+      "tags": null
+    },
+    "claude-opus-4-1-20250805": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 15,
+        "output": 75
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-opus",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-opus-4-1-20250805",
+      "knowledge": null,
+      "last_updated": "2025-08-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Opus 4.1",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-08-05",
+      "retired": false,
+      "tags": null
+    },
+    "claude-opus-4-20250514": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 15,
+        "output": 75
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-opus",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-opus-4-20250514",
+      "knowledge": null,
+      "last_updated": "2025-05-14",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Opus 4",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-05-14",
+      "retired": false,
+      "tags": null
+    },
+    "claude-opus-4-5-20251101": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 5,
+        "output": 25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-opus",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-opus-4-5-20251101",
+      "knowledge": "2025-03-31",
+      "last_updated": "2025-11-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Opus 4.5",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-11-01",
+      "retired": false,
+      "tags": null
+    },
+    "claude-opus-4-6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 5,
+        "output": 25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-opus",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-opus-4-6",
+      "knowledge": "2025-05",
+      "last_updated": "2026-02-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Opus 4.6",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2026-02-05",
+      "retired": false,
+      "tags": null
+    },
+    "claude-sonnet-4-20250514": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-sonnet",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-sonnet-4-20250514",
+      "knowledge": null,
+      "last_updated": "2025-05-14",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Sonnet 4",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-05-14",
+      "retired": false,
+      "tags": null
+    },
+    "claude-sonnet-4-5-20250929": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-sonnet",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-sonnet-4-5-20250929",
+      "knowledge": "2025-07-31",
+      "last_updated": "2025-09-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Sonnet 4.5",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-09-29",
+      "retired": false,
+      "tags": null
+    },
+    "claude-sonnet-4-6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-sonnet",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-sonnet-4-6",
+      "knowledge": "2025-08",
+      "last_updated": "2026-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Sonnet 4.6",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2026-02-17",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek-ai/DeepSeek-R1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 3,
+        "output": 7
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek-thinking",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek-ai/DeepSeek-R1",
+      "knowledge": null,
+      "last_updated": "2025-01-20",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek R1",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-01-20",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek-ai/DeepSeek-V3.1-Terminus": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.27,
+        "output": 1
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek-ai/DeepSeek-V3.1-Terminus",
+      "knowledge": null,
+      "last_updated": "2025-06-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3.1 Terminus",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-06-01",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek-ai/DeepSeek-V3.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.27,
+        "output": 0.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek-ai/DeepSeek-V3.2",
+      "knowledge": null,
+      "last_updated": "2025-06-15",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3.2",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-06-15",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-v3.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.55,
+        "output": 1.66
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-v3.1",
+      "knowledge": null,
+      "last_updated": "2025-01-20",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3.1",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-01-20",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-2.5-flash": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.3,
+        "output": 2.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-flash",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-2.5-flash",
+      "knowledge": "2025-01",
+      "last_updated": "2025-06-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 2.5 Flash",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-03-20",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-2.5-pro": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-pro",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-2.5-pro",
+      "knowledge": "2025-01",
+      "last_updated": "2025-03-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 2.5 Pro",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-03-25",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-3-flash-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.5,
+        "output": 3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-flash",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-3-flash-preview",
+      "knowledge": "2025-01",
+      "last_updated": "2025-12-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 3 Flash Preview",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-12-17",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-3-pro-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 2,
+        "output": 12
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-pro",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-3-pro-preview",
+      "knowledge": null,
+      "last_updated": "2025-06-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1000000,
+        "output": 65000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 3 Pro Preview",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-06-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-3.1-flash-lite-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.25,
+        "output": 1.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-flash",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-3.1-flash-lite-preview",
+      "knowledge": null,
+      "last_updated": "2026-03-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 3.1 Flash Lite Preview",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2026-03-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-3.1-pro-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 2,
+        "output": 12
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-pro",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-3.1-pro-preview",
+      "knowledge": "2025-01",
+      "last_updated": "2026-02-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 3.1 Pro Preview",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2026-02-19",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-4.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 2,
+        "output": 8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-4.1",
+      "knowledge": "2024-04",
+      "last_updated": "2025-04-14",
+      "lifecycle": null,
+      "limits": {
+        "context": 1047576,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-4.1",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-04-14",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-4.1-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.4,
+        "output": 1.6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-4.1-mini",
+      "knowledge": "2024-04",
+      "last_updated": "2025-04-14",
+      "lifecycle": null,
+      "limits": {
+        "context": 1047576,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-4.1 Mini",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-04-14",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-4.1-nano": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.1,
+        "output": 0.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-4.1-nano",
+      "knowledge": "2024-04",
+      "last_updated": "2025-04-14",
+      "lifecycle": null,
+      "limits": {
+        "context": 1047576,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-4.1 Nano",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-04-14",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-4o-2024-11-20": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 2.5,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-4o-2024-11-20",
+      "knowledge": "2024-10",
+      "last_updated": "2024-11-20",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-4o (2024-11-20)",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2024-11-20",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-4o-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.15,
+        "output": 0.6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-4o-mini",
+      "knowledge": "2024-04",
+      "last_updated": "2024-07-18",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-4o Mini",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2024-07-18",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-08-07",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-08-07",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "gpt",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5-codex",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-09-15",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5 Codex",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-09-15",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.25,
+        "output": 2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-mini",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5-mini",
+      "knowledge": "2024-05-30",
+      "last_updated": "2025-08-07",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5 Mini",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-08-07",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5-nano": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.05,
+        "output": 0.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-nano",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5-nano",
+      "knowledge": "2024-05-30",
+      "last_updated": "2025-08-07",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5 Nano",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-08-07",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.1",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-11-13",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1-chat-latest": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.1-chat-latest",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1 Chat Latest",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-11-13",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.1-codex",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1 Codex",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-11-13",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1-codex-max": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.1-codex-max",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1 Codex Max",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-11-13",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.75,
+        "output": 14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.2",
+      "knowledge": "2025-08-31",
+      "last_updated": "2025-12-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.2",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-12-11",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.2-chat-latest": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.75,
+        "output": 14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5.2-chat-latest",
+      "knowledge": "2024-09-30",
+      "last_updated": "2026-01-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.2 Chat Latest",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2026-01-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.2-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.75,
+        "output": 14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.2-codex",
+      "knowledge": "2025-08-31",
+      "last_updated": "2025-12-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.2 Codex",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-12-11",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.3-chat-latest": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.75,
+        "output": 14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5.3-chat-latest",
+      "knowledge": null,
+      "last_updated": "2026-03-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.3 Chat Latest",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2026-03-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.3-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.75,
+        "output": 14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.3-codex",
+      "knowledge": "2025-08-31",
+      "last_updated": "2026-02-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.3 Codex",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2026-02-05",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.3-codex-xhigh": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.75,
+        "output": 14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.3-codex-xhigh",
+      "knowledge": "2025-08-31",
+      "last_updated": "2026-02-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.3 Codex XHigh",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2026-02-05",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-0709": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-0709",
+      "knowledge": null,
+      "last_updated": "2025-07-09",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-07-09",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-1-fast-non-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.2,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-1-fast-non-reasoning",
+      "knowledge": null,
+      "last_updated": "2025-11-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4.1 Fast (Non-Reasoning)",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-11-17",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-fast-non-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.2,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-fast-non-reasoning",
+      "knowledge": null,
+      "last_updated": "2025-07-09",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4 Fast (Non-Reasoning)",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-07-09",
+      "retired": false,
+      "tags": null
+    },
+    "grok-code-fast-1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.2,
+        "output": 1.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-code-fast-1",
+      "knowledge": null,
+      "last_updated": "2025-09-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok Code Fast 1",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-09-01",
+      "retired": false,
+      "tags": null
+    },
+    "kimi-k2-turbo-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.15,
+        "output": 8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "kimi-k2-turbo-preview",
+      "knowledge": null,
+      "last_updated": "2025-07-08",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2 Turbo Preview",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-07-08",
+      "retired": false,
+      "tags": null
+    },
+    "kimi-k2.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "kimi-k2.5",
+      "knowledge": "2025-01",
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2.5",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "llama-3.3-70b-versatile": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.59,
+        "output": 0.79
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "llama-3.3-70b-versatile",
+      "knowledge": null,
+      "last_updated": "2024-12-06",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama 3.3 70B Versatile",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2024-12-06",
+      "retired": false,
+      "tags": null
+    },
+    "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.14,
+        "output": 0.59
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+      "knowledge": "2024-08",
+      "last_updated": "2025-04-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 1000000,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama 4 Maverick 17B 128E Instruct FP8",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-04-05",
+      "retired": false,
+      "tags": null
+    },
+    "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 3.5,
+        "output": 3.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo",
+      "knowledge": null,
+      "last_updated": "2024-07-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 4096
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama 3.1 405B Instruct Turbo",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2024-07-23",
+      "retired": false,
+      "tags": null
+    },
+    "meta-llama/Meta-Llama-3.1-8B-Instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.02,
+        "output": 0.05
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+      "knowledge": null,
+      "last_updated": "2024-07-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 4096
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama 3.1 8B Instruct",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2024-07-23",
+      "retired": false,
+      "tags": null
+    },
+    "o3": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 2,
+        "output": 8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "o",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "o3",
+      "knowledge": "2024-05",
+      "last_updated": "2025-04-16",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 100000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "o3",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-04-16",
+      "retired": false,
+      "tags": null
+    },
+    "o3-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.1,
+        "output": 4.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "o-mini",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "o3-mini",
+      "knowledge": "2024-05",
+      "last_updated": "2025-01-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 100000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "o3-mini",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2024-12-20",
+      "retired": false,
+      "tags": null
+    },
+    "o3-pro": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 20,
+        "output": 40
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "o-pro",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "o3-pro",
+      "knowledge": "2024-05",
+      "last_updated": "2025-06-10",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 100000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "o3-pro",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-06-10",
+      "retired": false,
+      "tags": null
+    },
+    "o4-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.1,
+        "output": 4.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "o-mini",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "o4-mini",
+      "knowledge": "2024-05",
+      "last_updated": "2025-04-16",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 100000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "o4-mini",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-04-16",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-oss-120b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.08,
+        "output": 0.44
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-oss",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "openai/gpt-oss-120b",
+      "knowledge": null,
+      "last_updated": "2025-08-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-OSS 120B",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-08-05",
+      "retired": false,
+      "tags": null
+    },
+    "qwen-2.5-coder-32b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.79,
+        "output": 0.79
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen-2.5-coder-32b",
+      "knowledge": null,
+      "last_updated": "2024-11-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen 2.5 Coder 32B",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2024-11-11",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-max": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.2,
+        "output": 6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen3-max",
+      "knowledge": null,
+      "last_updated": "2025-05-28",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Max",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-05-28",
+      "retired": false,
+      "tags": null
+    },
+    "route-llm": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "route-llm",
+      "knowledge": "2024-10",
+      "last_updated": "2024-01-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Route LLM",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2024-01-01",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 2.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.5",
+      "knowledge": null,
+      "last_updated": "2025-07-28",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-4.5",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-07-28",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 2.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.6",
+      "knowledge": null,
+      "last_updated": "2025-03-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-4.6",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-03-01",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.7": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 2.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.7",
+      "knowledge": null,
+      "last_updated": "2025-06-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-4.7",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2025-06-01",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1,
+        "output": 3.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-5",
+      "knowledge": null,
+      "last_updated": "2026-02-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-5",
+      "pricing": null,
+      "provider": "abacus",
+      "provider_model_id": null,
+      "release_date": "2026-02-11",
+      "retired": false,
+      "tags": null
+    }
+  },
+  "name": "Abacus",
+  "pricing_defaults": null
+}

@@ -114,14 +114,28 @@ class SynthesisProjector(BaseProjector):
         return None
 
     def _render_markdown(self, space_id: str, root_event_id: str) -> str:
-        """Traverse the main thread and render as Markdown."""
-        lines: list[str] = []
-        lines.append("# Debate Report\n")
+        """Traverse the main thread and render as Markdown.
 
-        # BFS traversal of the main thread
+        Fetches all events for the space in a single query and builds a
+        parent→children index in memory, avoiding N+1 per-node queries.
+        """
+        # Bulk-fetch all events for the space once.
+        all_rows = self.conn.execute(
+            """SELECT * FROM debate_events
+               WHERE space_id = ?
+               ORDER BY created_at ASC""",
+            (space_id,),
+        ).fetchall()
+
+        # Build a parent→first-child index for the main thread (linear view).
+        children_by_parent: dict[str | None, list] = {}
+        for row in all_rows:
+            children_by_parent.setdefault(row["parent_id"], []).append(row)
+
+        lines: list[str] = ["# Debate Report\n"]
+        step = 0
         queue = [root_event_id]
         visited: set[str] = set()
-        step = 0
 
         while queue:
             event_id = queue.pop(0)
@@ -129,9 +143,12 @@ class SynthesisProjector(BaseProjector):
                 continue
             visited.add(event_id)
 
-            row = self.conn.execute(
-                "SELECT * FROM debate_events WHERE event_id = ?", (event_id,)
-            ).fetchone()
+            # Find this event in the bulk-fetched rows.
+            row = None
+            for r in all_rows:
+                if r["event_id"] == event_id:
+                    row = r
+                    break
             if not row:
                 continue
 
@@ -147,13 +164,7 @@ class SynthesisProjector(BaseProjector):
             lines.append(f"{content}\n")
 
             # Get children for main thread (first child only for linear view)
-            children = self.conn.execute(
-                """SELECT event_id FROM debate_events
-                   WHERE space_id = ? AND parent_id = ?
-                   ORDER BY created_at ASC""",
-                (space_id, event_id),
-            ).fetchall()
-
+            children = children_by_parent.get(event_id, [])
             if children:
                 queue.append(children[0]["event_id"])
                 # Note: side branches are ignored in main thread synthesis

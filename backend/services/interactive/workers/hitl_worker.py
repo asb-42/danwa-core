@@ -1,17 +1,17 @@
 """HITLWorker – manages human-in-the-loop interactions.
 
-Listens for events that require human input (UserActed with hitl_request action_type)
-and manages the interaction flow:
+Listens for ``UserActed`` events with ``metadata.action_type == 'hitl_request'``
+(thin event taxonomy, ADR-001) and manages the interaction flow:
 1. Delivers agent queries to the user via SSE
-2. Waits for user responses
-3. Appends the response as a new event
+2. Waits for user responses (responses arrive as separate ``UserActed``
+   events with ``metadata.is_response == True``)
+3. Appends timeout events when no response arrives
 
 Also handles timeouts and escalation.
 """
 
 from __future__ import annotations
 
-import asyncio
 import logging
 
 from backend.models.debate_event import DebateEvent
@@ -25,7 +25,7 @@ DEFAULT_HITL_TIMEOUT_SECONDS = 300
 
 
 class HITLWorker:
-    """Processes UserActed events by managing human interaction."""
+    """Processes hitl_input events by managing human interaction."""
 
     def __init__(
         self,
@@ -36,17 +36,19 @@ class HITLWorker:
         self.event_bus = event_bus or get_event_bus()
 
     async def process(self, event: DebateEvent) -> None:
-        """Process a UserActed event with hitl_request action_type.
+        """Process a HITL request event.
 
-        This worker:
-        1. Publishes a query to the user via SSE
-        2. Waits for the user's response (with timeout)
-        3. Appends the response as a new event
+        A HITL request is a ``UserActed`` event with
+        ``metadata.action_type == 'hitl_request'``. This worker publishes
+        the query to the SSE stream so the frontend can render it and
+        prompt the user.
 
-        The actual waiting is handled by the SSE stream - the user's
-        response comes in via POST /events with type=UserActed.
+        The user's response arrives later via ``POST /events`` as a
+        separate ``UserActed`` event with ``metadata.is_response == True``.
         """
         if event.event_type != "UserActed":
+            return
+        if event.metadata_json.get("action_type") != "hitl_request":
             return
 
         meta = event.metadata_json
@@ -71,15 +73,6 @@ class HITLWorker:
             timeout,
         )
 
-        # Schedule timeout
-        loop = asyncio.get_event_loop()
-        loop.call_later(
-            timeout,
-            lambda: asyncio.ensure_future(
-                self.handle_timeout(event.space_id, event.event_id)
-            ),
-        )
-
     async def handle_response(
         self,
         space_id: str,
@@ -90,6 +83,8 @@ class HITLWorker:
         """Handle a user's response to a HITL request.
 
         Called when the frontend sends the user's response via POST /events.
+        Appends a ``UserActed`` event with ``is_response`` metadata so the
+        worker does not re-process it as a new HITL request.
         """
         return self.event_store.append_event(
             space_id=space_id,
@@ -101,6 +96,7 @@ class HITLWorker:
             metadata_json={
                 "response_to": request_event_id,
                 "is_response": True,
+                "action_type": "hitl_response",
             },
         )
 
@@ -109,16 +105,17 @@ class HITLWorker:
         space_id: str,
         request_event_id: str,
     ) -> DebateEvent:
-        """Handle a HITL timeout."""
+        """Handle a HITL timeout by appending a system event."""
         return self.event_store.append_event(
             space_id=space_id,
             event_type="UserActed",
             actor_type="system",
             actor_id="hitl-timeout",
-            content="[HITL Timeout] Keine Antwort erhalten.",
+            content="[HITL Timeout] No response received within the time limit.",
             parent_id=request_event_id,
             metadata_json={
                 "response_to": request_event_id,
                 "is_timeout": True,
+                "action_type": "hitl_timeout",
             },
         )

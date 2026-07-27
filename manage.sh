@@ -221,11 +221,11 @@ start_frontend_user() {
         return 0
     fi
     local frontend_dir="${DANWA_SIBLING_danwa:-$PROJECT_DIR/../danwa}"
-    # If the sibling dir exists but has no package.json, check for frontend/ subdirectory
-    if [[ -d "$frontend_dir" ]] && [[ ! -f "$frontend_dir/package.json" ]] && [[ -d "$frontend_dir/frontend" ]]; then
+    # The danwa repo has the frontend in a subdirectory, not at the root
+    if [[ ! -f "$frontend_dir/package.json" ]] && [[ -f "$frontend_dir/frontend/package.json" ]]; then
         frontend_dir="$frontend_dir/frontend"
     fi
-    if [[ ! -d "$frontend_dir" ]]; then
+    if [[ ! -d "$frontend_dir" ]] || [[ ! -f "$frontend_dir/package.json" ]]; then
         log_warn "Frontend user-app sibling not found, skipping"
         return 0
     fi
@@ -234,7 +234,9 @@ start_frontend_user() {
         write_mock_script "$MOCK_FRONTEND_SCRIPT"
         nohup "$MOCK_FRONTEND_SCRIPT" > "$FE_USER_LOG" 2>&1 &
     else
-        (cd "$frontend_dir" && setsid nohup npm run dev -- --port "$FRONTEND_PORT" > "$FE_USER_LOG" 2>&1 < /dev/null &)
+        cd "$frontend_dir"
+        setsid nohup npm run dev -- --port "$FRONTEND_PORT" > "$FE_USER_LOG" 2>&1 < /dev/null &
+        cd "$PROJECT_DIR"
     fi
     local pid=$!
     echo "$pid" > "$FE_USER_PID_FILE"
@@ -267,7 +269,9 @@ start_studio() {
         write_mock_script "$MOCK_STUDIO_SCRIPT"
         nohup "$MOCK_STUDIO_SCRIPT" > "$STUDIO_LOG" 2>&1 &
     else
-        (cd "$studio_dir" && setsid nohup npm run dev -- --port "$STUDIO_PORT" > "$STUDIO_LOG" 2>&1 < /dev/null &)
+        cd "$studio_dir"
+        setsid nohup npm run dev -- --port "$STUDIO_PORT" > "$STUDIO_LOG" 2>&1 < /dev/null &
+        cd "$PROJECT_DIR"
     fi
     local pid=$!
     echo "$pid" > "$STUDIO_PID_FILE"
@@ -321,30 +325,74 @@ delegate_to() {
 # Composite commands
 # ───────────────────────────────────────────────────────────────────────
 cmd_start() {
-    log_header "Starting danwa-core (orchestrator mode)"
-    discover_siblings danwa danwa-studio
-    start_backend
-    start_frontend_user
-    start_studio
-    if [[ "$BACKEND_WATCHER_ENABLED" == "1" ]]; then
-        start_watcher
-    fi
-    log_ok "Start complete. Run 'manage.sh status' to verify."
+    local what="${1:-be}"
+    case "$what" in
+        be|backend|"")
+            log_header "Starting danwa-core backend"
+            start_backend
+            if [[ "$BACKEND_WATCHER_ENABLED" == "1" ]]; then
+                start_watcher
+            fi
+            log_ok "Start complete. Run 'manage.sh status' to verify."
+            ;;
+        fe|frontend)
+            start_frontend_user
+            ;;
+        st|studio)
+            start_studio
+            ;;
+        all)
+            log_header "Starting danwa-core (orchestrator mode)"
+            discover_siblings danwa danwa-studio
+            start_backend
+            start_frontend_user
+            start_studio
+            if [[ "$BACKEND_WATCHER_ENABLED" == "1" ]]; then
+                start_watcher
+            fi
+            log_ok "Start complete. Run 'manage.sh status' to verify."
+            ;;
+        *)
+            log_error "Unknown start target: $what (use be|fe|st|all)"
+            return 1
+            ;;
+    esac
 }
 
 cmd_stop() {
-    log_header "Stopping danwa-core (orchestrator mode)"
-    stop_watcher
-    stop_studio
-    stop_frontend_user
-    stop_backend
-    log_ok "Stop complete."
+    local what="${1:-be}"
+    case "$what" in
+        be|backend|"")
+            log_header "Stopping danwa-core backend"
+            stop_watcher
+            stop_backend
+            log_ok "Stop complete."
+            ;;
+        fe|frontend)
+            stop_frontend_user
+            ;;
+        st|studio)
+            stop_studio
+            ;;
+        all)
+            log_header "Stopping danwa-core (orchestrator mode)"
+            stop_watcher
+            stop_studio
+            stop_frontend_user
+            stop_backend
+            log_ok "Stop complete."
+            ;;
+        *)
+            log_error "Unknown stop target: $what (use be|fe|st|all)"
+            return 1
+            ;;
+    esac
 }
 
 cmd_restart() {
-    cmd_stop
+    cmd_stop "$@"
     sleep 1
-    cmd_start
+    cmd_start "$@"
 }
 
 # ───────────────────────────────────────────────────────────────────────
@@ -462,9 +510,10 @@ cmd_help() {
 Usage: bash manage.sh <command> [args]
 
 Commands:
-  start              Start backend + (optional) sibling frontends + watcher
-  stop               Stop watcher + backend + siblings
-  restart            Stop + start
+  start [be|fe|st|all]  Start component (default: be = backend only)
+                        all = backend + frontend + studio (orchestrator mode)
+  stop  [be|fe|st|all]  Stop component (default: be = backend only)
+  restart [be|fe|st|all] Stop + start (default: be)
   status [--json]    Show status (JSON for studio SystemManagementView)
   logs [be|fe|st|all] Tail logs
   clean              Remove log files
@@ -494,9 +543,9 @@ cmd="${1:-help}"
 shift || true
 
 case "$cmd" in
-    start)        cmd_start "$@" ;;
-    stop)         cmd_stop "$@" ;;
-    restart)      cmd_restart "$@" ;;
+    start)        cmd_start "${1:-}" ;;
+    stop)         cmd_stop "${1:-}" ;;
+    restart)      cmd_restart "${1:-}" ;;
     status)       cmd_status "$@" ;;
     logs)         cmd_logs "$@" ;;
     clean)        cmd_clean "$@" ;;

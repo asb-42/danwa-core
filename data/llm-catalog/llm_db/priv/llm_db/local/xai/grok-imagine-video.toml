@@ -1,0 +1,38 @@
+id = "grok-imagine-video"
+
+[pricing]
+currency = "USD"
+merge = "merge_by_id"
+
+[[pricing.components]]
+id = "image.input"
+kind = "image"
+unit = "image"
+per = 1
+rate = 0.002
+
+[[pricing.components]]
+id = "video.input.second"
+kind = "other"
+unit = "other"
+per = 1
+rate = 0.01
+meter = "input_video_second"
+
+[[pricing.components]]
+id = "video.output.480p.second"
+kind = "other"
+unit = "other"
+per = 1
+rate = 0.05
+meter = "video_second"
+size_class = "480p"
+
+[[pricing.components]]
+id = "video.output.720p.second"
+kind = "other"
+unit = "other"
+per = 1
+rate = 0.07
+meter = "video_second"
+size_class = "720p"

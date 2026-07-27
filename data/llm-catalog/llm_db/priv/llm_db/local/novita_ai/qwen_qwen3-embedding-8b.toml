@@ -1,0 +1,15 @@
+id = "qwen/qwen3-embedding-8b"
+name = "Qwen3 Embedding 8B"
+
+[modalities]
+input = ["text"]
+output = ["embedding"]
+
+[capabilities]
+chat = false
+
+[capabilities.embeddings]
+min_dimensions = 1
+
+[extra]
+type = "embedding"

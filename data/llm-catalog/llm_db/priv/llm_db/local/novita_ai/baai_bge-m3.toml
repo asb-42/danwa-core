@@ -1,0 +1,15 @@
+id = "baai/bge-m3"
+name = "BGE M3"
+
+[modalities]
+input = ["text"]
+output = ["embedding"]
+
+[capabilities]
+chat = false
+
+[capabilities.embeddings]
+min_dimensions = 1
+
+[extra]
+type = "embedding"

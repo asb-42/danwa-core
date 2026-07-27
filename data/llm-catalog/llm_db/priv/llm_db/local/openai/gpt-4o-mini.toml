@@ -1,0 +1,13 @@
+id = "gpt-4o-mini"
+
+[capabilities.json]
+schema = true
+
+[capabilities.tools]
+strict = true
+
+[extra.wire]
+protocol = "openai_responses"
+
+[extra]
+api = "chat"

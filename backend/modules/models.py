@@ -200,6 +200,7 @@ class ModuleManifest(BaseModel):
     tags: list[str] = Field(default_factory=list)
     language: str = "en"
     checksum: str = ""
+    string_count: int | None = None  # Number of translation strings (language-pack modules)
     role: str | None = None  # Agent-core role name (e.g. "strategist", "critic")
 
     # v2: single profile file
@@ -288,6 +289,7 @@ class ModuleInfo(BaseModel):
     tags: list[str] = Field(default_factory=list)
     language: str = "en"
     checksum: str = ""
+    string_count: int | None = None
     role: str | None = None
     dependencies: dict[str, Any] = Field(default_factory=dict)
     installed: bool = False

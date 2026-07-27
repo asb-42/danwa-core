@@ -1,0 +1,3686 @@
+{
+  "alias_of": null,
+  "base_url": null,
+  "config_schema": null,
+  "doc": "https://docs.jiekou.ai/docs/support/quickstart?utm_source=github_models.dev",
+  "env": [
+    "JIEKOU_API_KEY"
+  ],
+  "exclude_models": null,
+  "extra": null,
+  "id": "jiekou",
+  "models": {
+    "baidu/ernie-4.5-300b-a47b-paddle": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.28,
+        "output": 1.1
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "ernie",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "baidu/ernie-4.5-300b-a47b-paddle",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 123000,
+        "output": 12000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "ERNIE 4.5 300B A47B",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "baidu/ernie-4.5-vl-424b-a47b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.42,
+        "output": 1.25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "ernie",
+        "open_weights": true,
+        "structured_output": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "baidu/ernie-4.5-vl-424b-a47b",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 123000,
+        "output": 16000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "ERNIE 4.5 VL 424B A47B",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "claude-haiku-4-5-20251001": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.9,
+        "output": 4.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-haiku",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-haiku-4-5-20251001",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 20000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "claude-haiku-4-5-20251001",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "claude-opus-4-1-20250805": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 13.5,
+        "output": 67.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-opus",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-opus-4-1-20250805",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "claude-opus-4-1-20250805",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "claude-opus-4-20250514": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 13.5,
+        "output": 67.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-opus",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-opus-4-20250514",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "claude-opus-4-20250514",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "claude-opus-4-5-20251101": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 4.5,
+        "output": 22.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-opus",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-opus-4-5-20251101",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "claude-opus-4-5-20251101",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "claude-opus-4-6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 5,
+        "output": 25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-opus",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-opus-4-6",
+      "knowledge": null,
+      "last_updated": "2026-02",
+      "lifecycle": null,
+      "limits": {
+        "context": 1000000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "claude-opus-4-6",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-02",
+      "retired": false,
+      "tags": null
+    },
+    "claude-sonnet-4-20250514": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 2.7,
+        "output": 13.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-sonnet",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-sonnet-4-20250514",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "claude-sonnet-4-20250514",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "claude-sonnet-4-5-20250929": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 2.7,
+        "output": 13.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-sonnet",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-sonnet-4-5-20250929",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "claude-sonnet-4-5-20250929",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-r1-0528": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.7,
+        "output": 2.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek-thinking",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-r1-0528",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 163840,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek R1 0528",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-v3-0324": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.28,
+        "output": 1.14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-v3-0324",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 163840,
+        "output": 163840
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3 0324",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-v3.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.27,
+        "output": 1
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-v3.1",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 163840,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3.1",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-2.5-flash": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.27,
+        "output": 2.25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-flash",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-2.5-flash",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65535
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemini-2.5-flash",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-2.5-flash-lite": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.09,
+        "output": 0.36
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-flash-lite",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-2.5-flash-lite",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65535
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemini-2.5-flash-lite",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-2.5-flash-lite-preview-06-17": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.09,
+        "output": 0.36
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-flash-lite",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-2.5-flash-lite-preview-06-17",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65535
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "video",
+          "image",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemini-2.5-flash-lite-preview-06-17",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-2.5-flash-lite-preview-09-2025": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.09,
+        "output": 0.36
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-flash-lite",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-2.5-flash-lite-preview-09-2025",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemini-2.5-flash-lite-preview-09-2025",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-2.5-flash-preview-05-20": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.135,
+        "output": 3.15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-flash",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-2.5-flash-preview-05-20",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 200000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemini-2.5-flash-preview-05-20",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-2.5-pro": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.125,
+        "output": 9
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-pro",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-2.5-pro",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65535
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemini-2.5-pro",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-2.5-pro-preview-06-05": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.125,
+        "output": 9
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-pro",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-2.5-pro-preview-06-05",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 200000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemini-2.5-pro-preview-06-05",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-3-flash-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.5,
+        "output": 3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-flash",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-3-flash-preview",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemini-3-flash-preview",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-3-pro-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.8,
+        "output": 10.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-pro",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-3-pro-preview",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048576,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gemini-3-pro-preview",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5-chat-latest": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.125,
+        "output": 9
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5-chat-latest",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5-chat-latest",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.125,
+        "output": 9
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-codex",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5-codex",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5-codex",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.225,
+        "output": 1.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-mini",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5-mini",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5-mini",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5-nano": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.045,
+        "output": 0.36
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-nano",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5-nano",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5-nano",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5-pro": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 13.5,
+        "output": 108
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-pro",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5-pro",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 272000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5-pro",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.125,
+        "output": 9
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5.1",
+      "knowledge": null,
+      "last_updated": "2026-02",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5.1",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-02",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.125,
+        "output": 9
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-codex",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5.1-codex",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5.1-codex",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1-codex-max": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.125,
+        "output": 9
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-codex",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5.1-codex-max",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5.1-codex-max",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1-codex-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.225,
+        "output": 1.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-codex",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5.1-codex-mini",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5.1-codex-mini",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.575,
+        "output": 12.6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5.2",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5.2",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.2-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.75,
+        "output": 14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-codex",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5.2-codex",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5.2-codex",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.2-pro": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 18.9,
+        "output": 151.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-pro",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5.2-pro",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "gpt-5.2-pro",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-0709": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 2.7,
+        "output": 13.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-0709",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 8192
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "grok-4-0709",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-1-fast-non-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.18,
+        "output": 0.45
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-1-fast-non-reasoning",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 2000000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "grok-4-1-fast-non-reasoning",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-1-fast-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.18,
+        "output": 0.45
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-1-fast-reasoning",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 2000000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "grok-4-1-fast-reasoning",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-fast-non-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.18,
+        "output": 0.45
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-fast-non-reasoning",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 2000000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "grok-4-fast-non-reasoning",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "grok-4-fast-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.18,
+        "output": 0.45
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-4-fast-reasoning",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 2000000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "grok-4-fast-reasoning",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "grok-code-fast-1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.18,
+        "output": 1.35
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "grok",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-code-fast-1",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 256000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "grok-code-fast-1",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "minimax/minimax-m2.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.3,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "minimax",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "minimax/minimax-m2.1",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Minimax M2.1",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "minimaxai/minimax-m1-80k": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.55,
+        "output": 2.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "minimax",
+        "open_weights": true,
+        "structured_output": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "minimaxai/minimax-m1-80k",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 1000000,
+        "output": 40000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "MiniMax M1",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2-0905": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 2.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2-0905",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2 0905",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.57,
+        "output": 2.3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2-instruct",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2 Instruct",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "kimi",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2.5",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2.5",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "o3": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 10,
+        "output": 40
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "o3",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "o3",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "o3-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.1,
+        "output": 4.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "o",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "o3-mini",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "o3-mini",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "o4-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.1,
+        "output": 4.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "o",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "o4-mini",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 100000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "o4-mini",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-235b-a22b-fp8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.2,
+        "output": 0.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-235b-a22b-fp8",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 40960,
+        "output": 20000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 235B A22B",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-235b-a22b-instruct-2507": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.15,
+        "output": 0.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-235b-a22b-instruct-2507",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 235B A22B Instruct 2507",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-235b-a22b-thinking-2507": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.3,
+        "output": 3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-235b-a22b-thinking-2507",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 235B A22b Thinking 2507",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-30b-a3b-fp8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.09,
+        "output": 0.45
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-30b-a3b-fp8",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 40960,
+        "output": 20000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 30B A3B",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-32b-fp8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0.1,
+        "output": 0.45
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-32b-fp8",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 40960,
+        "output": 20000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 32B",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-coder-480b-a35b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.29,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-coder-480b-a35b-instruct",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Coder 480B A35B Instruct",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-coder-next": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.2,
+        "output": 1.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-coder-next",
+      "knowledge": null,
+      "last_updated": "2026-02",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "qwen/qwen3-coder-next",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-02",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-next-80b-a3b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.15,
+        "output": 1.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-next-80b-a3b-instruct",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 65536,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Next 80B A3B Instruct",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-next-80b-a3b-thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.15,
+        "output": 1.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-next-80b-a3b-thinking",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 65536,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 Next 80B A3B Thinking",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "xiaomimimo/mimo-v2-flash": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "mimo",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "xiaomimimo/mimo-v2-flash",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "XiaomiMiMo/MiMo-V2-Flash",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 2.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.5",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 131072,
+        "output": 98304
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-4.5",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.5v": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 1.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "glmv",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.5v",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 65536,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM 4.5V",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.7": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.6,
+        "output": 2.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.7",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-4.7",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "zai-org/glm-4.7-flash": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.07,
+        "output": 0.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "zai-org/glm-4.7-flash",
+      "knowledge": null,
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-4.7-Flash",
+      "pricing": null,
+      "provider": "jiekou",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    }
+  },
+  "name": "Jiekou.AI",
+  "pricing_defaults": null
+}

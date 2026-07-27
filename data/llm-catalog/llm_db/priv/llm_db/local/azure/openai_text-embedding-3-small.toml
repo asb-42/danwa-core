@@ -1,0 +1,16 @@
+id = "text-embedding-3-small"
+
+[capabilities]
+chat = false
+
+[capabilities.embeddings]
+min_dimensions = 1
+max_dimensions = 1536
+default_dimensions = 1536
+
+[modalities]
+input = ["text"]
+output = ["embedding"]
+
+[extra]
+type = "embedding"

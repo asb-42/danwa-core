@@ -1,0 +1,21 @@
+id = "gpt-5-chat-latest"
+
+[capabilities.json]
+schema = true
+
+[capabilities.reasoning]
+enabled = false
+
+[extra.wire]
+protocol = "openai_responses"
+
+[extra.constraints]
+token_limit_key = "max_completion_tokens"
+temperature = "any"
+reasoning_effort = "unsupported"
+
+[lifecycle]
+status = "deprecated"
+deprecated_at = "2026-04-22"
+retires_at = "2026-07-23"
+replacement = "gpt-5.5"

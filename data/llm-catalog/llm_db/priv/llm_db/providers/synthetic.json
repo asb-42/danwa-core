@@ -1,0 +1,1526 @@
+{
+  "alias_of": null,
+  "base_url": null,
+  "config_schema": null,
+  "doc": "https://synthetic.new/pricing",
+  "env": [
+    "SYNTHETIC_API_KEY"
+  ],
+  "exclude_models": null,
+  "extra": null,
+  "id": "synthetic",
+  "models": {
+    "hf:MiniMaxAI/MiniMax-M2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.55,
+        "output": 2.19
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "minimax",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:MiniMaxAI/MiniMax-M2",
+      "knowledge": null,
+      "last_updated": "2025-10-27",
+      "lifecycle": null,
+      "limits": {
+        "context": 196608,
+        "output": 131000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "MiniMax-M2",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-10-27",
+      "retired": false,
+      "tags": null
+    },
+    "hf:MiniMaxAI/MiniMax-M2.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.55,
+        "output": 2.19
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "minimax",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:MiniMaxAI/MiniMax-M2.1",
+      "knowledge": null,
+      "last_updated": "2025-12-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "MiniMax-M2.1",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-12-23",
+      "retired": false,
+      "tags": null
+    },
+    "hf:Qwen/Qwen2.5-Coder-32B-Instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": {
+        "input": 0.8,
+        "output": 0.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:Qwen/Qwen2.5-Coder-32B-Instruct",
+      "knowledge": "2024-10",
+      "last_updated": "2024-11-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 32768,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen2.5-Coder-32B-Instruct",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2024-11-11",
+      "retired": false,
+      "tags": null
+    },
+    "hf:Qwen/Qwen3-235B-A22B-Instruct-2507": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.2,
+        "output": 0.6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "knowledge": "2025-04",
+      "last_updated": "2025-07-21",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen 3 235B Instruct",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-04-28",
+      "retired": false,
+      "tags": null
+    },
+    "hf:Qwen/Qwen3-235B-A22B-Thinking-2507": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.65,
+        "output": 3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:Qwen/Qwen3-235B-A22B-Thinking-2507",
+      "knowledge": "2025-04",
+      "last_updated": "2025-07-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3 235B A22B Thinking 2507",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-07-25",
+      "retired": false,
+      "tags": null
+    },
+    "hf:Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 2,
+        "output": 2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:Qwen/Qwen3-Coder-480B-A35B-Instruct",
+      "knowledge": "2025-04",
+      "last_updated": "2025-07-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen 3 Coder 480B",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-07-23",
+      "retired": false,
+      "tags": null
+    },
+    "hf:deepseek-ai/DeepSeek-R1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.55,
+        "output": 2.19
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek-thinking",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:deepseek-ai/DeepSeek-R1",
+      "knowledge": "2025-01",
+      "last_updated": "2025-01-20",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek R1",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-01-20",
+      "retired": false,
+      "tags": null
+    },
+    "hf:deepseek-ai/DeepSeek-R1-0528": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 3,
+        "output": 8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek-thinking",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:deepseek-ai/DeepSeek-R1-0528",
+      "knowledge": null,
+      "last_updated": "2025-08-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek R1 (0528)",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-08-01",
+      "retired": false,
+      "tags": null
+    },
+    "hf:deepseek-ai/DeepSeek-V3": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.25,
+        "output": 1.25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:deepseek-ai/DeepSeek-V3",
+      "knowledge": "2024-07",
+      "last_updated": "2025-05-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-01-20",
+      "retired": false,
+      "tags": null
+    },
+    "hf:deepseek-ai/DeepSeek-V3-0324": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.2,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:deepseek-ai/DeepSeek-V3-0324",
+      "knowledge": null,
+      "last_updated": "2025-08-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3 (0324)",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-08-01",
+      "retired": false,
+      "tags": null
+    },
+    "hf:deepseek-ai/DeepSeek-V3.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.56,
+        "output": 1.68
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:deepseek-ai/DeepSeek-V3.1",
+      "knowledge": null,
+      "last_updated": "2025-08-21",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3.1",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-08-21",
+      "retired": false,
+      "tags": null
+    },
+    "hf:deepseek-ai/DeepSeek-V3.1-Terminus": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.2,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:deepseek-ai/DeepSeek-V3.1-Terminus",
+      "knowledge": null,
+      "last_updated": "2025-09-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3.1 Terminus",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-09-22",
+      "retired": false,
+      "tags": null
+    },
+    "hf:deepseek-ai/DeepSeek-V3.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.27,
+        "cache_write": 0,
+        "input": 0.27,
+        "output": 0.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:deepseek-ai/DeepSeek-V3.2",
+      "knowledge": null,
+      "last_updated": "2025-12-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 162816,
+        "output": 8000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3.2",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "hf:meta-llama/Llama-3.1-405B-Instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 3,
+        "output": 3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:meta-llama/Llama-3.1-405B-Instruct",
+      "knowledge": "2023-12",
+      "last_updated": "2024-07-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama-3.1-405B-Instruct",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2024-07-23",
+      "retired": false,
+      "tags": null
+    },
+    "hf:meta-llama/Llama-3.1-70B-Instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.9,
+        "output": 0.9
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:meta-llama/Llama-3.1-70B-Instruct",
+      "knowledge": "2023-12",
+      "last_updated": "2024-07-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama-3.1-70B-Instruct",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2024-07-23",
+      "retired": false,
+      "tags": null
+    },
+    "hf:meta-llama/Llama-3.1-8B-Instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.2,
+        "output": 0.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:meta-llama/Llama-3.1-8B-Instruct",
+      "knowledge": "2023-12",
+      "last_updated": "2024-07-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama-3.1-8B-Instruct",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2024-07-23",
+      "retired": false,
+      "tags": null
+    },
+    "hf:meta-llama/Llama-3.3-70B-Instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.9,
+        "output": 0.9
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:meta-llama/Llama-3.3-70B-Instruct",
+      "knowledge": "2023-12",
+      "last_updated": "2024-12-06",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama-3.3-70B-Instruct",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2024-12-06",
+      "retired": false,
+      "tags": null
+    },
+    "hf:meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.22,
+        "output": 0.88
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+      "knowledge": "2024-08",
+      "last_updated": "2025-04-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 524000,
+        "output": 4096
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama-4-Maverick-17B-128E-Instruct-FP8",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-04-05",
+      "retired": false,
+      "tags": null
+    },
+    "hf:meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.15,
+        "output": 0.6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "llama",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "knowledge": "2024-08",
+      "last_updated": "2025-04-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 328000,
+        "output": 4096
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Llama-4-Scout-17B-16E-Instruct",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-04-05",
+      "retired": false,
+      "tags": null
+    },
+    "hf:moonshotai/Kimi-K2-Instruct-0905": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.2,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:moonshotai/Kimi-K2-Instruct-0905",
+      "knowledge": "2024-10",
+      "last_updated": "2025-09-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2 0905",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-09-05",
+      "retired": false,
+      "tags": null
+    },
+    "hf:moonshotai/Kimi-K2-Thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.55,
+        "output": 2.19
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi-thinking",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:moonshotai/Kimi-K2-Thinking",
+      "knowledge": "2025-11",
+      "last_updated": "2025-11-07",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2 Thinking",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-11-07",
+      "retired": false,
+      "tags": null
+    },
+    "hf:moonshotai/Kimi-K2.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.55,
+        "output": 2.19
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:moonshotai/Kimi-K2.5",
+      "knowledge": "2025-01",
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2.5",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "hf:nvidia/Kimi-K2.5-NVFP4": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.55,
+        "output": 2.19
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:nvidia/Kimi-K2.5-NVFP4",
+      "knowledge": "2025-01",
+      "last_updated": "2026-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 262144,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi K2.5 (NVFP4)",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2026-01",
+      "retired": false,
+      "tags": null
+    },
+    "hf:openai/gpt-oss-120b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.1,
+        "output": 0.1
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "gpt-oss",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:openai/gpt-oss-120b",
+      "knowledge": null,
+      "last_updated": "2025-08-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT OSS 120B",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-08-05",
+      "retired": false,
+      "tags": null
+    },
+    "hf:zai-org/GLM-4.6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.55,
+        "output": 2.19
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:zai-org/GLM-4.6",
+      "knowledge": "2025-04",
+      "last_updated": "2025-09-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM 4.6",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-09-30",
+      "retired": false,
+      "tags": null
+    },
+    "hf:zai-org/GLM-4.7": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.55,
+        "output": 2.19
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "hf:zai-org/GLM-4.7",
+      "knowledge": "2025-04",
+      "last_updated": "2025-12-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM 4.7",
+      "pricing": null,
+      "provider": "synthetic",
+      "provider_model_id": null,
+      "release_date": "2025-12-22",
+      "retired": false,
+      "tags": null
+    }
+  },
+  "name": "Synthetic",
+  "pricing_defaults": null
+}

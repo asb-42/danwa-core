@@ -1,0 +1,18 @@
+id = "claude-sonnet-4-20250514"
+
+aliases = [
+  "claude-sonnet-4-0",
+  "claude-sonnet-4"
+]
+
+[lifecycle]
+status = "deprecated"
+deprecated_at = "2026-04-14"
+retires_at = "2026-06-15"
+replacement = "claude-sonnet-4-6"
+
+[cost]
+input = 3.0
+output = 15.0
+cache_read = 0.3
+cache_write = 3.75

@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "last_reviewed": "2026-06-08",
+  "selection_policy": "Popularity is a practical audit priority, not a formal market-share claim. Default sets prioritize major frontier labs, enterprise/cloud-hosted surfaces, high-usage routers, and widely used inference platforms that already exist as provider IDs in this repository.",
+  "sources": [
+    {
+      "name": "a16z CIO Survey",
+      "url": "https://www.a16z.news/p/leaders-gainers-and-unexpected-winners",
+      "relevance": "Enterprise production adoption and wallet-share signals for OpenAI, Anthropic, and Google."
+    },
+    {
+      "name": "OpenRouter rankings",
+      "url": "https://openrouter.ai/rankings",
+      "relevance": "Public rankings based on benchmarks and real usage data from users accessing models through OpenRouter."
+    },
+    {
+      "name": "Artificial Analysis provider leaderboard",
+      "url": "https://artificialanalysis.ai/leaderboards/providers",
+      "relevance": "Public comparison of API provider performance across hundreds of model endpoints."
+    },
+    {
+      "name": "OpenRouter models API documentation",
+      "url": "https://openrouter.ai/docs/guides/overview/models",
+      "relevance": "Public model API coverage for many providers and model authors."
+    }
+  ],
+  "sets": {
+    "popular_core": {
+      "description": "Highest-priority audit queue: dominant direct labs plus enterprise/cloud and routing surfaces in this repo.",
+      "providers": [
+        "openai",
+        "anthropic",
+        "google",
+        "google_vertex",
+        "azure",
+        "amazon_bedrock",
+        "openrouter",
+        "xai"
+      ]
+    },
+    "popular_extended": {
+      "description": "Broader popular-provider queue for direct labs, routers, and inference platforms commonly used by developers.",
+      "providers": [
+        "openai",
+        "anthropic",
+        "google",
+        "google_vertex",
+        "azure",
+        "azure_cognitive_services",
+        "amazon_bedrock",
+        "openrouter",
+        "xai",
+        "mistral",
+        "deepseek",
+        "cohere",
+        "groq",
+        "cerebras",
+        "perplexity",
+        "togetherai",
+        "fireworks_ai",
+        "huggingface",
+        "novita_ai",
+        "alibaba",
+        "moonshotai",
+        "zai"
+      ]
+    },
+    "direct_model_labs": {
+      "description": "Model authors with first-party or clearly branded model APIs/docs.",
+      "providers": [
+        "openai",
+        "anthropic",
+        "google",
+        "xai",
+        "mistral",
+        "deepseek",
+        "cohere",
+        "perplexity",
+        "alibaba",
+        "moonshotai",
+        "zai"
+      ]
+    },
+    "cloud_surfaces": {
+      "description": "Cloud-hosted provider surfaces whose metadata often differs from first-party model docs.",
+      "providers": [
+        "azure",
+        "azure_cognitive_services",
+        "google_vertex",
+        "amazon_bedrock"
+      ]
+    },
+    "inference_platforms": {
+      "description": "Routers and inference platforms with public model catalogs or endpoint metadata.",
+      "providers": [
+        "openrouter",
+        "groq",
+        "cerebras",
+        "togetherai",
+        "fireworks_ai",
+        "huggingface",
+        "novita_ai"
+      ]
+    }
+  }
+}

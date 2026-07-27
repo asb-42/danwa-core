@@ -1,0 +1,18 @@
+id = "gpt-5-mini-2025-08-07"
+
+[capabilities.json]
+schema = true
+
+[extra.wire]
+protocol = "openai_responses"
+
+[extra.constraints]
+token_limit_key = "max_completion_tokens"
+temperature = "unsupported"
+reasoning_effort = "required"
+
+[lifecycle]
+status = "deprecated"
+deprecated_at = "2026-06-11"
+retires_at = "2026-12-11"
+replacement = "gpt-5.4-mini"

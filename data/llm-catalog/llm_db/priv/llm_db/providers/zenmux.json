@@ -1,0 +1,4753 @@
+{
+  "alias_of": null,
+  "base_url": null,
+  "config_schema": null,
+  "doc": "https://docs.zenmux.ai",
+  "env": [
+    "ZENMUX_API_KEY"
+  ],
+  "exclude_models": null,
+  "extra": null,
+  "id": "zenmux",
+  "models": {
+    "anthropic/claude-3.5-haiku": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.08,
+        "cache_write": 1,
+        "input": 0.8,
+        "output": 4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "anthropic/claude-3.5-haiku",
+      "knowledge": "2025-01-01",
+      "last_updated": "2024-11-04",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude 3.5 Haiku",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2024-11-04",
+      "retired": false,
+      "tags": null
+    },
+    "anthropic/claude-3.5-sonnet": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.3,
+        "cache_write": 3.75,
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "anthropic/claude-3.5-sonnet",
+      "knowledge": "2025-01-01",
+      "last_updated": "2024-10-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude 3.5 Sonnet (Retiring Soon)",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2024-10-22",
+      "retired": false,
+      "tags": null
+    },
+    "anthropic/claude-3.7-sonnet": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.3,
+        "cache_write": 3.75,
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "anthropic/claude-3.7-sonnet",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-02-24",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude 3.7 Sonnet",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-02-24",
+      "retired": false,
+      "tags": null
+    },
+    "anthropic/claude-haiku-4.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.1,
+        "cache_write": 1.25,
+        "input": 1,
+        "output": 5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "anthropic/claude-haiku-4.5",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-10-15",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Haiku 4.5",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-10-15",
+      "retired": false,
+      "tags": null
+    },
+    "anthropic/claude-opus-4": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 1.5,
+        "cache_write": 18.75,
+        "input": 15,
+        "output": 75
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "anthropic/claude-opus-4",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-05-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Opus 4",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-05-22",
+      "retired": false,
+      "tags": null
+    },
+    "anthropic/claude-opus-4.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 1.5,
+        "cache_write": 18.75,
+        "input": 15,
+        "output": 75
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "anthropic/claude-opus-4.1",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-08-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Opus 4.1",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-08-05",
+      "retired": false,
+      "tags": null
+    },
+    "anthropic/claude-opus-4.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.5,
+        "cache_write": 6.25,
+        "input": 5,
+        "output": 25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "anthropic/claude-opus-4.5",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-11-24",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "pdf",
+          "image",
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Opus 4.5",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-11-24",
+      "retired": false,
+      "tags": null
+    },
+    "anthropic/claude-opus-4.6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.5,
+        "cache_write": 6.25,
+        "input": 5,
+        "output": 25
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "anthropic/claude-opus-4.6",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-02-06",
+      "lifecycle": null,
+      "limits": {
+        "context": 1000000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Opus 4.6",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-02-06",
+      "retired": false,
+      "tags": null
+    },
+    "anthropic/claude-sonnet-4": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.3,
+        "cache_write": 3.75,
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "anthropic/claude-sonnet-4",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-05-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 1000000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Sonnet 4",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-05-22",
+      "retired": false,
+      "tags": null
+    },
+    "anthropic/claude-sonnet-4.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.3,
+        "cache_write": 3.75,
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "anthropic/claude-sonnet-4.5",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-09-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 1000000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Sonnet 4.5",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-09-29",
+      "retired": false,
+      "tags": null
+    },
+    "anthropic/claude-sonnet-4.6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.3,
+        "cache_write": 3.75,
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "anthropic/claude-sonnet-4.6",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-02-18",
+      "lifecycle": null,
+      "limits": {
+        "context": 1000000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Sonnet 4.6",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-02-18",
+      "retired": false,
+      "tags": null
+    },
+    "baidu/ernie-5.0-thinking-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.84,
+        "output": 3.37
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1763014410,
+        "open_weights": false,
+        "owned_by": "baidu",
+        "temperature": true
+      },
+      "family": null,
+      "id": "baidu/ernie-5.0-thinking-preview",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-01-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "baidu/ernie-5.0-thinking-preview",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-01-22",
+      "retired": false,
+      "tags": null
+    },
+    "baidu/ernie-x1.1-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1764904107,
+        "owned_by": "baidu"
+      },
+      "family": null,
+      "id": "baidu/ernie-x1.1-preview",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "baidu/ernie-x1.1-preview",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-chat": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.03,
+        "input": 0.28,
+        "output": 0.42
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-chat",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek-V3.2 (Non-thinking Mode)",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-v3.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.28,
+        "output": 0.43
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-v3.2",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek V3.2",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-05",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek/deepseek-v3.2-exp": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.22,
+        "output": 0.33
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek/deepseek-v3.2-exp",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-09-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 163000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek-V3.2-Exp",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-09-29",
+      "retired": false,
+      "tags": null
+    },
+    "google/gemini-2.5-flash": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.07,
+        "cache_write": 1,
+        "input": 0.3,
+        "output": 2.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "google/gemini-2.5-flash",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-06-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "pdf",
+          "image",
+          "text",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 2.5 Flash",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-06-17",
+      "retired": false,
+      "tags": null
+    },
+    "google/gemini-2.5-flash-lite": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.03,
+        "cache_write": 1,
+        "input": 0.1,
+        "output": 0.4
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "google/gemini-2.5-flash-lite",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-07-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "pdf",
+          "image",
+          "text",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 2.5 Flash Lite",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-07-22",
+      "retired": false,
+      "tags": null
+    },
+    "google/gemini-2.5-pro": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.31,
+        "cache_write": 4.5,
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "google/gemini-2.5-pro",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-06-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "pdf",
+          "image",
+          "text",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 2.5 Pro",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-06-17",
+      "retired": false,
+      "tags": null
+    },
+    "google/gemini-3-flash-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.05,
+        "cache_write": 1,
+        "input": 0.5,
+        "output": 3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "google/gemini-3-flash-preview",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 3 Flash Preview",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-17",
+      "retired": false,
+      "tags": null
+    },
+    "google/gemini-3-pro-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.2,
+        "cache_write": 4.5,
+        "input": 2,
+        "output": 12
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "google/gemini-3-pro-preview",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-11-18",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 3 Pro Preview",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-11-18",
+      "retired": false,
+      "tags": null
+    },
+    "google/gemini-3.1-pro-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.2,
+        "cache_write": 4.5,
+        "input": 2,
+        "output": 12
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "google/gemini-3.1-pro-preview",
+      "knowledge": "2026-02-19",
+      "last_updated": "2026-02-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 1048000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 3.1 Pro Preview",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-02-19",
+      "retired": false,
+      "tags": null
+    },
+    "google/gemma-3-12b-it": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1764123965,
+        "owned_by": "google"
+      },
+      "family": null,
+      "id": "google/gemma-3-12b-it",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "google/gemma-3-12b-it",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "inclusionai/ling-1t": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.11,
+        "input": 0.56,
+        "output": 2.24
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1759321812,
+        "open_weights": false,
+        "owned_by": "inclusionai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "inclusionai/ling-1t",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-10-09",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "inclusionai/ling-1t",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-10-09",
+      "retired": false,
+      "tags": null
+    },
+    "inclusionai/ling-flash-2.0": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1758179150,
+        "owned_by": "inclusionai"
+      },
+      "family": null,
+      "id": "inclusionai/ling-flash-2.0",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "inclusionai/ling-flash-2.0",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "inclusionai/ling-mini-2.0": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1757492846,
+        "owned_by": "inclusionai"
+      },
+      "family": null,
+      "id": "inclusionai/ling-mini-2.0",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "inclusionai/ling-mini-2.0",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "inclusionai/llada2.0-flash-cap": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1766135034,
+        "owned_by": "inclusionai"
+      },
+      "family": null,
+      "id": "inclusionai/llada2.0-flash-cap",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "inclusionai/llada2.0-flash-cap",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "inclusionai/ming-flash-omni-2.0": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1770619090,
+        "owned_by": "inclusionai"
+      },
+      "family": null,
+      "id": "inclusionai/ming-flash-omni-2.0",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "inclusionai/ming-flash-omni-2.0",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "inclusionai/ring-1t": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.11,
+        "input": 0.56,
+        "output": 2.24
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1759321683,
+        "open_weights": false,
+        "owned_by": "inclusionai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "inclusionai/ring-1t",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-10-12",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "inclusionai/ring-1t",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-10-12",
+      "retired": false,
+      "tags": null
+    },
+    "inclusionai/ring-flash-2.0": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1758179091,
+        "owned_by": "inclusionai"
+      },
+      "family": null,
+      "id": "inclusionai/ring-flash-2.0",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "inclusionai/ring-flash-2.0",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "inclusionai/ring-mini-2.0": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1757492950,
+        "owned_by": "inclusionai"
+      },
+      "family": null,
+      "id": "inclusionai/ring-mini-2.0",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "inclusionai/ring-mini-2.0",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "kuaishou/kat-coder-pro-v1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.06,
+        "input": 0.3,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1761272800,
+        "open_weights": false,
+        "owned_by": "kuaishou",
+        "temperature": true
+      },
+      "family": null,
+      "id": "kuaishou/kat-coder-pro-v1",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-10-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "kuaishou/kat-coder-pro-v1",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-10-23",
+      "retired": false,
+      "tags": null
+    },
+    "kuaishou/kat-coder-pro-v1-free": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1767146192,
+        "open_weights": false,
+        "owned_by": "kuaishou",
+        "temperature": true
+      },
+      "family": null,
+      "id": "kuaishou/kat-coder-pro-v1-free",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-10-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "kuaishou/kat-coder-pro-v1-free",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-10-23",
+      "retired": false,
+      "tags": null
+    },
+    "meta/llama-3.3-70b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1764216354,
+        "owned_by": "meta"
+      },
+      "family": null,
+      "id": "meta/llama-3.3-70b-instruct",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "meta/llama-3.3-70b-instruct",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "meta/llama-4-scout-17b-16e-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1764732046,
+        "owned_by": "meta"
+      },
+      "family": null,
+      "id": "meta/llama-4-scout-17b-16e-instruct",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "meta/llama-4-scout-17b-16e-instruct",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "minimax/minimax-m2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.03,
+        "cache_write": 0.38,
+        "input": 0.3,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1761618429,
+        "open_weights": false,
+        "owned_by": "minimax",
+        "temperature": true
+      },
+      "family": null,
+      "id": "minimax/minimax-m2",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-10-27",
+      "lifecycle": null,
+      "limits": {
+        "context": 204000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "minimax/minimax-m2",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-10-27",
+      "retired": false,
+      "tags": null
+    },
+    "minimax/minimax-m2-her": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1769495414,
+        "owned_by": "minimax"
+      },
+      "family": null,
+      "id": "minimax/minimax-m2-her",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "minimax/minimax-m2-her",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "minimax/minimax-m2.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.03,
+        "cache_write": 0.38,
+        "input": 0.3,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1766462731,
+        "open_weights": false,
+        "owned_by": "minimax",
+        "temperature": true
+      },
+      "family": null,
+      "id": "minimax/minimax-m2.1",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 204000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "minimax/minimax-m2.1",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-22",
+      "retired": false,
+      "tags": null
+    },
+    "minimax/minimax-m2.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.03,
+        "cache_write": 0.375,
+        "input": 0.3,
+        "output": 1.2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1770877055,
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": false,
+        "owned_by": "minimax",
+        "temperature": true
+      },
+      "family": null,
+      "id": "minimax/minimax-m2.5",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-02-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "minimax/minimax-m2.5",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-02-13",
+      "retired": false,
+      "tags": null
+    },
+    "minimax/minimax-m2.5-lightning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.06,
+        "cache_write": 0.75,
+        "input": 0.6,
+        "output": 4.8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1770954580,
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": false,
+        "owned_by": "minimax",
+        "temperature": true
+      },
+      "family": null,
+      "id": "minimax/minimax-m2.5-lightning",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-02-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "minimax/minimax-m2.5-lightning",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-02-13",
+      "retired": false,
+      "tags": null
+    },
+    "mistralai/mistral-large-2512": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1764832449,
+        "owned_by": "mistralai"
+      },
+      "family": null,
+      "id": "mistralai/mistral-large-2512",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "mistralai/mistral-large-2512",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2-0711": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1757334050,
+        "owned_by": "moonshotai"
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2-0711",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "moonshotai/kimi-k2-0711",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2-0905": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.15,
+        "input": 0.6,
+        "output": 2.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1757400810,
+        "open_weights": false,
+        "owned_by": "moonshotai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2-0905",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-09-04",
+      "lifecycle": null,
+      "limits": {
+        "context": 262000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "moonshotai/kimi-k2-0905",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-09-04",
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2-thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.15,
+        "input": 0.6,
+        "output": 2.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1762426731,
+        "open_weights": false,
+        "owned_by": "moonshotai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2-thinking",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-11-06",
+      "lifecycle": null,
+      "limits": {
+        "context": 262000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "moonshotai/kimi-k2-thinking",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-11-06",
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2-thinking-turbo": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.15,
+        "input": 1.15,
+        "output": 8
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1762426806,
+        "open_weights": false,
+        "owned_by": "moonshotai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2-thinking-turbo",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-11-06",
+      "lifecycle": null,
+      "limits": {
+        "context": 262000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "moonshotai/kimi-k2-thinking-turbo",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-11-06",
+      "retired": false,
+      "tags": null
+    },
+    "moonshotai/kimi-k2.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.1,
+        "input": 0.58,
+        "output": 3.02
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1769493282,
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": false,
+        "owned_by": "moonshotai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "moonshotai/kimi-k2.5",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-01-27",
+      "lifecycle": null,
+      "limits": {
+        "context": 262000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "moonshotai/kimi-k2.5",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-01-27",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.12,
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "openai/gpt-5",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-08-07",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-08-07",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-5-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.12,
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "openai/gpt-5-codex",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-09-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5 Codex",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-09-23",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-5.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.12,
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "openai/gpt-5.1",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-11-13",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-5.1-chat": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.12,
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "openai/gpt-5.1-chat",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "pdf",
+          "image",
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1 Chat",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-11-13",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-5.1-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.12,
+        "input": 1.25,
+        "output": 10
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "openai/gpt-5.1-codex",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1-Codex",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-11-13",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-5.1-codex-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.03,
+        "input": 0.25,
+        "output": 2
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "openai/gpt-5.1-codex-mini",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1-Codex-Mini",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-11-13",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-5.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.17,
+        "input": 1.75,
+        "output": 14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "openai/gpt-5.2",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.2",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-11",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-5.2-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.17,
+        "input": 1.75,
+        "output": 14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "openai/gpt-5.2-codex",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-01-15",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.2-Codex",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-01-15",
+      "retired": false,
+      "tags": null
+    },
+    "openai/gpt-5.2-pro": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 21,
+        "output": 168
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "openai/gpt-5.2-pro",
+      "knowledge": "2025-08-31",
+      "last_updated": "2025-12-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.2-Pro",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-11",
+      "retired": false,
+      "tags": null
+    },
+    "openai/o4-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1755177196,
+        "owned_by": "openai"
+      },
+      "family": null,
+      "id": "openai/o4-mini",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "openai/o4-mini",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-coder-plus": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.1,
+        "cache_write": 1.25,
+        "input": 1,
+        "output": 5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-coder-plus",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-07-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 1000000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3-Coder-Plus",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-07-23",
+      "retired": false,
+      "tags": null
+    },
+    "qwen/qwen3-max": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 1.2,
+        "output": 6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen/qwen3-max",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-01-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3-Max-Thinking",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-01-23",
+      "retired": false,
+      "tags": null
+    },
+    "stepfun/step-3": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.21,
+        "output": 0.57
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1766045895,
+        "open_weights": false,
+        "owned_by": "stepfun",
+        "temperature": true
+      },
+      "family": null,
+      "id": "stepfun/step-3",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-07-31",
+      "lifecycle": null,
+      "limits": {
+        "context": 65536,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "stepfun/step-3",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-07-31",
+      "retired": false,
+      "tags": null
+    },
+    "stepfun/step-3.5-flash": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0.1,
+        "output": 0.3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1770010031,
+        "open_weights": false,
+        "owned_by": "stepfun",
+        "temperature": true
+      },
+      "family": null,
+      "id": "stepfun/step-3.5-flash",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-02-02",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "stepfun/step-3.5-flash",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-02-02",
+      "retired": false,
+      "tags": null
+    },
+    "stepfun/step-3.5-flash-free": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1770013641,
+        "open_weights": false,
+        "owned_by": "stepfun",
+        "temperature": true
+      },
+      "family": null,
+      "id": "stepfun/step-3.5-flash-free",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-02-02",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "stepfun/step-3.5-flash-free",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-02-02",
+      "retired": false,
+      "tags": null
+    },
+    "tencent/hunyuan-2.0-thinking": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1770283383,
+        "owned_by": "tencent"
+      },
+      "family": null,
+      "id": "tencent/hunyuan-2.0-thinking",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "tencent/hunyuan-2.0-thinking",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "volcengine/doubao-seed-1-6-vision": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1764233321,
+        "owned_by": "volcengine"
+      },
+      "family": null,
+      "id": "volcengine/doubao-seed-1-6-vision",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "volcengine/doubao-seed-1-6-vision",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "volcengine/doubao-seed-1.8": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.02,
+        "cache_write": 0.0024,
+        "input": 0.11,
+        "output": 0.28
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1766058617,
+        "open_weights": false,
+        "owned_by": "volcengine",
+        "temperature": true
+      },
+      "family": null,
+      "id": "volcengine/doubao-seed-1.8",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-18",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "volcengine/doubao-seed-1.8",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-18",
+      "retired": false,
+      "tags": null
+    },
+    "volcengine/doubao-seed-2.0-code": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": null,
+      "cost": null,
+      "deprecated": false,
+      "extra": {
+        "created": 1771052263,
+        "owned_by": "volcengine"
+      },
+      "family": null,
+      "id": "volcengine/doubao-seed-2.0-code",
+      "knowledge": null,
+      "last_updated": null,
+      "lifecycle": null,
+      "limits": null,
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "volcengine/doubao-seed-2.0-code",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": null,
+      "retired": false,
+      "tags": null
+    },
+    "volcengine/doubao-seed-2.0-lite": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.02,
+        "cache_write": 0.0024,
+        "input": 0.09,
+        "output": 0.51
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1771053175,
+        "open_weights": false,
+        "owned_by": "volcengine",
+        "temperature": true
+      },
+      "family": null,
+      "id": "volcengine/doubao-seed-2.0-lite",
+      "knowledge": "2026-02-14",
+      "last_updated": "2026-02-14",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "volcengine/doubao-seed-2.0-lite",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-02-14",
+      "retired": false,
+      "tags": null
+    },
+    "volcengine/doubao-seed-2.0-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.01,
+        "cache_write": 0.0024,
+        "input": 0.03,
+        "output": 0.28
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1771054033,
+        "open_weights": false,
+        "owned_by": "volcengine",
+        "temperature": true
+      },
+      "family": null,
+      "id": "volcengine/doubao-seed-2.0-mini",
+      "knowledge": "2026-02-14",
+      "last_updated": "2026-02-14",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "volcengine/doubao-seed-2.0-mini",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-02-14",
+      "retired": false,
+      "tags": null
+    },
+    "volcengine/doubao-seed-2.0-pro": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.09,
+        "cache_write": 0.0024,
+        "input": 0.45,
+        "output": 2.24
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1770964408,
+        "open_weights": false,
+        "owned_by": "volcengine",
+        "temperature": true
+      },
+      "family": null,
+      "id": "volcengine/doubao-seed-2.0-pro",
+      "knowledge": "2026-02-14",
+      "last_updated": "2026-02-14",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "volcengine/doubao-seed-2.0-pro",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-02-14",
+      "retired": false,
+      "tags": null
+    },
+    "volcengine/doubao-seed-code": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.03,
+        "input": 0.17,
+        "output": 1.12
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1762852763,
+        "open_weights": false,
+        "owned_by": "volcengine",
+        "temperature": true
+      },
+      "family": null,
+      "id": "volcengine/doubao-seed-code",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-11-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "volcengine/doubao-seed-code",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-11-11",
+      "retired": false,
+      "tags": null
+    },
+    "x-ai/grok-4": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.75,
+        "input": 3,
+        "output": 15
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "x-ai/grok-4",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-07-09",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-07-09",
+      "retired": false,
+      "tags": null
+    },
+    "x-ai/grok-4-fast": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.05,
+        "input": 0.2,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "x-ai/grok-4-fast",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-09-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4 Fast",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-09-19",
+      "retired": false,
+      "tags": null
+    },
+    "x-ai/grok-4.1-fast": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.05,
+        "input": 0.2,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "x-ai/grok-4.1-fast",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-11-20",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4.1 Fast",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-11-20",
+      "retired": false,
+      "tags": null
+    },
+    "x-ai/grok-4.1-fast-non-reasoning": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.05,
+        "input": 0.2,
+        "output": 0.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "x-ai/grok-4.1-fast-non-reasoning",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-11-20",
+      "lifecycle": null,
+      "limits": {
+        "context": 2000000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok 4.1 Fast Non Reasoning",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-11-20",
+      "retired": false,
+      "tags": null
+    },
+    "x-ai/grok-code-fast-1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.02,
+        "input": 0.2,
+        "output": 1.5
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "x-ai/grok-code-fast-1",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-08-26",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok Code Fast 1",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-08-26",
+      "retired": false,
+      "tags": null
+    },
+    "xiaomi/mimo-v2-flash": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.01,
+        "input": 0.1,
+        "output": 0.3
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1765943626,
+        "open_weights": false,
+        "owned_by": "xiaomi",
+        "temperature": true
+      },
+      "family": null,
+      "id": "xiaomi/mimo-v2-flash",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 262000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "xiaomi/mimo-v2-flash",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-17",
+      "retired": false,
+      "tags": null
+    },
+    "xiaomi/mimo-v2-flash-free": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1767149996,
+        "open_weights": false,
+        "owned_by": "xiaomi",
+        "temperature": true
+      },
+      "family": null,
+      "id": "xiaomi/mimo-v2-flash-free",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 262000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "xiaomi/mimo-v2-flash-free",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-17",
+      "retired": false,
+      "tags": null
+    },
+    "z-ai/glm-4.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.07,
+        "input": 0.35,
+        "output": 1.54
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1757422336,
+        "open_weights": false,
+        "owned_by": "z-ai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "z-ai/glm-4.5",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-07-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "z-ai/glm-4.5",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-07-25",
+      "retired": false,
+      "tags": null
+    },
+    "z-ai/glm-4.5-air": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.02,
+        "input": 0.11,
+        "output": 0.56
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1757422433,
+        "open_weights": false,
+        "owned_by": "z-ai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "z-ai/glm-4.5-air",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-07-25",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "z-ai/glm-4.5-air",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-07-25",
+      "retired": false,
+      "tags": null
+    },
+    "z-ai/glm-4.6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.07,
+        "input": 0.35,
+        "output": 1.54
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1759216726,
+        "open_weights": false,
+        "owned_by": "z-ai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "z-ai/glm-4.6",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-09-30",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "z-ai/glm-4.6",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-09-30",
+      "retired": false,
+      "tags": null
+    },
+    "z-ai/glm-4.6v": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.03,
+        "input": 0.14,
+        "output": 0.42
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1765195111,
+        "open_weights": false,
+        "owned_by": "z-ai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "z-ai/glm-4.6v",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-08",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "z-ai/glm-4.6v",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-08",
+      "retired": false,
+      "tags": null
+    },
+    "z-ai/glm-4.6v-flash": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.0043,
+        "input": 0.02,
+        "output": 0.21
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1765198370,
+        "open_weights": false,
+        "owned_by": "z-ai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "z-ai/glm-4.6v-flash",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-08",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "z-ai/glm-4.6v-flash",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-08",
+      "retired": false,
+      "tags": null
+    },
+    "z-ai/glm-4.6v-flash-free": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "created": 1767078394,
+        "open_weights": false,
+        "owned_by": "z-ai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "z-ai/glm-4.6v-flash-free",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-08",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "z-ai/glm-4.6v-flash-free",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-08",
+      "retired": false,
+      "tags": null
+    },
+    "z-ai/glm-4.7": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.06,
+        "input": 0.28,
+        "output": 1.14
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1766454071,
+        "open_weights": false,
+        "owned_by": "z-ai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "z-ai/glm-4.7",
+      "knowledge": "2025-01-01",
+      "last_updated": "2025-12-23",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "z-ai/glm-4.7",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2025-12-23",
+      "retired": false,
+      "tags": null
+    },
+    "z-ai/glm-4.7-flash-free": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1768877763,
+        "open_weights": false,
+        "owned_by": "z-ai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "z-ai/glm-4.7-flash-free",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "z-ai/glm-4.7-flash-free",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-01-19",
+      "retired": false,
+      "tags": null
+    },
+    "z-ai/glm-4.7-flashx": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.01,
+        "input": 0.07,
+        "output": 0.42
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1768881083,
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": false,
+        "owned_by": "z-ai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "z-ai/glm-4.7-flashx",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-01-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "z-ai/glm-4.7-flashx",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-01-19",
+      "retired": false,
+      "tags": null
+    },
+    "z-ai/glm-5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "cache_read": 0.14,
+        "input": 0.58,
+        "output": 2.6
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "created": 1770816906,
+        "interleaved": {
+          "field": "reasoning_content"
+        },
+        "open_weights": true,
+        "owned_by": "z-ai",
+        "temperature": true
+      },
+      "family": null,
+      "id": "z-ai/glm-5",
+      "knowledge": "2025-01-01",
+      "last_updated": "2026-02-12",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "z-ai/glm-5",
+      "pricing": null,
+      "provider": "zenmux",
+      "provider_model_id": null,
+      "release_date": "2026-02-12",
+      "retired": false,
+      "tags": null
+    }
+  },
+  "name": "Zenmux",
+  "pricing_defaults": null
+}

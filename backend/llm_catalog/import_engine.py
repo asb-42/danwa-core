@@ -580,8 +580,10 @@ def run_import(
         all_models.extend(models)
 
     diff = build_diff(all_models, settings)
-    diff.dry_run = dry_run
     if dry_run:
+        diff.dry_run = True
         diff.finished_at = datetime.now(UTC).isoformat()
         return diff
+    # apply_diff expects a dry_run=True diff; it will set dry_run=False
+    # in the returned ImportReport after writing the files.
     return apply_diff(diff, all_models, settings)

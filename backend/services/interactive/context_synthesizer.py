@@ -45,12 +45,17 @@ class ContextWindow:
         self.token_budget_used = token_budget_used
 
     def to_prompt_context(self) -> str:
-        """Render the context window as a structured prompt section."""
+        """Render the context window as a structured, language-agnostic prompt section.
+
+        Headers are intentionally in English so the prompt is neutral regardless
+        of the space/project locale. Agent-specific tone/role instructions are
+        injected separately via the action template's ``system_prompt_addon``.
+        """
         lines: list[str] = []
 
         # Direct thread (chronological)
         if self.thread_events:
-            lines.append("## Direkter Diskussionsverlauf")
+            lines.append("## Direct Discussion Thread")
             lines.append("")
             for evt in self.thread_events:
                 prefix = self._actor_label(evt)
@@ -63,7 +68,7 @@ class ContextWindow:
 
         # Side branches (ranked by relevance)
         if self.side_branch_events:
-            lines.append("## Relevante Nebenzweige")
+            lines.append("## Relevant Side Branches")
             lines.append("")
             for sb in self.side_branch_events[:3]:  # Top 3 only
                 meta = sb.get("metadata", {})
@@ -72,7 +77,7 @@ class ContextWindow:
                 text = sb.get("text", "")
                 if len(text) > 500:
                     text = text[:500] + " [...]"
-                lines.append(f"**{actor}** (Relevanz: {score:.2f}): {text}")
+                lines.append(f"**{actor}** (relevance: {score:.2f}): {text}")
                 lines.append("")
 
         return "\n".join(lines)

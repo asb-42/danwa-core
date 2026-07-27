@@ -142,20 +142,35 @@ def get_tag_store():
     return TagStore()
 
 
+# Cache for case_id → filesystem directory resolution.
+# Keyed on case_id; the filesystem scan is O(tenants) stat calls and
+# should not repeat on every request for the same case.
+_CASE_DIR_CACHE: dict[str, Path] = {}
+_CASE_DIR_NEGATIVE_CACHE: set[str] = set()  # case_ids known not to exist
+
+
 def get_case_dir(case_id: str) -> Path:
     """Resolve a case/project ID to its filesystem directory.
 
     Resolution order:
-    1. Try ``ProjectStore.get_project_dir()`` (legacy project IDs).
-    2. If directory doesn't exist, search ``data/tenants/*/cases/{case_id}/``
+    1. Check the in-process cache (avoids repeated filesystem scans).
+    2. Try ``ProjectStore.get_project_dir()`` (legacy project IDs).
+    3. If directory doesn't exist, search ``data/tenants/*/cases/{case_id}/``
        for a CaseStore-managed case directory.
     """
+    # Cache hit
+    if case_id in _CASE_DIR_CACHE:
+        return _CASE_DIR_CACHE[case_id]
+    if case_id in _CASE_DIR_NEGATIVE_CACHE:
+        raise HTTPException(status_code=404, detail=f"Case directory not found: {case_id}")
+
     ps = get_project_store()
     try:
         project_dir = ps.get_project_dir(case_id)
     except FileNotFoundError:
         project_dir = None
     if project_dir and project_dir.exists():
+        _CASE_DIR_CACHE[case_id] = project_dir
         return project_dir
 
     # Fallback: search CaseStore tenant directories for the case_id.
@@ -168,8 +183,10 @@ def get_case_dir(case_id: str) -> Path:
                 continue
             candidate = tenant_dir / "cases" / case_id
             if candidate.is_dir():
+                _CASE_DIR_CACHE[case_id] = candidate
                 return candidate
 
+    _CASE_DIR_NEGATIVE_CACHE.add(case_id)
     raise HTTPException(status_code=404, detail=f"Case directory not found: {case_id}")
 
 

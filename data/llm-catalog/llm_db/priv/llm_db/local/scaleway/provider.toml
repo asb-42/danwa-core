@@ -1,0 +1,2 @@
+id = "scaleway"
+base_url = "https://api.scaleway.ai/v1"

@@ -1,0 +1,11 @@
+{
+  "events_written": 17694,
+  "from_snapshot_id": "59223aad32fcfb39da34664406927cafd02ac4c79d69feca0391f33f7e16a5bb",
+  "generated_at": "2026-03-14T20:28:04.025206Z",
+  "schema_version": 1,
+  "snapshot_index_path": "/Users/mhostetler/Source/ReqLLM/llm_db/priv/llm_db/history/snapshot-index.json",
+  "snapshots_written": 47,
+  "source": "git@github.com:agentjido/llm_db.git",
+  "to_snapshot_id": "2a3e431e61036f06f4147801cd3ffdf7f322ffdff3f3d850dd212fe5cc7abd75",
+  "unique_snapshots_written": 47
+}

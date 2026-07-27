@@ -1,0 +1,829 @@
+{
+  "alias_of": null,
+  "base_url": null,
+  "config_schema": null,
+  "doc": "https://platform.iflow.cn/en/docs",
+  "env": [
+    "IFLOW_API_KEY"
+  ],
+  "exclude_models": null,
+  "extra": null,
+  "id": "iflowcn",
+  "models": {
+    "deepseek-r1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek-thinking",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek-r1",
+      "knowledge": "2024-12",
+      "last_updated": "2025-01-20",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek-R1",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2025-01-20",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek-v3": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek-v3",
+      "knowledge": "2024-10",
+      "last_updated": "2024-12-26",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek-V3",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2024-12-26",
+      "retired": false,
+      "tags": null
+    },
+    "deepseek-v3.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "deepseek",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "deepseek-v3.2",
+      "knowledge": "2024-12",
+      "last_updated": "2025-01-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "DeepSeek-V3.2-Exp",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2025-01-01",
+      "retired": false,
+      "tags": null
+    },
+    "glm-4.6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "glm",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "glm-4.6",
+      "knowledge": "2024-10",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 200000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GLM-4.6",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2024-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "kimi-k2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "kimi-k2",
+      "knowledge": "2024-10",
+      "last_updated": "2024-12-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi-K2",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2024-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "kimi-k2-0905": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "kimi",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "kimi-k2-0905",
+      "knowledge": "2024-12",
+      "last_updated": "2025-09-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Kimi-K2-0905",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2025-09-05",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-235b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen3-235b",
+      "knowledge": "2024-10",
+      "last_updated": "2024-12-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3-235B-A22B",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2024-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-235b-a22b-instruct": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen3-235b-a22b-instruct",
+      "knowledge": "2025-04",
+      "last_updated": "2025-07-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3-235B-A22B-Instruct",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2025-07-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-235b-a22b-thinking-2507": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen3-235b-a22b-thinking-2507",
+      "knowledge": "2025-04",
+      "last_updated": "2025-07-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3-235B-A22B-Thinking",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2025-07-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-32b": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen3-32b",
+      "knowledge": "2024-10",
+      "last_updated": "2024-12-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3-32B",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2024-12-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-coder-plus": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen3-coder-plus",
+      "knowledge": "2025-04",
+      "last_updated": "2025-07-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3-Coder-Plus",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2025-07-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-max": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen3-max",
+      "knowledge": "2024-12",
+      "last_updated": "2025-01-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3-Max",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2025-01-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-max-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "qwen",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen3-max-preview",
+      "knowledge": "2024-12",
+      "last_updated": "2025-01-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3-Max-Preview",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2025-01-01",
+      "retired": false,
+      "tags": null
+    },
+    "qwen3-vl-plus": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "qwen",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "qwen3-vl-plus",
+      "knowledge": "2024-12",
+      "last_updated": "2025-01-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 256000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Qwen3-VL-Plus",
+      "pricing": null,
+      "provider": "iflowcn",
+      "provider_model_id": null,
+      "release_date": "2025-01-01",
+      "retired": false,
+      "tags": null
+    }
+  },
+  "name": "iFlow",
+  "pricing_defaults": null
+}

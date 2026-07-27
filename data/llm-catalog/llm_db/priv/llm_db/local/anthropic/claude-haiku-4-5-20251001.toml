@@ -1,0 +1,15 @@
+id = "claude-haiku-4-5-20251001"
+
+aliases = [
+  "claude-haiku-4-5",
+  "claude-haiku-4.5"
+]
+
+[lifecycle]
+status = "active"
+
+[cost]
+input = 1.0
+output = 5.0
+cache_read = 0.1
+cache_write = 1.25

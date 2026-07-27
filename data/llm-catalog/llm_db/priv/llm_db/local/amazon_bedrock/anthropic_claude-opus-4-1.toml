@@ -1,0 +1,16 @@
+id = "anthropic.claude-opus-4-1-20250805-v1:0"
+provider = "amazon_bedrock"
+name = "Claude Opus 4.1"
+family = "claude"
+release_date = "2025-08-05"
+
+# Bedrock documents only the US geo inference profile for Opus 4.1.
+provider_model_id = "us.anthropic.claude-opus-4-1-20250805-v1:0"
+
+aliases = [
+  "us.anthropic.claude-opus-4-1-20250805-v1:0"
+]
+
+# Override: Disable object generation hack - wait for native Anthropic support
+[capabilities.tools]
+strict = false

@@ -1,0 +1,10 @@
+id = "claude-opus-4-7"
+
+[lifecycle]
+status = "active"
+
+[cost]
+input = 5.0
+output = 25.0
+cache_read = 0.5
+cache_write = 6.25

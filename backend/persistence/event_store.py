@@ -27,14 +27,20 @@ class EventStore:
     """Append-only event log with thread traversal and projector integration."""
 
     def __init__(self, db_path: Path | str | None = None, projector_manager=None):
+        import threading
+
         self.db_path = Path(db_path) if db_path else _DEFAULT_DB_PATH
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        self.conn = sqlite3.connect(str(self.db_path), check_same_thread=False, timeout=10)
+        self.conn = sqlite3.connect(str(self.db_path), check_same_thread=False, timeout=30)
         self.conn.row_factory = sqlite3.Row
         self.conn.execute("PRAGMA journal_mode=WAL")
         self.conn.execute("PRAGMA foreign_keys=ON")
         self._init_db()
         self._projector_manager = projector_manager
+        # Write lock: serialises write operations across async worker threads.
+        # SQLite with check_same_thread=False allows concurrent writes which
+        # can raise "database is locked" under FastAPI's event loop.
+        self._write_lock = threading.Lock()
 
     def set_projector_manager(self, manager) -> None:
         """Inject the projector manager (called after construction)."""
@@ -93,13 +99,14 @@ class EventStore:
     ) -> DebateSpace:
         space_id = str(uuid.uuid4())
         now = datetime.now(UTC).isoformat()
-        self.conn.execute(
-            """INSERT INTO debate_spaces
-               (space_id, title, description, project_id, tenant_id, created_by, created_at, updated_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-            (space_id, title, description, project_id, tenant_id, created_by, now, now),
-        )
-        self.conn.commit()
+        with self._write_lock:
+            self.conn.execute(
+                """INSERT INTO debate_spaces
+                   (space_id, title, description, project_id, tenant_id, created_by, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                (space_id, title, description, project_id, tenant_id, created_by, now, now),
+            )
+            self.conn.commit()
 
         space = self.get_space(space_id)
 
@@ -123,22 +130,37 @@ class EventStore:
         return self._row_to_space(row) if row else None
 
     def update_space_counters(self, space_id: str) -> None:
-        """Recalculate event_count and fork_count from the event log."""
+        """Recalculate event_count and fork_count from the event log.
+
+        ``event_count`` is the total number of events in the space (including
+        the SpaceCreated lifecycle event). ``fork_count`` counts parent events
+        that have more than one direct child — i.e. points in the tree where
+        the discussion branched. Events with ``parent_id IS NULL`` (roots)
+        are never forks.
+        """
         row = self.conn.execute(
             """SELECT
-                COUNT(*) as event_count,
-                COUNT(DISTINCT parent_id) - 1 as fork_count
-               FROM debate_events WHERE space_id = ?""",
-            (space_id,),
+                (SELECT COUNT(*) FROM debate_events WHERE space_id = ?) AS event_count,
+                COALESCE((
+                    SELECT COUNT(*) FROM (
+                        SELECT parent_id
+                        FROM debate_events
+                        WHERE space_id = ? AND parent_id IS NOT NULL
+                        GROUP BY parent_id
+                        HAVING COUNT(*) > 1
+                    )
+                ), 0) AS fork_count""",
+            (space_id, space_id),
         ).fetchone()
         if row:
-            self.conn.execute(
-                """UPDATE debate_spaces
-                   SET event_count = ?, fork_count = ?, updated_at = ?
-                   WHERE space_id = ?""",
-                (row["event_count"], max(0, row["fork_count"]), datetime.now(UTC).isoformat(), space_id),
-            )
-            self.conn.commit()
+            with self._write_lock:
+                self.conn.execute(
+                    """UPDATE debate_spaces
+                       SET event_count = ?, fork_count = ?, updated_at = ?
+                       WHERE space_id = ?""",
+                    (row["event_count"], row["fork_count"], datetime.now(UTC).isoformat(), space_id),
+                )
+                self.conn.commit()
 
     def list_spaces(
         self,
@@ -178,7 +200,7 @@ class EventStore:
         """Append a new event to the log. Never updates existing events.
 
         After writing, dispatches to the ProjectorManager (CQRS) and
-        updates space counters.
+        updates space counters. Thread-safe via ``_write_lock``.
         """
         # Normalize legacy event types (ADR-001 migration)
         event_type = normalize_event_type(event_type)
@@ -188,15 +210,16 @@ class EventStore:
         meta = json.dumps(metadata_json or {})
         content_str = json.dumps(content) if isinstance(content, dict) else content
 
-        self.conn.execute(
-            """INSERT INTO debate_events
-               (event_id, space_id, parent_id, event_type, actor_type, actor_id,
-                role, content, metadata_json, tokens_input, tokens_output, created_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            (event_id, space_id, parent_id, event_type, actor_type, actor_id,
-             role, content_str, meta, tokens_input, tokens_output, now),
-        )
-        self.conn.commit()
+        with self._write_lock:
+            self.conn.execute(
+                """INSERT INTO debate_events
+                   (event_id, space_id, parent_id, event_type, actor_type, actor_id,
+                    role, content, metadata_json, tokens_input, tokens_output, created_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (event_id, space_id, parent_id, event_type, actor_type, actor_id,
+                 role, content_str, meta, tokens_input, tokens_output, now),
+            )
+            self.conn.commit()
 
         event = self.get_event(event_id)
         if not event:
@@ -236,7 +259,25 @@ class EventStore:
         root_event_id: str,
         max_depth: int | None = None,
     ) -> list[DebateEvent]:
-        """Trace a full thread from root_event_id downwards (BFS)."""
+        """Trace a full thread from root_event_id downwards (BFS).
+
+        Fetches all events in the space in a single query and builds the
+        tree in memory, avoiding N+1 per-node ``get_event``/``get_children``
+        calls.
+        """
+        # Bulk-fetch all events for the space once, build a parent→children index.
+        all_rows = self.conn.execute(
+            """SELECT * FROM debate_events WHERE space_id = ?
+               ORDER BY created_at ASC""",
+            (space_id,),
+        ).fetchall()
+        events_by_id: dict[str, DebateEvent] = {}
+        children_by_parent: dict[str | None, list[DebateEvent]] = {}
+        for row in all_rows:
+            evt = self._row_to_event(row)
+            events_by_id[evt.event_id] = evt
+            children_by_parent.setdefault(evt.parent_id, []).append(evt)
+
         result: list[DebateEvent] = []
         queue: list[tuple[str, int]] = [(root_event_id, 0)]
         visited: set[str] = set()
@@ -249,11 +290,10 @@ class EventStore:
                 continue
             visited.add(current_id)
 
-            event = self.get_event(current_id)
+            event = events_by_id.get(current_id)
             if event:
                 result.append(event)
-                children = self.get_children(space_id, current_id)
-                for child in children:
+                for child in children_by_parent.get(current_id, []):
                     queue.append((child.event_id, depth + 1))
 
         return result

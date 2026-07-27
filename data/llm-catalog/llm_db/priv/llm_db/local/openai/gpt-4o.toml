@@ -1,0 +1,10 @@
+id = "gpt-4o"
+
+[capabilities.tools]
+strict = true
+
+[extra.wire]
+protocol = "openai_responses"
+
+[extra]
+api = "chat"

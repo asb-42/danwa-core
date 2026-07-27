@@ -1,0 +1,119 @@
+name: Publish Snapshot Catalog
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-snapshot:
+    name: Pull upstream metadata and publish snapshot
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: llm-metadata
+      cancel-in-progress: false
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Disable git hooks
+        run: git config core.hooksPath /dev/null
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: "1.18"
+          otp-version: "27"
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v6
+        with:
+          path: |
+            deps
+            _build
+          key: mix-${{ runner.os }}-elixir-1.18-otp-27-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            mix-${{ runner.os }}-elixir-1.18-otp-27-
+
+      - name: Install dependencies
+        run: |
+          set -euo pipefail
+          mix deps.get
+
+      - name: Pull latest metadata from sources
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          ZENMUX_API_KEY: ${{ secrets.ZENMUX_API_KEY }}
+        run: |
+          set -euo pipefail
+          echo "Pulling latest LLM model metadata..."
+          mix llm_db.pull
+
+      - name: Build packaged snapshot from refreshed metadata
+        run: |
+          set -euo pipefail
+          mix llm_db.build --install
+
+      - name: Validate refreshed catalog before publishing
+        run: |
+          set -euo pipefail
+          mix llm_db.build --check --install
+          mix test
+          mix quality
+
+      - name: Commit refreshed metadata inputs
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain -- \
+            priv/llm_db/upstream \
+            priv/llm_db/remote \
+            priv/llm_db/snapshot.json)" ]; then
+            echo "No metadata changes to commit"
+            exit 0
+          fi
+
+          git add \
+            priv/llm_db/upstream \
+            priv/llm_db/remote \
+            priv/llm_db/snapshot.json
+          git commit -m "chore: refresh metadata caches and snapshot"
+          git push origin HEAD:main
+
+      - name: Publish snapshot from committed repo state
+        run: |
+          set -euo pipefail
+          mix llm_db.snapshot.publish
+
+      - name: Rebuild and publish history bundle
+        run: |
+          set -euo pipefail
+          mix llm_db.history.rebuild --publish
+
+      - name: Validate published history bundle
+        run: |
+          set -euo pipefail
+          mix llm_db.history.check --allow-missing
+
+      - name: Report success
+        run: |
+          echo "### Snapshot Publish Complete" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Refreshed catalog validated before publishing" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Snapshot and history releases updated" >> "$GITHUB_STEP_SUMMARY"

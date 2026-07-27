@@ -1,0 +1,13 @@
+id = "claude-3-5-haiku-20241022"
+
+aliases = [
+  "claude-3-5-haiku-latest",
+  "claude-3.5-haiku",
+  "claude-3.5-haiku-20241022"
+]
+
+[lifecycle]
+status = "retired"
+deprecated_at = "2025-12-19"
+retires_at = "2026-02-19"
+replacement = "claude-haiku-4-5-20251001"

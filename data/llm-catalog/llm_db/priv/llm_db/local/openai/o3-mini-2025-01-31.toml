@@ -1,0 +1,15 @@
+id = "o3-mini-2025-01-31"
+
+[extra.wire]
+protocol = "openai_responses"
+
+[extra.constraints]
+token_limit_key = "max_completion_tokens"
+temperature = "unsupported"
+reasoning_effort = "supported"
+
+[lifecycle]
+status = "deprecated"
+deprecated_at = "2026-04-22"
+retires_at = "2026-10-23"
+replacement = "gpt-5.5"

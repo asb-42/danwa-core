@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify LLM Metadata"
+  short_description: "Audit and PR provider metadata fixes"
+  default_prompt: "Use $verify-llm-metadata to verify Anthropic metadata, update the right source layer, and open a PR."

@@ -1,0 +1,1444 @@
+{
+  "alias_of": null,
+  "base_url": null,
+  "config_schema": null,
+  "doc": "https://docs.github.com/en/copilot",
+  "env": [
+    "GITHUB_TOKEN"
+  ],
+  "exclude_models": null,
+  "extra": null,
+  "id": "github_copilot",
+  "models": {
+    "claude-haiku-4.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-haiku",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-haiku-4.5",
+      "knowledge": "2025-02-28",
+      "last_updated": "2025-10-15",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Haiku 4.5",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-10-15",
+      "retired": false,
+      "tags": null
+    },
+    "claude-opus-4.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-opus",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-opus-4.5",
+      "knowledge": "2025-03-31",
+      "last_updated": "2025-08-01",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Opus 4.5",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-11-24",
+      "retired": false,
+      "tags": null
+    },
+    "claude-opus-4.6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-opus",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-opus-4.6",
+      "knowledge": "2025-03-31",
+      "last_updated": "2026-02-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Opus 4.6",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2026-02-05",
+      "retired": false,
+      "tags": null
+    },
+    "claude-opus-41": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "text": true,
+          "tool_calls": false
+        },
+        "tools": {
+          "enabled": false,
+          "parallel": false,
+          "streaming": false,
+          "strict": false
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-opus",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-opus-41",
+      "knowledge": "2025-03-31",
+      "last_updated": "2025-08-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 80000,
+        "output": 16000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Opus 4.1",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-08-05",
+      "retired": false,
+      "tags": null
+    },
+    "claude-sonnet-4": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-sonnet",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-sonnet-4",
+      "knowledge": "2025-03-31",
+      "last_updated": "2025-05-22",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 16000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Sonnet 4",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-05-22",
+      "retired": false,
+      "tags": null
+    },
+    "claude-sonnet-4.5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-sonnet",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-sonnet-4.5",
+      "knowledge": "2025-03-31",
+      "last_updated": "2025-09-29",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Sonnet 4.5",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-09-29",
+      "retired": false,
+      "tags": null
+    },
+    "claude-sonnet-4.6": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "claude-sonnet",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "claude-sonnet-4.6",
+      "knowledge": null,
+      "last_updated": "2026-02-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 32000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Claude Sonnet 4.6",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2026-02-17",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-2.5-pro": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-pro",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-2.5-pro",
+      "knowledge": "2025-01",
+      "last_updated": "2025-06-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 2.5 Pro",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-03-20",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-3-flash-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-flash",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-3-flash-preview",
+      "knowledge": "2025-01",
+      "last_updated": "2025-12-17",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 3 Flash",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-12-17",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-3-pro-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-pro",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-3-pro-preview",
+      "knowledge": "2025-01",
+      "last_updated": "2025-11-18",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 3 Pro Preview",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-11-18",
+      "retired": false,
+      "tags": null
+    },
+    "gemini-3.1-pro-preview": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gemini-pro",
+        "open_weights": false,
+        "structured_output": true,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gemini-3.1-pro-preview",
+      "knowledge": "2025-01",
+      "last_updated": "2026-02-19",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Gemini 3.1 Pro Preview",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2026-02-19",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-4.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-4.1",
+      "knowledge": "2024-04",
+      "last_updated": "2025-04-14",
+      "lifecycle": null,
+      "limits": {
+        "context": 64000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-4.1",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-04-14",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-4o": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-4o",
+      "knowledge": "2023-09",
+      "last_updated": "2024-05-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 64000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-4o",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2024-05-13",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5",
+      "knowledge": "2024-10",
+      "last_updated": "2025-08-07",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-08-07",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-mini",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "gpt-5-mini",
+      "knowledge": "2024-06",
+      "last_updated": "2025-08-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5-mini",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-08-13",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.1",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-11-13",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "gpt-codex",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.1-codex",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1-Codex",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-11-13",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1-codex-max": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt-codex",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.1-codex-max",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-12-04",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1-Codex-max",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-12-04",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.1-codex-mini": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "gpt-codex",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.1-codex-mini",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-11-13",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.1-Codex-mini",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-11-13",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.2": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": true,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.2",
+      "knowledge": "2025-08-31",
+      "last_updated": "2025-12-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.2",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-12-11",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.2-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "gpt-codex",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.2-codex",
+      "knowledge": "2025-08-31",
+      "last_updated": "2025-12-11",
+      "lifecycle": null,
+      "limits": {
+        "context": 272000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.2-Codex",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-12-11",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.3-codex": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "gpt-codex",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.3-codex",
+      "knowledge": "2025-08-31",
+      "last_updated": "2026-02-24",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.3-Codex",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2026-02-24",
+      "retired": false,
+      "tags": null
+    },
+    "gpt-5.4": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "gpt",
+        "open_weights": false,
+        "temperature": false
+      },
+      "family": null,
+      "id": "gpt-5.4",
+      "knowledge": "2025-08-31",
+      "last_updated": "2026-03-05",
+      "lifecycle": null,
+      "limits": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "GPT-5.4",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2026-03-05",
+      "retired": false,
+      "tags": null
+    },
+    "grok-code-fast-1": {
+      "aliases": [],
+      "base_url": null,
+      "capabilities": {
+        "chat": true,
+        "embeddings": false,
+        "json": {
+          "native": false,
+          "schema": false,
+          "strict": false
+        },
+        "reasoning": {
+          "enabled": true
+        },
+        "streaming": {
+          "tool_calls": true
+        },
+        "tools": {
+          "enabled": true
+        }
+      },
+      "cost": {
+        "input": 0,
+        "output": 0
+      },
+      "deprecated": false,
+      "extra": {
+        "attachment": false,
+        "family": "grok",
+        "open_weights": false,
+        "temperature": true
+      },
+      "family": null,
+      "id": "grok-code-fast-1",
+      "knowledge": "2025-08",
+      "last_updated": "2025-08-27",
+      "lifecycle": null,
+      "limits": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "model": null,
+      "name": "Grok Code Fast 1",
+      "pricing": null,
+      "provider": "github_copilot",
+      "provider_model_id": null,
+      "release_date": "2025-08-27",
+      "retired": false,
+      "tags": null
+    }
+  },
+  "name": "GitHub Copilot",
+  "pricing_defaults": null
+}

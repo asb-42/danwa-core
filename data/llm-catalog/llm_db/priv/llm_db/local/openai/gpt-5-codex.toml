@@ -1,0 +1,24 @@
+id = "gpt-5-codex"
+
+[capabilities.json]
+schema = true
+
+[capabilities.reasoning]
+enabled = true
+
+[capabilities.tools]
+enabled = true
+
+[extra.wire]
+protocol = "openai_responses"
+
+[extra.constraints]
+token_limit_key = "max_completion_tokens"
+temperature = "unsupported"
+reasoning_effort = "supported"
+
+[lifecycle]
+status = "deprecated"
+deprecated_at = "2026-04-22"
+retires_at = "2026-07-23"
+replacement = "gpt-5.5"

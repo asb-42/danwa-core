@@ -1,8 +1,11 @@
 """AgentWorker – calls LLM agents when AgentActed events are requested.
 
-Listens for events of type AgentActed with metadata containing
-the agent configuration, calls the LLM, and appends the result as
-an AgentActed event.
+Listens for events of type ``AgentActed`` (thin event taxonomy, ADR-001)
+with agent configuration in ``metadata``, calls the LLM, and appends the
+result as a new ``AgentActed`` event that is a child of the trigger event.
+
+The trigger event's ``content`` carries the user's message / instruction;
+the response event's ``content`` carries the LLM output.
 """
 
 from __future__ import annotations
@@ -13,7 +16,6 @@ from typing import Any
 from backend.models.debate_event import DebateEvent
 from backend.persistence.event_store import EventStore
 from backend.services.interactive.context_synthesizer import ContextSynthesizer
-from backend.services.interactive.event_bus import EventBus, get_event_bus
 from backend.services.interactive.event_embeddings import EventEmbeddingStore
 from backend.services.llm_service import LLMService
 
@@ -21,28 +23,32 @@ logger = logging.getLogger(__name__)
 
 
 class AgentWorker:
-    """Processes AgentActed events by calling LLMs."""
+    """Processes agent_speech events by calling LLMs."""
 
     def __init__(
         self,
         event_store: EventStore,
         embedding_store: EventEmbeddingStore | None = None,
-        event_bus: EventBus | None = None,
     ):
         self.event_store = event_store
         self.embedding_store = embedding_store
-        self.event_bus = event_bus or get_event_bus()
         self.synthesizer = ContextSynthesizer(event_store, embedding_store)
 
     async def process(self, event: DebateEvent) -> DebateEvent | None:
-        """Process an AgentActed event.
+        """Process an ``AgentActed`` trigger event.
 
         This worker:
         1. Synthesizes context from the parent thread
         2. Calls the configured LLM
-        3. Appends the response as a new event
+        3. Appends the response as a new ``AgentActed`` event
+
+        Events with ``metadata.is_response == True`` are LLM outputs already
+        produced by a previous run and are skipped to avoid infinite loops.
         """
         if event.event_type != "AgentActed":
+            return None
+        # Skip events that are already LLM responses (avoid re-processing)
+        if event.metadata_json.get("is_response"):
             return None
 
         # Extract agent config from metadata
@@ -70,8 +76,8 @@ class AgentWorker:
         try:
             llm = LLMService(profile_id=llm_profile_id)
             result = await llm.generate(
-                prompt=user_prompt,
                 system_prompt=system_prompt,
+                user_prompt=user_prompt,
             )
         except Exception as e:
             logger.error("LLM call failed: %s", e)
@@ -80,7 +86,7 @@ class AgentWorker:
         if not result or not result.content:
             return None
 
-        # Append the response event
+        # Append the response event (thin taxonomy: AgentActed)
         response_event = self.event_store.append_event(
             space_id=event.space_id,
             event_type="AgentActed",
@@ -95,16 +101,10 @@ class AgentWorker:
                 "tokens_output": result.tokens_out,
                 "model": result.model,
                 "triggered_by": event.event_id,
+                "is_response": True,
             },
             tokens_input=result.tokens_in,
             tokens_output=result.tokens_out,
-        )
-
-        # Publish to event bus so SSE/streaming clients see the response
-        import asyncio
-        stream_name = f"interactive:space:{event.space_id}"
-        asyncio.create_task(
-            self.event_bus.publish(stream_name, {"event_id": response_event.event_id})
         )
 
         logger.info(
@@ -115,9 +115,17 @@ class AgentWorker:
         return response_event
 
     def _build_system_prompt(self, role: str, meta: dict[str, Any]) -> str:
-        """Build the system prompt for the agent."""
-        base = f"You are a debate agent with the role '{role}'. "
-        base += "Respond precisely and argumentatively. "
-        if meta.get("system_prompt"):
-            base += meta["system_prompt"]
-        return base
+        """Build the system prompt for the agent.
+
+        Prefers an explicit ``system_prompt`` / ``system_prompt_addon`` from
+        the event metadata (set by action templates). Falls back to a neutral,
+        language-agnostic default so we do not hardcode German.
+        """
+        addon = meta.get("system_prompt_addon") or meta.get("system_prompt")
+        if addon:
+            return addon
+        # Neutral default (no hardcoded language)
+        return (
+            f"You are a debate agent acting in the role '{role}'. "
+            "Respond precisely and argumentatively, addressing the discussion context."
+        )

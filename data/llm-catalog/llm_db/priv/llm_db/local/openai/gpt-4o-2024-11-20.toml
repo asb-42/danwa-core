@@ -1,0 +1,13 @@
+id = "gpt-4o-2024-11-20"
+
+[capabilities.json]
+schema = true
+
+[capabilities.tools]
+strict = true
+
+[extra.wire]
+protocol = "openai_responses"
+
+[extra]
+api = "chat"
