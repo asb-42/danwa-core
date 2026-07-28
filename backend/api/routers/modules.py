@@ -618,12 +618,18 @@ async def publish_module(module_id: str, body: PublishRequest) -> dict[str, Any]
             ),
         )
 
+    # Resolve category from manifest type
+    manifest_type = body.manifest.get("type", "")
+    _cat_info = _TYPE_TO_TABLE.get(manifest_type)
+    category = _cat_info[1] if _cat_info else None
+
     report = publisher.publish(
         module_id=module_id,
         manifest=body.manifest,
         profile_content=body.profile_content,
         profile_filename=body.profile_filename,
         commit_message=body.commit_message,
+        category=category,
     )
 
     # Surface a 502 for hard failures so callers can branch on status_code
@@ -727,6 +733,7 @@ def sync_from_db(body: SyncFromDbRequest) -> dict[str, Any]:
     (filesystem-sourced).
     """
     import sqlite3
+    import uuid
     from datetime import UTC, datetime
     from pathlib import Path
 
@@ -771,7 +778,8 @@ def sync_from_db(body: SyncFromDbRequest) -> dict[str, Any]:
     for row in rows:
         profile = dict(row)
         profile_id = profile["id"]
-        module_id = f"{prefix}-{profile_id}"
+        # Always use UUID for module_id (consistent with existing modules)
+        module_id = f"{prefix}-{uuid.uuid4()}"
 
         module_dir = cat_dir / module_id
         module_dir.mkdir(parents=True, exist_ok=True)

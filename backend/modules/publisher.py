@@ -24,6 +24,7 @@ caller-controlled data without a manifest-id allow-list check.
 from __future__ import annotations
 
 import dataclasses
+import hashlib
 import json
 import logging
 import re
@@ -210,6 +211,7 @@ class ModulePublisher:
         profile_content: str | None = None,
         profile_filename: str | None = None,
         commit_message: str | None = None,
+        category: str | None = None,
     ) -> PublishReport:
         """Run the full publish workflow and return a structured report."""
         try:
@@ -269,12 +271,12 @@ class ModulePublisher:
         report.steps.append(
             self._step(
                 "write_files",
-                lambda: self._write_files(module_id, manifest, profile_content, profile_filename),
+                lambda: self._write_files(module_id, manifest, profile_content, profile_filename, category),
             )
         )
 
         # 5. Stage + commit
-        report.steps.append(self._step("git_add", lambda: self._git_add(module_id)))
+        report.steps.append(self._step("git_add", lambda: self._git_add(module_id, category)))
         report.steps.append(self._step("git_commit", lambda: self._git_commit(commit_msg)))
 
         # Determine whether anything was actually committed
@@ -340,18 +342,63 @@ class ModulePublisher:
             return False, f"could not create {branch} from {base}", out, err
         return True, f"created {branch} from {base}", out, err
 
+    # Fields that belong in manifest.json (everything else goes to profile.yaml)
+    _MANIFEST_KEYS = frozenset({
+        "schema_version", "module_id", "name", "description", "version",
+        "type", "category", "author", "license", "tags", "language",
+        "profile_file", "profile_format", "files", "compatibility",
+        "repository", "checksum", "created_at", "updated_at",
+    })
+
     def _write_files(
         self,
         module_id: str,
         manifest: dict[str, Any],
         profile_content: str | None,
         profile_filename: str | None,
+        category: str | None = None,
     ) -> tuple[bool, str, str, str]:
-        target = self.repo_dir / module_id
+        target = self.repo_dir / (category or "") / module_id
         try:
             target.mkdir(parents=True, exist_ok=True)
+
+            # Separate manifest metadata from profile data
+            clean_manifest: dict[str, Any] = {}
+            profile_data: dict[str, Any] = {}
+            for k, v in manifest.items():
+                if k in self._MANIFEST_KEYS:
+                    clean_manifest[k] = v
+                else:
+                    profile_data[k] = v
+
+            # Ensure required manifest fields
+            clean_manifest.setdefault("schema_version", "3.0.0")
+            clean_manifest.setdefault("module_id", module_id)
+            if isinstance(clean_manifest.get("name"), str):
+                clean_manifest["name"] = {"en": clean_manifest["name"]}
+            if isinstance(clean_manifest.get("description"), str):
+                if clean_manifest["description"]:
+                    clean_manifest["description"] = {"en": clean_manifest["description"]}
+                else:
+                    del clean_manifest["description"]
+
+            # Write profile file if there's profile data
+            if profile_data:
+                import yaml
+                profile_file = profile_filename or "profile.yaml"
+                clean_manifest["profile_file"] = profile_file
+                clean_manifest["profile_format"] = "yaml"
+                profile_path = target / profile_file
+                profile_path.write_text(
+                    yaml.dump(profile_data, default_flow_style=False, allow_unicode=True),
+                    encoding="utf-8",
+                )
+                # Calculate checksum for the profile file
+                profile_bytes = profile_path.read_bytes()
+                clean_manifest["checksum"] = hashlib.sha256(profile_bytes).hexdigest()
+
             (target / "manifest.json").write_text(
-                json.dumps(manifest, indent=2, ensure_ascii=False) + "\n",
+                json.dumps(clean_manifest, indent=2, ensure_ascii=False) + "\n",
                 encoding="utf-8",
             )
             if profile_content is not None and profile_filename:
@@ -362,15 +409,18 @@ class ModulePublisher:
         except OSError as e:
             return False, f"failed to write files: {e}", "", ""
         written = ["manifest.json"]
+        if profile_data:
+            written.append(clean_manifest.get("profile_file", "profile.yaml"))
         if profile_content is not None and profile_filename:
             written.append(profile_filename)
         return True, f"wrote {', '.join(written)} to {target}", "", ""
 
-    def _git_add(self, module_id: str) -> tuple[bool, str, str, str]:
-        rc, out, err = self._git("add", "--", f"{module_id}/")
+    def _git_add(self, module_id: str, category: str | None = None) -> tuple[bool, str, str, str]:
+        path = f"{category}/{module_id}/" if category else f"{module_id}/"
+        rc, out, err = self._git("add", "--", path)
         if rc != 0:
-            return False, f"git add {module_id}/ failed (rc={rc})", out, err
-        return True, f"git add {module_id}/", out, err
+            return False, f"git add {path} failed (rc={rc})", out, err
+        return True, f"git add {path}", out, err
 
     def _git_commit(self, commit_msg: str) -> tuple[bool, str, str, str]:
         # Pre-check: if there is nothing staged, skip the commit

@@ -1,16 +1,26 @@
-"""TTSOutputPlugin — renders DebateArtifact as MP3/WAV podcast via edge-tts + ffmpeg."""
+"""TTSOutputPlugin — renders DebateArtifact as MP3/WAV podcast via TTS adapters + ffmpeg.
+
+The plugin uses the :class:`TTSAdapterRegistry` to resolve the TTS engine,
+and delegates segment synthesis to the appropriate adapter.  Audio
+concatenation is handled by the shared ``audio_helpers`` module.
+"""
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from enum import StrEnum
 from pathlib import Path
-from typing import ClassVar
+from typing import Any, ClassVar
 
 from pydantic import BaseModel, Field
 
 from backend.models.artifact import DebateArtifact
 from backend.services.output.base import OutputPlugin, ProgressCallback, _noop_progress
+
+# Import adapters to trigger registration (must come after registry import)
+from backend.services.output.plugins import tts_adapters  # noqa: F401
+from backend.services.output.plugins.tts_adapter import TTSAdapterRegistry
 from backend.services.output.plugins.tts_script_engine import TTSScriptEngine
 from backend.services.output.registry import register_plugin
 
@@ -22,14 +32,6 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 
-class TTSEngine(StrEnum):
-    """TTSEngine class."""
-
-    EDGE_TTS = "edge_tts"
-    MIMO_TTS = "mimo_tts"
-    PYTTSX3 = "pyttsx3"
-
-
 class AudioFormat(StrEnum):
     """AudioFormat class."""
 
@@ -37,10 +39,17 @@ class AudioFormat(StrEnum):
     WAV = "wav"
 
 
+# Default engine used when no adapter is found
+_DEFAULT_ENGINE = "edge_tts"
+
+
 class TTSPluginConfig(BaseModel):
     """Configuration schema for the TTS Podcast output plugin."""
 
-    engine: TTSEngine = TTSEngine.EDGE_TTS
+    engine: str = Field(
+        default=_DEFAULT_ENGINE,
+        description="TTS engine ID (e.g. 'edge_tts', 'mimo_tts', 'pyttsx3')",
+    )
     voice_mapping: dict[str, str] = Field(
         default_factory=dict,
         description="agent_name → voice_id mapping",
@@ -58,10 +67,7 @@ class TTSPluginConfig(BaseModel):
         default=False,
         description="Keep individual segment files after concatenation",
     )
-    # MiMo TTS specific (only used when engine="mimo_tts")
-    # API base URL, key env, and model are auto-resolved from the
-    # TTS LLM profile in the DB (profile_type="tts", provider="xiaomi").
-    # These fields serve as overrides if no matching profile exists.
+    # Engine-specific overrides (hidden from UI, auto-resolved from profiles)
     mimo_api_key_env: str = Field(
         default="",
         description="Override env var for MiMo API key (auto-resolved from LLM profile)",
@@ -79,7 +85,7 @@ class TTSPluginConfig(BaseModel):
     )
     default_style_hint: str = Field(
         default="",
-        description="Default style hint for MiMo TTS (natural language tone/style)",
+        description="Default style hint for TTS engines that support it (natural language tone/style)",
     )
 
 
@@ -90,10 +96,10 @@ class TTSPluginConfig(BaseModel):
 
 @register_plugin
 class TTSOutputPlugin(OutputPlugin):
-    """Renders a DebateArtifact as an audio podcast via edge-tts + ffmpeg.
+    """Renders a DebateArtifact as an audio podcast via TTS adapters + ffmpeg.
 
     Transforms the transcript into a TTSScript, renders each segment
-    with edge-tts, and concatenates them with ffmpeg.
+    with the selected adapter, and concatenates them with ffmpeg.
     """
 
     plugin_key: ClassVar[str] = "tts"
@@ -127,6 +133,16 @@ class TTSOutputPlugin(OutputPlugin):
         job_dir = output_dir / job_id
         job_dir.mkdir(parents=True, exist_ok=True)
 
+        # Resolve adapter
+        engine = config.engine
+        if not TTSAdapterRegistry.is_registered(engine):
+            logger.warning(
+                "TTS engine '%s' not registered, falling back to '%s'",
+                engine,
+                _DEFAULT_ENGINE,
+            )
+            engine = _DEFAULT_ENGINE
+
         # Resolve voice_mapping from blueprints if empty
         voice_mapping = dict(config.voice_mapping)
         if not voice_mapping:
@@ -146,11 +162,11 @@ class TTSOutputPlugin(OutputPlugin):
             except Exception:
                 logger.debug("Could not resolve voice mappings from blueprints", exc_info=True)
 
-        # Resolve MiMo TTS config from LLM profile (profile_type="tts", provider="xiaomi")
+        # Resolve engine-specific config (MiMo overrides from LLM profiles)
         mimo_api_base = config.mimo_api_base
         mimo_api_key_env = config.mimo_api_key_env
         mimo_model = config.mimo_model
-        if config.engine == TTSEngine.MIMO_TTS:
+        if engine == "mimo_tts":
             if not mimo_api_base or not mimo_api_key_env or not mimo_model:
                 try:
                     from backend.blueprints.repository import BlueprintRepository
@@ -184,15 +200,16 @@ class TTSOutputPlugin(OutputPlugin):
             if not mimo_model:
                 mimo_model = "mimo-v2.5-tts"
 
-        # Resolve default_voice for MiMo engine (edge-tts voice names are invalid)
+        # Resolve default_voice for engines with limited voice sets
         default_voice = config.default_voice
-        if config.engine == TTSEngine.MIMO_TTS:
-            mimo_valid = {"Mia", "Chloe", "Milo", "Dean", "冰糖", "茉莉", "苏打", "白桦"}
+        if engine == "mimo_tts":
+            from backend.services.output.plugins.tts_adapters.mimo_adapter import MIMO_VOICES
+
+            mimo_valid = {v["voice_id"] for v in MIMO_VOICES}
             if default_voice not in mimo_valid:
-                # Pick language-appropriate default
-                zh_voices = {"冰糖", "茉莉", "苏打", "白桦"}
+                zh_voices = {v["voice_id"] for v in MIMO_VOICES if v["language"] == "zh"}
                 if config.language and config.language.startswith("zh") and zh_voices:
-                    default_voice = "bing_tang"
+                    default_voice = "冰糖"
                 else:
                     default_voice = "Mia"
                 logger.info(
@@ -214,18 +231,54 @@ class TTSOutputPlugin(OutputPlugin):
             outro_text=config.outro_text,
             language=config.language,
             default_style_hint=config.default_style_hint,
-            engine=config.engine.value,
+            engine=engine,
         )
 
         logger.info(
             "TTS script generated: %d segments for job %s (engine=%s)",
             len(script.segments),
             job_id,
-            config.engine.value,
+            engine,
         )
 
-        # 2. Render audio — engine router
-        if config.engine == TTSEngine.MIMO_TTS:
+        # 2. Render audio — delegate to engine-specific renderer
+        output_path = await self._render_audio(
+            engine=engine,
+            script=script,
+            job_id=job_id,
+            output_dir=output_dir,
+            output_format=config.output_format,
+            bitrate=config.bitrate,
+            keep_segments=config.keep_segments,
+            progress_callback=progress_callback,
+            mimo_api_base=mimo_api_base,
+            mimo_api_key_env=mimo_api_key_env,
+            mimo_model=mimo_model,
+        )
+
+        logger.info("TTSOutputPlugin rendered audio for job %s: %s", job_id, output_path)
+        return [output_path]
+
+    async def _render_audio(
+        self,
+        *,
+        engine: str,
+        script: Any,
+        job_id: str,
+        output_dir: Path,
+        output_format: AudioFormat,
+        bitrate: str,
+        keep_segments: bool,
+        progress_callback: ProgressCallback,
+        mimo_api_base: str,
+        mimo_api_key_env: str,
+        mimo_model: str,
+    ) -> Path:
+        """Render TTSScript to audio file using the appropriate renderer.
+
+        The renderers handle segment synthesis + concatenation.
+        """
+        if engine == "mimo_tts":
             from backend.services.output.plugins.mimo_tts_renderer import MiMoTTSRenderer
 
             renderer = MiMoTTSRenderer(
@@ -238,18 +291,17 @@ class TTSOutputPlugin(OutputPlugin):
                 job_id=job_id,
                 output_dir=output_dir,
                 output_format="wav",
-                bitrate=config.bitrate,
-                keep_segments=config.keep_segments,
+                bitrate=bitrate,
+                keep_segments=keep_segments,
                 progress_callback=progress_callback,
             )
 
             # Convert WAV → MP3 if user requested MP3
-            if config.output_format == AudioFormat.MP3:
+            if output_format == AudioFormat.MP3:
                 from backend.services.output.plugins.audio_helpers import check_ffmpeg
 
                 ffmpeg = check_ffmpeg()
                 mp3_path = output_path.with_suffix(".mp3")
-                import asyncio
 
                 proc = await asyncio.create_subprocess_exec(
                     str(ffmpeg),
@@ -259,7 +311,7 @@ class TTSOutputPlugin(OutputPlugin):
                     "-codec:a",
                     "libmp3lame",
                     "-b:a",
-                    config.bitrate,
+                    bitrate,
                     str(mp3_path),
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE,
@@ -275,7 +327,7 @@ class TTSOutputPlugin(OutputPlugin):
                         stderr.decode()[:200],
                     )
 
-        elif config.engine == TTSEngine.PYTTSX3:
+        elif engine == "pyttsx3":
             from backend.services.output.plugins.pyttsx3_renderer import Pyttsx3Renderer
 
             renderer = Pyttsx3Renderer()
@@ -283,12 +335,13 @@ class TTSOutputPlugin(OutputPlugin):
                 script=script,
                 job_id=job_id,
                 output_dir=output_dir,
-                output_format=config.output_format,
-                bitrate=config.bitrate,
-                keep_segments=config.keep_segments,
+                output_format=output_format,
+                bitrate=bitrate,
+                keep_segments=keep_segments,
             )
 
         else:
+            # Default: edge_tts (and any future engine using the same pattern)
             from backend.services.output.plugins.edge_tts_renderer import EdgeTTSRenderer
 
             renderer = EdgeTTSRenderer()
@@ -296,10 +349,9 @@ class TTSOutputPlugin(OutputPlugin):
                 script=script,
                 job_id=job_id,
                 output_dir=output_dir,
-                output_format=config.output_format,
-                bitrate=config.bitrate,
-                keep_segments=config.keep_segments,
+                output_format=output_format,
+                bitrate=bitrate,
+                keep_segments=keep_segments,
             )
 
-        logger.info("TTSOutputPlugin rendered audio for job %s: %s", job_id, output_path)
-        return [output_path]
+        return output_path

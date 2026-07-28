@@ -15,6 +15,7 @@ import logging
 from collections import defaultdict
 
 from backend.models.artifact import DebateArtifact
+from backend.services.output.plugins.tts_adapter import TTSAdapterRegistry
 from backend.services.output.plugins.tts_models import TTSScript, TTSSegment
 
 logger = logging.getLogger(__name__)
@@ -64,8 +65,8 @@ class TTSScriptEngine:
             intro_text: Optional intro narration.
             outro_text: Optional outro narration.
             language: Language for spoken hints.
-            default_style_hint: Default style hint for MiMo TTS segments.
-            engine: TTS engine type ("edge_tts" or "mimo_tts").
+            default_style_hint: Default style hint for TTS engines that support it.
+            engine: TTS engine ID (e.g. "edge_tts", "mimo_tts").
 
         Returns:
             A ``TTSScript`` ready for audio rendering.
@@ -76,8 +77,11 @@ class TTSScriptEngine:
         # Language-specific hints
         hints = self._get_hints(language)
 
-        # Determine if style hints should be applied (only for MiMo TTS)
-        use_style_hints = engine == "mimo_tts"
+        # Determine if style hints should be applied (adapter-based check)
+        use_style_hints = False
+        if TTSAdapterRegistry.is_registered(engine):
+            adapter = TTSAdapterRegistry.get(engine)
+            use_style_hints = adapter.supports_style_hints
 
         # (a) Intro segment
         if intro_text:

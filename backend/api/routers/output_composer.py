@@ -283,7 +283,7 @@ async def get_session_agents(session_id: str) -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
-# TTS Voices
+# TTS Voices & Engines
 # ---------------------------------------------------------------------------
 
 
@@ -295,20 +295,44 @@ async def list_tts_voices(
 ) -> list[dict]:
     """List available TTS voices with optional filters.
 
+    Uses the adapter registry to list voices for the specified engine.
+    Falls back to edge-tts if no engine is specified.
+
     Args:
         language: Filter by language prefix (e.g. "de", "en").
         gender: Filter by gender ("Male" / "Female").
-        engine: If "mimo_tts", return MiMo voices instead of edge-tts voices.
+        engine: TTS engine ID (e.g. "edge_tts", "mimo_tts"). Defaults to "edge_tts".
     """
-    if engine == "mimo_tts":
-        from backend.services.output.plugins.mimo_tts_renderer import list_mimo_voices
+    from backend.services.output.plugins.tts_adapter import TTSAdapterRegistry
 
-        return list_mimo_voices(language=language, gender=gender)
+    # Ensure adapters are imported (triggers @register_adapter)
+    import backend.services.output.plugins.tts_adapters  # noqa: F401
 
-    from backend.services.output.plugins.voice_store import VoiceStore
+    engine_id = engine or "edge_tts"
+    if not TTSAdapterRegistry.is_registered(engine_id):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unknown TTS engine '{engine_id}'. Use GET /api/v1/tts-engines for available engines.",
+        )
 
-    store = VoiceStore()
-    return store.list_voices(language=language, gender=gender)
+    adapter = TTSAdapterRegistry.get(engine_id)
+    return adapter.list_voices(language=language, gender=gender)
+
+
+@router.get("/tts-engines")
+async def list_tts_engines() -> list[dict]:
+    """List all registered TTS engines with availability and license info.
+
+    Returns:
+        List of engine objects with keys: ``engine_id``, ``display_name``,
+        ``available``, ``license``.
+    """
+    from backend.services.output.plugins.tts_adapter import TTSAdapterRegistry
+
+    # Ensure adapters are imported (triggers @register_adapter)
+    import backend.services.output.plugins.tts_adapters  # noqa: F401
+
+    return TTSAdapterRegistry.available_engines()
 
 
 # ---------------------------------------------------------------------------

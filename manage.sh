@@ -27,6 +27,8 @@
 #     BACKEND_PORT / FRONTEND_PORT / STUDIO_PORT
 #     BACKEND_WATCHER_ENABLED=1          # auto-respawn on crash (default: 0)
 #     BACKEND_WATCHER_INTERVAL=2        # poll interval seconds (default: 2)
+#     DANWA_MODULES_PUBLISH_ENABLED=1   # enable module publishing (default: auto-detect)
+#     DANWA_MODULES_PUBLISH_DIR=/path   # git clone of danwa-modules repo (default: sibling dir)
 
 set -uo pipefail
 
@@ -56,6 +58,17 @@ FRONTEND_PORT="${FRONTEND_PORT:-5173}"
 STUDIO_PORT="${STUDIO_PORT:-5174}"
 BACKEND_WATCHER_ENABLED="${BACKEND_WATCHER_ENABLED:-0}"
 BACKEND_WATCHER_INTERVAL="${BACKEND_WATCHER_INTERVAL:-2}"
+
+# Module publishing defaults: auto-detect sibling danwa-modules repo
+if [[ -z "${DANWA_MODULES_PUBLISH_DIR:-}" ]]; then
+    _sibling="$PROJECT_DIR/../danwa-modules"
+    if [[ -d "$_sibling/.git" ]]; then
+        DANWA_MODULES_PUBLISH_DIR="$_sibling"
+        DANWA_MODULES_PUBLISH_ENABLED="${DANWA_MODULES_PUBLISH_ENABLED:-1}"
+    fi
+fi
+export DANWA_MODULES_PUBLISH_ENABLED="${DANWA_MODULES_PUBLISH_ENABLED:-0}"
+export DANWA_MODULES_PUBLISH_DIR="${DANWA_MODULES_PUBLISH_DIR:-}"
 
 MOCK_BACKEND_SCRIPT="${MOCK_BACKEND_SCRIPT:-$LOG_DIR/.mock-backend.sh}"
 MOCK_FRONTEND_SCRIPT="${MOCK_FRONTEND_SCRIPT:-$LOG_DIR/.mock-frontend.sh}"
@@ -133,6 +146,9 @@ start_backend() {
     fi
     echo "$pid" > "$BACKEND_PID_FILE"
     log_ok "Backend started (PID $pid, log: $BACKEND_LOG)"
+    if [[ "$DANWA_MODULES_PUBLISH_ENABLED" == "1" ]]; then
+        log_info "Module publishing enabled → $DANWA_MODULES_PUBLISH_DIR"
+    fi
 }
 
 stop_backend() {
@@ -533,6 +549,8 @@ Env overrides:
   BACKEND_WATCHER_ENABLED=1          Auto-respawn backend on crash (default: 0)
   BACKEND_WATCHER_INTERVAL=2        Poll interval in seconds (default: 2)
   BACKEND_PORT / FRONTEND_PORT / STUDIO_PORT
+  DANWA_MODULES_PUBLISH_ENABLED=1   Enable module publishing (default: auto-detect)
+  DANWA_MODULES_PUBLISH_DIR=/path   Git clone of danwa-modules repo (default: sibling dir)
 EOF
 }
 
