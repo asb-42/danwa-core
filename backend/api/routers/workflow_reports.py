@@ -114,7 +114,11 @@ async def _generate_report_job(
         if project_id:
             try:
                 debate_store = get_debate_store_for_case(project_id)
+                # Try debate_id first (same as session_id for legacy debates),
+                # then fall back to session_id lookup for workflow-runner debates.
                 debate_data = debate_store.get(session_id)
+                if not debate_data:
+                    debate_data = debate_store.get_by_session_id(session_id)
             except Exception as exc:
                 logger.warning(
                     "Could not load debate data for session %s (project %s): %s",

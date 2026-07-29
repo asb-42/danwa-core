@@ -104,6 +104,13 @@ class DebateStore:
         """Get a debate by ID."""
         return self._cache.get(debate_id)
 
+    def get_by_session_id(self, session_id: str) -> dict | None:
+        """Get a debate by its workflow session_id."""
+        for debate in self._cache.values():
+            if debate.get("session_id") == session_id:
+                return debate
+        return None
+
     def list_all(self, limit: int = 50, offset: int = 0) -> list[dict]:
         """List all debates, newest first."""
         debates = sorted(
