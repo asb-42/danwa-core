@@ -30,6 +30,93 @@ logger = logging.getLogger(__name__)
 _REPORTS_DIR = Path("reports")
 
 
+def _md_to_html(text: str) -> str:
+    """Convert a subset of Markdown to HTML for report rendering.
+
+    Handles: headings (#, ##, ###), bold (**), italic (*), bullet lists (-),
+    numbered lists (1.), and line breaks.  Does NOT use a full Markdown parser
+    to avoid an external dependency — covers the patterns actually emitted by
+    LLM agent outputs.
+    """
+    if not text:
+        return ""
+    esc = html_mod.escape
+    lines = text.split("\n")
+    out: list[str] = []
+    in_list = False
+
+    for line in lines:
+        stripped = line.strip()
+
+        # Headings
+        if stripped.startswith("### "):
+            if in_list:
+                out.append("</ul>")
+                in_list = False
+            out.append(f"<h4>{esc(stripped[4:])}</h4>")
+            continue
+        if stripped.startswith("## "):
+            if in_list:
+                out.append("</ul>")
+                in_list = False
+            out.append(f"<h3>{esc(stripped[3:])}</h3>")
+            continue
+        if stripped.startswith("# "):
+            if in_list:
+                out.append("</ul>")
+                in_list = False
+            out.append(f"<h2>{esc(stripped[2:])}</h2>")
+            continue
+
+        # Bullet list items
+        if stripped.startswith("- ") or stripped.startswith("* "):
+            if not in_list:
+                out.append("<ul>")
+                in_list = True
+            out.append(f"<li>{_inline_md(stripped[2:])}</li>")
+            continue
+
+        # Numbered list items
+        if len(stripped) > 2 and stripped[0].isdigit() and stripped[1] in ".)" and stripped[2] == " ":
+            if not in_list:
+                out.append("<ul>")
+                in_list = True
+            out.append(f"<li>{_inline_md(stripped[3:])}</li>")
+            continue
+
+        # Close list if we hit non-list content
+        if in_list:
+            out.append("</ul>")
+            in_list = False
+
+        # Empty line → paragraph break
+        if not stripped:
+            out.append("<br>")
+            continue
+
+        # Regular paragraph
+        out.append(f"<p>{_inline_md(stripped)}</p>")
+
+    if in_list:
+        out.append("</ul>")
+
+    return "\n".join(out)
+
+
+def _inline_md(text: str) -> str:
+    """Convert inline Markdown (bold, italic, code) to HTML."""
+    import re
+    esc = html_mod.escape
+    s = esc(text)
+    # Bold: **text**
+    s = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", s)
+    # Italic: *text*
+    s = re.sub(r"\*(.+?)\*", r"<em>\1</em>", s)
+    # Inline code: `text`
+    s = re.sub(r"`(.+?)`", r"<code>\1</code>", s)
+    return s
+
+
 def _display_agent_role(role: str) -> str:
     """Format an agent role for display.
 
@@ -1124,7 +1211,7 @@ class WorkflowReportGenerator:
         case_text = transcript["case_text"]
         case_section = ""
         if case_text:
-            case_section = f'<h2>Fallbeschreibung</h2><div class="case-text">{esc(case_text)}</div>'
+            case_section = f'<h2>Fallbeschreibung</h2><div class="case-text">{_md_to_html(case_text)}</div>'
 
         # --- Rounds ---
         rounds_html = ""
@@ -1139,7 +1226,7 @@ class WorkflowReportGenerator:
                 def _render_agent_block(ao: dict) -> str:
                     """Render a single agent output as an HTML block."""
                     _role = ao.get("role", "unbekannt")
-                    _content = esc(ao.get("content", ""))
+                    _content = _md_to_html(ao.get("content", ""))
                     _tokens = ao.get("tokens_used", 0)
                     _duration = ao.get("duration_ms", 0)
                     _llm = ao.get("llm_profile_name", "") or ao.get("llm_profile_id", "")
@@ -1174,7 +1261,7 @@ class WorkflowReportGenerator:
         output = transcript["output"]
         output_section = ""
         if output:
-            output_section = f'<h2>Ergebnis</h2><div class="output-text">{esc(output)}</div>'
+            output_section = f'<h2>Ergebnis</h2><div class="output-text">{_md_to_html(output)}</div>'
 
         # --- Transactional Drafting: Konstruktionsprotokoll ---
         txn_protocol = WorkflowReportGenerator._extract_transactional_protocol(audit_entries)
@@ -1235,12 +1322,12 @@ class WorkflowReportGenerator:
   table {{ border-collapse: collapse; width: 100%; margin: 0.5em 0; }}
   th, td {{ border: 1px solid #ccc; padding: 6px 10px; text-align: left; }}
   th {{ background: #f0f0f0; }}
-  .case-text {{ background: #f8f9fa; padding: 1em; border-left: 4px solid #0f3460; margin: 0.5em 0; white-space: pre-wrap; }}
+  .case-text {{ background: #f8f9fa; padding: 1em; border-left: 4px solid #0f3460; margin: 0.5em 0; }}
   .agent-block {{ margin: 1em 0; padding: 0.8em; border: 1px solid #e0e0e0; border-radius: 6px; background: #fafafa; }}
   .agent-role {{ font-weight: bold; color: #0f3460; margin-bottom: 0.4em; font-size: 1.05em; }}
-  .agent-content {{ white-space: pre-wrap; }}
+  .agent-content {{ }}
   .agent-meta {{ font-size: 0.85em; color: #888; margin-top: 0.4em; }}
-  .output-text {{ background: #e8f5e9; padding: 1em; border-left: 4px solid #2e7d32; white-space: pre-wrap; }}
+  .output-text {{ background: #e8f5e9; padding: 1em; border-left: 4px solid #2e7d32; }}
   .meta-table {{ width: auto; }}
   .meta-table td {{ padding: 4px 12px; }}
 </style></head><body>
