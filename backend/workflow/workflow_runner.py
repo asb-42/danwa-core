@@ -321,6 +321,32 @@ async def run_workflow_background(
                 if debate:
                     debate["status"] = DebateStatus.COMPLETED
                     debate["current_round"] = final_state.get("current_round", 0)
+
+                    # Build rounds from node_outputs (MVP debates don't
+                    # populate debate["rounds"] during execution — the data
+                    # lives in state's node_outputs accumulator).
+                    node_outputs = final_state.get("node_outputs", [])
+                    rounds: list[dict[str, Any]] = []
+                    if node_outputs:
+                        from collections import OrderedDict
+                        rounds_map: OrderedDict[int, list[dict[str, Any]]] = OrderedDict()
+                        for no in node_outputs:
+                            rnd = no.get("round") or 0
+                            rounds_map.setdefault(rnd, []).append({
+                                "role": no.get("role", ""),
+                                "content": no.get("content", ""),
+                                "tokens_used": no.get("tokens_used", 0),
+                                "duration_ms": no.get("duration_ms", 0),
+                            })
+                        final_consensus = final_state.get("final_consensus", 0.0)
+                        for rnd_num, rnd_outputs in rounds_map.items():
+                            rounds.append({
+                                "round": rnd_num,
+                                "consensus": final_consensus,
+                                "agent_outputs": rnd_outputs,
+                            })
+
+                    debate["rounds"] = rounds
                     debate["result"] = {
                         "final_consensus": final_state.get("final_consensus", 0.0),
                         "consensus": final_state.get("final_consensus", 0.0),
