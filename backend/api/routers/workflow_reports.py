@@ -57,7 +57,7 @@ class CreateReportRequest(BaseModel):
 
     format: str = Field(
         default="docx",
-        description="Output format: 'docx', 'pdf', or 'odf'",
+        description="Output format: 'docx', 'pdf', 'odf', or 'md'",
     )
 
 
@@ -167,10 +167,10 @@ async def create_report_job(
     once the status is ``"completed"``.
     """
     fmt = body.format
-    if fmt not in ("docx", "pdf", "odf"):
+    if fmt not in ("docx", "pdf", "odf", "md"):
         raise HTTPException(
             status_code=422,
-            detail="Format must be 'docx', 'pdf', or 'odf'",
+            detail="Format must be 'docx', 'pdf', 'odf', or 'md'",
         )
 
     store = _get_job_store()
@@ -229,6 +229,7 @@ async def download_report(job_id: str):
         "docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "pdf": "application/pdf",
         "odf": "application/vnd.oasis.opendocument.text",
+        "md": "text/markdown",
     }
     return FileResponse(
         path=str(path),

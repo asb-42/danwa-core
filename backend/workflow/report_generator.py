@@ -544,7 +544,7 @@ class WorkflowReportGenerator:
         Returns:
             Path to the generated report file.
         """
-        if fmt not in ("docx", "pdf", "odf"):
+        if fmt not in ("docx", "pdf", "odf", "md"):
             raise ValueError(f"Unsupported format: {fmt!r}")
 
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -567,6 +567,8 @@ class WorkflowReportGenerator:
             await asyncio.to_thread(self._build_pdf, session_id, transcript, audit_entries, path)
         elif fmt == "odf":
             await asyncio.to_thread(self._build_odf, session_id, transcript, audit_entries, path)
+        elif fmt == "md":
+            await asyncio.to_thread(self._build_md, session_id, transcript, audit_entries, path)
 
         logger.info("Report generated: %s", path)
         return path
@@ -988,6 +990,106 @@ class WorkflowReportGenerator:
             path = path.with_suffix(".html")
             path.write_text(html_content, encoding="utf-8")
             logger.warning("odfpy not available; wrote HTML instead: %s", path)
+
+    def _build_md(
+        self,
+        session_id: str,
+        transcript: dict[str, Any],
+        audit_entries: list[dict[str, Any]],
+        path: Path,
+    ) -> None:
+        """Build Markdown report."""
+        lines: list[str] = []
+        title = transcript["title"] or f"Debatte {session_id[:8]}"
+        lines.append(f"# {title}")
+        lines.append("")
+
+        # Metadata
+        lines.append("## Zusammenfassung")
+        lines.append("")
+        lines.append(f"- **Session-ID:** {session_id}")
+        lines.append(f"- **Titel:** {transcript['title']}")
+        lines.append(f"- **Sprache:** {transcript['language']}")
+        lines.append(f"- **Modell:** {transcript['model']}")
+        lines.append(f"- **Max. Runden:** {transcript['max_rounds']}")
+        lines.append(f"- **Konsens-Schwelle:** {transcript['threshold']:.0%}")
+        lines.append(f"- **Status:** {transcript['status']}")
+        lines.append(f"- **Runden absolviert:** {transcript['current_round']}")
+        lines.append(f"- **Finaler Konsens:** {transcript['final_consensus']:.1%}")
+        lines.append("")
+
+        # Case description
+        case_text = transcript["case_text"]
+        if case_text:
+            lines.append("## Fallbeschreibung")
+            lines.append("")
+            lines.append(case_text)
+            lines.append("")
+
+        # Transcript
+        rounds = transcript["rounds"]
+        if rounds:
+            lines.append("## Debatte-Transkript")
+            lines.append("")
+            for rd in rounds:
+                round_num = rd.get("round", "?")
+                consensus = rd.get("consensus", 0.0)
+                lines.append(f"### Runde {round_num} — Konsens: {consensus:.1%}")
+                lines.append("")
+                phases = rd.get("phases", [])
+                if phases:
+                    for phase in phases:
+                        phase_name = phase.get("phase_name", "")
+                        if phase_name:
+                            lines.append(f"#### {phase_name}")
+                            lines.append("")
+                        for ao in phase.get("agent_outputs", []):
+                            role = ao.get("role", "unbekannt")
+                            content = ao.get("content", "")
+                            llm_pid = ao.get("llm_profile_name", "") or ao.get("llm_profile_id", "")
+                            role_label = _display_agent_role(role)
+                            if llm_pid:
+                                role_label += f" — {llm_pid}"
+                            lines.append(f"**[{role_label}]**")
+                            lines.append("")
+                            if content:
+                                lines.append(content)
+                                lines.append("")
+                else:
+                    for ao in rd.get("agent_outputs", []):
+                        role = ao.get("role", "unbekannt")
+                        content = ao.get("content", "")
+                        llm_pid = ao.get("llm_profile_name", "") or ao.get("llm_profile_id", "")
+                        role_label = _display_agent_role(role)
+                        if llm_pid:
+                            role_label += f" — {llm_pid}"
+                        lines.append(f"**[{role_label}]**")
+                        lines.append("")
+                        if content:
+                            lines.append(content)
+                            lines.append("")
+
+        # Final output
+        output = transcript["output"]
+        if output:
+            lines.append("## Ergebnis")
+            lines.append("")
+            lines.append(output)
+            lines.append("")
+
+        # Audit trail
+        if audit_entries:
+            lines.append("## Audit-Trail")
+            lines.append("")
+            for entry in audit_entries:
+                llm_pid = entry.get("llm_profile_name", "") or entry.get("llm_profile_id", "")
+                line = f"{entry.get('timestamp', '')} | {entry.get('event_type', '')} | {entry.get('node_id', '')} | {entry.get('actor', '')}"
+                if llm_pid:
+                    line += f" | LLM: {llm_pid}"
+                lines.append(f"- {line}")
+            lines.append("")
+
+        path.write_text("\n".join(lines), encoding="utf-8")
 
     # ------------------------------------------------------------------
     # HTML rendering (shared by PDF and ODF)
