@@ -202,11 +202,41 @@ class RenderEngineService:
     # ------------------------------------------------------------------
 
     def _build_artifact_from_debate_store(self, session_id: str):
-        """Fallback: build a DebateArtifact from the debate store for legacy sessions.
+        """Fallback: build a DebateArtifact from tenants/cases on disk.
 
-        Searches all projects for a debate with the given session_id and builds
-        an artifact from its rounds/result data.  Returns None if not found.
+        Scans ``data/tenants/**/cases/*/debates/*.json`` for a debate whose
+        ``session_id`` matches.  Returns None if not found.
         """
+        from pathlib import Path
+        import json
+        import os
+        from backend.persistence.debate_store import _normalize_debate
+
+        # Resolve repo root: backend/services/render_engine.py → ../../data
+        data_root = Path(os.getenv("DANWA_DATA_DIR", Path(__file__).resolve().parent.parent.parent / "data"))
+        tenants_root = data_root / "tenants"
+        if not tenants_root.exists():
+            return None
+
+        # Scan debate JSON files across all tenants/cases
+        for debates_dir in tenants_root.glob("*/cases/*/debates"):
+            if not debates_dir.is_dir():
+                continue
+            for path in debates_dir.glob("*.json"):
+                try:
+                    data = json.loads(path.read_text(encoding="utf-8"))
+                    if data.get("session_id") == session_id or data.get("debate_id") == session_id:
+                        debate = _normalize_debate(data)
+                        artifact = _debate_to_artifact(debate)
+                        self.artifact_store.save(artifact)
+                        return artifact
+                except Exception as exc:
+                    logger.debug("Skipping debate file %s: %s", path, exc)
+                    continue
+        return None
+
+    def _build_artifact_from_debate_store_old(self, session_id: str):
+        """Deprecated: project-based fallback (kept for reference, no longer called)."""
         from backend.api.deps import get_case_dir, get_project_store
         from backend.persistence.debate_store import DebateStore
 
