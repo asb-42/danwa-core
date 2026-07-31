@@ -802,6 +802,7 @@ class LLMService:
         max_tokens: int | None = None,
         context: str = "",
         language: str = "en",
+        timeout: int = 120,
     ) -> GenerationResult:
         """Synchronous wrapper around async generate().
 
@@ -819,6 +820,7 @@ class LLMService:
         Args:
             language: ISO 639-1 code forwarded to :meth:`generate`; see
                 P4.3 in :mod:`backend.services.prompt_date_prefix`.
+            timeout: Maximum seconds to wait for the LLM response.
         """
         import asyncio
         import concurrent.futures
@@ -837,7 +839,7 @@ class LLMService:
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
             future = executor.submit(_run_in_thread)
-            return future.result(timeout=120)
+            return future.result(timeout=timeout)
 
     def estimate_cost(
         self,

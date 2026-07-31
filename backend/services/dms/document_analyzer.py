@@ -318,7 +318,7 @@ def _call_llm(
     llm_profile_id = profile_id or select_service_llm(profile_service)
     llm = LLMService(profile_id=llm_profile_id, profile_service=profile_service)
 
-    result = _generate_with_retry(llm, user_prompt, system_prompt)
+    result = _generate_with_retry(llm, user_prompt, system_prompt, timeout=timeout)
     if "error" in result:
         return result
 
@@ -364,6 +364,7 @@ def _generate_with_retry(
                 temperature=0.1,
                 max_tokens=8192,
                 context="Document Analysis",
+                timeout=timeout,
             )
             return {
                 "content": result.content.strip(),
@@ -376,10 +377,10 @@ def _generate_with_retry(
             last_error = e
             if attempt < max_retries:
                 delay = base_delay * (2**attempt)
-                logger.warning("LLM call attempt %d failed, retrying in %.1fs: %s", attempt + 1, delay, e)
+                logger.warning("LLM call attempt %d failed, retrying in %.1fs: %s", attempt + 1, delay, repr(e))
                 time.sleep(delay)
-    logger.error("LLM analysis failed after %d attempts: %s", max_retries + 1, last_error)
-    return {"error": f"Analysis failed after {max_retries + 1} attempts: {last_error}"}
+    logger.error("LLM analysis failed after %d attempts: %s", max_retries + 1, repr(last_error))
+    return {"error": f"Analysis failed after {max_retries + 1} attempts: {repr(last_error)}"}
 
 
 def _request_json_fix(llm: LLMService, malformed: str) -> dict | None:

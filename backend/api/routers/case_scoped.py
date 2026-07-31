@@ -14,7 +14,8 @@ import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
-from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Query
+from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Query, UploadFile
+from pydantic import BaseModel
 
 from backend.api.deps import (
     get_audit_service,
@@ -37,6 +38,7 @@ from backend.models.schemas import (
 from backend.persistence.audit import AuditService
 from backend.persistence.case_store import CaseStore
 from backend.persistence.debate_store import DebateStore
+from backend.persistence.project_store import ProjectStore
 from backend.persistence.tag_store import TagStore
 from backend.persistence.tenant_store import TenantStore
 
@@ -720,12 +722,25 @@ def _get_dms_for_case(tenant_id: str, case_id: str, case_store: CaseStore):
         # if two cases happen to share a numeric id.
         scope_id = f"case:{tenant_id}:{case_id}"
 
+        from datetime import datetime
+
         dms = DMS(
             db_path=str(dms_dir / "dms.db"),
             chroma_path=str(dms_dir / "chroma_db"),
             config=dms_config,
             project_id=scope_id,
         )
+
+        # Ensure the synthetic project_id exists in the projects table so
+        # FOREIGN KEY constraints on documents.project_id are satisfied.
+        if not dms.db.get_project(scope_id):
+            case_name = case.name if hasattr(case, "name") else scope_id
+            dms.db.conn.execute(
+                "INSERT OR IGNORE INTO projects (id, name, description, created_at, metadata_json) VALUES (?, ?, ?, ?, ?)",
+                (scope_id, case_name, "", datetime.now().isoformat(), ""),
+            )
+            dms.db.conn.commit()
+
         _dms_cache[cache_key] = dms
         return dms
 
@@ -738,7 +753,7 @@ def list_case_documents(
 ):
     """List documents in the case DMS."""
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
-    return dms.list_documents(case_id)
+    return dms.list_documents(dms._project_id)
 
 
 @router.get("/tenants/{tenant_id}/cases/{case_id}/dms/documents/{document_id}")
@@ -761,17 +776,18 @@ def get_case_document(
 async def upload_case_document(
     tenant_id: str,
     case_id: str,
-    file_bytes: bytes = File(...),
-    filename: str = Query(default="uploaded.pdf"),
+    file: UploadFile = File(...),
     case_store: CaseStore = Depends(get_case_store),
 ):
     """Upload a document to the case DMS."""
     import tempfile
 
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
+    filename = file.filename or "uploaded.pdf"
+    content = await file.read()
     tmp = tempfile.NamedTemporaryFile(delete=False, suffix=Path(filename).suffix)
     try:
-        tmp.write(file_bytes)
+        tmp.write(content)
         tmp.close()
         result = dms.add_document(tmp.name, filename=filename)
     finally:
@@ -851,14 +867,86 @@ def search_case_rag(
 async def analyze_case_documents(
     tenant_id: str,
     case_id: str,
+    language: str = Query("de", description="Language for analysis content"),
+    mode: str = Query("full", description="Analysis mode: 'full' or 'update'"),
     case_store: CaseStore = Depends(get_case_store),
 ):
     """Analyze all documents in the case DMS."""
-    from backend.services.dms.document_analyzer import analyze_documents as run_document_analysis
+    import asyncio
+
+    from backend.services.dms.document_analyzer import (
+        analyze_documents as run_document_analysis,
+        load_analysis,
+        save_analysis,
+        update_analysis,
+    )
+    from backend.services.profile_service import ProfileService
 
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
-    result = await run_document_analysis(dms)
-    return result
+    project_id = dms._project_id
+    case_dir = case_store.get_case_dir(tenant_id, case_id)
+
+    documents = dms.list_documents(project_id)
+    if not documents:
+        raise HTTPException(status_code=400, detail="No documents to analyze")
+
+    profile_service = ProfileService()
+
+    if mode == "update":
+        existing = load_analysis(case_dir)
+        if not existing:
+            raise HTTPException(
+                status_code=400,
+                detail="No existing analysis found. Run full analysis first.",
+            )
+
+        known_filenames = {d.get("filename", "") for d in existing.get("documents", [])}
+        new_documents = [d for d in documents if d.get("filename", "") not in known_filenames]
+
+        if not new_documents:
+            return {"status": "ok", "message": "No new documents to analyze", "analysis": existing}
+
+        document_texts = []
+        for doc in new_documents:
+            content = dms.get_document_content(doc["id"])
+            text = (content or {}).get("text_content", "")
+            if text:
+                document_texts.append({"filename": doc.get("filename", "unknown"), "text": text})
+
+        if not document_texts:
+            return {"status": "ok", "message": "No extractable text in new documents", "analysis": existing}
+
+        analysis = await asyncio.to_thread(update_analysis, existing, document_texts, profile_service=profile_service, language=language)
+        if "error" in analysis:
+            raise HTTPException(status_code=500, detail=analysis["error"])
+
+        try:
+            save_analysis(case_dir, analysis)
+        except OSError as e:
+            raise HTTPException(status_code=500, detail=f"Failed to save analysis: {e}")
+        return {"status": "ok", "mode": "update", "analysis": analysis}
+
+    # full mode
+    document_texts = []
+    for doc in documents:
+        content = dms.get_document_content(doc["id"])
+        text = (content or {}).get("text_content", "")
+        if text:
+            document_texts.append({"filename": doc.get("filename", "unknown"), "text": text})
+
+    if not document_texts:
+        raise HTTPException(status_code=400, detail="No extractable text found in documents")
+
+    analysis = await asyncio.to_thread(run_document_analysis, document_texts, profile_service=profile_service, language=language)
+    if "error" in analysis:
+        raise HTTPException(status_code=500, detail=analysis["error"])
+
+    try:
+        save_analysis(case_dir, analysis)
+    except OSError as e:
+        raise HTTPException(status_code=500, detail=f"Failed to save analysis: {e}")
+
+    return {"status": "ok", "mode": "full", "analysis": analysis}
 
 
 @router.get("/tenants/{tenant_id}/cases/{case_id}/dms/analyze")
@@ -870,7 +958,92 @@ def get_case_analysis(
     """Get the latest analysis for the case DMS."""
     from backend.services.dms.document_analyzer import load_analysis
 
-    return load_analysis(case_id)
+    case_dir = case_store.get_case_dir(tenant_id, case_id)
+    analysis = load_analysis(case_dir)
+    if not analysis:
+        raise HTTPException(status_code=404, detail="No analysis found. Run analysis first.")
+    return {"status": "ok", "analysis": analysis}
+
+
+class AnalysisExportRequest(BaseModel):
+    """Request body for analysis export."""
+
+    format: str
+
+
+@router.post("/tenants/{tenant_id}/cases/{case_id}/dms/analyze/export")
+async def export_case_analysis(
+    tenant_id: str,
+    case_id: str,
+    body: AnalysisExportRequest,
+    case_store: CaseStore = Depends(get_case_store),
+    project_store: ProjectStore = Depends(get_project_store),
+):
+    """Export the document analysis as PDF, ODT, or Markdown."""
+    from fastapi.responses import FileResponse
+
+    case_dir = case_store.get_case_dir(tenant_id, case_id)
+    project = project_store.get(case_id)
+    project_name = getattr(project, "name", case_id) if project else case_id
+
+    from backend.services.dms.document_analyzer import load_analysis
+
+    analysis = load_analysis(case_dir)
+    if not analysis:
+        raise HTTPException(status_code=404, detail="No analysis found. Run analysis first.")
+
+    fmt = body.format.lower()
+    if fmt not in ("pdf", "odt", "md"):
+        raise HTTPException(status_code=422, detail=f"Unsupported format: {fmt}")
+
+    import tempfile as _tf
+
+    from jinja2 import Environment, FileSystemLoader
+
+    templates_dir = Path(__file__).resolve().parent.parent.parent.parent / "templates" / "print"
+    env = Environment(loader=FileSystemLoader(str(templates_dir)), autoescape=True)
+    template = env.get_template("document_analysis.html")
+    now = datetime.now(UTC)
+
+    i18n = _load_analysis_i18n("de")
+    html = template.render(
+        project_name=project_name,
+        analysis=analysis,
+        language="de",
+        generated=now.strftime("%Y-%m-%d %H:%M UTC"),
+        i18n=i18n,
+    )
+
+    stem = f"analysis_{case_id[:8]}_{now.strftime('%Y%m%d_%H%M')}"
+
+    if fmt == "pdf":
+        from weasyprint import HTML
+
+        tmp = _tf.NamedTemporaryFile(suffix=".pdf", delete=False)
+        HTML(string=html).write_pdf(tmp.name)
+        media_type = "application/pdf"
+        filename = f"{stem}.pdf"
+    elif fmt == "odt":
+        tmp = _tf.NamedTemporaryFile(suffix=".odt", delete=False)
+        try:
+            import pypandoc
+
+            pypandoc.convert_text(html, "odt", format="html", outputfile=tmp.name)
+        except ImportError:
+            tmp.write(html.encode("utf-8"))
+        media_type = "application/vnd.oasis.opendocument.text"
+        filename = f"{stem}.odt"
+    elif fmt == "md":
+        from backend.services.output.html_to_md import html_to_markdown
+
+        md = html_to_markdown(html)
+        tmp = _tf.NamedTemporaryFile(suffix=".md", delete=False)
+        tmp.write(md.encode("utf-8"))
+        media_type = "text/markdown"
+        filename = f"{stem}.md"
+
+    tmp.close()
+    return FileResponse(tmp.name, media_type=media_type, filename=filename)
 
 
 # ---------------------------------------------------------------------------
@@ -972,3 +1145,16 @@ async def get_case_workflow_state(
     from backend.api.routers.workflow_exec import get_session_state
 
     return await get_session_state(session_id)
+
+
+def _load_analysis_i18n(language: str) -> dict:
+    """Load i18n labels for the document analysis template."""
+    labels = {
+        "case_summary_label": ("Fallzusammenfassung" if language == "de" else "Case Summary"),
+        "key_facts_label": ("Wichtige Fakten" if language == "de" else "Key Facts"),
+        "parties_label": ("Parteien" if language == "de" else "Parties"),
+        "timeline_label": ("Zeitstrahl" if language == "de" else "Timeline"),
+        "key_issues_label": ("Hauptstreitpunkte" if language == "de" else "Key Issues"),
+        "documents_label": ("Dokumentübersichten" if language == "de" else "Document Summaries"),
+    }
+    return labels
