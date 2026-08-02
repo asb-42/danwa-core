@@ -632,7 +632,7 @@ def create_app() -> FastAPI:
     )
 
     # --- Interactive Debate Mode (Event Sourcing) ---
-    app.include_router(interactive.router)
+    app.include_router(interactive.router, prefix="/api/v1")
 
     # --- Danwa Assistant ---
     app.include_router(assistant.router)
