@@ -487,11 +487,21 @@ async def trigger_agent(
     role: str = Query("assistant"),
     llm_profile_id: str | None = Query(None),
     message: str = Query(...),
+    search_mode: str = Query("off", pattern="^(off|required|optional)$"),
+    body: dict[str, Any] | None = None,
 ):
     """Manually trigger an agent response (for [+] button).
 
     Creates an ``AgentActed`` event that will be processed by the
     ``AgentWorker`` (which calls the LLM and appends the response).
+
+    search_mode:
+        - "off": No web search (default)
+        - "required": Always perform web search before LLM call
+        - "optional": LLM may request search via [SEARCH: query] markers
+
+    body (optional JSON):
+        - composition: Agent composition IDs for 4-layer prompt system
     """
     store = _get_store()
     space = store.get_space(space_id)
@@ -506,14 +516,22 @@ async def trigger_agent(
     _ensure_space_listening(space_id)
     manager = _get_worker_manager()
 
+    # Build agent config with optional composition
+    agent_config = {
+        "role": role,
+        "llm_profile_id": llm_profile_id,
+        "actor_id": f"agent-{role}",
+        "search_mode": search_mode,
+    }
+
+    # Add composition from body if provided
+    if body and "composition" in body:
+        agent_config["composition"] = body["composition"]
+
     event = await manager.trigger_agent(
         space_id=space_id,
         parent_event_id=parent_event_id,
-        agent_config={
-            "role": role,
-            "llm_profile_id": llm_profile_id,
-            "actor_id": f"agent-{role}",
-        },
+        agent_config=agent_config,
         user_message=message,
     )
     return event
@@ -676,3 +694,63 @@ def get_reports(space_id: str):
 
     manager = _get_projector_manager()
     return manager.get_synthesis_projector().get_reports(space_id)
+
+
+@router.get("/interactive/roles")
+async def get_interactive_roles() -> list[dict[str, Any]]:
+    """Get available roles for interactive debate mode.
+
+    Returns agent personas from the module system with their composition IDs.
+    """
+    from backend.services.module_profile_sync import (
+        get_agent_personas_from_modules,
+        get_argumentation_patterns_from_modules,
+        get_tone_profiles_from_modules,
+        get_prompt_modifiers_from_modules,
+    )
+
+    # Get all available components
+    agent_cores = get_agent_personas_from_modules()
+    arg_patterns = get_argumentation_patterns_from_modules()
+    tone_profiles = get_tone_profiles_from_modules()
+    prompt_modifiers = get_prompt_modifiers_from_modules()
+
+    roles = []
+    for core in agent_cores:
+        role = {
+            "id": core.get("id", ""),
+            "name": core.get("name", ""),
+            "role": core.get("role", ""),
+            "description": core.get("description", ""),
+            "system_prompt": core.get("system_prompt", ""),
+            "composition": {
+                "agent_core_id": core.get("id", ""),
+                "argumentation_pattern_id": "",
+                "tone_profile_id": "",
+                "prompt_modifier_id": "",
+            },
+        }
+        roles.append(role)
+
+    return roles
+
+
+@router.get("/interactive/compositions")
+async def get_interactive_compositions() -> dict[str, list[dict[str, Any]]]:
+    """Get all available composition components for interactive debate mode.
+
+    Returns agent cores, argumentation patterns, tone profiles, and prompt modifiers.
+    """
+    from backend.services.module_profile_sync import (
+        get_agent_personas_from_modules,
+        get_argumentation_patterns_from_modules,
+        get_tone_profiles_from_modules,
+        get_prompt_modifiers_from_modules,
+    )
+
+    return {
+        "agent_cores": get_agent_personas_from_modules(),
+        "argumentation_patterns": get_argumentation_patterns_from_modules(),
+        "tone_profiles": get_tone_profiles_from_modules(),
+        "prompt_modifiers": get_prompt_modifiers_from_modules(),
+    }
