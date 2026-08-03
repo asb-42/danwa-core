@@ -43,7 +43,7 @@ from backend.schemas.debate_event import (
     EventStreamMessage,
     SynthesisRequest,
 )
-from backend.schemas.debate_space import DebateSpaceCreate, DebateSpaceResponse
+from backend.schemas.debate_space import DebateSpaceCreate, DebateSpaceResponse, DebateSpaceUpdate
 from backend.services.interactive.context_synthesizer import ContextSynthesizer
 from backend.services.interactive.event_bus import get_event_bus
 from backend.services.interactive.event_embeddings import EventEmbeddingStore
@@ -189,6 +189,25 @@ def get_space(space_id: str):
     """Get details of a single debate space."""
     store = _get_store()
     space = store.get_space(space_id)
+    if not space:
+        raise HTTPException(status_code=404, detail="Debate space not found")
+    return space
+
+
+@router.patch("/interactive/spaces/{space_id}", response_model=DebateSpaceResponse)
+def update_space(space_id: str, body: DebateSpaceUpdate):
+    """Update mutable fields of a debate space.
+
+    Use this to link/unlink a case, change title or description.
+    Pass case_id="" to unlink from the current case.
+    """
+    store = _get_store()
+    space = store.update_space(
+        space_id=space_id,
+        title=body.title,
+        description=body.description,
+        case_id=body.case_id,
+    )
     if not space:
         raise HTTPException(status_code=404, detail="Debate space not found")
     return space

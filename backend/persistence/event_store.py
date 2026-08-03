@@ -174,6 +174,50 @@ class EventStore:
                 )
                 self.conn.commit()
 
+    def update_space(
+        self,
+        space_id: str,
+        title: str | None = None,
+        description: str | None = None,
+        case_id: str | None = None,
+    ) -> DebateSpace | None:
+        """Update mutable fields of a debate space.
+
+        Only updates fields that are explicitly provided (not None).
+        Pass case_id="" to unlink a space from its case.
+        """
+        space = self.get_space(space_id)
+        if not space:
+            return None
+
+        updates = []
+        params = []
+        if title is not None:
+            updates.append("title = ?")
+            params.append(title)
+        if description is not None:
+            updates.append("description = ?")
+            params.append(description)
+        if case_id is not None:
+            updates.append("case_id = ?")
+            params.append(case_id if case_id else None)
+
+        if not updates:
+            return space
+
+        updates.append("updated_at = ?")
+        params.append(datetime.now(UTC).isoformat())
+        params.append(space_id)
+
+        with self._write_lock:
+            self.conn.execute(
+                f"UPDATE debate_spaces SET {', '.join(updates)} WHERE space_id = ?",
+                params,
+            )
+            self.conn.commit()
+
+        return self.get_space(space_id)
+
     def list_spaces(
         self,
         tenant_id: str | None = None,

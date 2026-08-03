@@ -16,6 +16,18 @@ class DebateSpaceCreate(BaseModel):
     tenant_id: str | None = None
 
 
+class DebateSpaceUpdate(BaseModel):
+    """Payload to update an existing debate space.
+
+    All fields are optional. Only provided fields are updated.
+    Pass case_id="" to unlink a space from its case.
+    """
+
+    title: str | None = Field(None, min_length=1, max_length=255)
+    description: str | None = None
+    case_id: str | None = None
+
+
 class DebateSpaceResponse(BaseModel):
     """Serialised debate space returned by the API."""
 
