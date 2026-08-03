@@ -1,8 +1,8 @@
 {
   "schema_version": "3.0.0",
-  "module_id": "llm-8417c749-0334-45fe-a116-e8fc9ec6d37b",
+  "module_id": "llm-longcat-2.0-meituan",
   "name": {
-    "en": "minimax-m2.5 (Opencode Zen)"
+    "en": "LongCat-2.0 (Meituan)"
   },
   "version": "1.0.0",
   "type": "llm-profile",

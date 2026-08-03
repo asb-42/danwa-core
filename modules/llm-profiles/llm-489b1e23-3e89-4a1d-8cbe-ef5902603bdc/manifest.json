@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.0.0",
+  "schema_version": "3.0.0",
   "module_id": "llm-489b1e23-3e89-4a1d-8cbe-ef5902603bdc",
   "name": {
     "en": "qwen3.5-plus (Openrouter)"
@@ -16,6 +16,6 @@
   "profile_file": "profile.yaml",
   "profile_format": "yaml",
   "files": [],
-  "created_at": "2026-06-04T00:07:12.660883+00:00",
-  "updated_at": "2026-06-04T00:07:12.660883+00:00"
+  "created_at": "2026-07-28T20:49:55.925389+00:00",
+  "updated_at": "2026-07-28T20:49:55.925389+00:00"
 }

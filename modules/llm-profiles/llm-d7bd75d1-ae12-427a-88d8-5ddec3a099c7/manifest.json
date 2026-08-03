@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.0.0",
+  "schema_version": "3.0.0",
   "module_id": "llm-d7bd75d1-ae12-427a-88d8-5ddec3a099c7",
   "name": {
     "en": "glm-4-32b-0414-uncensored-heretic-v1 (LM Studio)"
@@ -16,6 +16,6 @@
   "profile_file": "profile.yaml",
   "profile_format": "yaml",
   "files": [],
-  "created_at": "2026-06-04T00:07:12.660883+00:00",
-  "updated_at": "2026-06-04T00:07:12.660883+00:00"
+  "created_at": "2026-07-28T20:49:55.925389+00:00",
+  "updated_at": "2026-07-28T20:49:55.925389+00:00"
 }

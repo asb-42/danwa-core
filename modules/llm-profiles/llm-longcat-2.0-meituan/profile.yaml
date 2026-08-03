@@ -1,0 +1,17 @@
+a2a_endpoint: ''
+a2a_timeout: 120
+api_base: https://api.longcat.chat/openai
+api_key_env: MEITUAN_API_KEY
+context_window: 990000
+cost_per_1k_input: null
+cost_per_1k_output: null
+fallback_llm_profile_id: ''
+id: longcat-2.0-meituan
+max_tokens: 128000
+model: LongCat-2.0
+name: LongCat-2.0 (Meituan)
+profile_type: text
+protocol: litellm
+provider: meituan
+temperature: 0.7
+timeout: 600

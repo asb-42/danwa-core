@@ -7,6 +7,6 @@ backup:
 dms:
   ocr_preferred_engine: easyocr
 ui:
-  language: en
+  language: de
 utility_llm:
-  service_llm_profile_id: b006090a-3ed2-4e58-bf30-2942438856b1
+  service_llm_profile_id: longcat-2.0-meituan
