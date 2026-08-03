@@ -577,6 +577,48 @@ async def trigger_hitl(
     return event
 
 
+# ── Export (PDF, Markdown, ODF) ───────────────────────────────────────────
+
+
+@router.post("/interactive/spaces/{space_id}/export")
+async def export_space(
+    space_id: str,
+    fmt: str = Query("md", description="Output format: md, pdf, odf"),
+):
+    """Export the debate space as a formatted document.
+
+    Supported formats:
+    - **md**  — Markdown (plain text)
+    - **pdf** — PDF via WeasyPrint
+    - **odf** — OpenDocument Text
+    """
+    from fastapi.responses import FileResponse
+
+    from backend.services.interactive.exporter import InteractiveExporter
+
+    store = _get_store()
+    exporter = InteractiveExporter(store)
+
+    try:
+        path = await exporter.generate(space_id, fmt=fmt)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error("Export failed for space %s: %s", space_id, e)
+        raise HTTPException(status_code=500, detail=f"Export failed: {e}")
+
+    media_types = {
+        "md": "text/markdown",
+        "pdf": "application/pdf",
+        "odf": "application/vnd.oasis.opendocument.text",
+    }
+    return FileResponse(
+        path,
+        media_type=media_types.get(fmt, "application/octet-stream"),
+        filename=path.name,
+    )
+
+
 # ── CQRS Read Model Endpoints (ADR-001) ─────────────────────────────────
 
 
