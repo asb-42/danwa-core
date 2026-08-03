@@ -17,6 +17,7 @@ from backend.models.debate_event import DebateEvent
 from backend.persistence.event_store import EventStore
 from backend.services.interactive.context_synthesizer import ContextSynthesizer
 from backend.services.interactive.event_embeddings import EventEmbeddingStore
+from backend.services.interactive.event_bus import EventBus, get_event_bus
 from backend.services.llm_service import LLMService
 
 logger = logging.getLogger(__name__)
@@ -29,9 +30,11 @@ class AgentWorker:
         self,
         event_store: EventStore,
         embedding_store: EventEmbeddingStore | None = None,
+        event_bus: EventBus | None = None,
     ):
         self.event_store = event_store
         self.embedding_store = embedding_store
+        self.event_bus = event_bus
         self.synthesizer = ContextSynthesizer(event_store, embedding_store)
 
     async def process(self, event: DebateEvent) -> DebateEvent | None:
