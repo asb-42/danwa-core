@@ -148,8 +148,25 @@ class AgentWorker:
             if not dms_dir.exists():
                 return []
 
+            # Resolve tenant_id: use space.tenant_id if set, otherwise extract from case_dir path
+            tenant_id = space.tenant_id
+            if not tenant_id:
+                # Extract from path: data/tenants/{tenant_id}/cases/{case_id}
+                try:
+                    # case_dir is like /path/to/data/tenants/{tenant_id}/cases/{case_id}
+                    parts = case_dir.parts
+                    tenants_idx = None
+                    for i, part in enumerate(parts):
+                        if part == "tenants":
+                            tenants_idx = i
+                            break
+                    if tenants_idx is not None and tenants_idx + 1 < len(parts):
+                        tenant_id = parts[tenants_idx + 1]
+                except (AttributeError, IndexError):
+                    pass
+
             # Get or create DMS instance (use case_id as scope_id, matching _get_dms_for_case pattern)
-            cache_key = ("case", space.tenant_id, space.case_id)
+            cache_key = ("case", tenant_id, space.case_id)
             with _dms_cache_lock:
                 if cache_key in _dms_cache:
                     dms = _dms_cache[cache_key]
@@ -159,7 +176,7 @@ class AgentWorker:
                     except Exception:
                         dms_config = {}
 
-                    scope_id = f"case:{space.tenant_id}:{space.case_id}"
+                    scope_id = f"case:{tenant_id}:{space.case_id}"
                     dms = DMS(
                         db_path=str(dms_dir / "dms.db"),
                         chroma_path=str(dms_dir / "chroma_db"),
@@ -176,10 +193,11 @@ class AgentWorker:
             # Retrieve relevant chunks
             chunks = dms.auto_retrieve_for_topic(query, project_id=dms._project_id, k=8)
             logger.info(
-                "AgentWorker: retrieved %d document chunks for space %s (case: %s)",
+                "AgentWorker: retrieved %d document chunks for space %s (case: %s, tenant: %s)",
                 len(chunks),
                 event.space_id,
                 space.case_id,
+                tenant_id,
             )
             return chunks
 
