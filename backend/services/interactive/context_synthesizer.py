@@ -92,7 +92,8 @@ class ContextWindow:
             lines.append("The following are relevant excerpts from case documents. Use them as reference material for your response.")
             lines.append("")
             for i, chunk in enumerate(self.document_chunks[:10], 1):  # Top 10 chunks
-                source = chunk.get("document_id", "unknown")
+                meta = chunk.get("metadata", {})
+                source = meta.get("file_name", chunk.get("document_id", "unknown"))
                 text = chunk.get("text", "")
                 if len(text) > 800:
                     text = text[:800] + " [...]"
