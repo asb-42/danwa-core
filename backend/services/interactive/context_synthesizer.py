@@ -89,17 +89,37 @@ class ContextWindow:
         if self.document_chunks:
             lines.append("## Document Context")
             lines.append("")
-            lines.append("The following are relevant excerpts from case documents. Use them as reference material for your response.")
-            lines.append("")
-            for i, chunk in enumerate(self.document_chunks[:10], 1):  # Top 10 chunks
+
+            # Group chunks by document and build unique document list
+            docs_by_name: dict[str, list[dict]] = {}
+            for chunk in self.document_chunks:
                 meta = chunk.get("metadata", {})
-                source = meta.get("file_name", chunk.get("document_id", "unknown"))
-                text = chunk.get("text", "")
-                if len(text) > 800:
-                    text = text[:800] + " [...]"
-                lines.append(f"[Source {i}: {source}]")
-                lines.append(text)
-                lines.append("")
+                doc_name = meta.get("file_name", chunk.get("document_id", "unknown"))
+                if doc_name not in docs_by_name:
+                    docs_by_name[doc_name] = []
+                docs_by_name[doc_name].append(chunk)
+
+            # Document summary (unique documents only)
+            lines.append(f"**{len(docs_by_name)} documents** contain relevant information:")
+            lines.append("")
+            for doc_name in docs_by_name:
+                chunk_count = len(docs_by_name[doc_name])
+                lines.append(f"- {doc_name} ({chunk_count} excerpt{'s' if chunk_count > 1 else ''})")
+            lines.append("")
+            lines.append("The excerpts below are from these documents. Use them as reference material for your response.")
+            lines.append("")
+
+            # Show chunks grouped by document
+            source_idx = 0
+            for doc_name, chunks in docs_by_name.items():
+                for chunk in chunks:
+                    source_idx += 1
+                    text = chunk.get("text", "")
+                    if len(text) > 800:
+                        text = text[:800] + " [...]"
+                    lines.append(f"[Source {source_idx}: {doc_name}]")
+                    lines.append(text)
+                    lines.append("")
 
         return "\n".join(lines)
 
