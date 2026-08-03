@@ -36,6 +36,7 @@ class EventStore:
         self.conn.execute("PRAGMA journal_mode=WAL")
         self.conn.execute("PRAGMA foreign_keys=ON")
         self._init_db()
+        self._migrate_db()
         self._projector_manager = projector_manager
         # Write lock: serialises write operations across async worker threads.
         # SQLite with check_same_thread=False allows concurrent writes which
@@ -53,7 +54,7 @@ class EventStore:
                 space_id TEXT PRIMARY KEY,
                 title TEXT NOT NULL,
                 description TEXT,
-                project_id TEXT,
+                case_id TEXT,
                 tenant_id TEXT,
                 created_by TEXT,
                 status TEXT NOT NULL DEFAULT 'open',
@@ -64,7 +65,7 @@ class EventStore:
             );
 
             CREATE INDEX IF NOT EXISTS idx_spaces_tenant ON debate_spaces(tenant_id);
-            CREATE INDEX IF NOT EXISTS idx_spaces_project ON debate_spaces(project_id);
+            CREATE INDEX IF NOT EXISTS idx_spaces_case ON debate_spaces(case_id);
 
             CREATE TABLE IF NOT EXISTS debate_events (
                 event_id TEXT PRIMARY KEY,
@@ -87,13 +88,24 @@ class EventStore:
         """)
         self.conn.commit()
 
+    def _migrate_db(self) -> None:
+        """Apply schema migrations for existing databases."""
+        # Add case_id column if missing (interactive DMS integration)
+        try:
+            self.conn.execute("SELECT case_id FROM debate_spaces LIMIT 1")
+        except sqlite3.OperationalError:
+            self.conn.execute("ALTER TABLE debate_spaces ADD COLUMN case_id TEXT")
+            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_spaces_case ON debate_spaces(case_id)")
+            self.conn.commit()
+            logger.info("Migrated debate_spaces: added case_id column")
+
     # ── Space CRUD ────────────────────────────────────────────────────────
 
     def create_space(
         self,
         title: str,
         description: str | None = None,
-        project_id: str | None = None,
+        case_id: str | None = None,
         tenant_id: str | None = None,
         created_by: str | None = None,
     ) -> DebateSpace:
@@ -102,9 +114,9 @@ class EventStore:
         with self._write_lock:
             self.conn.execute(
                 """INSERT INTO debate_spaces
-                   (space_id, title, description, project_id, tenant_id, created_by, created_at, updated_at)
+                   (space_id, title, description, case_id, tenant_id, created_by, created_at, updated_at)
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-                (space_id, title, description, project_id, tenant_id, created_by, now, now),
+                (space_id, title, description, case_id, tenant_id, created_by, now, now),
             )
             self.conn.commit()
 
@@ -165,7 +177,7 @@ class EventStore:
     def list_spaces(
         self,
         tenant_id: str | None = None,
-        project_id: str | None = None,
+        case_id: str | None = None,
         limit: int = 50,
         offset: int = 0,
     ) -> list[DebateSpace]:
@@ -174,9 +186,9 @@ class EventStore:
         if tenant_id:
             query += " AND tenant_id = ?"
             params.append(tenant_id)
-        if project_id:
-            query += " AND project_id = ?"
-            params.append(project_id)
+        if case_id:
+            query += " AND case_id = ?"
+            params.append(case_id)
         query += " ORDER BY created_at DESC LIMIT ? OFFSET ?"
         params.extend([limit, offset])
         rows = self.conn.execute(query, params).fetchall()
@@ -345,7 +357,7 @@ class EventStore:
             space_id=row["space_id"],
             title=row["title"],
             description=row["description"],
-            project_id=row["project_id"],
+            case_id=row["case_id"],
             tenant_id=row["tenant_id"],
             created_by=row["created_by"],
             status=row["status"],

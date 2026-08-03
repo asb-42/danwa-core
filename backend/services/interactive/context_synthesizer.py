@@ -6,7 +6,9 @@ it builds the optimal context window for the next agent call:
 1. **Direct Thread**: Traces parent_id chain → immediate conversational thread.
 2. **Side Branches**: Queries ChromaDB for semantically relevant events
    from parallel forks (prevents token explosion).
-3. **Agent Core Prompt**: Injects synthesized context into the prompt template.
+3. **Document Context**: Retrieves relevant document chunks from DMS when
+   the space is linked to a case with documents.
+4. **Agent Core Prompt**: Injects synthesized context into the prompt template.
 
 This replaces LangGraph's state mutation with Event Sourcing semantics:
 we never mutate – we only read events and synthesize context.
@@ -26,6 +28,7 @@ logger = logging.getLogger(__name__)
 # Token budget defaults
 DEFAULT_MAX_THREAD_TOKENS = 4000
 DEFAULT_MAX_SIDE_BRANCH_TOKENS = 2000
+DEFAULT_MAX_DOCUMENT_TOKENS = 3000
 DEFAULT_SIDE_BRANCH_RESULTS = 5
 
 
@@ -37,11 +40,13 @@ class ContextWindow:
         thread_events: list[DebateEvent],
         side_branch_events: list[dict],  # From ChromaDB (with relevance_score)
         target_event: DebateEvent,
+        document_chunks: list[dict] | None = None,
         token_budget_used: int = 0,
     ):
         self.thread_events = thread_events
         self.side_branch_events = side_branch_events
         self.target_event = target_event
+        self.document_chunks = document_chunks or []
         self.token_budget_used = token_budget_used
 
     def to_prompt_context(self) -> str:
@@ -80,6 +85,21 @@ class ContextWindow:
                 lines.append(f"**{actor}** (relevance: {score:.2f}): {text}")
                 lines.append("")
 
+        # Document context (from DMS)
+        if self.document_chunks:
+            lines.append("## Document Context")
+            lines.append("")
+            lines.append("The following are relevant excerpts from case documents. Use them as reference material for your response.")
+            lines.append("")
+            for i, chunk in enumerate(self.document_chunks[:10], 1):  # Top 10 chunks
+                source = chunk.get("document_id", "unknown")
+                text = chunk.get("text", "")
+                if len(text) > 800:
+                    text = text[:800] + " [...]"
+                lines.append(f"[Source {i}: {source}]")
+                lines.append(text)
+                lines.append("")
+
         return "\n".join(lines)
 
     def to_metadata(self) -> dict[str, Any]:
@@ -87,6 +107,7 @@ class ContextWindow:
         return {
             "thread_depth": len(self.thread_events),
             "side_branches_included": len(self.side_branch_events),
+            "document_chunks_included": len(self.document_chunks),
             "target_event_id": self.target_event.event_id,
             "token_budget_used": self.token_budget_used,
         }
@@ -117,12 +138,14 @@ class ContextSynthesizer:
         embedding_store: EventEmbeddingStore | None = None,
         max_thread_tokens: int = DEFAULT_MAX_THREAD_TOKENS,
         max_side_branch_tokens: int = DEFAULT_MAX_SIDE_BRANCH_TOKENS,
+        max_document_tokens: int = DEFAULT_MAX_DOCUMENT_TOKENS,
         max_side_branch_results: int = DEFAULT_SIDE_BRANCH_RESULTS,
     ):
         self.event_store = event_store
         self.embedding_store = embedding_store
         self.max_thread_tokens = max_thread_tokens
         self.max_side_branch_tokens = max_side_branch_tokens
+        self.max_document_tokens = max_document_tokens
         self.max_side_branch_results = max_side_branch_results
 
     def synthesize(
@@ -131,6 +154,7 @@ class ContextSynthesizer:
         target_event_id: str,
         agent_bundle: dict[str, Any] | None = None,
         include_side_branches: bool = True,
+        document_chunks: list[dict] | None = None,
     ) -> ContextWindow:
         """Synthesize the context window for a new agent event.
 
@@ -139,9 +163,10 @@ class ContextSynthesizer:
             target_event_id: The event the user clicked [+] on.
             agent_bundle: Agent configuration from danwa-modules.
             include_side_branches: Whether to search for relevant side branches.
+            document_chunks: Optional pre-fetched document chunks from DMS.
 
         Returns:
-            ContextWindow with thread + side branches.
+            ContextWindow with thread + side branches + document context.
         """
         target_event = self.event_store.get_event(target_event_id)
         if not target_event or target_event.space_id != space_id:
@@ -163,12 +188,17 @@ class ContextSynthesizer:
             for e in thread
         )
         total_chars += sum(len(sb.get("text", "")) for sb in side_branches)
+        total_chars += sum(len(c.get("text", "")) for c in (document_chunks or []))
         estimated_tokens = total_chars // 4
+
+        # Trim document chunks by token budget
+        trimmed_chunks = self._trim_document_chunks(document_chunks or [])
 
         return ContextWindow(
             thread_events=thread,
             side_branch_events=side_branches,
             target_event=target_event,
+            document_chunks=trimmed_chunks,
             token_budget_used=estimated_tokens,
         )
 
@@ -246,4 +276,17 @@ class ContextSynthesizer:
             result.append(r)
             tokens_used += r_tokens
 
+        return result
+
+    def _trim_document_chunks(self, chunks: list[dict]) -> list[dict]:
+        """Trim document chunks to fit within the token budget."""
+        result: list[dict] = []
+        tokens_used = 0
+        for chunk in chunks:
+            text_len = len(chunk.get("text", ""))
+            chunk_tokens = text_len // 4
+            if tokens_used + chunk_tokens > self.max_document_tokens:
+                break
+            result.append(chunk)
+            tokens_used += chunk_tokens
         return result

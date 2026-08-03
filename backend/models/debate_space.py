@@ -13,7 +13,7 @@ class DebateSpace(BaseModel):
     space_id: str
     title: str
     description: str | None = None
-    project_id: str | None = None
+    case_id: str | None = None
     tenant_id: str | None = None
     created_by: str | None = None
     status: str = "open"  # open | closed | archived

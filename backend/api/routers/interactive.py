@@ -159,7 +159,7 @@ def create_space(body: DebateSpaceCreate):
     space = store.create_space(
         title=body.title,
         description=body.description,
-        project_id=body.project_id,
+        case_id=body.case_id,
         tenant_id=body.tenant_id,
     )
     # Start workers for this new space (idempotent).
@@ -170,7 +170,7 @@ def create_space(body: DebateSpaceCreate):
 @router.get("/interactive/spaces", response_model=list[DebateSpaceResponse])
 def list_spaces(
     tenant_id: str | None = Query(None),
-    project_id: str | None = Query(None),
+    case_id: str | None = Query(None),
     limit: int = Query(50, ge=1, le=200),
     offset: int = Query(0, ge=0),
 ):
@@ -178,7 +178,7 @@ def list_spaces(
     store = _get_store()
     return store.list_spaces(
         tenant_id=tenant_id,
-        project_id=project_id,
+        case_id=case_id,
         limit=limit,
         offset=offset,
     )

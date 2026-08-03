@@ -12,7 +12,7 @@ class DebateSpaceCreate(BaseModel):
 
     title: str = Field(..., min_length=1, max_length=255)
     description: str | None = None
-    project_id: str | None = None
+    case_id: str | None = None
     tenant_id: str | None = None
 
 
@@ -24,7 +24,7 @@ class DebateSpaceResponse(BaseModel):
     space_id: str
     title: str
     description: str | None
-    project_id: str | None
+    case_id: str | None
     tenant_id: str | None
     created_by: str | None
     status: str
