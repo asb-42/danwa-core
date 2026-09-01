@@ -5,6 +5,7 @@ Migrated from src/dms/database.py. Now accepts db_path as constructor parameter.
 
 import logging
 import sqlite3
+import threading
 import uuid
 from datetime import datetime
 from pathlib import Path
@@ -30,13 +31,43 @@ class DMSDB:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.conn = sqlite3.connect(str(self.db_path), check_same_thread=False, timeout=10)
         self.conn.row_factory = sqlite3.Row
-        self.conn.execute("PRAGMA foreign_keys = ON")
-        self.conn.execute("PRAGMA journal_mode=WAL")
+        # §2.8 (2026-08-31 review): the shared SQLite connection is used
+        # from the request thread, the bounded ingest pool, and the agent
+        # worker. ``check_same_thread=False`` makes that memory-safe but
+        # NOT logically safe — multi-statement sequences could interleave
+        # (e.g. per-chunk commits during ingestion racing a concurrent
+        # delete). Every statement now goes through the RLock-protected
+        # wrappers below. RLock so a wrapper can call another wrapper
+        # (multi-statement methods stay re-entrant). Assigned before any
+        # statement executes.
+        self._lock = threading.RLock()
+        self.execute("PRAGMA foreign_keys = ON")
+        self.execute("PRAGMA journal_mode=WAL")
         self._init_db()
+
+    def execute(self, sql: str, params: tuple | list = ()) -> sqlite3.Cursor:
+        """Execute a single SQL statement under the connection lock."""
+        with self._lock:
+            return self.conn.execute(sql, params)
+
+    def executemany(self, sql: str, seq_of_params) -> sqlite3.Cursor:
+        """Execute a SQL statement against many parameter sets, under the lock."""
+        with self._lock:
+            return self.conn.executemany(sql, seq_of_params)
+
+    def commit(self) -> None:
+        """Commit the current transaction under the connection lock."""
+        with self._lock:
+            self.conn.commit()
+
+    def rollback(self) -> None:
+        """Roll back the current transaction under the connection lock."""
+        with self._lock:
+            self.conn.rollback()
 
     def _init_db(self) -> None:
         """Init db the instance."""
-        self.conn.execute("""
+        self.execute("""
             CREATE TABLE IF NOT EXISTS projects (
                 id TEXT PRIMARY KEY,
                 name TEXT NOT NULL,
@@ -45,7 +76,7 @@ class DMSDB:
                 metadata_json TEXT
             )
         """)
-        self.conn.execute("""
+        self.execute("""
             CREATE TABLE IF NOT EXISTS documents (
                 id TEXT PRIMARY KEY,
                 project_id TEXT NOT NULL,
@@ -66,7 +97,7 @@ class DMSDB:
         """)
         # Migrate existing databases: add columns if missing
         self._migrate_documents_table()
-        self.conn.execute("""
+        self.execute("""
             CREATE TABLE IF NOT EXISTS document_chunks (
                 id TEXT PRIMARY KEY,
                 document_id TEXT NOT NULL,
@@ -78,7 +109,7 @@ class DMSDB:
                 FOREIGN KEY(document_id) REFERENCES documents(id)
             )
         """)
-        self.conn.execute("""
+        self.execute("""
             CREATE TABLE IF NOT EXISTS rag_context (
                 session_id TEXT,
                 document_id TEXT,
@@ -86,18 +117,18 @@ class DMSDB:
                 PRIMARY KEY(session_id, document_id)
             )
         """)
-        self.conn.commit()
+        self.commit()
 
     def _migrate_documents_table(self) -> None:
         """Add missing columns to existing documents table."""
-        cursor = self.conn.execute("PRAGMA table_info(documents)")
+        cursor = self.execute("PRAGMA table_info(documents)")
         existing_cols = {row["name"] for row in cursor.fetchall()}
         if "original_filename" not in existing_cols:
-            self.conn.execute("ALTER TABLE documents ADD COLUMN original_filename TEXT")
+            self.execute("ALTER TABLE documents ADD COLUMN original_filename TEXT")
         if "file_size" not in existing_cols:
-            self.conn.execute("ALTER TABLE documents ADD COLUMN file_size INTEGER DEFAULT 0")
+            self.execute("ALTER TABLE documents ADD COLUMN file_size INTEGER DEFAULT 0")
         if "updated_at" not in existing_cols:
-            self.conn.execute("ALTER TABLE documents ADD COLUMN updated_at TEXT")
+            self.execute("ALTER TABLE documents ADD COLUMN updated_at TEXT")
 
     # -- projects --
 
@@ -105,33 +136,33 @@ class DMSDB:
         """Create and return a new project."""
         project_id = str(uuid.uuid4())[:8]
         now = datetime.now().isoformat()
-        self.conn.execute(
+        self.execute(
             "INSERT INTO projects (id, name, description, created_at, metadata_json) VALUES (?, ?, ?, ?, ?)",
             (project_id, name, description, now, metadata_json),
         )
-        self.conn.commit()
+        self.commit()
         return self.get_project(project_id)  # type: ignore[return-value]
 
     def get_project(self, project_id: str) -> dict | None:
         """Retrieve and return project."""
-        cursor = self.conn.execute("SELECT * FROM projects WHERE id = ?", (project_id,))
+        cursor = self.execute("SELECT * FROM projects WHERE id = ?", (project_id,))
         row = cursor.fetchone()
         return dict(row) if row else None
 
     def list_projects(self) -> list[dict]:
         """Return a list of projects."""
-        cursor = self.conn.execute("SELECT * FROM projects ORDER BY created_at DESC")
+        cursor = self.execute("SELECT * FROM projects ORDER BY created_at DESC")
         return [dict(row) for row in cursor.fetchall()]
 
     def delete_project(self, project_id: str) -> bool:
         """Delete project."""
-        self.conn.execute(
+        self.execute(
             "DELETE FROM document_chunks WHERE document_id IN (SELECT id FROM documents WHERE project_id = ?)",
             (project_id,),
         )
-        self.conn.execute("DELETE FROM documents WHERE project_id = ?", (project_id,))
-        self.conn.execute("DELETE FROM projects WHERE id = ?", (project_id,))
-        self.conn.commit()
+        self.execute("DELETE FROM documents WHERE project_id = ?", (project_id,))
+        self.execute("DELETE FROM projects WHERE id = ?", (project_id,))
+        self.commit()
         return True
 
     # -- documents --
@@ -155,7 +186,7 @@ class DMSDB:
         now = datetime.now().isoformat()
         if not original_filename:
             original_filename = filename
-        self.conn.execute(
+        self.execute(
             """INSERT INTO documents
             (id, project_id, filename, original_filename, file_path, file_type, file_size,
              page_count, word_count, char_count, uploaded_at, updated_at, ocr_used, metadata_json)
@@ -177,50 +208,51 @@ class DMSDB:
                 metadata_json,
             ),
         )
-        self.conn.commit()
+        self.commit()
         return self.get_document(doc_id)  # type: ignore[return-value]
 
     def get_document(self, doc_id: str) -> dict | None:
         """Retrieve and return document."""
-        cursor = self.conn.execute("SELECT * FROM documents WHERE id = ?", (doc_id,))
+        cursor = self.execute("SELECT * FROM documents WHERE id = ?", (doc_id,))
         row = cursor.fetchone()
         return dict(row) if row else None
 
     def list_documents(self, project_id: str) -> list[dict]:
         """Return a list of documents."""
-        cursor = self.conn.execute("SELECT * FROM documents WHERE project_id = ? ORDER BY uploaded_at DESC", (project_id,))
+        cursor = self.execute("SELECT * FROM documents WHERE project_id = ? ORDER BY uploaded_at DESC", (project_id,))
         return [dict(row) for row in cursor.fetchall()]
 
     def delete_document(self, doc_id: str) -> bool:
         """Delete document."""
         try:
-            self.conn.execute("DELETE FROM document_chunks WHERE document_id = ?", (doc_id,))
-            self.conn.execute("DELETE FROM documents WHERE id = ?", (doc_id,))
-            self.conn.commit()
+            self.execute("DELETE FROM document_chunks WHERE document_id = ?", (doc_id,))
+            self.execute("DELETE FROM documents WHERE id = ?", (doc_id,))
+            self.commit()
             return True
         except sqlite3.Error:
-            self.conn.rollback()
+            self.rollback()
             raise
 
     def update_document_metadata(self, doc_id: str, **kwargs) -> None:
         """Update specific metadata fields on a document.
 
-        Allowed fields: updated_at, word_count, char_count, filename, file_size.
+        Allowed fields: updated_at, word_count, char_count, filename, file_size,
+        page_count, ocr_used, metadata_json.
         Raises ValueError if no valid fields are provided.
         """
-        allowed = {"updated_at", "word_count", "char_count", "filename", "file_size"}
+        allowed = {"updated_at", "word_count", "char_count", "filename", "file_size", "page_count", "ocr_used", "metadata_json"}
         updates = {k: v for k, v in kwargs.items() if k in allowed}
         if not updates:
             return
         set_clause = ", ".join(f"{k} = ?" for k in updates)
         values = list(updates.values()) + [doc_id]
-        self.conn.execute(f"UPDATE documents SET {set_clause} WHERE id = ?", values)
-        self.conn.commit()
+        self.execute(f"UPDATE documents SET {set_clause} WHERE id = ?", values)
+        self.commit()
 
     def delete_document_chunks(self, doc_id: str) -> None:
         """Delete all chunks for a document (keeps the document record)."""
-        self.conn.execute("DELETE FROM document_chunks WHERE document_id = ?", (doc_id,))
-        self.conn.commit()
+        self.execute("DELETE FROM document_chunks WHERE document_id = ?", (doc_id,))
+        self.commit()
 
     # -- document_chunks --
 
@@ -232,16 +264,25 @@ class DMSDB:
         embedding_id: str = "",
         page: int = 0,
         metadata_json: str = "",
+        commit: bool = True,
     ) -> dict:
-        """Add chunk."""
+        """Add chunk.
+
+        ``commit=False`` lets multi-chunk ingestion batch all inserts
+        into ONE transaction (see ``RAGPipeline.process_document``) —
+        per-chunk commits previously allowed a concurrent delete to
+        interleave mid-ingestion, orphaning rows (§2.8 of the
+        2026-08-31 review). The caller must ``commit()`` afterwards.
+        """
         chunk_id = str(uuid.uuid4())[:8]
-        self.conn.execute(
+        self.execute(
             """INSERT INTO document_chunks
             (id, document_id, chunk_index, text, embedding_id, page, metadata_json)
             VALUES (?, ?, ?, ?, ?, ?, ?)""",
             (chunk_id, document_id, chunk_index, text, embedding_id, page, metadata_json),
         )
-        self.conn.commit()
+        if commit:
+            self.commit()
         return {
             "id": chunk_id,
             "document_id": document_id,
@@ -254,7 +295,7 @@ class DMSDB:
 
     def list_chunks(self, document_id: str) -> list[dict]:
         """Return a list of chunks."""
-        cursor = self.conn.execute(
+        cursor = self.execute(
             "SELECT * FROM document_chunks WHERE document_id = ? ORDER BY chunk_index",
             (document_id,),
         )
@@ -265,27 +306,28 @@ class DMSDB:
     def add_rag_context(self, session_id: str, document_id: str) -> dict:
         """Add rag context."""
         now = datetime.now().isoformat()
-        self.conn.execute(
+        self.execute(
             "INSERT OR REPLACE INTO rag_context (session_id, document_id, added_at) VALUES (?, ?, ?)",
             (session_id, document_id, now),
         )
-        self.conn.commit()
+        self.commit()
         return {"session_id": session_id, "document_id": document_id, "added_at": now}
 
     def list_rag_context(self, session_id: str) -> list[dict]:
         """Return a list of rag context."""
-        cursor = self.conn.execute("SELECT * FROM rag_context WHERE session_id = ? ORDER BY added_at", (session_id,))
+        cursor = self.execute("SELECT * FROM rag_context WHERE session_id = ? ORDER BY added_at", (session_id,))
         return [dict(row) for row in cursor.fetchall()]
 
     def remove_rag_context(self, session_id: str, document_id: str) -> bool:
         """Remove rag context."""
-        self.conn.execute(
+        self.execute(
             "DELETE FROM rag_context WHERE session_id = ? AND document_id = ?",
             (session_id, document_id),
         )
-        self.conn.commit()
+        self.commit()
         return True
 
     def close(self) -> None:
         """Close the resource and release any held connections."""
-        self.conn.close()
+        with self._lock:
+            self.conn.close()

@@ -33,10 +33,10 @@ class ProjectManager:
             return existing
         set_clause = ", ".join(f"{k} = ?" for k in updates)
         values = list(updates.values()) + [project_id]
-        self.db.conn.execute(
+        self.db.execute(
             f"UPDATE projects SET {set_clause} WHERE id = ?", values
         )
-        self.db.conn.commit()
+        self.db.commit()
         return self.db.get_project(project_id)
 
     def delete_project(self, project_id: str) -> bool:

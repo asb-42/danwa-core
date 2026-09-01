@@ -112,7 +112,7 @@ class DMS:
     def list_documents(self, project_id: str = None) -> List[Dict]:
         try:
             if project_id is None:
-                cursor = self.db.conn.execute("SELECT * FROM documents ORDER BY uploaded_at DESC")
+                cursor = self.db.execute("SELECT * FROM documents ORDER BY uploaded_at DESC")
                 return [dict(row) for row in cursor.fetchall()]
             return self.db.list_documents(project_id)
         except Exception as e:

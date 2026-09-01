@@ -3,6 +3,7 @@
 Migrated from src/dms/rag_pipeline.py.
 """
 
+import json
 import logging
 from typing import Any
 
@@ -64,8 +65,14 @@ class RAGPipeline:
             logger.error("Failed to add chunks to vector store for document %s: %s", doc_id, e)
             return []
 
-        for idx, chunk_text in enumerate(chunks):
-            try:
+        # Insert all chunk rows in ONE transaction: per-chunk commits
+        # previously let a concurrent delete interleave mid-ingestion,
+        # orphaning rows or re-adding chunks to a just-deleted document
+        # (§2.8 of the 2026-08-31 review). ``add_chunk(commit=False)``
+        # defers the commit; the vector-store write above already
+        # succeeded, so a DB failure here surfaces via the except below.
+        try:
+            for idx, chunk_text in enumerate(chunks):
                 self.db.add_chunk(
                     document_id=doc_id,
                     chunk_index=idx,
@@ -78,9 +85,15 @@ class RAGPipeline:
                             "project_id": doc["project_id"],
                         }
                     ),
+                    commit=False,
                 )
-            except Exception as e:
-                logger.error("Failed to add chunk %d to DB for document %s: %s", idx, doc_id, e)
+            self.db.commit()
+        except Exception as e:
+            logger.error("Failed to add chunks to DB for document %s: %s", doc_id, e)
+            try:
+                self.db.rollback()
+            except Exception:
+                pass
 
         chunk_ids = [f"{doc_id}_chunk_{idx}" for idx in range(len(chunks))]
         logger.info("Processed document %s, generated %d chunks", doc_id, len(chunk_ids))
@@ -116,10 +129,32 @@ class RAGPipeline:
             }
 
         chunk_ids = self.process_document(doc_id, text)
+
+        # Persist post-ingestion metadata on the document row so the
+        # UI (and support tooling) can see processing outcomes — most
+        # importantly the ``truncated`` flag from doc_parser (§2.3 of the
+        # 2026-08-31 review: previously the flag was computed and then
+        # dropped, leaving users unaware that large documents were
+        # silently cut at ingestion). Guarded: a metadata-write failure
+        # must not fail an otherwise successful upload.
+        try:
+            meta_updates = {
+                "word_count": int(meta.get("word_count", len(text.split())) or 0),
+                "char_count": int(meta.get("char_count", len(text)) or 0),
+                "page_count": int(meta.get("pages", 0) or 0),
+                "ocr_used": bool(ocr_used),
+            }
+            if meta.get("truncated"):
+                meta_updates["metadata_json"] = json.dumps({"truncated": True})
+            self.db.update_document_metadata(doc_id, **meta_updates)
+        except Exception as e:
+            logger.warning("Failed to persist metadata for document %s: %s", doc_id, e)
+
         return {
             "chunk_ids": chunk_ids,
             "ocr_used": ocr_used,
             "ocr_engine": meta.get("ocr_engine"),
             "char_count": meta.get("char_count", len(text)),
             "word_count": meta.get("word_count", len(text.split())),
+            "truncated": bool(meta.get("truncated")),
         }

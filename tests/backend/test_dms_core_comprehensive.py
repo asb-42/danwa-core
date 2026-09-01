@@ -161,10 +161,10 @@ class TestDMS:
         assert result == mock_docs
         self.mock_db.list_documents.assert_called_once_with(project_id)
 
-        self.mock_db.conn.execute.return_value.fetchall.return_value = [{"id": "doc1"}]
+        self.mock_db.execute.return_value.fetchall.return_value = [{"id": "doc1"}]
         result = self.dms.list_documents()
         assert len(result) == 1
-        self.mock_db.conn.execute.assert_called_once_with(
+        self.mock_db.execute.assert_called_once_with(
             "SELECT * FROM documents ORDER BY uploaded_at DESC"
         )
 
@@ -245,8 +245,8 @@ class TestProjectManager:
         self.mock_db.get_project.return_value = updated_project
         result = self.pm.update_project("proj1", name="Updated")
         assert result["name"] == "Updated"
-        assert self.mock_db.conn.execute.called
-        self.mock_db.conn.commit.assert_called_once()
+        assert self.mock_db.execute.called
+        self.mock_db.commit.assert_called_once()
 
         self.mock_db.get_project.return_value = mock_project
         result = self.pm.update_project("proj1")

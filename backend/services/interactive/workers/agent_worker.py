@@ -282,6 +282,11 @@ class AgentWorker:
             with _dms_cache_lock:
                 if cache_key in _dms_cache:
                     dms = _dms_cache[cache_key]
+                elif space.case_id in _dms_cache and isinstance(_dms_cache[space.case_id], DMS):
+                    # Alias entry created by get_dms_for_project(case_id) or
+                    # _get_dms_for_case — reuse it: one case, one DMS (§2.8).
+                    dms = _dms_cache[space.case_id]
+                    _dms_cache[cache_key] = dms
                 else:
                     try:
                         dms_config = load_dms_config()
@@ -301,6 +306,7 @@ class AgentWorker:
                         project_id=scope_id,
                     )
                     _dms_cache[cache_key] = dms
+                    _dms_cache.setdefault(scope_id, dms)
 
             # Use the event content as a query for hybrid retrieval
             query = event.content if isinstance(event.content, str) else str(event.content)

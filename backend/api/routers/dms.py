@@ -15,7 +15,8 @@ from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from backend.api.deps import get_case_dir, get_profile_service_for_case, get_project_id
+from backend.api.deps import get_case_dir, get_current_user, get_profile_service_for_case, get_project_id
+from backend.models.user import User
 from backend.services.dms.document_analyzer import (
     analyze_documents as run_document_analysis,
 )
@@ -51,6 +52,7 @@ class UpdateDocumentTextRequest(BaseModel):
 @router.get("/documents")
 def list_documents(
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """List documents in the active project."""
     try:
@@ -64,6 +66,7 @@ def list_documents(
 def get_document(
     document_id: str,
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """Get a single document with its content for viewing."""
     try:
@@ -81,6 +84,7 @@ def update_document_text(
     document_id: str,
     body: UpdateDocumentTextRequest,
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """Update the extracted text of a document (re-chunks and re-indexes)."""
     try:
@@ -97,6 +101,7 @@ def update_document_text(
 async def upload_document(
     file: UploadFile = File(...),
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """Upload a document to the active project."""
     try:
@@ -160,6 +165,7 @@ async def upload_document(
 def delete_document(
     document_id: str,
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """Delete a document from the active project."""
     try:
@@ -177,6 +183,7 @@ def move_document(
     document_id: str,
     body: MoveDocumentRequest,
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """Move a document to another project.
 
@@ -207,6 +214,7 @@ def move_document(
 def add_to_rag(
     document_id: str,
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """Add a document to manual RAG context.
 
@@ -230,6 +238,7 @@ def add_to_rag(
 def remove_from_rag(
     document_id: str,
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """Remove a document from manual RAG context."""
     try:
@@ -245,6 +254,7 @@ def remove_from_rag(
 @router.get("/rag/manual")
 def list_manual_rag(
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """List document IDs in manual RAG context."""
     try:
@@ -259,6 +269,7 @@ def search_rag(
     query: str,
     k: int = 5,
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """Search RAG context for relevant chunks."""
     try:
@@ -269,11 +280,55 @@ def search_rag(
     return {"results": results}
 
 
+@router.get("/rag/preview")
+def preview_rag(
+    query: str = Query(default=""),
+    document_ids: str = Query(default=""),
+    include_analysis: bool = Query(default=True),
+    project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
+):
+    """Preview the RAG context as a debate would receive it (legacy route).
+
+    Tenant-scoped twin lives in ``case_scoped.py``
+    (``GET /tenants/{t}/cases/{c}/dms/rag/preview``); the frontend falls
+    back to this route when no tenant/case context is active
+    (``document.js`` ``getRagPreview``). Same ``resolve_rag_context`` code
+    path as a real debate run, so the preview is truthful.
+    """
+    from backend.services.debate.debate_rag import resolve_rag_context
+
+    try:
+        get_dms_for_project(project_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Project not found")
+
+    ids = [d for d in document_ids.split(",") if d] or None
+    rag_context, document_count = resolve_rag_context(
+        project_id=project_id,
+        case_text=query,
+        document_ids=ids,
+        rag_auto_retrieve=bool(query.strip()),
+        include_document_analysis=include_analysis,
+    )
+    return {
+        "rag_context": rag_context,
+        "document_count": document_count,
+        "stats": {
+            "document_count": document_count,
+            "rag_chars": len(rag_context),
+            "rag_tokens_approx": len(rag_context) // 4,
+        },
+    }
+
+
 # --- OCR Status ---
 
 
 @router.get("/ocr-status")
-def ocr_status():
+def ocr_status(
+    user: User = Depends(get_current_user),
+):
     """Check which OCR engines are available for image text extraction.
 
     Returns:
@@ -332,6 +387,7 @@ async def analyze_documents(
     language: str = Query("de", description="Language for analysis content (e.g. 'de', 'en')"),
     mode: str = Query("full", description="Analysis mode: 'full' (regenerate all) or 'update' (merge new docs only)"),
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """Analyze documents in the project and produce a structured case analysis.
 
@@ -415,6 +471,7 @@ async def analyze_documents(
 @router.get("/analyze")
 def get_analysis(
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """Get the stored document analysis for the current project."""
     from backend.api.deps import get_project_store
@@ -448,6 +505,7 @@ class AnalysisExportRequest(BaseModel):
 async def export_analysis(
     body: AnalysisExportRequest,
     project_id: str = Depends(get_project_id),
+    user: User = Depends(get_current_user),
 ):
     """Export the document analysis as PDF, ODT, or Markdown."""
     from backend.api.deps import get_project_store

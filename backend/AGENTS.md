@@ -41,6 +41,37 @@ Python FastAPI backend providing the core application: API layer, business logic
   `upload_document_async` / `add_document_async` (bounded `_INGEST_POOL` in
   `backend/services/dms/service.py`); sync `upload_document` / `add_document`
   are only for worker threads/tests without a running event loop.
+- **DMS SQLite access goes through the DMSDB lock wrappers**: never call
+  `dms.db.conn.execute/commit/...` from routers or services — use
+  `dms.db.execute/executemany/commit/rollback` (RLock-serialized, `DMSDB` in
+  `backend/services/dms/database.py`). The shared connection serves the
+  request thread, `_INGEST_POOL`, and the agent worker. Multi-chunk ingestion
+  uses `add_chunk(commit=False)` batches + ONE final `commit()`
+  (`RAGPipeline.process_document`) so a concurrent delete cannot interleave
+  mid-ingestion. Pinned by `tests/backend/test_dms_database.py`,
+  `tests/backend/test_dms_core_comprehensive.py`.
+- **One DMS instance per case**: `_get_dms_for_case` (case_scoped.py) caches
+  under BOTH `("case", tenant_id, case_id)` and the bare `case_id` string key
+  (the bare key is the canonical scope id); `get_dms_for_project(case_id)` and
+  the agent worker reuse the same instance via that alias instead of opening a
+  second DMS over the same directory. Do not construct `DMS` inline for a case
+  outside these factories.
+- **DMS routes require auth**: every route in `dms.py` and the case-scoped
+  DMS/analysis routes takes `user: User = Depends(get_current_user)`;
+  tenant-scoped routes additionally enforce membership via
+  `_check_tenant_access` (admin bypass, fail-closed 403). Tests run with auth
+  disabled via the autouse `_disable_auth` fixture (conftest).
+- **Scanned-PDF ingestion**: empty-text PDFs are rasterized page-by-page
+  (pdfplumber, `ocr_pdf_resolution`, capped by `ocr_pdf_max_pages`) and OCRed
+  per page; a PDF/image with no OCR engine raises `ValueError` → HTTP 422,
+  never a binary-as-text fallback. PaddleOCR lang codes map from `ocr_lang`
+  (`deu→german`, `eng→en`, override `ocr_paddle_lang`).
+- **Ingestion metadata is persisted**: `RAGPipeline.process_file` writes
+  `word_count/char_count/page_count/ocr_used` and
+  `metadata_json={"truncated": bool}` via `update_document_metadata` (allowed
+  fields extended accordingly); route responses surface `truncated`. Ingestion
+  truncation ceiling lives in `doc_parser.MAX_CONTEXT_CHARS` (2M chars,
+  sanity ceiling only — prompt budgets are enforced at chunking/retrieval).
 
 ## Work Guidance
 

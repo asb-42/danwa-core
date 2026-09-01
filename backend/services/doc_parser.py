@@ -10,7 +10,14 @@ from pathlib import Path
 from typing import Any
 
 logger = logging.getLogger(__name__)
-MAX_CONTEXT_CHARS = 25000  # Protection against context overflow
+
+# Ingestion-side sanity ceiling only — NOT a prompt/context limit.
+# Chunking (TextChunker) and the retrieval formatter
+# (RAGContextFormatter.format(max_chars=...)) are responsible for
+# keeping prompts bounded; truncating pre-chunk silently destroyed
+# ~90% of large documents (see docs/reviews/2026-08-31_code-review.md
+# §2.3). 2M chars ≈ 500 pages.
+MAX_CONTEXT_CHARS = 2_000_000
 
 
 class DocumentParser:

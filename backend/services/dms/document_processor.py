@@ -3,6 +3,7 @@
 import asyncio
 import importlib
 import logging
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -32,10 +33,11 @@ class DocumentProcessor:
         self._check_version_compatibility()
 
     async def process_file(self, file_path: str) -> dict[str, Any]:
-        """Process a file and extract text. Uses OCR for images.
+        """Process a file and extract text. Uses OCR for images and scanned PDFs.
 
-        Raises:
-            ValueError: If the file is an image and OCR is not available.
+ Raises:
+            ValueError: If the file is an image (or an unparseable scanned
+                PDF) and OCR is not available or yields no text.
         """
         logger.info("Processing file: %s, config: %s", file_path, self.config)
         ext = Path(file_path).suffix.lower()
@@ -50,7 +52,86 @@ class DocumentProcessor:
                 )
             return await self._process_with_ocr(file_path)
         logger.info("Processing as text file")
-        return await self._process_with_existing(file_path)
+        result = await self._process_with_existing(file_path)
+
+        # Scanned PDFs have an image-only page tree: pdfplumber extracts
+        # "" per page and the document otherwise ends up in the DMS with
+        # zero chunks (§2.4 of the 2026-08-31 review). Route empty-text
+        # PDFs through OCR when it is enabled — rasterize each page and
+        # OCR the images with the active engine.
+        if (
+            ext == ".pdf"
+            and not result.get("text", "").strip()
+            and self.config.get("ocr_enabled", False)
+        ):
+            logger.info("No text layer in PDF %s — falling back to page-wise OCR", file_path)
+            return await self._process_pdf_with_ocr(file_path)
+        return result
+
+    async def _process_pdf_with_ocr(self, file_path: str) -> dict[str, Any]:
+        """Rasterize a scanned PDF page-by-page and OCR each page image.
+
+ Uses ``pdfplumber``'s ``page.to_image()`` (pypdfium2-backed since
+        pdfplumber 0.11) for rendering; each page is OCR'd by the active
+        engine via the same code path as standalone image files. If no
+        OCR engine is available — or every page yields no text — a
+        ``ValueError`` is raised so the upload fails loudly (422) instead
+        of silently storing an empty document.
+        """
+        ocr = await asyncio.to_thread(self._get_ocr)
+        if ocr is None:
+            raise ValueError(
+                f"Scanned PDF '{Path(file_path).name}' has no text layer and "
+                "no OCR engine is available. Install paddleocr, easyocr, or "
+                "tesseract (see config/settings.yaml dms.ocr_preferred_engine)."
+            )
+
+        page_count = 0
+        page_texts: list[str] = []
+
+        def _rasterize_and_ocr() -> tuple[int, list[str]]:
+            import pdfplumber
+
+            texts: list[str] = []
+            with pdfplumber.open(file_path) as pdf:
+                pages = list(pdf.pages)
+                for i, page in enumerate(pages):
+                    # ~150 DPI is plenty for OCR of body text.
+                    rendered = page.to_image(resolution=150)
+                    png_bytes = rendered.original.tobytes(format="PNG")
+                    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
+                        tmp.write(png_bytes)
+                        tmp_path = tmp.name
+                    try:
+                        # Reuse the single-image OCR paths (paddle/easy/
+                        # tesseract) synchronously — we are already off
+                        # the event loop in this worker thread.
+                        page_text = self._ocr_image_sync(tmp_path, ocr)
+                    finally:
+                        Path(tmp_path).unlink(missing_ok=True)
+                    texts.append(page_text or "")
+            return len(pages), texts
+
+        try:
+            page_count, page_texts = await asyncio.to_thread(_rasterize_and_ocr)
+        except Exception as exc:
+            logger.warning("Scanned-PDF OCR failed for %s: %s", file_path, exc)
+            raise ValueError(
+                f"OCR processing failed for scanned PDF '{Path(file_path).name}': {exc}"
+            ) from exc
+
+        text = "\n\n".join(t for t in page_texts if t).strip()
+        if not text:
+            raise ValueError(
+                f"Scanned PDF '{Path(file_path).name}' produced no text via OCR "
+                f"({self._ocr_engine} engine). The scan quality may be too low "
+                "or the language configuration wrong (dms.ocr_lang)."
+            )
+
+        metadata = self._build_metadata(file_path, text, {"pages": page_count}, ocr_used=True)
+        metadata["ocr_engine"] = self._ocr_engine
+        metadata["scanned_pdf"] = True
+        return {"text": text, "metadata": metadata, "ocr_used": True}
 
     async def _process_with_existing(self, file_path: str) -> dict[str, Any]:
         """Process with existing internally."""
@@ -67,15 +148,19 @@ class DocumentProcessor:
     async def _process_with_ocr(self, file_path: str) -> dict[str, Any]:
         """Process an image file with available OCR engine.
 
-        Falls back to text extraction if no OCR engine is available.
+        Raises ``ValueError`` when no OCR engine is available — previously
+        this fell back to reading the binary image bytes as "text",
+        silently storing garbage (§2.4 of the 2026-08-31 review). The
+        upload flow catches ``ValueError`` and surfaces it as 422.
         """
         ocr = await asyncio.to_thread(self._get_ocr)
         if ocr is None:
-            logger.warning(
-                "No OCR engine available for %s. Falling back to text extraction.",
-                file_path,
+            logger.warning("No OCR engine available for %s", file_path)
+            raise ValueError(
+                f"Image file '{Path(file_path).name}' requires OCR but no OCR "
+                "engine is available. Install paddleocr, easyocr, or tesseract "
+                "(see config/settings.yaml dms.ocr_preferred_engine)."
             )
-            return await self._process_with_existing(file_path)
 
         try:
             if self._ocr_engine == "paddleocr":
@@ -85,36 +170,61 @@ class DocumentProcessor:
             elif self._ocr_engine == "tesseract":
                 return await self._process_with_tesseract(file_path, ocr)
             else:
-                return await self._process_with_existing(file_path)
+                raise ValueError(
+                    f"Image file '{Path(file_path).name}' requires OCR but no "
+                    "OCR engine is available."
+                )
+        except ValueError:
+            raise
         except Exception as exc:
             logger.warning("OCR failed for %s: %s", file_path, exc)
-            return await self._process_with_existing(file_path)
+            # OCR-engine failure on a binary image is NOT recoverable by
+            # text extraction — raise so the upload fails loudly instead
+            # of indexing binary garbage (§2.4).
+            raise ValueError(
+                f"OCR failed for image '{Path(file_path).name}' "
+                f"({self._ocr_engine} engine): {exc}"
+            ) from exc
+
+    def _ocr_image_sync(self, image_path: str, ocr) -> str:
+        """Run the active OCR engine on one image file, synchronously.
+
+        Used by ``_process_pdf_with_ocr`` for rasterized PDF pages —
+        always called on a worker thread (``asyncio.to_thread``), never
+        on the event loop. Returns the extracted text (possibly "").
+        """
+        if self._ocr_engine == "paddleocr":
+            predict = getattr(ocr, "predict")
+            results = predict(image_path)
+            return self._extract_paddle_text(results)
+        if self._ocr_engine == "easyocr":
+            results = ocr.readtext(image_path)
+            return "\n".join(r[1] for r in results).strip()
+        if self._ocr_engine == "tesseract":
+            import pytesseract
+            from PIL import Image
+
+            with Image.open(image_path) as img:
+                return pytesseract.image_to_string(img, lang=self.config.get("ocr_lang", "deu+eng")).strip()
+        return ""
 
     async def _process_with_paddle(self, file_path: str, ocr) -> dict[str, Any]:
         """Process with PaddleOCR."""
-        try:
-            predict = getattr(ocr, "predict")
-            results = await asyncio.to_thread(predict, file_path)
-            text = self._extract_paddle_text(results)
-            metadata = self._build_metadata(file_path, text, ocr_used=True)
-            return {"text": text, "metadata": metadata, "ocr_used": True}
-        except Exception as exc:
-            logger.warning("PaddleOCR failed for %s: %s", file_path, exc)
-            return await self._process_with_existing(file_path)
+        predict = getattr(ocr, "predict")
+        results = await asyncio.to_thread(predict, file_path)
+        text = self._extract_paddle_text(results)
+        metadata = self._build_metadata(file_path, text, ocr_used=True)
+        return {"text": text, "metadata": metadata, "ocr_used": True}
 
     async def _process_with_tesseract(self, file_path: str, ocr) -> dict[str, Any]:
         """Process with Tesseract via pytesseract."""
         import pytesseract
         from PIL import Image
 
-        try:
-            img = Image.open(file_path)
+        with Image.open(file_path) as img:
             text = pytesseract.image_to_string(img, lang=self.config.get("ocr_lang", "deu+eng"))
-            metadata = self._build_metadata(file_path, text, ocr_used=True)
-            return {"text": text, "metadata": metadata, "ocr_used": True}
-        except Exception as exc:
-            logger.warning("Tesseract OCR failed for %s: %s", file_path, exc)
-            return await self._process_with_existing(file_path)
+        metadata = self._build_metadata(file_path, text, ocr_used=True)
+        return {"text": text, "metadata": metadata, "ocr_used": True}
 
     def _initialize_ocr_sync(self):
         """Initialize OCR engine synchronously.
@@ -157,6 +267,23 @@ class DocumentProcessor:
             "Python package for OCR support."
         )
 
+    def _paddle_lang(self) -> str:
+        """Resolve the PaddleOCR language code from config.
+
+        PaddleOCR does not accept tesseract-style codes (``deu+eng``) nor
+        compound languages. We map the configured ``ocr_lang`` codes to
+        Paddle's naming (``deu``→``german``, ``eng``→``en``) and use the
+        FIRST configured language — one PaddleOCR instance handles one
+        language at a time. ``ocr_paddle_lang`` overrides the mapping
+        wholesale for unusual setups.
+        """
+        override = self.config.get("ocr_paddle_lang")
+        if override:
+            return str(override)
+        ocr_lang = str(self.config.get("ocr_lang", "deu+eng"))
+        first = ocr_lang.replace("+", ",").split(",")[0].strip()
+        return {"deu": "german", "ger": "german", "de": "german", "eng": "en", "en": "en"}.get(first.lower(), first or "en")
+
     def _try_init_paddleocr(self):
         """Attempt to initialize PaddleOCR."""
         if self._ocr is False:
@@ -166,11 +293,12 @@ class DocumentProcessor:
             logger.info("Importing paddleocr module")
             paddle_module = importlib.import_module("paddleocr")
             paddle_ocr = getattr(paddle_module, "PaddleOCR")
-            logger.info("PaddleOCR class found, initializing with device: %s", self.config.get("ocr_device", "cpu"))
+            paddle_lang = self._paddle_lang()
+            logger.info("PaddleOCR class found, initializing with device: %s, lang: %s", self.config.get("ocr_device", "cpu"), paddle_lang)
 
             ocr = paddle_ocr(
                 use_angle_cls=True,
-                lang="en",
+                lang=paddle_lang,
                 use_doc_orientation_classify=False,
                 use_doc_unwarping=False,
                 device=self.config.get("ocr_device", "cpu"),
@@ -190,7 +318,7 @@ class DocumentProcessor:
                     paddle_ocr = getattr(paddle_module, "PaddleOCR")
                     ocr = paddle_ocr(
                         use_angle_cls=True,
-                        lang="en",
+                        lang=self._paddle_lang(),
                         use_doc_orientation_classify=False,
                         use_doc_unwarping=False,
                         device=self.config.get("ocr_device", "cpu"),
@@ -273,14 +401,10 @@ class DocumentProcessor:
 
     async def _process_with_easyocr(self, file_path: str, reader) -> dict[str, Any]:
         """Process with EasyOCR."""
-        try:
-            results = await asyncio.to_thread(reader.readtext, file_path)
-            text = "\n".join(r[1] for r in results).strip()
-            metadata = self._build_metadata(file_path, text, ocr_used=True)
-            return {"text": text, "metadata": metadata, "ocr_used": True}
-        except Exception as exc:
-            logger.warning("EasyOCR failed for %s: %s", file_path, exc)
-            return await self._process_with_existing(file_path)
+        results = await asyncio.to_thread(reader.readtext, file_path)
+        text = "\n".join(r[1] for r in results).strip()
+        metadata = self._build_metadata(file_path, text, ocr_used=True)
+        return {"text": text, "metadata": metadata, "ocr_used": True}
 
     def _get_ocr(self):
         """Get the OCR instance, initializing if needed (fallback for async contexts)."""

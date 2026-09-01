@@ -273,6 +273,7 @@ class DMS:
             "ocr_engine": proc_result.get("ocr_engine"),
             "char_count": proc_result.get("char_count", 0),
             "word_count": proc_result.get("word_count", 0),
+            "truncated": bool(proc_result.get("truncated")),
         }
 
     def move_document_to(self, document_id: str, target_dms: "DMS", target_project_id: str) -> bool:
@@ -331,13 +332,13 @@ class DMS:
                         "project_id": target_project_id,
                     }
                 )
-                target_dms.db.conn.executemany(
+                target_dms.db.executemany(
                     """INSERT INTO document_chunks
                     (id, document_id, chunk_index, text, embedding_id, page, metadata_json)
                     VALUES (?, ?, ?, ?, ?, ?, ?)""",
                     [(str(uuid.uuid4())[:8], new_doc_id, i, ct, "", 0, metadata) for i, ct in enumerate(chunk_texts)],
                 )
-                target_dms.db.conn.commit()
+                target_dms.db.commit()
                 logger.info("Indexed %d chunks for document %s in target project", len(chunk_texts), new_doc_id)
         except Exception as e:
             logger.error("Failed to index chunks in target DMS, cleaning up target document %s: %s", new_doc_id, e)
@@ -635,11 +636,11 @@ def get_dms_for_project(project_id: str, project_store: Any = None) -> DMS:
 
         if not dms.db.get_project(project_id):
             project_name = project.name if project else project_id
-            dms.db.conn.execute(
+            dms.db.execute(
                 "INSERT OR IGNORE INTO projects (id, name, description, created_at, metadata_json) VALUES (?, ?, ?, ?, ?)",
                 (project_id, project_name, "", datetime.now().isoformat(), ""),
             )
-            dms.db.conn.commit()
+            dms.db.commit()
 
         _dms_cache[project_id] = dms
         return dms

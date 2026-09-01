@@ -107,8 +107,14 @@ class TestDocumentProcessorOCR:
         with pytest.raises(ValueError, match="requires OCR but ocr_enabled is false"):
             asyncio.run(processor.process_file(str(img_path)))
 
-    def test_image_rejected_when_paddleocr_not_installed(self, tmp_path):
-        """Image upload should gracefully fallback when PaddleOCR is not installed."""
+    def test_image_rejected_when_ocr_engine_fails(self, tmp_path):
+        """Image upload must fail loudly when the OCR engine itself fails.
+
+        §2.4 of the 2026-08-31 review: the old behavior "fell back to text
+        extraction" — reading binary image bytes as text and silently
+        storing garbage. The contract is now: engine failure on an image
+        raises ``ValueError`` (surfaced as 422 by the upload routes).
+        """
         from backend.services.dms.document_processor import DocumentProcessor
 
         processor = DocumentProcessor(config={"ocr_enabled": True})
@@ -117,10 +123,11 @@ class TestDocumentProcessorOCR:
 
         import asyncio
 
-        with patch.dict(sys.modules, {"paddleocr": None}):
+        with patch.dict(sys.modules, {"paddleocr": None, "easyocr": None, "pytesseract": None}):
             processor._ocr = None
-            result = asyncio.run(processor.process_file(str(img_path)))
-            assert result["ocr_used"] is False
+            processor._ocr_engine = None
+            with pytest.raises(ValueError, match="no OCR engine is available"):
+                asyncio.run(processor.process_file(str(img_path)))
 
     def test_non_image_files_not_affected_by_ocr_check(self, tmp_path):
         """Non-image files should not be affected by ocr_enabled setting."""
@@ -177,12 +184,18 @@ class TestDMSUploadErrorPropagation:
         assert "chunk_count" in data
 
     def test_image_upload_with_real_api_and_ocr(self, client):
-        """Upload an image through the real API — should succeed with PaddleOCR."""
+        """Upload an image through the real API.
+
+        New contract (§2.4 of the 2026-08-31 review): when OCR fails on
+        an image (here: fake PNG bytes), the upload is REJECTED with 422
+        instead of silently storing binary bytes as "text". A real image
+        with a working OCR engine yields 200.
+        """
         files = [_make_png_file("test_ocr.png")]
         response = client.post("/api/v1/dms/documents", files=files)
-        # With PaddleOCR installed and ocr_enabled=True, this should succeed
-        # (may return 200 or 500 depending on PaddleOCR model download)
-        assert response.status_code in (200, 500)
+        # Fake PNG bytes cannot be decoded by any OCR engine → ValueError
+        # → 422. A genuine image with a working engine returns 200.
+        assert response.status_code in (200, 422)
 
 
 # ---------------------------------------------------------------------------
@@ -385,8 +398,10 @@ class TestDocumentProcessorEasyOCR:
         assert result["metadata"]["ocr_engine"] == "easyocr"
         reader.readtext.assert_called_once_with(str(img_path))
 
-    def test_easyocr_processing_fallback_on_failure(self, tmp_path):
-        """When easyocr raises, processing falls back to text extraction."""
+    def test_easyocr_processing_raises_on_failure(self, tmp_path):
+        """When easyocr raises on an image, processing must raise — not
+        read the binary image as "text" (§2.4 of the 2026-08-31 review).
+        """
         import asyncio
 
         from backend.services.dms.document_processor import DocumentProcessor
@@ -397,17 +412,13 @@ class TestDocumentProcessorEasyOCR:
         reader = MagicMock()
         reader.readtext.side_effect = RuntimeError("OCR failed")
 
-        async def fake_parse(file_path):
-            return {"text": "fallback", "metadata": {}}
-
         processor = DocumentProcessor(config={"ocr_enabled": False})
         processor._ocr = reader
         processor._ocr_engine = "easyocr"
-        processor._parser.parse_file = fake_parse
-        result = asyncio.run(processor._process_with_easyocr(str(img_path), reader))
-
-        assert result["ocr_used"] is False
-        assert result["text"] == "fallback"
+        # The engine method propagates the raw exception; the
+        # ``_process_with_ocr`` dispatcher wraps it into ValueError (422).
+        with pytest.raises(RuntimeError, match="OCR failed"):
+            asyncio.run(processor._process_with_easyocr(str(img_path), reader))
 
     def test_easyocr_engine_in_metadata(self, tmp_path):
         """When easyocr is active, metadata should contain 'easyocr' as engine."""

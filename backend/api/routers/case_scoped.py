@@ -20,6 +20,7 @@ from pydantic import BaseModel
 from backend.api.deps import (
     get_audit_service,
     get_case_store,
+    get_current_user,
     get_project_store,
     get_tag_store,
     get_tenant_store,
@@ -35,6 +36,7 @@ from backend.models.schemas import (
     RoundData,
     TagInfo,
 )
+from backend.models.user import User
 from backend.persistence.audit import AuditService
 from backend.persistence.case_store import CaseStore
 from backend.persistence.debate_store import DebateStore
@@ -45,6 +47,34 @@ from backend.persistence.tenant_store import TenantStore
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+
+def _check_tenant_access(user: User, tenant_id: str) -> None:
+    """Verify the user has access to the given tenant (fail-closed).
+
+    Same contract as ``backend.api.routers.inbox._check_tenant_access``:
+    admins bypass; everyone else needs a membership row. Any store
+    failure results in 403 — never open access (§2.7 of the
+    2026-08-31 review: DMS/debate/audit routes previously trusted the
+    attacker-controlled ``tenant_id`` path parameter).
+    """
+    if user.role == "admin":
+        return
+    try:
+        from backend.api.deps import get_membership_store
+
+        membership_store = get_membership_store()
+        membership = membership_store.get(tenant_id, user.id)
+        if membership is None:
+            raise HTTPException(
+                status_code=403,
+                detail=f"Access denied: you are not a member of tenant {tenant_id}",
+            )
+    except HTTPException:
+        raise
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("case_scoped: failed to check tenant access for user %s: %s", user.id, exc)
+        raise HTTPException(status_code=403, detail="Access denied: unable to verify tenant membership")
 
 
 # ---------------------------------------------------------------------------
@@ -169,12 +199,14 @@ async def list_tenant_debates(
     case_store: CaseStore = Depends(get_case_store),
     tag_store: TagStore = Depends(get_tag_store),
     tenant_store: TenantStore = Depends(get_tenant_store),
+    user: User = Depends(get_current_user),
 ) -> list[DebateListItem]:
     """List ALL debates across all cases in a tenant (newest first).
 
     Aggregates debates from every case belonging to the tenant,
     enriching each item with case title, tenant name, and tag information.
     """
+    _check_tenant_access(user, tenant_id)
     tenant = tenant_store.get(tenant_id)
     tenant_name = tenant.name if tenant else tenant_id
 
@@ -244,8 +276,10 @@ async def list_case_debates(
     case_store: CaseStore = Depends(get_case_store),
     tag_store: TagStore = Depends(get_tag_store),
     tenant_store: TenantStore = Depends(get_tenant_store),
+    user: User = Depends(get_current_user),
 ) -> list[DebateListItem]:
     """List debates in a case (newest first)."""
+    _check_tenant_access(user, tenant_id)
     store = _get_debate_store_for_case(tenant_id, case_id, case_store)
     debates = store.list_all(limit=limit + offset)
 
@@ -305,8 +339,10 @@ async def create_case_debate(
     request: DebateRequest,
     audit: AuditService = Depends(get_audit_service),
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> DebateResponse:
     """Create a new debate within a case (status = pending)."""
+    _check_tenant_access(user, tenant_id)
     store = _get_debate_store_for_case(tenant_id, case_id, case_store)
     debate_id = str(uuid.uuid4())
     now = datetime.now(UTC)
@@ -333,8 +369,10 @@ async def get_case_debate(
     case_id: str,
     debate_id: str,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> DebateStatusResponse:
     """Get a single debate's status and progress."""
+    _check_tenant_access(user, tenant_id)
     from backend.services.debate_workflow import build_rag_preview, extract_rag_info
 
     store = _get_debate_store_for_case(tenant_id, case_id, case_store)
@@ -423,8 +461,10 @@ async def start_case_debate(
     background_tasks: BackgroundTasks,
     audit: AuditService = Depends(get_audit_service),
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> DebateStatusResponse:
     """Start a pending debate — launches the workflow in a background task."""
+    _check_tenant_access(user, tenant_id)
     from backend.services.debate_workflow import extract_rag_info
     from backend.tasks.dispatch import dispatch_debate_task
 
@@ -487,8 +527,10 @@ async def delete_case_debate(
     debate_id: str,
     audit: AuditService = Depends(get_audit_service),
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> dict:
     """Delete a debate and its associated audit events."""
+    _check_tenant_access(user, tenant_id)
     store = _get_debate_store_for_case(tenant_id, case_id, case_store)
     debate = store.get(debate_id)
     if not debate:
@@ -516,8 +558,10 @@ async def cancel_case_debate(
     case_id: str,
     debate_id: str,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> dict:
     """Cancel a running debate (idempotent)."""
+    _check_tenant_access(user, tenant_id)
     from backend.services.debate_workflow import mark_cancelled
 
     store = _get_debate_store_for_case(tenant_id, case_id, case_store)
@@ -542,8 +586,10 @@ async def force_reset_case_debate(
     case_id: str,
     debate_id: str,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> dict:
     """Force-reset a stuck 'running' debate to 'failed' (idempotent)."""
+    _check_tenant_access(user, tenant_id)
     from datetime import UTC, datetime
 
     store = _get_debate_store_for_case(tenant_id, case_id, case_store)
@@ -573,8 +619,10 @@ async def submit_case_oob_input(
     debate_id: str,
     body: OOBInputBody,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> OOBInputResponse:
     """Submit an out-of-band input for a running debate in a case."""
+    _check_tenant_access(user, tenant_id)
     from backend.api.events import publish_async
     from backend.services.debate_workflow import enqueue_oob
 
@@ -630,8 +678,10 @@ async def list_case_forks(
     limit: int = 50,
     offset: int = 0,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ) -> list[DebateListItem]:
     """List all forks originating from a given debate in a case."""
+    _check_tenant_access(user, tenant_id)
     store = _get_debate_store_for_case(tenant_id, case_id, case_store)
     debates = store.list_all(limit=limit + offset)
 
@@ -728,6 +778,12 @@ def _get_dms_for_case(tenant_id: str, case_id: str, case_store: CaseStore):
     with _dms_cache_lock:
         if cache_key in _dms_cache:
             return _dms_cache[cache_key]
+        # Fall back to the bare-case_id alias entry possibly created by
+        # ``get_dms_for_project(case_id)`` (debate/workflow RAG path) —
+        # either way, at most one DMS instance exists per case (§2.8).
+        if case_id in _dms_cache and isinstance(_dms_cache[case_id], DMS):
+            _dms_cache[cache_key] = _dms_cache[case_id]
+            return _dms_cache[case_id]
 
         case_dir = case_store.get_case_dir(tenant_id, case_id)
         dms_dir = case_dir / "dms"
@@ -759,13 +815,22 @@ def _get_dms_for_case(tenant_id: str, case_id: str, case_store: CaseStore):
         # FOREIGN KEY constraints on documents.project_id are satisfied.
         if not dms.db.get_project(scope_id):
             case_name = case.name if hasattr(case, "name") else scope_id
-            dms.db.conn.execute(
+            dms.db.execute(
                 "INSERT OR IGNORE INTO projects (id, name, description, created_at, metadata_json) VALUES (?, ?, ?, ?, ?)",
                 (scope_id, case_name, "", datetime.now().isoformat(), ""),
             )
-            dms.db.conn.commit()
+            dms.db.commit()
 
         _dms_cache[cache_key] = dms
+        # Alias under the bare case_id string key too, so the legacy
+        # factory (``get_dms_for_project(case_id)`` — used by the debate/
+        # workflow RAG path via ``resolve_rag_context``) returns THIS
+        # instance instead of opening a second DMS over the same
+        # directory: one case, one binding, one SQLite connection, one
+        # Chroma client (§2.8 of the 2026-08-31 review). The tuple key
+        # above remains authoritative for tenant-scoped lookups; it
+        # cannot collide with the string key by construction.
+        _dms_cache.setdefault(scope_id, dms)
         return dms
 
 
@@ -774,8 +839,10 @@ def list_case_documents(
     tenant_id: str,
     case_id: str,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
     """List documents in the case DMS."""
+    _check_tenant_access(user, tenant_id)
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
     return dms.list_documents(dms._project_id)
 
@@ -786,14 +853,99 @@ def get_case_document(
     case_id: str,
     document_id: str,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
-    """Get a single document with its content for viewing."""
+    """Get a single document with its content for viewing.
+
+    Uses ``get_document_content`` (metadata + joined text chunks +
+    ``in_rag`` flag) — the same contract as the legacy
+    ``/dms/documents/{id}`` route. Previously this returned the bare DB
+    row, so the document viewer's text panel was always empty via the
+    tenant/case flow (§2.6 of the 2026-08-31 review).
+    """
+    _check_tenant_access(user, tenant_id)
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
-    try:
-        doc = dms.get_document(document_id)
-    except Exception:
-        raise HTTPException(status_code=404, detail="Document not found")
+    doc = dms.get_document_content(document_id)
+    if not doc:
+        raise HTTPException(status_code=404, detail=f"Document '{document_id}' not found")
     return doc
+
+
+class UpdateCaseDocumentTextRequest(BaseModel):
+    """Request body for case-scoped document text updates."""
+
+    text: str
+
+
+@router.put("/tenants/{tenant_id}/cases/{case_id}/dms/documents/{document_id}/text")
+def update_case_document_text(
+    tenant_id: str,
+    case_id: str,
+    document_id: str,
+    body: UpdateCaseDocumentTextRequest,
+    case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
+):
+    """Replace a document's extracted text (re-chunks and re-indexes).
+
+    Tenant-scoped twin of the legacy ``PUT /dms/documents/{id}/text`` —
+    the frontend previously had to fall back to the legacy route
+    ("No tenant-scoped equivalent yet" in ``document.js``).
+    """
+    _check_tenant_access(user, tenant_id)
+    dms = _get_dms_for_case(tenant_id, case_id, case_store)
+    result = dms.update_document_text(document_id, body.text)
+    if not result:
+        raise HTTPException(status_code=404, detail=f"Document '{document_id}' not found")
+    return result
+
+
+class MoveCaseDocumentRequest(BaseModel):
+    """Request body for case-scoped document moves."""
+
+    target_project_id: str
+
+
+@router.post("/tenants/{tenant_id}/cases/{case_id}/dms/documents/{document_id}/move")
+def move_case_document(
+    tenant_id: str,
+    case_id: str,
+    document_id: str,
+    body: MoveCaseDocumentRequest,
+    case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
+):
+    """Move a document to another project's DMS (tenant-scoped twin).
+
+    Mirrors the legacy ``POST /dms/documents/{id}/move``. The target must
+    resolve within this deployment's tenant roots (``get_case_dir``),
+    so cross-tenant moves cannot be smuggled through the target id.
+    """
+    _check_tenant_access(user, tenant_id)
+    dms = _get_dms_for_case(tenant_id, case_id, case_store)
+    if not dms.get_document(document_id):
+        raise HTTPException(status_code=404, detail=f"Document '{document_id}' not found")
+
+    if body.target_project_id == dms._project_id:
+        raise HTTPException(status_code=400, detail="Source and target project are the same")
+
+    from backend.api.deps import get_case_dir
+    from backend.services.dms.service import get_dms_for_project
+
+    try:
+        get_case_dir(body.target_project_id)
+    except HTTPException:
+        raise HTTPException(status_code=404, detail=f"Target project '{body.target_project_id}' not found")
+
+    try:
+        target_dms = get_dms_for_project(body.target_project_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail=f"Target project '{body.target_project_id}' not found")
+
+    moved = dms.move_document_to(document_id, target_dms, target_dms._project_id)
+    if not moved:
+        raise HTTPException(status_code=400, detail="Failed to move document")
+    return {"detail": "Document moved", "moved": document_id, "target_project_id": body.target_project_id}
 
 
 @router.post("/tenants/{tenant_id}/cases/{case_id}/dms/documents")
@@ -802,6 +954,7 @@ async def upload_case_document(
     case_id: str,
     file: UploadFile = File(...),
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
     """Upload a document to the case DMS.
 
@@ -809,6 +962,7 @@ async def upload_case_document(
     pool via ``add_document_async`` — awaited here, so the event loop stays
     free for concurrent requests during processing.
     """
+    _check_tenant_access(user, tenant_id)
     import tempfile
 
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
@@ -821,6 +975,12 @@ async def upload_case_document(
         result = await dms.add_document_async(tmp.name, filename=filename)
     finally:
         Path(tmp.name).unlink(missing_ok=True)
+    if not result.get("doc_id"):
+        raise HTTPException(status_code=500, detail=result.get("error") or "Failed to upload document")
+    if result.get("error"):
+        # Same contract as the legacy DMS route: processing errors
+        # (e.g. OCR failure on an image/scanned PDF) → 422.
+        raise HTTPException(status_code=422, detail=result["error"])
     return result
 
 
@@ -830,8 +990,10 @@ def delete_case_document(
     case_id: str,
     document_id: str,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
     """Delete a document from the case DMS."""
+    _check_tenant_access(user, tenant_id)
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
     dms.delete_document(document_id)
     return {"detail": "Document deleted"}
@@ -843,6 +1005,7 @@ def add_case_document_rag(
     case_id: str,
     document_id: str,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
     """Add a document to the RAG index for a case.
 
@@ -850,6 +1013,7 @@ def add_case_document_rag(
     that the document belongs to the active project; if it does not, the
     call returns 404 rather than silently attaching a foreign document.
     """
+    _check_tenant_access(user, tenant_id)
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
     if dms.get_document(document_id) is None:
         raise HTTPException(status_code=404, detail=f"Document '{document_id}' not found in this case")
@@ -865,8 +1029,10 @@ def remove_case_document_rag(
     case_id: str,
     document_id: str,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
     """Remove a document from the RAG index for a case."""
+    _check_tenant_access(user, tenant_id)
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
     removed = dms.remove_from_rag_context(document_id)
     if not removed:
@@ -881,10 +1047,57 @@ def search_case_rag(
     query: str = Query(default=""),
     limit: int = Query(default=5),
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
     """Search the RAG index for a case (hybrid retriever, project-scoped)."""
+    _check_tenant_access(user, tenant_id)
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
     return {"results": dms.get_rag_context(query, project_id=dms._project_id, k=limit)}
+
+
+@router.get("/tenants/{tenant_id}/cases/{case_id}/dms/rag/preview")
+def preview_case_rag(
+    tenant_id: str,
+    case_id: str,
+    query: str = Query(default=""),
+    document_ids: str = Query(default=""),
+    include_analysis: bool = Query(default=True),
+    case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
+):
+    """Preview the RAG context exactly as a debate on this case would receive it.
+
+    Mirrors ``resolve_rag_context`` (the same code path a debate run
+    takes), bound to the canonical case scope so the preview is immune
+    to the historical scope-id split-brain (§2.5 of the 2026-08-31
+    review: the frontend shipped a preview panel that called this
+    route before it existed — guaranteed 404).
+
+    Query params match ``frontend/src/lib/api/document.js`` ``getRagPreview``:
+    ``query``, ``document_ids`` (comma-separated), ``include_analysis``
+    (frontend sends it only when false).
+    """
+    _check_tenant_access(user, tenant_id)
+    from backend.services.debate.debate_rag import resolve_rag_context
+
+    dms = _get_dms_for_case(tenant_id, case_id, case_store)
+    ids = [d for d in document_ids.split(",") if d] or None
+    rag_context, document_count = resolve_rag_context(
+        project_id=dms._project_id,
+        case_text=query,
+        document_ids=ids,
+        rag_auto_retrieve=bool(query.strip()),
+        include_document_analysis=include_analysis,
+    )
+    return {
+        "rag_context": rag_context,
+        "document_count": document_count,
+        "stats": {
+            "document_count": document_count,
+            "rag_chars": len(rag_context),
+            "rag_tokens_approx": len(rag_context) // 4,
+        },
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -899,8 +1112,10 @@ async def analyze_case_documents(
     language: str = Query("de", description="Language for analysis content"),
     mode: str = Query("full", description="Analysis mode: 'full' or 'update'"),
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
     """Analyze all documents in the case DMS."""
+    _check_tenant_access(user, tenant_id)
     import asyncio
 
     from backend.services.dms.document_analyzer import (
@@ -983,8 +1198,10 @@ def get_case_analysis(
     tenant_id: str,
     case_id: str,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
     """Get the latest analysis for the case DMS."""
+    _check_tenant_access(user, tenant_id)
     from backend.services.dms.document_analyzer import load_analysis
 
     case_dir = case_store.get_case_dir(tenant_id, case_id)
@@ -1007,8 +1224,10 @@ async def export_case_analysis(
     body: AnalysisExportRequest,
     case_store: CaseStore = Depends(get_case_store),
     project_store: ProjectStore = Depends(get_project_store),
+    user: User = Depends(get_current_user),
 ):
     """Export the document analysis as PDF, ODT, or Markdown."""
+    _check_tenant_access(user, tenant_id)
     from fastapi.responses import FileResponse
 
     case_dir = case_store.get_case_dir(tenant_id, case_id)
@@ -1089,12 +1308,14 @@ def list_case_audit_events(
     offset: int = 0,
     audit: AuditService = Depends(get_audit_service),
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
     """List audit events for a debate within a case.
 
     Falls back to workflow audit_log table for MVP debates (same logic as
     the legacy ``/api/v1/audit`` endpoint).
     """
+    _check_tenant_access(user, tenant_id)
     from backend.api.routers.audit import (
         _enrich_events_with_debate_data,
         _resolve_debate_id,
@@ -1132,12 +1353,14 @@ async def start_case_workflow(
     body: dict,
     background_tasks: BackgroundTasks,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
     """Start a workflow within a case context.
 
     Delegates to the workflow_exec router but resolves the project_id
     from the tenant/case path.
     """
+    _check_tenant_access(user, tenant_id)
     case = case_store.get(tenant_id, case_id)
     if not case:
         raise HTTPException(status_code=404, detail="Case not found")
@@ -1165,8 +1388,10 @@ async def get_case_workflow_state(
     case_id: str,
     session_id: str,
     case_store: CaseStore = Depends(get_case_store),
+    user: User = Depends(get_current_user),
 ):
     """Get workflow execution state within a case context."""
+    _check_tenant_access(user, tenant_id)
     case = case_store.get(tenant_id, case_id)
     if not case:
         raise HTTPException(status_code=404, detail="Case not found")
