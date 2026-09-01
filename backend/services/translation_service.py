@@ -183,7 +183,11 @@ Respond with ONLY a valid JSON object:
         """Initialise TranslationService."""
         self.db_path = Path(db_path) if db_path else Path("data/blueprints.db")
         self.modules_dir = Path(modules_dir) if modules_dir else Path("modules")
-        self._profile_service = profile_service or ProfileService()
+        # §4.8: default to the app-wide shared ProfileService instead
+        # of re-opening blueprints.db per LLMService construction.
+        from backend.services.profile_service import get_shared_profile_service
+
+        self._profile_service = profile_service or get_shared_profile_service()
         self._llm_profile_id = llm_profile_id
         self._llm_service: LLMService | None = None
         # LLM-activity metadata for the header monitor.  Mirrors

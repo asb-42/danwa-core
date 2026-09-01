@@ -554,10 +554,11 @@ class UITranslationService:
     ) -> str:
         """Translate via llm the instance."""
         from backend.services.llm_service import LLMService
-        from backend.services.profile_service import ProfileService
 
         if llm is None:
-            ps = ProfileService()
+            from backend.services.profile_service import get_shared_profile_service
+
+            ps = get_shared_profile_service()
             if llm_profile_id is None:
                 llm_profile_id = self._select_llm_for_locale(target_locale, ps)
             llm = LLMService(profile_id=llm_profile_id, profile_service=ps)
@@ -700,7 +701,7 @@ class UITranslationService:
     ) -> str:
         """Start an async bulk translation job. Returns job_id immediately."""
         from backend.services.llm_service import LLMService
-        from backend.services.profile_service import ProfileService
+        from backend.services.profile_service import get_shared_profile_service
 
         if target_locales is None:
             installed = self.get_installed_locales()
@@ -716,7 +717,7 @@ class UITranslationService:
             job.status = "running"
             job.started_at = datetime.now(UTC).isoformat()
             try:
-                ps = ProfileService()
+                ps = get_shared_profile_service()
                 llm_profile_id = settings.service_llm_profile_id
                 if not llm_profile_id:
                     llm_profile_id = self._select_llm_for_locale(target_locales[0], ps)

@@ -10,7 +10,10 @@ DEFAULT_DMS_CONFIG = {
     "storage_path": "dms_storage",
     "chunk_size": 512,
     "chunk_overlap": 51,
-    "embedding_model": "intfloat/multilingual-e5-small",
+    # NOTE (§4.3, 2026-08-31 review): the former "embedding_model"
+    # entry was removed — nothing consumed it. ChromaDB uses its
+    # built-in default embedding function; do not re-add this key
+    # unless you actually wire it into DMSVectorStore.
     "ocr_enabled": True,
     "ocr_device": "cpu",
     "ocr_lang": "deu+eng",

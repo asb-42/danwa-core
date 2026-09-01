@@ -7,7 +7,7 @@ import logging
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
 
-from backend.api.deps import get_current_user
+from backend.api.deps import get_current_user, get_user_key_store
 
 logger = logging.getLogger(__name__)
 
@@ -37,9 +37,7 @@ def list_user_keys(
     user=Depends(get_current_user),
 ):
     """List all BYOK keys for the current user (keys are masked)."""
-    from backend.persistence.user_key_store import UserKeyStore
-
-    store = UserKeyStore()
+    store = get_user_key_store()
     return store.list_keys(user.id)
 
 
@@ -53,9 +51,7 @@ def set_user_key(
     The key is stored per-user and takes precedence over the profile's
     environment variable when the user triggers an LLM call.
     """
-    from backend.persistence.user_key_store import UserKeyStore
-
-    store = UserKeyStore()
+    store = get_user_key_store()
     store.set_key(user.id, body.profile_id, body.api_key, body.label)
 
     return UserKeyResponse(
@@ -73,9 +69,7 @@ def delete_user_key(
     user=Depends(get_current_user),
 ):
     """Delete a BYOK API key for a specific LLM profile."""
-    from backend.persistence.user_key_store import UserKeyStore
-
-    store = UserKeyStore()
+    store = get_user_key_store()
     store.delete_key(user.id, profile_id)
     return {"status": "ok", "message": f"Key for profile {profile_id} deleted"}
 
@@ -85,8 +79,6 @@ def delete_all_user_keys(
     user=Depends(get_current_user),
 ):
     """Delete all BYOK API keys for the current user."""
-    from backend.persistence.user_key_store import UserKeyStore
-
-    store = UserKeyStore()
+    store = get_user_key_store()
     count = store.delete_all_keys(user.id)
     return {"status": "ok", "deleted": count}

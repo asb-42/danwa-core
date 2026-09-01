@@ -72,6 +72,42 @@ Python FastAPI backend providing the core application: API layer, business logic
   fields extended accordingly); route responses surface `truncated`. Ingestion
   truncation ceiling lives in `doc_parser.MAX_CONTEXT_CHARS` (2M chars,
   sanity ceiling only — prompt budgets are enforced at chunking/retrieval).
+- **DMS singletons are lazy and shared** (review §4.1–§4.3, §4.8):
+  `DMSVectorStore.__init__` performs no Chroma I/O — first-touch goes
+  through `_ensure_initialized()` (RLock, double-checked) and failed init
+  retries on the next call; all operations go via `self.collection`.
+  `HybridRetriever` is cheap to construct: the cross-encoder is a
+  module-level shared lazy singleton (`_get_cross_encoder`, overridable
+  per-instance via the `cross_encoder` setter — a test seam). BM25
+  corpus+index caching is single-flight under `_corpus_cache_lock` with
+  a TTL; the BM25 corpus is capped by `MAX_BM25_CORPUS_SIZE` (10k chunks).
+  `DEFAULT_DMS_CONFIG` contains no `embedding_model` — collections use
+  Chroma's default embedding function; do not re-add the key (switching
+  EFs corrupts existing collections).
+- **ProfileService/UserKeyStore are app-lifetime singletons** (review
+  §4.8): one global `ProfileService` via
+  `profile_service.get_shared_profile_service()` — used by
+  `deps.get_profile_service`, the profiles/llm_profiles routers,
+  `node_functions._get_profile_service`, and as the default for
+  `LLMService`/`TranslationService`/`AssistantService` (`profile_service=`/
+  `db_path=` parameters keep tests isolated). Per-case instances go through
+  `deps.get_profile_service_for_case_cached` and are invalidated by
+  `ProjectStore.update` (via `invalidate_profile_service_cache`) so config
+  writes are always seen on the next request. `legacy_nodes._get_profile_service`
+  delegates to those caches. `UserKeyStore` is singleton via
+  `deps.get_user_key_store()` (default path only); the BYOK router uses it.
+  After profile writes, routers call `reload()` on the shared instance so
+  every layer sees fresh data.
+- **Uploads stream to disk** (review §4.5): both DMS upload routes copy in
+  1 MiB chunks with a running total and abort with 413 the moment
+  `max_file_size_mb` (from `load_dms_config()`) is exceeded — the body is
+  never fully buffered in RAM; temp files are unlinked on every exit path.
+- **Zombie documents are requeued at startup** (review §4.7): zero-chunk
+  document rows (signal: `NOT EXISTS(document_chunks)`) are re-ingested by
+  `main._requeue_zombie_documents` during lifespan if their `file_path`
+  still exists; otherwise the row is marked `failed_ingest` in
+  `metadata_json` (UI-visible reason) — never deleted. Pre-§2.3 rows with
+  `word_count=0` but chunks are NOT zombies.
 
 ## Work Guidance
 

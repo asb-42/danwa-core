@@ -39,12 +39,12 @@ logger = logging.getLogger(__name__)
 # (no-project) singletons remain for backwards compatibility.
 # ---------------------------------------------------------------------------
 
-_profile_service: ProfileService | None = None
 _prompt_service: PromptService | None = None
 _search_tool: WebSearchTool | None = None
 
-# Per-project caches: project_id → service instance
-_profile_service_cache: dict[str, ProfileService] = {}
+# Per-project caches: project_id → service instance (PromptService only;
+# ProfileService per-case caching lives in backend.api.deps so that
+# ProjectStore.update invalidates it — §4.8 of the 2026-08-31 review).
 _prompt_service_cache: dict[str, PromptService] = {}
 
 
@@ -69,16 +69,24 @@ def _get_project_config(project_id: str | None) -> ProjectConfig | None:
 
 
 def _get_profile_service(project_id: str | None = None) -> ProfileService:
-    """Return a ProfileService, project-scoped if project_id is given."""
-    global _profile_service
+    """Return a ProfileService, project-scoped if project_id is given.
+
+    §4.8: both paths now share the app-wide caches — the per-case cache
+    in ``backend.api.deps`` (invalidated by ``ProjectStore.update`` when
+    a project config changes) and the global shared singleton. A
+    missing project falls back to the global service, matching the old
+    construct-with-``None``-config behavior.
+    """
+    from backend.services.profile_service import get_shared_profile_service
+
     if project_id:
-        if project_id not in _profile_service_cache:
-            config = _get_project_config(project_id)
-            _profile_service_cache[project_id] = ProfileService(project_config=config)
-        return _profile_service_cache[project_id]
-    if _profile_service is None:
-        _profile_service = ProfileService()
-    return _profile_service
+        try:
+            from backend.api.deps import get_profile_service_for_case_cached
+
+            return get_profile_service_for_case_cached(project_id)
+        except Exception:
+            pass
+    return get_shared_profile_service()
 
 
 def _get_prompt_service(project_id: str | None = None) -> PromptService:

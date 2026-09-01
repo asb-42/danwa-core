@@ -267,6 +267,15 @@ async def lifespan(app: FastAPI):
     except Exception:
         logger.debug("Stale debate cleanup skipped", exc_info=True)
 
+    # Requeue case documents whose ingestion was interrupted by a crash or
+    # the 5-minute ingest timeout (§4.7 of the 2026-08-31 review) — rows
+    # with zero chunks are re-ingested if the source file survives, or
+    # marked failed-ingest otherwise, so the UI stops listing silent zombies.
+    try:
+        _requeue_zombie_documents()
+    except Exception:
+        logger.debug("Zombie document requeue skipped", exc_info=True)
+
     # Bootstrap i18n: migrate core locale translations to langpack namespace (idempotent)
     from backend.services.ui_translation_service import UITranslationService
 
@@ -421,7 +430,6 @@ def _backfill_memberships() -> None:
 
 def _reset_stale_running_debates() -> None:
     """Reset debates stuck in 'running' state from a previous crash or restart.
-
     On startup any debate still marked 'running' is presumed dead (the
     previous process was killed before it could update the status).
     Resets them to 'failed' so the dashboard counter is accurate and
@@ -449,6 +457,108 @@ def _reset_stale_running_debates() -> None:
         logger.warning("Reset stale running debate %s to 'failed'", debate_id)
 
     logger.info("Startup cleanup: reset %d stale running debate(s) to 'failed'", len(stale))
+
+
+def _requeue_zombie_documents() -> None:
+    """Re-ingest case documents whose ingestion never completed (§4.7).
+
+    A timed-out or crashed upload leaves a ``documents`` row with zero
+    chunks — listed in the UI but invisible to RAG (the "file unreadable"
+    complaint's quiet cousin). On startup, scan every case DMS for such
+    zombie rows:
+
+      * source file still on disk → re-run ingestion for the SAME doc_id
+        via :meth:`DMS.reingest_document` (bounded, sequential, logged);
+      * source file gone → mark the row ``metadata_json.failed_ingest``
+        so the UI shows why it has no chunks instead of looking stuck.
+
+    Idempotent: documents with ≥ 1 chunk are skipped; rows already
+    marked failed are skipped. Sequential by design — the ingest pool
+    has 2 workers and startup must stay predictable.
+    """
+    import json
+    import sqlite3
+    from pathlib import Path
+
+    from backend.persistence.case_store import _DEFAULT_BASE_DIR as TENANTS_BASE
+    from backend.services.dms.service import DMS
+
+    tenants_base = Path(TENANTS_BASE)
+    if not tenants_base.is_dir():
+        return
+
+    requeued = 0
+    failed = 0
+    for dms_db in sorted(tenants_base.glob("*/cases/*/dms/dms.db")):
+        case_dir = dms_db.parent.parent
+        try:
+            conn = sqlite3.connect(str(dms_db), timeout=5)
+            conn.row_factory = sqlite3.Row
+            rows = conn.execute(
+                """SELECT d.id, d.project_id, d.file_path, d.filename, d.metadata_json
+                   FROM documents d
+                   WHERE NOT EXISTS (SELECT 1 FROM document_chunks c WHERE c.document_id = d.id)"""
+            ).fetchall()
+            conn.close()
+        except sqlite3.Error as exc:
+            logger.debug("Zombie scan skipped %s: %s", dms_db, exc)
+            continue
+        if not rows:
+            continue
+
+        try:
+            dms = DMS(
+                db_path=str(dms_db),
+                chroma_path=str(dms_db.parent / "chroma_db"),
+                config={},
+                project_id=rows[0]["project_id"] or None,
+            )
+        except Exception as exc:
+            logger.warning("Zombie requeue: could not open DMS at %s: %s", dms_db, exc)
+            continue
+
+        for row in rows:
+            doc_id = row["id"]
+            try:
+                meta = json.loads(row["metadata_json"] or "{}")
+            except Exception:
+                meta = {}
+            if meta.get("failed_ingest"):
+                continue
+            try:
+                result = dms.reingest_document(doc_id)
+                if result.get("error"):
+                    # Source exists but processing failed again — mark so
+                    # the row explains itself and we don't retry forever.
+                    dms.db.update_document_metadata(
+                        doc_id, metadata_json=json.dumps({**meta, "failed_ingest": result["error"]})
+                    )
+                    failed += 1
+                    logger.warning("Zombie requeue failed for %s/%s: %s", case_dir.name, doc_id, result["error"])
+                else:
+                    requeued += 1
+                    logger.info(
+                        "Zombie requeue: re-ingested %s (%s, %d chunks)",
+                        doc_id,
+                        row["filename"],
+                        result.get("chunk_count", 0),
+                    )
+            except ValueError as exc:
+                # Source file gone — permanent failure; mark and move on.
+                dms.db.update_document_metadata(
+                    doc_id, metadata_json=json.dumps({**meta, "failed_ingest": str(exc)})
+                )
+                failed += 1
+                logger.warning("Zombie document %s (%s) cannot be re-ingested: %s", doc_id, row["filename"], exc)
+            except Exception:
+                logger.exception("Zombie requeue error for %s/%s", case_dir.name, doc_id)
+
+    if requeued or failed:
+        logger.info(
+            "Startup zombie-requeue: %d document(s) re-ingested, %d marked failed",
+            requeued,
+            failed,
+        )
 
 
 def create_app() -> FastAPI:

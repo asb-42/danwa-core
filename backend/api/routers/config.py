@@ -22,7 +22,7 @@ from backend.core.config import is_service_llm_eligible
 from backend.core.config import settings as app_settings
 from backend.persistence.backup import BackupResult, BackupService, VerificationResult
 from backend.services.dms.config import DEFAULT_DMS_CONFIG
-from backend.services.profile_service import ProfileService
+from backend.api.deps import get_profile_service
 
 logger = logging.getLogger(__name__)
 
@@ -437,7 +437,7 @@ async def get_utility_llm_config():
 @router.post("/validate-service-llm")
 async def validate_utility_llm(body: UtilityLLMRequest):
     """Validate whether a given profile is suitable as utility LLM."""
-    ps = ProfileService()
+    ps = get_profile_service()
     profile = ps.get_llm_profile(body.profile_id)
     if not profile:
         raise HTTPException(status_code=404, detail=f"LLM profile '{body.profile_id}' not found")
@@ -461,7 +461,7 @@ async def set_utility_llm(body: UtilityLLMRequest):
         _save_settings(settings)
         logger.info("Utility LLM cleared")
         return {"status": "ok", "service_llm_profile_id": None}
-    ps = ProfileService()
+    ps = get_profile_service()
     profile = ps.get_llm_profile(body.profile_id)
     if not profile:
         raise HTTPException(status_code=404, detail=f"LLM profile '{body.profile_id}' not found")

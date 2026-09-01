@@ -53,10 +53,11 @@ async def generate_debate_title(
     ``_select_service_llm()`` for higher quality output.
     """
     from backend.services.llm_service import LLMService
-    from backend.services.profile_service import ProfileService
 
     try:
-        ps = ProfileService()
+        from backend.services.profile_service import get_shared_profile_service
+
+        ps = get_shared_profile_service()
 
         if use_service_llm:
             service_id = _select_service_llm(ps)

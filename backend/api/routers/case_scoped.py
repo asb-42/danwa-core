@@ -967,13 +967,38 @@ async def upload_case_document(
 
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
     filename = file.filename or "uploaded.pdf"
-    content = await file.read()
+
+    # §4.5 (2026-08-31 review): this route previously had NO size check
+    # and buffered the whole body in RAM. Stream to disk in 1 MiB chunks
+    # and abort as soon as ``max_file_size_mb`` is exceeded (same limit
+    # and 413 semantics as the legacy route).
+    from backend.services.dms.config import load_dms_config
+
+    try:
+        dms_config = load_dms_config()
+        max_bytes = dms_config.get("max_file_size_mb", 50) * 1024 * 1024
+    except Exception:
+        max_bytes = 50 * 1024 * 1024  # 50 MB default
+
     tmp = tempfile.NamedTemporaryFile(delete=False, suffix=Path(filename).suffix)
     try:
-        tmp.write(content)
+        total = 0
+        while True:
+            chunk = await file.read(1024 * 1024)  # 1 MiB at a time
+            if not chunk:
+                break
+            total += len(chunk)
+            if total > max_bytes:
+                raise HTTPException(
+                    status_code=413,
+                    detail=f"File too large ({total} bytes read so far). "
+                    f"Maximum allowed: {max_bytes // (1024 * 1024)} MB",
+                )
+            tmp.write(chunk)
         tmp.close()
         result = await dms.add_document_async(tmp.name, filename=filename)
     finally:
+        tmp.close() if not tmp.closed else None
         Path(tmp.name).unlink(missing_ok=True)
     if not result.get("doc_id"):
         raise HTTPException(status_code=500, detail=result.get("error") or "Failed to upload document")
@@ -1124,7 +1149,6 @@ async def analyze_case_documents(
         save_analysis,
         update_analysis,
     )
-    from backend.services.profile_service import ProfileService
 
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
     project_id = dms._project_id
@@ -1134,7 +1158,12 @@ async def analyze_case_documents(
     if not documents:
         raise HTTPException(status_code=400, detail="No documents to analyze")
 
-    profile_service = ProfileService()
+    # §4.8: global ProfileService singleton (analysis reads profiles
+    # only — no project override merge needed here, matching the old
+    # bare ``ProfileService()`` semantics without per-request rebuild).
+    from backend.api.deps import get_profile_service
+
+    profile_service = get_profile_service()
 
     if mode == "update":
         existing = load_analysis(case_dir)

@@ -41,11 +41,10 @@ _prompt_service: PromptService | None = None
 
 
 def _get_profile_service() -> ProfileService:
-    """Return (or lazily create) profile service."""
-    global _profile_service
-    if _profile_service is None:
-        _profile_service = ProfileService()
-    return _profile_service
+    """Global ProfileService singleton (§4.8: shared app-wide instance)."""
+    from backend.services.profile_service import get_shared_profile_service
+
+    return get_shared_profile_service()
 
 
 def _get_prompt_service() -> PromptService:

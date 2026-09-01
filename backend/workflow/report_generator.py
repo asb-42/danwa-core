@@ -280,9 +280,9 @@ def _build_mvp_rounds_from_snapshot(debate_data: dict[str, Any]) -> list[dict[st
         if profile_id in _profile_name_cache:
             return _profile_name_cache[profile_id]
         try:
-            from backend.services.profile_service import ProfileService
+            from backend.services.profile_service import get_shared_profile_service
 
-            ps = ProfileService()
+            ps = get_shared_profile_service()
             profile = ps.get_llm_profile(profile_id)
             if profile and profile.name:
                 _profile_name_cache[profile_id] = profile.name
@@ -425,9 +425,9 @@ def _build_node_llm_name_map(session_id: str) -> dict[str, str]:
     # Fallback: resolve UUIDs via ProfileService
     if unresolved:
         try:
-            from backend.services.profile_service import ProfileService
+            from backend.services.profile_service import get_shared_profile_service
 
-            ps = ProfileService()
+            ps = get_shared_profile_service()
             for nid, profile_id in unresolved.items():
                 profile = ps.get_llm_profile(profile_id)
                 if profile and profile.name:

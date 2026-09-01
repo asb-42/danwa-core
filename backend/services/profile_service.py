@@ -11,6 +11,7 @@ Agent personas, prompt variants, and prompt content are all stored in
 from __future__ import annotations
 
 import logging
+import threading
 import uuid
 from pathlib import Path
 
@@ -288,8 +289,29 @@ class ProfileService:
     # Reload
     # ------------------------------------------------------------------
 
-    def reload(self) -> None:
+    def reload(self) -> "ProfileService":
         """Force reload all profiles from DB + disk."""
         self._llm_cache.clear()
         self._loaded = False
         self.ensure_loaded()
+        return self
+
+
+# §4.8 (2026-08-31 review): app-lifetime shared instance. Callers that
+# previously did ``ProfileService()`` per request (re-opening
+# blueprints.db + re-reading profiles each time) use this instead. The
+# service caches its profiles internally (``ensure_loaded``) and
+# ``reload()`` refreshes after writes. Project-scoped overrides still
+# need their own instance (see ``deps.get_profile_service_for_case_cached``).
+_SHARED_PROFILE_SERVICE: "ProfileService | None" = None
+_SHARED_PROFILE_SERVICE_LOCK = threading.Lock()
+
+
+def get_shared_profile_service() -> "ProfileService":
+    """Return the process-lifetime global ProfileService (no project overrides)."""
+    global _SHARED_PROFILE_SERVICE
+    if _SHARED_PROFILE_SERVICE is None:
+        with _SHARED_PROFILE_SERVICE_LOCK:
+            if _SHARED_PROFILE_SERVICE is None:
+                _SHARED_PROFILE_SERVICE = ProfileService()
+    return _SHARED_PROFILE_SERVICE

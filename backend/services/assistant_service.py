@@ -272,7 +272,11 @@ class AssistantService:
         max_messages_per_session: int = 100,
     ):
         """Initialise AssistantService."""
-        self._profile_service = profile_service or ProfileService()
+        # §4.8: default to the app-wide shared ProfileService instead
+        # of re-opening blueprints.db per LLMService construction.
+        from backend.services.profile_service import get_shared_profile_service
+
+        self._profile_service = profile_service or get_shared_profile_service()
         self._sessions: dict[str, ChatSession] = {}
         self._max_sessions = max_sessions
         self._max_messages = max_messages_per_session

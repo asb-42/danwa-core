@@ -24,9 +24,9 @@ def _resolve_a2a_llm_profile(project_id: str | None = None) -> str | None:
     """Resolve the best LLM profile for A2A-initiated debates."""
     try:
         from backend.core.config import settings
-        from backend.services.profile_service import ProfileService
+        from backend.services.profile_service import get_shared_profile_service
 
-        svc = ProfileService()
+        svc = get_shared_profile_service()
 
         # 1. Use the active (service) LLM profile if eligible
         if settings.service_llm_profile_id:

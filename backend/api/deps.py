@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import logging
 import os
+import threading
 import time
 from collections.abc import Iterator
 from contextlib import contextmanager
@@ -140,6 +141,83 @@ def get_tag_store():
     from backend.persistence.tag_store import TagStore
 
     return TagStore()
+
+
+# §4.8 (2026-08-31 review): ProfileService / UserKeyStore were
+# constructed per request — each ProfileService() re-opens blueprints.db
+# and re-reads profiles (plus a YAML walk on first load); each
+# UserKeyStore() opens a fresh SQLite connection, runs WAL pragmas and
+# Fernet init. Both are process-lifetime singletons here, mirroring the
+# established store-singleton pattern above.
+
+
+@lru_cache
+def get_profile_service():
+    """Singleton global ProfileService (no project overrides).
+
+    Delegates to ``profile_service.get_shared_profile_service`` so ALL
+    layers (routers, services, workflow nodes) share ONE instance.
+    """
+    from backend.services.profile_service import get_shared_profile_service
+
+    return get_shared_profile_service()
+
+
+# Per-case ProfileService cache: the project-scoped override merge makes
+# these distinct from the global instance, but a case's service is still
+# reused across requests. Invalidated by ``invalidate_profile_service_cache``
+# (called when a project's config changes — see ProjectStore.update).
+_PROFILE_SERVICE_FOR_CASE_CACHE: dict[str, "ProfileService"] = {}
+_PROFILE_SERVICE_CACHE_LOCK = threading.Lock()
+
+
+def get_profile_service_for_case_cached(case_id: str):
+    """Return a case-scoped ProfileService, cached per case.
+
+    Same semantics as :func:`get_profile_service_for_case` (deprecated
+    alias below) but without re-constructing the service on every call.
+    The project's ``ProjectConfig`` snapshot is taken at construction;
+    use :func:`invalidate_profile_service_cache` after config writes.
+    """
+    if case_id in _PROFILE_SERVICE_FOR_CASE_CACHE:
+        return _PROFILE_SERVICE_FOR_CASE_CACHE[case_id]
+    from backend.services.profile_service import ProfileService
+
+    ps = get_project_store()
+    project = ps.get(case_id)
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+    svc = ProfileService(project_config=project.config)
+    with _PROFILE_SERVICE_CACHE_LOCK:
+        # Another thread may have won the race; keep theirs (same value).
+        _PROFILE_SERVICE_FOR_CASE_CACHE.setdefault(case_id, svc)
+    return _PROFILE_SERVICE_FOR_CASE_CACHE[case_id]
+
+
+def invalidate_profile_service_cache(case_id: str | None = None) -> None:
+    """Drop cached ProfileService instances (call after project-config writes).
+
+    ``case_id=None`` clears the whole per-case cache; the global service
+    is never dropped (it reads blueprints.db, not project configs).
+    """
+    with _PROFILE_SERVICE_CACHE_LOCK:
+        if case_id is None:
+            _PROFILE_SERVICE_FOR_CASE_CACHE.clear()
+        else:
+            _PROFILE_SERVICE_FOR_CASE_CACHE.pop(case_id, None)
+
+
+@lru_cache
+def get_user_key_store():
+    """Singleton UserKeyStore (default auth.db path).
+
+    Tests that need an isolated store construct their own
+    ``UserKeyStore(db_path=...)`` — this singleton is only the
+    app-lifetime default-path instance.
+    """
+    from backend.persistence.user_key_store import UserKeyStore
+
+    return UserKeyStore()
 
 
 # Cache for case_id → filesystem directory resolution.

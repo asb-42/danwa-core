@@ -378,6 +378,30 @@ class DMS:
             logger.error("Failed to delete document %s: %s", document_id, e)
             return False
 
+    def reingest_document(self, document_id: str) -> dict[str, Any]:
+        """Re-run ingestion for an existing document row (§4.7).
+
+        Used by the startup zombie-requeue: an upload whose ingestion was
+        interrupted (timeout/crash) leaves a row with zero chunks. If the
+        source file (``documents.file_path``) is still on disk, this re-runs
+        the full pipeline for the SAME doc_id (no duplicate row). Uses the
+        sync blocking path — callers that hold an event loop must run it on
+        a worker thread (the startup requeue runs before the loop serves
+        traffic, and ``_ingest_blocking`` calls ``asyncio.run`` internally).
+
+        Returns the ``_finalize_upload``-shaped result dict (``error`` set
+        on failure). Raises ``ValueError`` when the document does not exist
+        or its file is gone (the caller marks the row failed instead).
+        """
+        doc = self.db.get_document(document_id)
+        if not doc:
+            raise ValueError(f"Document {document_id} not found")
+        file_path = doc.get("file_path") or ""
+        if not file_path or not Path(file_path).exists():
+            raise ValueError(f"Source file for document {document_id} no longer exists")
+        proc_result, processing_error = self._ingest_blocking(document_id, file_path)
+        return self._finalize_upload(document_id, proc_result, processing_error)
+
     def list_documents(self, project_id: str) -> list[dict[str, Any]]:
         """List all documents for a project, enriched with RAG status."""
         try:

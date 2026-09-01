@@ -15,7 +15,12 @@ from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from backend.api.deps import get_case_dir, get_current_user, get_profile_service_for_case, get_project_id
+from backend.api.deps import (
+    get_case_dir,
+    get_current_user,
+    get_profile_service_for_case_cached,
+    get_project_id,
+)
 from backend.models.user import User
 from backend.services.dms.document_analyzer import (
     analyze_documents as run_document_analysis,
@@ -112,29 +117,44 @@ async def upload_document(
     # Preserve original filename
     original_filename = file.filename or "upload.bin"
 
-    # Save uploaded file to a temp location
+    # §4.5 (2026-08-31 review): stream to disk in bounded chunks — the
+    # file never sits fully in RAM, and the size limit aborts the copy
+    # as soon as the cap is exceeded (previously the whole body was
+    # read into memory first and only checked afterwards).
+    from backend.services.dms.config import load_dms_config
+
+    try:
+        dms_config = load_dms_config()
+        max_bytes = dms_config.get("max_file_size_mb", 50) * 1024 * 1024
+    except Exception:
+        max_bytes = 50 * 1024 * 1024  # 50 MB default
+
     suffix = os.path.splitext(original_filename)[1]
-    with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
-        content = await file.read()
-
-        # Check file size against DMS config limit
-        from backend.services.dms.config import load_dms_config
-
-        try:
-            dms_config = load_dms_config()
-            max_bytes = dms_config.get("max_file_size_mb", 50) * 1024 * 1024
-        except Exception:
-            max_bytes = 50 * 1024 * 1024  # 50 MB default
-
-        if len(content) > max_bytes:
-            os.unlink(tmp.name)
-            raise HTTPException(
-                status_code=413,
-                detail=f"File too large ({len(content)} bytes). Maximum allowed: {max_bytes // (1024 * 1024)} MB",
-            )
-
-        tmp.write(content)
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
+    try:
+        total = 0
+        while True:
+            chunk = await file.read(1024 * 1024)  # 1 MiB at a time
+            if not chunk:
+                break
+            total += len(chunk)
+            if total > max_bytes:
+                raise HTTPException(
+                    status_code=413,
+                    detail=f"File too large ({total} bytes read so far). "
+                    f"Maximum allowed: {max_bytes // (1024 * 1024)} MB",
+                )
+            tmp.write(chunk)
+        tmp.close()
         tmp_path = tmp.name
+    except HTTPException:
+        tmp.close()
+        os.unlink(tmp.name)
+        raise
+    except Exception:
+        tmp.close()
+        os.unlink(tmp.name)
+        raise
 
     try:
         result = await dms.upload_document_async(project_id, tmp_path, original_filename=original_filename)
@@ -408,7 +428,7 @@ async def analyze_documents(
     if not documents:
         raise HTTPException(status_code=400, detail="No documents to analyze")
 
-    profile_service = get_profile_service_for_case(project_id)
+    profile_service = get_profile_service_for_case_cached(project_id)
     project_dir = get_case_dir(project_id)
 
     if mode == "update":

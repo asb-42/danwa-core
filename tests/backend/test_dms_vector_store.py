@@ -24,6 +24,9 @@ def store(mock_client):
         from backend.services.dms.vector_store import DMSVectorStore
 
         s = DMSVectorStore(chroma_path="/tmp/dms_test", collection_name="document_chunks")
+        # §4.1 lazy init: force Chroma client setup INSIDE the patch
+        # context, so subsequent operations hit the mocked client.
+        s._ensure_initialized()
     return s
 
 

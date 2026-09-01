@@ -21,15 +21,11 @@ from backend.services.profile_service import ProfileService
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-_profile_service: ProfileService | None = None
-
-
 def _get_profile_service() -> ProfileService:
-    """Get or create the profile service singleton."""
-    global _profile_service
-    if _profile_service is None:
-        _profile_service = ProfileService()
-    return _profile_service
+    """Global ProfileService singleton (§4.8: shared app-wide instance)."""
+    from backend.services.profile_service import get_shared_profile_service
+
+    return get_shared_profile_service()
 
 
 def _invalidate_profile_cache() -> None:

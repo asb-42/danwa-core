@@ -223,6 +223,16 @@ class ProjectStore:
 
         self._save_to_disk(project)
         logger.info("Updated project %s", project_id)
+
+        # §4.8: project configs feed per-case ProfileService caches;
+        # drop the cached instance so the next request sees the new
+        # config instead of a stale merge.
+        try:
+            from backend.api.deps import invalidate_profile_service_cache
+
+            invalidate_profile_service_cache(project_id)
+        except Exception:
+            pass
         return project
 
     def delete(self, project_id: str) -> bool:

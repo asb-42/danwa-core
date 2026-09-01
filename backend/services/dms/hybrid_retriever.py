@@ -4,6 +4,7 @@ Migrated from src/dms/hybrid_retriever.py.
 """
 
 import logging
+import threading
 import time
 from typing import Any
 
@@ -16,6 +17,43 @@ logger = logging.getLogger(__name__)
 
 # BM25 corpus cache TTL in seconds
 _CORPUS_CACHE_TTL = 300  # 5 minutes
+
+# §4.2 (2026-08-31 review): ONE cross-encoder per process, loaded lazily
+# on the first re-rank. Previously every ``HybridRetriever.__init__`` —
+# i.e. every ``DMS`` instance, one per case — constructed its own
+# ``CrossEncoder`` (downloading/loading weights per case directory).
+# The loader is module-level shared across all retrievers; failures
+# disable re-ranking for the whole process (same visible behavior as
+# before, minus the N-times load attempts).
+_CROSS_ENCODER_LOCK = threading.Lock()
+_CROSS_ENCODER: Any | None = None
+_CROSS_ENCODER_FAILED = False
+
+
+def _get_cross_encoder() -> Any | None:
+    """Load the shared cross-encoder once; ``None`` if unavailable."""
+    global _CROSS_ENCODER, _CROSS_ENCODER_FAILED
+    if _CROSS_ENCODER is not None:
+        return _CROSS_ENCODER
+    if _CROSS_ENCODER_FAILED:
+        return None
+    with _CROSS_ENCODER_LOCK:
+        if _CROSS_ENCODER is not None:
+            return _CROSS_ENCODER
+        if _CROSS_ENCODER_FAILED:
+            return None
+        try:
+            from sentence_transformers import CrossEncoder
+
+            _CROSS_ENCODER = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+            logger.info("Shared CrossEncoder loaded for re-ranking")
+        except ImportError:
+            logger.warning("sentence_transformers not installed, re-ranking disabled")
+            _CROSS_ENCODER_FAILED = True
+        except Exception as e:
+            logger.warning("Failed to load CrossEncoder: %s, re-ranking disabled", e)
+            _CROSS_ENCODER_FAILED = True
+    return _CROSS_ENCODER
 
 # Hard cap on the number of chunks fed into the BM25 index (P4.5+ §4.6).
 #
@@ -41,24 +79,39 @@ class HybridRetriever:
     """Combines BM25 keyword search with vector similarity search using RRF."""
 
     def __init__(self, vector_store: DMSVectorStore, metadata_index: MetadataIndex | None = None):
-        """Initialise HybridRetriever."""
+        """Initialise HybridRetriever.
+
+        Cheap by design (§4.1/§4.2 of the 2026-08-31 review): no model
+        loads, no Chroma I/O. The cross-encoder is a module-level shared
+        lazy singleton (see ``_get_cross_encoder``); re-ranking uses it
+        via the ``cross_encoder`` property.
+        """
         self.vector_store = vector_store
         self.metadata_index = metadata_index
         self.rrf_k = 60  # Standard RRF constant
 
         # BM25 corpus + index cache: (project_id, timestamp, chunks, bm25)
         self._corpus_cache: tuple[str, float, list[dict], Any] | None = None
+        self._corpus_cache_lock = threading.RLock()
 
-        self.cross_encoder = None
-        try:
-            from sentence_transformers import CrossEncoder
+        # §4.2: cross-encoder override slot. Tests (and future callers)
+        # may inject a fake; when unset, the module-level shared lazy
+        # singleton is used. ``_cross_encoder_override = "unset"`` so a
+        # legitimately-None override ("disable reranking") is distinct
+        # from “use the shared one”.
+        self._cross_encoder_override: Any = "unset"
 
-            self.cross_encoder = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
-            logger.info("CrossEncoder loaded for re-ranking")
-        except ImportError:
-            logger.warning("sentence_transformers not installed, re-ranking disabled")
-        except Exception as e:
-            logger.warning("Failed to load CrossEncoder: %s, re-ranking disabled", e)
+    @property
+    def cross_encoder(self) -> Any | None:
+        """The process-shared cross-encoder, or ``None`` if unavailable."""
+        if self._cross_encoder_override != "unset":
+            return self._cross_encoder_override
+        return _get_cross_encoder()
+
+    @cross_encoder.setter
+    def cross_encoder(self, value: Any) -> None:
+        """Override the shared cross-encoder (test seam / explicit disable)."""
+        self._cross_encoder_override = value
 
     def retrieve(self, query: str, project_id: str | None = None, k: int = 5) -> list[dict[str, Any]]:
         """Retrieve the instance."""
@@ -108,23 +161,34 @@ class HybridRetriever:
         return final_results[:k]
 
     def _fetch_chunks(self, project_id: str | None) -> tuple[list[dict[str, Any]], Any]:
-        """Fetch chunks and BM25 index with TTL-based caching.
+        """Fetch chunks and BM25 index with TTL-based caching (§4.4).
 
-        Returns ``(chunks, bm25_or_none)``.  The BM25 index is built
+        Returns ``(chunks, bm25_or_none)``. The BM25 index is built
         once per cache window and reused for every query in that
-        window, avoiding redundant tokenisation and index construction.
+        window. Construction happens under ``_corpus_cache_lock`` so
+        concurrent queries for the same project cannot build duplicate
+        indexes — the first caller builds, the rest wait and reuse
+        (single-flight). The corpus cap bounds the worst-case build to
+        well under a second, so holding the lock across the build is
+        safe (§4.4 of the 2026-08-31 review explicitly downgraded this
+        to low urgency once capped).
 
         The BM25 corpus is capped at :data:`MAX_BM25_CORPUS_SIZE`
-        chunks (P4.5+ §4.6) to prevent a single large project from
-        blocking the event loop on index construction.  The full
-        chunk list is still returned so the ``chunk_map`` lookup in
-        :meth:`retrieve` stays complete — only the BM25 input is
-        truncated.
+        chunks (P4.5+ §4.6) to bound index construction. The full chunk
+        list is returned so the ``chunk_map`` lookup in :meth:`retrieve`
+        stays complete — only the BM25 input is truncated.
         """
         now = time.time()
-        if self._corpus_cache is not None and self._corpus_cache[0] == project_id and (now - self._corpus_cache[1]) < _CORPUS_CACHE_TTL:
-            return self._corpus_cache[2], self._corpus_cache[3]
+        with self._corpus_cache_lock:
+            cache = self._corpus_cache
+            if cache is not None and cache[0] == project_id and (now - cache[1]) < _CORPUS_CACHE_TTL:
+                return cache[2], cache[3]
+            chunks, bm25 = self._build_corpus_cache(project_id)
+            self._corpus_cache = (project_id, time.time(), chunks, bm25)
+            return chunks, bm25
 
+    def _build_corpus_cache(self, project_id: str | None) -> tuple[list[dict[str, Any]], Any]:
+        """Fetch chunks and build the BM25 index (no caching side effects)."""
         chunks = self._fetch_chunks_uncached(project_id)
         bm25 = None
         if chunks:
@@ -142,7 +206,6 @@ class HybridRetriever:
                 corpus = corpus[:MAX_BM25_CORPUS_SIZE]
             tokenized = [self._tokenize(c["text"]) for c in corpus]
             bm25 = BM25Okapi(tokenized)
-        self._corpus_cache = (project_id, now, chunks, bm25)
         return chunks, bm25
 
     def _fetch_chunks_uncached(self, project_id: str | None) -> list[dict[str, Any]]:
