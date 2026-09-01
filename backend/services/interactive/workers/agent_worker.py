@@ -288,7 +288,12 @@ class AgentWorker:
                     except Exception:
                         dms_config = {}
 
-                    scope_id = f"case:{tenant_id}:{space.case_id}"
+                    # Canonical case scope (bare case_id) — must match
+                    # ``_get_dms_for_case`` so agent retrieval and case-scoped
+                    # uploads share one ChromaDB project_id namespace.
+                    from backend.api.routers.case_scoped import _case_scope_id
+
+                    scope_id = _case_scope_id(tenant_id, space.case_id)
                     dms = DMS(
                         db_path=str(dms_dir / "dms.db"),
                         chroma_path=str(dms_dir / "chroma_db"),

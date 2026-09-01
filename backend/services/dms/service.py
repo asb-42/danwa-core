@@ -5,6 +5,7 @@ Factory function get_dms_for_project() provides project-scoped instances.
 """
 
 import asyncio
+import concurrent.futures
 import logging
 import threading
 import uuid
@@ -26,6 +27,20 @@ logger = logging.getLogger(__name__)
 # Cache DMS instances per project directory
 _dms_cache: dict[str, "DMS"] = {}
 _dms_cache_lock = threading.Lock()
+
+# Bounded pool for document ingestion (OCR, PDF parsing, chunking, indexing).
+#
+# Ingestion is CPU/IO heavy (PaddleOCR/EasyOCR/Tesseract, pdfplumber) and
+# MUST NOT run on the event loop's request thread: routes previously
+# awaited ``future.result(timeout=300)`` inline, freezing every concurrent
+# request (SSE streams, chats, other uploads) for the full processing
+# duration. ``upload_document_async`` offloads here instead. Two workers is
+# deliberate: OCR memory footprint is large and unbounded parallelism would
+# exhaust RAM; queueing beyond that is preferable to OOM.
+_INGEST_POOL = concurrent.futures.ThreadPoolExecutor(
+    max_workers=2, thread_name_prefix="dms-ingest"
+)
+_INGEST_TIMEOUT_SECONDS = 300  # matches the historical per-document ceiling
 
 
 class DMS:
@@ -120,6 +135,82 @@ class DMS:
 
         Returns:
             Dict with keys: ``doc_id``, ``error`` (str or None), ``chunk_count``.
+
+        Sync contract: must be called from a thread WITHOUT a running
+        event loop (tests, worker threads). FastAPI routes must use
+        :meth:`upload_document_async` instead — it offloads the CPU-heavy
+        ingestion to the bounded pool and awaits it, keeping the event
+        loop free.
+        """
+        entry = self._create_document_entry(project_id, file_path, original_filename)
+        if entry.get("error"):
+            return entry
+
+        proc_result, processing_error = self._ingest_blocking(entry["doc_id"], file_path)
+        return self._finalize_upload(entry["doc_id"], proc_result, processing_error)
+
+    async def upload_document_async(
+        self,
+        project_id: str,
+        file_path: str,
+        original_filename: str = "",
+    ) -> dict[str, Any]:
+        """Async variant of :meth:`upload_document` for FastAPI routes.
+
+        Identical semantics, but the CPU/IO-heavy ingestion (OCR, PDF
+        parsing, chunking, indexing) runs on the bounded ``_INGEST_POOL``
+        and is *awaited* — the event loop stays free to serve other
+        requests (SSE debate streams, concurrent uploads) while
+        processing proceeds. The DB row is created inline first (a fast
+        local SQLite op) so the document is visible immediately.
+        """
+        entry = self._create_document_entry(project_id, file_path, original_filename)
+        if entry.get("error"):
+            return entry
+
+        loop = asyncio.get_running_loop()
+        try:
+            proc_result, processing_error = await asyncio.wait_for(
+                loop.run_in_executor(_INGEST_POOL, self._ingest_blocking, entry["doc_id"], file_path),
+                timeout=_INGEST_TIMEOUT_SECONDS,
+            )
+        except asyncio.TimeoutError:
+            # The pool thread keeps running (threads cannot be cancelled) —
+            # identical to the historical future.result(timeout) semantics.
+            processing_error = (
+                "Document processing timed out (5 minutes). OCR model download may be in progress."
+            )
+            logger.error("Timeout processing document %s", entry["doc_id"])
+            proc_result = {}
+        return self._finalize_upload(entry["doc_id"], proc_result, processing_error)
+
+    async def add_document_async(self, file_path: str, filename: str = "") -> dict[str, Any]:
+        """Async twin of :meth:`add_document` for FastAPI routes.
+
+        Resolves ``project_id`` from ``self._project_id`` and forwards to
+        :meth:`upload_document_async`. Raises ``ValueError`` if the DMS has
+        no project binding (unscoped uploads are unsafe multi-tenant).
+        """
+        if not self._project_id:
+            raise ValueError("DMS instance is not bound to a project — cannot accept uploads")
+        if not filename:
+            filename = Path(file_path).name
+        return await self.upload_document_async(
+            project_id=self._project_id,
+            file_path=file_path,
+            original_filename=filename,
+        )
+
+    def _create_document_entry(
+        self,
+        project_id: str,
+        file_path: str,
+        original_filename: str = "",
+    ) -> dict[str, Any]:
+        """Validate the file and create its DB row. Fast, no heavy work.
+
+        Returns the eventual upload-result dict; ``error`` is set (and
+        ``doc_id`` empty) when validation or the DB insert failed.
         """
         file_p = Path(file_path)
         if not file_p.exists():
@@ -143,45 +234,37 @@ class DMS:
             )
             doc_id = doc["id"]
             logger.info("Created document entry %s for project %s", doc_id, project_id)
+            return {"doc_id": doc_id, "error": None, "chunk_count": 0}
         except Exception as e:
             logger.error("Failed to create document entry for %s: %s", file_path, e)
             return {"doc_id": "", "error": f"Database error: {e}", "chunk_count": 0}
 
-        # Process file (extract text, chunk, index)
-        proc_result: dict[str, Any] = {}
-        processing_error: str | None = None
+    def _ingest_blocking(self, doc_id: str, file_path: str) -> tuple[dict[str, Any], str | None]:
+        """Run the ingestion pipeline (extract text, chunk, index) to completion.
+
+        Blocking and CPU/IO-heavy — designed to run on a pool thread
+        (via :meth:`upload_document_async` / ``_INGEST_POOL``) or on a sync
+        caller's own thread. Requires no running event loop in the current
+        thread (``asyncio.run`` is used internally).
+        """
         try:
-            asyncio.get_running_loop()
-            # We're inside an async context (FastAPI) — run in a thread
-            import concurrent.futures
+            proc_result = asyncio.run(self.rag_pipeline.process_file(doc_id, file_path))
+            return proc_result, None
+        except ValueError as e:
+            # Expected for actionable input problems (e.g. image without OCR)
+            logger.warning("Processing error for document %s: %s", doc_id, e)
+            return {}, str(e)
+        except Exception as e:
+            logger.error("Failed to process document %s: %s", doc_id, e)
+            return {}, f"Processing failed: {e}"
 
-            try:
-                with concurrent.futures.ThreadPoolExecutor() as pool:
-                    future = pool.submit(asyncio.run, self.rag_pipeline.process_file(doc_id, file_path))
-                    proc_result = future.result(timeout=300)
-            except concurrent.futures.TimeoutError:
-                processing_error = "Document processing timed out (5 minutes). OCR model download may be in progress."
-                logger.error("Timeout processing document %s", doc_id)
-            except concurrent.futures.BrokenExecutor:
-                processing_error = "Processing failed: worker process crashed"
-                logger.error("BrokenProcessPool for document %s", doc_id)
-            except ValueError as e:
-                processing_error = str(e)
-                logger.warning("Processing error for document %s: %s", doc_id, e)
-            except Exception as e:
-                processing_error = f"Processing failed: {e}"
-                logger.error("Failed to process document %s: %s", doc_id, e)
-        except RuntimeError:
-            # No running loop — safe to call asyncio.run directly
-            try:
-                proc_result = asyncio.run(self.rag_pipeline.process_file(doc_id, file_path))
-            except ValueError as e:
-                processing_error = str(e)
-                logger.warning("Processing error for document %s: %s", doc_id, e)
-            except Exception as e:
-                processing_error = f"Processing failed: {e}"
-                logger.error("Failed to process document %s: %s", doc_id, e)
-
+    def _finalize_upload(
+        self,
+        doc_id: str,
+        proc_result: dict[str, Any],
+        processing_error: str | None,
+    ) -> dict[str, Any]:
+        """Assemble the upload-result dict from an ingestion outcome."""
         return {
             "doc_id": doc_id,
             "error": processing_error,
@@ -501,7 +584,7 @@ class DMS:
 
 
 def get_dms_for_project(project_id: str, project_store: Any = None) -> DMS:
-    """Get or create a DMS instance for a specific project.
+    """Get or create a DMS instance for a specific project or case.
 
     Factory function used by both the DMS router and the debate router.
     Loads DMS configuration (including OCR settings) and passes it through
@@ -509,6 +592,11 @@ def get_dms_for_project(project_id: str, project_store: Any = None) -> DMS:
 
     The entire check-then-create-then-insert sequence is protected by
     ``_dms_cache_lock`` to prevent duplicate instances under concurrent access.
+
+    Accepts both legacy project ids (``project.json`` on disk) and
+    CaseStore case ids (``case.json`` on disk, unknown to ProjectStore):
+    a ProjectStore miss is not fatal — ``get_case_dir()`` resolves the
+    directory for both and raises 404 only for genuinely unknown ids.
 
     The ``project_store`` parameter is kept for backward compatibility but
     is no longer required. Internally ``get_case_dir()`` is used for
@@ -520,10 +608,13 @@ def get_dms_for_project(project_id: str, project_store: Any = None) -> DMS:
 
         from backend.api.deps import get_case_dir, get_project_store
 
+        # Note: CaseStore-created cases carry a ``case.json`` but no
+        # ``project.json`` — ProjectStore does not know them. Directory
+        # resolution via ``get_case_dir()`` covers BOTH (it raises 404 for
+        # genuinely unknown ids), so a ProjectStore miss must not be fatal
+        # here: the debate/workflow RAG path resolves DMS instances for
+        # CaseStore cases through this factory.
         project = get_project_store().get(project_id)
-        if not project:
-            raise ValueError(f"Project not found: {project_id}")
-
         project_dir = get_case_dir(project_id)
         dms_dir = project_dir / "dms"
         dms_dir.mkdir(parents=True, exist_ok=True)

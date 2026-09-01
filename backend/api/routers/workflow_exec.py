@@ -399,6 +399,12 @@ async def start_mvp_debate(
                 include_debate_results=body.include_debate_results,
                 debate_result_ids=body.debate_result_ids or None,
                 include_document_analysis=body.include_document_analysis,
+                # The header carries the bare case_id — the canonical DMS
+                # scope (see ``_case_scope_id``). Passing it explicitly as
+                # dms_project_id keeps the DMS lookup decoupled from the
+                # project_id semantics (pinned by
+                # tests/rag_regression/test_mvp_debate_passes_dms_project_id.py).
+                dms_project_id=effective_project_id,
             )
         except Exception:
             logger.warning("Failed to resolve RAG context for MVP debate", exc_info=True)

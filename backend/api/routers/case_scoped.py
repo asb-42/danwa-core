@@ -684,6 +684,25 @@ async def list_case_forks(
 # ---------------------------------------------------------------------------
 
 
+def _case_scope_id(tenant_id: str, case_id: str) -> str:
+    """Canonical DMS scope id for a case — the bare ``case_id``.
+
+    History: the case-scoped DMS used to bind documents to the synthetic
+    scope ``f"case:{tenant_id}:{case_id}"`` while the debate/workflow RAG
+    path filters by the bare ``case_id`` — so agents retrieved zero chunks
+    ("Dokument nicht im RAG abrufbar"). The case-scoped factory now binds
+    the bare ``case_id`` (a UUID; the per-case directory already provides
+    tenant isolation), and migration v024 rewrites legacy synthetic-scope
+    data.
+
+    This helper exists so the scope id is derived in exactly ONE place
+    (used by ``_get_dms_for_case`` and the interactive agent worker). A
+    future refactor that re-introduces a synthetic scope here will be
+    caught by ``tests/rag_regression/test_rag_scope_id_regression.py``.
+    """
+    return case_id
+
+
 def _get_dms_for_case(tenant_id: str, case_id: str, case_store: CaseStore):
     """Get or create a DMS instance for a case.
 
@@ -693,6 +712,10 @@ def _get_dms_for_case(tenant_id: str, case_id: str, case_store: CaseStore):
         from colliding with a project_id (or another case_id) in a
         different tenant.
       - Validates the case belongs to the given tenant before returning.
+      - The DMS binds to the bare ``case_id`` (see ``_case_scope_id``) so
+        the legacy debate/workflow RAG path — which filters ChromaDB by the
+        bare ``case_id`` — finds case-scoped documents. Migration v024
+        rewrites chunks from the old synthetic scope on startup.
     """
     from backend.services.dms.config import load_dms_config
     from backend.services.dms.service import DMS, _dms_cache, _dms_cache_lock
@@ -715,12 +738,13 @@ def _get_dms_for_case(tenant_id: str, case_id: str, case_store: CaseStore):
         except Exception:
             dms_config = {}
 
-        # Bind the DMS to a synthetic project_id that encodes both
-        # the tenant and the case. This way ``MetadataIndex`` (which
-        # tags every ChromaDB document with ``project_id``) and the
-        # ``rag_context`` table never see a cross-tenant collision even
-        # if two cases happen to share a numeric id.
-        scope_id = f"case:{tenant_id}:{case_id}"
+        # Bind the DMS to the canonical case scope. This way
+        # ``MetadataIndex`` (which tags every ChromaDB document with
+        # ``project_id``) and the ``rag_context`` table use the SAME id as
+        # the legacy debate/workflow RAG path (bare case_id), so agents
+        # can retrieve case documents. See ``_case_scope_id`` for the
+        # history of the synthetic-scope split-brain this replaces.
+        scope_id = _case_scope_id(tenant_id, case_id)
 
         from datetime import datetime
 
@@ -779,7 +803,12 @@ async def upload_case_document(
     file: UploadFile = File(...),
     case_store: CaseStore = Depends(get_case_store),
 ):
-    """Upload a document to the case DMS."""
+    """Upload a document to the case DMS.
+
+    Ingestion (OCR/PDF parse/chunk/index) runs on the bounded DMS ingest
+    pool via ``add_document_async`` — awaited here, so the event loop stays
+    free for concurrent requests during processing.
+    """
     import tempfile
 
     dms = _get_dms_for_case(tenant_id, case_id, case_store)
@@ -789,7 +818,7 @@ async def upload_case_document(
     try:
         tmp.write(content)
         tmp.close()
-        result = dms.add_document(tmp.name, filename=filename)
+        result = await dms.add_document_async(tmp.name, filename=filename)
     finally:
         Path(tmp.name).unlink(missing_ok=True)
     return result

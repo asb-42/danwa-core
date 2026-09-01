@@ -240,29 +240,28 @@ def get_workspace_summary(
     except Exception:  # noqa: BLE001
         pass
 
-    # Count documents via DMS
+    # Count documents via the case DMS (bound to the bare case_id by
+    # ``_get_dms_for_case`` — same scope as every other DMS consumer).
+    # Guarded on dms.db existence so this read-only summary never
+    # creates DMS directories for document-less cases.
     try:
-        dms_dir = case_dir / "dms"
-        if dms_dir.exists():
-            dms_db = dms_dir / "dms.db"
-            if dms_db.exists():
-                import sqlite3
-                conn = sqlite3.connect(str(dms_db))
-                scope_id = f"case:{tenant_id}:{case_id}"
-                cursor = conn.execute(
-                    "SELECT COUNT(*) FROM documents WHERE project_id = ?",
-                    (scope_id,),
-                )
-                document_count = cursor.fetchone()[0]
-                cursor = conn.execute(
-                    "SELECT id, filename, uploaded_at FROM documents WHERE project_id = ? LIMIT 20",
-                    (scope_id,),
-                )
-                documents = [
-                    {"id": row[0], "filename": row[1], "uploaded_at": row[2] or ""}
-                    for row in cursor.fetchall()
-                ]
-                conn.close()
+        dms_db = case_dir / "dms" / "dms.db"
+        doc_list: list = []
+        if dms_db.exists():
+            from backend.api.routers.case_scoped import _get_dms_for_case
+
+            dms = _get_dms_for_case(tenant_id, case_id, store)
+            doc_list = dms.list_documents(case_id)
+        if doc_list:
+            document_count = len(doc_list)
+            documents = [
+                {
+                    "id": d.get("id", ""),
+                    "filename": d.get("original_filename") or d.get("filename", ""),
+                    "uploaded_at": d.get("upload_date", d.get("created_at", "")),
+                }
+                for d in doc_list[:20]
+            ]
     except Exception:  # noqa: BLE001
         pass
 

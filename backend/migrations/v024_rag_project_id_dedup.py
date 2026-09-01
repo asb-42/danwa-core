@@ -46,8 +46,9 @@ def _rewrite_sqlite_documents(case_dir: Path, dry_run: bool) -> int:
 
     ChromaDB chunks are rewritten by the main migrate() loop
     above; this companion function does the same for the SQL
-    ``documents`` table so that ``dms.list_documents(case_id)``
-    returns the previously-indexed documents.
+    ``documents`` table (and the ``rag_context.session_id`` scope)
+    so that ``dms.list_documents(case_id)`` returns the previously-
+    indexed documents and the manual-RAG ``in_rag`` flags survive.
 
     Safe to re-run: only rows whose current ``project_id`` matches
     the synthetic scope pattern are touched.
@@ -71,12 +72,35 @@ def _rewrite_sqlite_documents(case_dir: Path, dry_run: bool) -> int:
                 continue
             bare = m.group(2)
             updates.append((bare, doc_id))
-        if not updates:
+        # Same rewrite for the rag_context table: its ``session_id`` column
+        # holds the DMS scope id (DMS._project_id), and the split-brain
+        # wrote the legacy synthetic scope there too. Without this, the
+        # ``in_rag`` flag for previously selected documents is lost after
+        # migration (session_id no longer matches dms._project_id).
+        # Older dms.db files predate the table — treat that as "nothing to
+        # rewrite" instead of aborting the whole case.
+        try:
+            cur.execute("SELECT session_id, document_id FROM rag_context")
+        except sqlite3.OperationalError:
+            rag_rows = []
+        else:
+            rag_rows = cur.fetchall()
+        rag_updates = []
+        for sess, doc_id in rag_rows:
+            m = _SCOPE_RE.match(str(sess or ""))
+            if not m:
+                continue
+            rag_updates.append((m.group(2), sess, doc_id))
+        if not updates and not rag_updates:
             return 0
         if not dry_run:
             cur.executemany("UPDATE documents SET project_id = ? WHERE id = ?", updates)
+            cur.executemany(
+                "UPDATE rag_context SET session_id = ? WHERE session_id = ? AND document_id = ?",
+                rag_updates,
+            )
             conn.commit()
-        return len(updates)
+        return len(updates) + len(rag_updates)
     finally:
         conn.close()
 

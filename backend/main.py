@@ -196,6 +196,21 @@ async def lifespan(app: FastAPI):
 
     migrate_graph_edge_cache()
 
+    # Run v024 RAG scope-id migration (idempotent): rewrite legacy
+    # ``case:{tenant}:{case}`` project_ids in ChromaDB chunk metadata and
+    # the DMS SQLite ``documents`` table to the bare case id, so legacy
+    # case-scoped uploads are visible to the debate/workflow RAG path
+    # (which filters by the bare case_id). Fix for the split-brain
+    # described in docs/reviews/2026-08-31_code-review.md §2.1.
+    from backend.migrations.v024_rag_project_id_dedup import migrate as migrate_rag_scope_ids
+
+    try:
+        rewritten = migrate_rag_scope_ids()
+        if rewritten:
+            logger.info("v024 RAG scope-id migration rewrote %d rows", rewritten)
+    except Exception as exc:
+        logger.error("v024 RAG scope-id migration failed (non-fatal): %s", exc)
+
     # Run v025 interactive debate migration (idempotent)
     from backend.migrations.v025_interactive_debate import migrate as migrate_interactive
 

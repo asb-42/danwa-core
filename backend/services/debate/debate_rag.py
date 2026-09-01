@@ -64,6 +64,7 @@ def resolve_rag_context(
     project_store: Any | None = None,
     store: DebateStore | None = None,
     include_document_analysis: bool = False,
+    dms_project_id: str | None = None,
 ) -> tuple[str, int]:
     """Resolve RAG context for a debate.
 
@@ -71,6 +72,12 @@ def resolve_rag_context(
 
     The ``project_store`` parameter is kept for backward compatibility but
     is no longer required.
+
+    ``dms_project_id`` is a safety hatch for legacy data: when some callers
+    still pass the historical synthetic scope id
+    (``case:{tenant}:{case}``), it overrides the id used to resolve the DMS
+    so pre-v024 chunks remain findable. New code should not need it — the
+    canonical scope is the bare ``case_id`` (see ``_case_scope_id``).
     """
     from backend.api.deps import get_case_dir
 
@@ -80,8 +87,14 @@ def resolve_rag_context(
 
     analysis_text = _load_analysis_text(project_id, project_store) if include_document_analysis else ""
 
+    # Effective DMS scope: the override (legacy synthetic scope) wins over
+    # the raw id. Both the factory call and the ChromaDB filter below must
+    # use the SAME scope, else auto-retrieve finds nothing while
+    # document_ids retrieval works (instance binding via _project_id).
+    scope = dms_project_id or project_id
+
     try:
-        dms = get_dms_for_project(project_id)
+        dms = get_dms_for_project(scope)
     except Exception as exc:
         logger.warning("Could not initialize DMS for project %s: %s", project_id, exc)
         if analysis_text:
@@ -110,7 +123,7 @@ def resolve_rag_context(
         # Never blends with explicit document selection to prevent spillover
         # from unrelated project documents.
         try:
-            auto_chunks = dms.auto_retrieve_for_topic(case_text, project_id=project_id, k=10)
+            auto_chunks = dms.auto_retrieve_for_topic(case_text, project_id=scope, k=10)
             logger.info(
                 "Auto-retrieve returned %d chunks for project %s",
                 len(auto_chunks),
