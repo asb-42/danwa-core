@@ -28,6 +28,19 @@ Python FastAPI backend providing the core application: API layer, business logic
 - Services depend on persistence stores, not direct DB access
 - Models define the contract between API and persistence layers
 - Workflow nodes are pure functions with typed state
+- **DMS scope ids**: the canonical DMS scope for a case is the bare `case_id`
+  (derive via `_case_scope_id` in `backend/api/routers/case_scoped.py`, never
+  an inline literal). The debate/workflow RAG path resolves DMS instances by
+  the same bare id via `get_dms_for_project` (ProjectStore miss is not fatal —
+  CaseStore cases have `case.json`, no `project.json`). Legacy
+  `case:{tenant}:{case}` data is rewritten by migration
+  `v024_rag_project_id_dedup` (Chroma metadata, `documents.project_id`,
+  `rag_context.session_id`) on startup. Pinned by
+  `tests/rag_regression/test_rag_scope_id_regression.py`.
+- **DMS uploads are async in routes**: FastAPI routes must await
+  `upload_document_async` / `add_document_async` (bounded `_INGEST_POOL` in
+  `backend/services/dms/service.py`); sync `upload_document` / `add_document`
+  are only for worker threads/tests without a running event loop.
 
 ## Work Guidance
 
